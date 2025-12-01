@@ -1,5 +1,5 @@
 import React from 'react';
-import { EmptyClassesStateProps } from '@/pages/Classes/types';
+import { EmptyClassesStateProps } from '@/pages/My Classes/types';
 import { MY_CLASSES } from '@/app/styles/colors';
 
 const EmptyClassesState: React.FC<EmptyClassesStateProps> = ({ onAddClass }) => {
@@ -10,7 +10,7 @@ const EmptyClassesState: React.FC<EmptyClassesStateProps> = ({ onAddClass }) => 
                 onClick={onAddClass}
                 className="mt-4 font-medium"
                 style={{ color: MY_CLASSES.CLASS_TEXT_THEME }}
-                onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(235, 50%, 46%)'} // Slightly darker for hover
+                onMouseEnter={(e) => e.currentTarget.style.color = MY_CLASSES.CLASS_TEXT_THEME_HOVER} // Slightly darker for hover
                 onMouseLeave={(e) => e.currentTarget.style.color = MY_CLASSES.CLASS_TEXT_THEME}
             >
                 Add your first class
