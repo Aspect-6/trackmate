@@ -3,7 +3,7 @@ import { TodaysClassesProps } from '@/pages/Dashboard/types';
 import ClassItem from '@/pages/Dashboard/components/ClassItem';
 import { GLOBAL, DASHBOARD } from '@/app/styles/colors';
 
-const TodaysClasses: React.FC<TodaysClassesProps> = ({ classIds, noSchool, getClassById }) => {
+const TodaysClasses: React.FC<TodaysClassesProps> = ({ classIds, noSchool, getClassById, openModal }) => {
     return (
         <div 
             className="high-contrast-card p-6 rounded-xl"
@@ -28,6 +28,7 @@ const TodaysClasses: React.FC<TodaysClassesProps> = ({ classIds, noSchool, getCl
                                 key={index}
                                 classInfo={classInfo}
                                 period={index + 1}
+                                openModal={openModal}
                             />
                         );
                     })

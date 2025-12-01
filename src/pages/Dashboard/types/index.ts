@@ -14,11 +14,13 @@ export interface TodaysClassesProps {
     classIds: (string | null)[];
     noSchool?: NoSchoolPeriod;
     getClassById: (id: string) => Class | undefined;
+    openModal: (modalType: string, id?: string) => void;
 }
 
 export interface ClassItemProps {
     classInfo: Class;
     period: number;
+    openModal: (modalType: string, id?: string) => void;
 }
 
 export interface DashboardActionModalProps {

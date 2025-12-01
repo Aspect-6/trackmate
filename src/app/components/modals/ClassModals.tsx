@@ -6,7 +6,7 @@ import {
     MY_CLASSES
 } from '@/app/styles/colors';
 
-const COLORS = ['#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16', '#22c5e', '#10b981', '#14b8a6', '#06b6d4', '#0ea5e9', '#3b82f6', '#6366f1', '#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e', '#64748b'];
+const COLORS = ['#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16', '#22c55e', '#10b981', '#14b8a6', '#06b6d4', '#0ea5e9', '#3b82f6', '#6366f1', '#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e', '#64748b'];
 
 interface ModalProps {
     onClose: () => void;
@@ -138,6 +138,7 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
         <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
             <h2 className="text-xl font-bold mb-4" style={{ color: MY_CLASSES.CLASS_TEXT_THEME }}>Edit Class Details</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Row 1: Class Name */}
                 <div>
                     <label className="block text-sm font-medium text-gray-400 mb-1">Class Name</label>
                     <input
@@ -149,6 +150,34 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
                         style={{ '--focus-color': MY_CLASSES.CLASS_MODAL_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
+
+                {/* Row 2: Instructor & Room Number */}
+                <div className="flex space-x-4">
+                    <div className="flex-1">
+                        <label className="block text-sm font-medium text-gray-400 mb-1">Instructor Name (Optional)</label>
+                        <input
+                            type="text"
+                            value={formData.teacherName}
+                            onChange={e => setFormData({ ...formData, teacherName: e.target.value })}
+                            className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                            style={{ '--focus-color': MY_CLASSES.CLASS_MODAL_BUTTON_BG } as React.CSSProperties}
+                            placeholder="e.g., Ms. Johnson"
+                        />
+                    </div>
+                    <div className="flex-1">
+                        <label className="block text-sm font-medium text-gray-400 mb-1">Room Number (Optional)</label>
+                        <input
+                            type="text"
+                            value={formData.roomNumber}
+                            onChange={e => setFormData({ ...formData, roomNumber: e.target.value })}
+                            className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                            style={{ '--focus-color': MY_CLASSES.CLASS_MODAL_BUTTON_BG } as React.CSSProperties}
+                            placeholder="e.g., B105"
+                        />
+                    </div>
+                </div>
+
+                {/* Row 3: Color Code */}
                 <div>
                     <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
                     <div className="color-tile-grid">
@@ -161,16 +190,6 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
                             />
                         ))}
                     </div>
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Instructor Name</label>
-                    <input
-                        type="text"
-                        value={formData.teacherName}
-                        onChange={e => setFormData({ ...formData, teacherName: e.target.value })}
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
-                        style={{ '--focus-color': MY_CLASSES.CLASS_MODAL_BUTTON_BG } as React.CSSProperties}
-                    />
                 </div>
                 <div className="flex justify-between mt-6 pt-4 border-t border-gray-700">
                     <button type="button" onClick={() => { onClose(); openModal('delete-class', classId); }} className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150" style={{ backgroundColor: GLOBAL.DELETE_BUTTON_BG, color: GLOBAL.DELETE_BUTTON_TEXT }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG_HOVER} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG}>Delete</button>
@@ -192,7 +211,7 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
                             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = MY_CLASSES.CLASS_MODAL_BUTTON_BG_HOVER}
                             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = MY_CLASSES.CLASS_MODAL_BUTTON_BG}
                         >
-                            Save Class
+                            Save Changes
                         </button>
                     </div>
                 </div>

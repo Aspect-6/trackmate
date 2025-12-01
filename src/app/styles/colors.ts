@@ -111,7 +111,10 @@ export const DASHBOARD = {
     ICON_IN_PROGRESS: '#fb923c',
     ICON_IN_PROGRESS_HOVER: '#22c55e',
     ICON_COMPLETE: '#22c55e',
-    ICON_COMPLETE_HOVER: '#6b7280'
+    ICON_COMPLETE_HOVER: '#6b7280',
+    // Today's Assignments Box
+    CLASS_ITEM_BG: '#161b22',
+    CLASS_ITEM_HOVER_BG: '#1c2128'
 }
 
 // Calendar page

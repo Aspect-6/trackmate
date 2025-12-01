@@ -43,6 +43,7 @@ const Dashboard: React.FC = () => {
                     classIds={todaysClasses}
                     noSchool={currentNoSchool}
                     getClassById={getClassById}
+                    openModal={openModal}
                 />
             </div>
 
