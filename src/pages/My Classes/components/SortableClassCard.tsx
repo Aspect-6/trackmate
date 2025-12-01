@@ -28,7 +28,7 @@ const SortableClassCard: React.FC<SortableClassCardProps> = ({ classInfo, openMo
             ref={setNodeRef}
             style={{
                 ...style,
-                backgroundColor: MY_CLASSES.CARD_BG,
+                backgroundColor: MY_CLASSES.CLASS_CARD_BG,
                 border: isDragging ? '2px dashed #8b5cf6' : '1px solid #30363d',
                 boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
             }}

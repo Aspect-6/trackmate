@@ -6,8 +6,6 @@ import {
     MY_CLASSES
 } from '@/app/styles/colors';
 
-const COLORS = ['#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16', '#22c55e', '#10b981', '#14b8a6', '#06b6d4', '#0ea5e9', '#3b82f6', '#6366f1', '#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e', '#64748b'];
-
 interface ModalProps {
     onClose: () => void;
 }
@@ -18,7 +16,7 @@ interface ClassModalProps extends ModalProps {
 
 export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
     const { addClass } = useApp();
-    const [selectedColor, setSelectedColor] = useState<string>(COLORS[0]!);
+    const [selectedColor, setSelectedColor] = useState<string>(MY_CLASSES.CLASS_COLORS[0]!);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -79,7 +77,7 @@ export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
                 <div>
                     <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
                     <div className="color-tile-grid">
-                        {COLORS.map(color => (
+                        {MY_CLASSES.CLASS_COLORS.map(color => (
                             <div
                                 key={color}
                                 onClick={() => setSelectedColor(color)}
@@ -181,7 +179,7 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
                 <div>
                     <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
                     <div className="color-tile-grid">
-                        {COLORS.map(color => (
+                        {MY_CLASSES.CLASS_COLORS.map(color => (
                             <div
                                 key={color}
                                 onClick={() => setFormData({ ...formData, color })}
