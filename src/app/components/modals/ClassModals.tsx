@@ -191,7 +191,7 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
                         ))}
                     </div>
                 </div>
-                <div className="flex justify-between mt-6 pt-4 border-t border-gray-700">
+                <div className="flex justify-between mt-6">
                     <button type="button" onClick={() => { onClose(); openModal('delete-class', classId); }} className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150" style={{ backgroundColor: GLOBAL.DELETE_BUTTON_BG, color: GLOBAL.DELETE_BUTTON_TEXT }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG_HOVER} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG}>Delete</button>
                     <div className="flex space-x-3">
                         <button
