@@ -5,7 +5,7 @@ import { MY_SCHEDULE } from '@/app/styles/colors';
 const FilledSlot: React.FC<FilledSlotProps> = ({ classInfo, onRemove }) => {
     return (
         <div
-            className="high-contrast-card p-4 rounded-lg flex flex-col min-h-[200px]"
+            className="class-card p-4 rounded-lg flex flex-col min-h-[200px]"
             style={{ borderLeft: `4px solid ${classInfo.color}` }}
         >
             <div className="flex-grow">

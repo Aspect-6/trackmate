@@ -15,40 +15,11 @@ body {
   color: var(--color-text);
 }
 
-.high-contrast-card {
+.class-card {
   background-color: #161b22;
   border: 1px solid #30363d;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-
-.progress-ring__circle {
-  transition: stroke-dashoffset 0.35s;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-}
-
-.assignments-col {
-  min-height: 70vh;
-  background-color: #111418;
-  border: 1px solid #30363d;
-}
-
-.assignments-item {
-  cursor: grab;
-  border-left: 4px solid;
-  background-color: #1f2937;
-  transition: transform 0.1s ease;
-  overflow: hidden;
-  /* Ensures rounded corners are respected */
-  transform: translate(0, 0);
-  /* Fixes drag image rendering artifacts */
-}
-
-.assignments-item:active {
-  cursor: grabbing;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-}
-
 
 
 

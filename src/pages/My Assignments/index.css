@@ -1,0 +1,21 @@
+/* Assignment Columns */
+.my-assignments-page .assignments-col {
+    min-height: 70vh;
+    background-color: #111418;
+    border: 1px solid #30363d;
+}
+
+/* Assignment Items */
+.my-assignments-page .assignments-item {
+    cursor: grab;
+    border-left: 4px solid;
+    background-color: hsl(215, 23%, 15.5%);
+    transition: transform 0.1s ease;
+    overflow: hidden;
+    transform: translate(0, 0);
+}
+
+.my-assignments-page .assignments-item:active {
+    cursor: grabbing;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}

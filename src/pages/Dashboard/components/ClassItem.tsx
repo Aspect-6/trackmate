@@ -6,9 +6,9 @@ const ClassItem: React.FC<ClassItemProps> = ({ classInfo, period, openModal }) =
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <div 
-            className="flex items-center justify-between p-3 high-contrast-card rounded-lg transition-colors cursor-pointer" 
-            style={{ 
+        <div
+            className="flex items-center justify-between p-3 class-card rounded-lg transition-colors cursor-pointer"
+            style={{
                 borderLeft: `4px solid ${classInfo.color}`,
                 backgroundColor: isHovered ? DASHBOARD.CLASS_ITEM_HOVER_BG : DASHBOARD.CLASS_ITEM_BG
             }}

@@ -31,7 +31,7 @@ const Assignments: React.FC = () => {
     };
 
     return (
-        <div className="h-full flex flex-col">
+        <div className="my-assignments-page h-full flex flex-col">
             <div className="flex-grow flex flex-col lg:flex-row gap-4 overflow-x-auto pb-4">
                 <AssignmentColumn
                     status="To Do"
