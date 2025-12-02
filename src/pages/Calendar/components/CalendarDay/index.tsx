@@ -24,14 +24,14 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
             onClick={() => onSelectDate(new Date(year, month, day))}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="calendar-day relative cursor-pointer transition-colors"
+            className="border-r border-b border-[#30363d] p-2 overflow-y-auto relative cursor-pointer transition-colors"
             style={{
                 backgroundColor: isHovered ? CALENDAR.DAY_BG_HOVER : (isToday ? CALENDAR.TODAY_BG : (noSchool ? CALENDAR.NO_SCHOOL_BG : undefined)),
                 borderColor: noSchool ? CALENDAR.NO_SCHOOL_BORDER : undefined,
                 boxShadow: isToday ? `inset 0 0 0 2px ${CALENDAR.TODAY_BORDER}` : undefined
             }}
         >
-            <span className="calendar-day-number" style={{ color: noSchool ? CALENDAR.NO_SCHOOL_TEXT : CALENDAR.DAY_NUMBER_TEXT }}>{day}</span>
+            <span className="font-bold block mb-1" style={{ color: noSchool ? CALENDAR.NO_SCHOOL_TEXT : CALENDAR.DAY_NUMBER_TEXT }}>{day}</span>
 
             <div className="space-y-1 overflow-hidden md:block flex flex-wrap gap-1">
                 {assignments.map(a => (

@@ -23,7 +23,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
 
         // Leading empty days
         for (let i = 0; i < firstDayOfMonth; i++) {
-            days.push(<div key={`empty-${i}`} className="calendar-day inactive" style={{ color: CALENDAR.DAY_INACTIVE_TEXT, backgroundColor: CALENDAR.DAY_INACTIVE_BG }}></div>);
+            days.push(<div key={`empty-${i}`} className="border-r border-b border-[#30363d] p-2" style={{ color: CALENDAR.DAY_INACTIVE_TEXT, backgroundColor: CALENDAR.DAY_INACTIVE_BG }}></div>);
         }
 
         // Days of month
@@ -62,7 +62,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
         const totalCells = firstDayOfMonth + daysInMonth;
         const remainingCells = 42 - totalCells; // 6 rows * 7 cols
         for (let i = 0; i < remainingCells; i++) {
-            days.push(<div key={`empty-end-${i}`} className="calendar-day inactive" style={{ color: CALENDAR.DAY_INACTIVE_TEXT, backgroundColor: CALENDAR.DAY_INACTIVE_BG }}></div>);
+            days.push(<div key={`empty-end-${i}`} className="border-r border-b border-[#30363d] p-2" style={{ color: CALENDAR.DAY_INACTIVE_TEXT, backgroundColor: CALENDAR.DAY_INACTIVE_BG }}></div>);
         }
 
         return days;
@@ -73,7 +73,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
             <div id="calendar-grid" className="h-full">
                 {/* Days of the week headers */}
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                    <div key={day} className="calendar-header" style={{ backgroundColor: CALENDAR.DAY_HEADER_BG, color: CALENDAR.DAY_HEADER_TEXT }}>
+                    <div key={day} className="h-auto text-center font-semibold px-2 py-1.5" style={{ backgroundColor: CALENDAR.DAY_HEADER_BG, color: CALENDAR.DAY_HEADER_TEXT }}>
                         {day}
                     </div>
                 ))}

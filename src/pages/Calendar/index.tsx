@@ -30,7 +30,7 @@ const Calendar: React.FC = () => {
     const assignmentsByDate = assignments.reduce<Record<string, Assignment[]>>((acc, a) => {
         if (a.dueDate) {
             if (!acc[a.dueDate]) acc[a.dueDate] = [];
-            acc[a.dueDate].push(a);
+            acc[a.dueDate]!.push(a);
         }
         return acc;
     }, {});
@@ -38,7 +38,7 @@ const Calendar: React.FC = () => {
     const eventsByDate = events.reduce<Record<string, Event[]>>((acc, e) => {
         if (e.date) {
             if (!acc[e.date]) acc[e.date] = [];
-            acc[e.date].push(e);
+            acc[e.date]!.push(e);
         }
         return acc;
     }, {});
@@ -59,7 +59,7 @@ const Calendar: React.FC = () => {
     };
 
     return (
-        <div className="flex-1 min-h-0 flex flex-col">
+        <div className="calendar-page flex-1 min-h-0 flex flex-col">
             <div
                 className="p-4 md:p-6 rounded-xl overflow-hidden flex flex-col h-full"
                 style={{

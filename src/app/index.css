@@ -26,169 +26,7 @@ body {
   transform-origin: 50% 50%;
 }
 
-/* Calendar Grid Styles */
-#calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: auto repeat(6, 1fr);
-  border-left: 1px solid #30363d;
-  border-top: 1px solid #30363d;
-  min-width: 100%;
-  height: 100%;
-}
 
-@media (max-width: 768px) {
-  #calendar-grid {
-    font-size: 14px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    grid-template-rows: auto;
-    height: 100%;
-    min-height: 100%;
-  }
-
-  .calendar-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 8px;
-  }
-}
-
-.calendar-day,
-.calendar-header {
-  border-right: 1px solid #30363d;
-  border-bottom: 1px solid #30363d;
-  padding: 8px;
-  overflow-y: auto;
-  position: relative;
-}
-
-@media (max-width: 768px) {
-
-  .calendar-day,
-  .calendar-header {
-    padding: 8px 6px;
-  }
-
-  .calendar-header {
-    padding: 6px;
-    font-size: 13px;
-    aspect-ratio: unset;
-  }
-
-  .calendar-day-number {
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
-
-  .calendar-assignment {
-    padding: 3px 4px;
-    font-size: 10px;
-    margin-top: 2px;
-    min-height: 20px;
-    display: flex;
-    align-items: center;
-  }
-}
-
-.calendar-header {
-  height: auto;
-  text-align: center;
-  font-weight: 600;
-  color: #9ca3af;
-  background-color: #111418;
-  padding: 6px 8px;
-}
-
-.calendar-day-number {
-  font-weight: 700;
-  color: #d1d5db;
-  margin-bottom: 4px;
-  display: block;
-}
-
-.calendar-assignment,
-.calendar-event,
-.calendar-no-school {
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-size: 10px;
-  line-height: 1.3;
-  margin-top: 2px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.calendar-assignment:hover,
-.calendar-event:hover,
-.calendar-no-school:hover {
-  opacity: 0.8;
-}
-
-@media (max-width: 768px) {
-
-  .calendar-assignment,
-  .calendar-event,
-  .calendar-no-school {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    padding: 0;
-    font-size: 0;
-    margin: 2px;
-    min-height: unset;
-    display: inline-block;
-    overflow: visible;
-    text-indent: -9999px;
-    touch-action: manipulation;
-  }
-}
-
-.calendar-day.inactive {
-  background-color: #0d1117;
-}
-
-.calendar-day.today {
-  background-color: #22252a;
-  box-shadow: inset 0 0 0 2px #8b5cf6;
-}
-
-.calendar-day.no-school-day {
-  background-color: #1a1d23;
-  opacity: 0.6;
-}
-
-.calendar-main-container {
-  position: relative;
-}
-
-.calendar-main-container.side-panel-open #calendar-side-panel {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 320px;
-  z-index: 10;
-  margin: 0;
-}
-
-@media (max-width: 1024px) {
-  .calendar-main-container.side-panel-open #calendar-side-panel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    max-width: 100%;
-    z-index: 20;
-    margin: 0;
-    border-radius: 0;
-  }
-}
 
 .assignments-col {
   min-height: 70vh;
@@ -288,22 +126,7 @@ select option:checked {
   background-color: #374151;
 }
 
-#calendar-side-panel::-webkit-scrollbar {
-  width: 8px;
-}
 
-#calendar-side-panel::-webkit-scrollbar-track {
-  background: #1a202c;
-}
-
-#calendar-side-panel::-webkit-scrollbar-thumb {
-  background: #4a5568;
-  border-radius: 4px;
-}
-
-#calendar-side-panel::-webkit-scrollbar-thumb:hover {
-  background: #718096;
-}
 
 /* Toast Notifications */
 .toast-container {
@@ -362,18 +185,5 @@ select option:checked {
   to {
     opacity: 0;
     transform: translateY(-20px);
-  }
-}
-
-@media (min-width: 1024px) {
-  .calendar-view-height {
-    flex: 1;
-    overflow: hidden;
-  }
-}
-
-@media (max-width: 1023px) {
-  .calendar-view-height {
-    height: calc(100vh - 30vh);
   }
 }
