@@ -34,7 +34,7 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
         const newAssignment = {
             title: formData.get('title') as string,
             classId: formData.get('classId') as string,
-            subject: formData.get('subject') as string,
+            description: formData.get('description') as string,
             dueDate: dueDate,
             priority: priority as Priority,
             status: 'To Do' as Status
@@ -65,19 +65,18 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
                     </select>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Subject/Topic (Optional)</label>
-                    <input type="text" name="subject"
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
-                        placeholder="e.g. Thermodynamics"
-                        style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
-                    />
-                </div>
-                <div>
                     <label className="block text-sm font-medium text-gray-400 mb-1">Due Date</label>
                     <input type="date" name="dueDate" required defaultValue={todayString()}
                         className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-400 mb-1">Description (Optional)</label>
+                    <textarea name="description" rows={2}
+                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-1 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
+                    ></textarea>
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-gray-400 mb-1">Priority</label>
@@ -180,16 +179,6 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
                     </select>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Subject/Topic</label>
-                    <input
-                        type="text"
-                        value={formData.subject || ''}
-                        onChange={e => setFormData({ ...formData, subject: e.target.value })}
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
-                        style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
-                    />
-                </div>
-                <div>
                     <label className="block text-sm font-medium text-gray-400 mb-1">Due Date</label>
                     <input
                         type="date"
@@ -197,6 +186,16 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
                         onChange={e => setFormData({ ...formData, dueDate: e.target.value })}
                         required
                         className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-400 mb-1">Description</label>
+                    <textarea
+                        value={formData.description || ''}
+                        onChange={e => setFormData({ ...formData, description: e.target.value })}
+                        rows={2}
+                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-1 text-white focus:outline-none focus:border-[var(--focus-color)]"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
