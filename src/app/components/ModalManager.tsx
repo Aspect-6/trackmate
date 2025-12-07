@@ -29,30 +29,36 @@ const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, openModa
         <div className="space-y-3">
             <button
                 onClick={() => openModal('add-assignment')}
-                className="w-full py-3 px-4 text-white rounded-lg font-medium transition duration-150 flex items-center"
-                style={{ backgroundColor: GLOBAL.ASSIGNMENT_BUTTON_BG }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.ASSIGNMENT_BUTTON_BG}
+                className="modal-btn flex items-center"
+                style={{
+                    '--modal-btn-bg': GLOBAL.ASSIGNMENT_BUTTON_BG,
+                    '--modal-btn-bg-hover': GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER,
+                    '--modal-btn-text': '#ffffff'
+                } as React.CSSProperties}
             >
                 <FileText className="w-5 h-5 mr-3" />
                 Assignment
             </button>
             <button
                 onClick={() => openModal('add-class')}
-                className="w-full py-3 px-4 text-white rounded-lg font-medium transition duration-150 flex items-center"
-                style={{ backgroundColor: GLOBAL.CLASS_BUTTON_BG }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CLASS_BUTTON_BG_HOVER}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CLASS_BUTTON_BG}
+                className="modal-btn flex items-center"
+                style={{
+                    '--modal-btn-bg': GLOBAL.CLASS_BUTTON_BG,
+                    '--modal-btn-bg-hover': GLOBAL.CLASS_BUTTON_BG_HOVER,
+                    '--modal-btn-text': '#ffffff'
+                } as React.CSSProperties}
             >
                 <BookOpen className="w-5 h-5 mr-3" />
                 Class
             </button>
             <button
                 onClick={() => openModal('add-event')}
-                className="w-full py-3 px-4 text-white rounded-lg font-medium transition duration-150 flex items-center"
-                style={{ backgroundColor: GLOBAL.EVENT_BUTTON_BG }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.EVENT_BUTTON_BG_HOVER}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.EVENT_BUTTON_BG}
+                className="modal-btn flex items-center"
+                style={{
+                    '--modal-btn-bg': GLOBAL.EVENT_BUTTON_BG,
+                    '--modal-btn-bg-hover': GLOBAL.EVENT_BUTTON_BG_HOVER,
+                    '--modal-btn-text': '#ffffff'
+                } as React.CSSProperties}
             >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -61,10 +67,12 @@ const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, openModa
             </button>
             <button
                 onClick={() => openModal('add-no-school')}
-                className="w-full py-3 px-4 text-white rounded-lg font-medium transition duration-150 flex items-center"
-                style={{ backgroundColor: GLOBAL.NOSCHOOL_BUTTON_BG }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.NOSCHOOL_BUTTON_BG_HOVER}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.NOSCHOOL_BUTTON_BG}
+                className="modal-btn flex items-center"
+                style={{
+                    '--modal-btn-bg': GLOBAL.NOSCHOOL_BUTTON_BG,
+                    '--modal-btn-bg-hover': GLOBAL.NOSCHOOL_BUTTON_BG_HOVER,
+                    '--modal-btn-text': '#ffffff'
+                } as React.CSSProperties}
             >
                 <X className="w-5 h-5 mr-3" />
                 No School
@@ -73,14 +81,13 @@ const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, openModa
         <div className="flex justify-end mt-4">
             <button
                 onClick={onClose}
-                className="py-2 px-4 rounded-lg text-sm font-medium transition duration-150"
+                className="modal-btn modal-btn-cancel"
                 style={{
-                    backgroundColor: GLOBAL.CANCEL_BUTTON_BG,
-                    color: GLOBAL.CANCEL_BUTTON_TEXT,
-                    border: `1px solid ${GLOBAL.CANCEL_BUTTON_BORDER}`
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG_HOVER}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG}
+                    '--modal-btn-bg': GLOBAL.CANCEL_BUTTON_BG,
+                    '--modal-btn-bg-hover': GLOBAL.CANCEL_BUTTON_BG_HOVER,
+                    '--modal-btn-text': GLOBAL.CANCEL_BUTTON_TEXT,
+                    '--modal-btn-border': GLOBAL.CANCEL_BUTTON_BORDER
+                } as React.CSSProperties}
             >
                 Cancel
             </button>

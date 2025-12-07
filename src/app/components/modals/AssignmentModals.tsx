@@ -31,13 +31,18 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
             priority = 'Low';
         }
 
+        let status = formData.get('status') as string;
+        if (!['To Do', 'In Progress', 'Done'].includes(status)) {
+            status = 'To Do';
+        }
+
         const newAssignment = {
             title: formData.get('title') as string,
             classId: formData.get('classId') as string,
             description: formData.get('description') as string,
             dueDate: dueDate,
             priority: priority as Priority,
-            status: 'To Do' as Status
+            status: status as Status
         };
         addAssignment(newAssignment);
         onClose();
@@ -78,38 +83,53 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     ></textarea>
                 </div>
-                <div>
-                    <label className="modal-label">Priority</label>
-                    <select name="priority"
-                        className="modal-select"
-                        style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
-                    >
-                        <option value="Low">Low</option>
-                        <option value="Medium">Medium</option>
-                        <option value="High">High</option>
-                    </select>
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="modal-label">Priority</label>
+                        <select name="priority"
+                            className="modal-select"
+                            style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
+                        >
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="modal-label">Status</label>
+                        <select name="status"
+                            className="modal-select"
+                            defaultValue="To Do"
+                            style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
+                        >
+                            <option value="To Do">To Do</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Done">Done</option>
+                        </select>
+                    </div>
                 </div>
                 <div className="flex justify-end space-x-3 mt-6">
                     <button
                         type="button"
                         onClick={onClose}
-                        className="px-4 py-2 rounded-lg text-sm font-medium"
+                        className="modal-btn modal-btn-cancel modal-btn-inline"
                         style={{
-                            backgroundColor: GLOBAL.CANCEL_BUTTON_BG,
-                            color: GLOBAL.CANCEL_BUTTON_TEXT,
-                            border: `1px solid ${GLOBAL.CANCEL_BUTTON_BORDER}`
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG_HOVER}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG}
+                            '--modal-btn-bg': GLOBAL.CANCEL_BUTTON_BG,
+                            '--modal-btn-bg-hover': GLOBAL.CANCEL_BUTTON_BG_HOVER,
+                            '--modal-btn-text': GLOBAL.CANCEL_BUTTON_TEXT,
+                            '--modal-btn-border': GLOBAL.CANCEL_BUTTON_BORDER
+                        } as React.CSSProperties}
                     >
                         Cancel
                     </button>
                     <button
                         type="submit"
-                        className="px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors duration-150"
-                        style={{ backgroundColor: GLOBAL.ASSIGNMENT_BUTTON_BG }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.ASSIGNMENT_BUTTON_BG}
+                        className="modal-btn modal-btn-inline"
+                        style={{
+                            '--modal-btn-bg': GLOBAL.ASSIGNMENT_BUTTON_BG,
+                            '--modal-btn-bg-hover': GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER,
+                            '--modal-btn-text': '#ffffff'
+                        } as React.CSSProperties}
                     >
                         Add Assignment
                     </button>
@@ -232,28 +252,40 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
                     </div>
                 </div>
                 <div className="flex justify-between mt-6">
-                    <button type="button" onClick={() => { onClose(); openModal('delete-assignment', assignmentId); }} className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150" style={{ backgroundColor: GLOBAL.DELETE_BUTTON_BG, color: GLOBAL.DELETE_BUTTON_TEXT }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG_HOVER} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG}>Delete</button>
+                    <button
+                        type="button"
+                        onClick={() => { onClose(); openModal('delete-assignment', assignmentId); }}
+                        className="modal-btn modal-btn-inline"
+                        style={{
+                            '--modal-btn-bg': GLOBAL.DELETE_BUTTON_BG,
+                            '--modal-btn-bg-hover': GLOBAL.DELETE_BUTTON_BG_HOVER,
+                            '--modal-btn-text': GLOBAL.DELETE_BUTTON_TEXT
+                        } as React.CSSProperties}
+                    >
+                        Delete
+                    </button>
                     <div className="flex space-x-3">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-4 py-2 rounded-lg text-sm font-medium"
+                            className="modal-btn modal-btn-cancel modal-btn-inline"
                             style={{
-                                backgroundColor: GLOBAL.CANCEL_BUTTON_BG,
-                                color: GLOBAL.CANCEL_BUTTON_TEXT,
-                                border: `1px solid ${GLOBAL.CANCEL_BUTTON_BORDER}`
-                            }}
-                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG_HOVER}
-                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG}
+                                '--modal-btn-bg': GLOBAL.CANCEL_BUTTON_BG,
+                                '--modal-btn-bg-hover': GLOBAL.CANCEL_BUTTON_BG_HOVER,
+                                '--modal-btn-text': GLOBAL.CANCEL_BUTTON_TEXT,
+                                '--modal-btn-border': GLOBAL.CANCEL_BUTTON_BORDER
+                            } as React.CSSProperties}
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
-                            className="px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors duration-150"
-                            style={{ backgroundColor: GLOBAL.ASSIGNMENT_BUTTON_BG }}
-                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER}
-                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.ASSIGNMENT_BUTTON_BG}
+                            className="modal-btn modal-btn-inline"
+                            style={{
+                                '--modal-btn-bg': GLOBAL.ASSIGNMENT_BUTTON_BG,
+                                '--modal-btn-bg-hover': GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER,
+                                '--modal-btn-text': '#ffffff'
+                            } as React.CSSProperties}
                         >
                             Save Changes
                         </button>
@@ -283,18 +315,27 @@ export const DeleteAssignmentModal: React.FC<EditModalProps> = ({ onClose, assig
             <div className="flex justify-end space-x-3">
                 <button
                     onClick={onClose}
-                    className="px-4 py-2 rounded-lg text-sm font-medium"
+                    className="modal-btn modal-btn-cancel modal-btn-inline"
                     style={{
-                        backgroundColor: GLOBAL.CANCEL_BUTTON_BG,
-                        color: GLOBAL.CANCEL_BUTTON_TEXT,
-                        border: `1px solid ${GLOBAL.CANCEL_BUTTON_BORDER}`
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG_HOVER}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG}
+                        '--modal-btn-bg': GLOBAL.CANCEL_BUTTON_BG,
+                        '--modal-btn-bg-hover': GLOBAL.CANCEL_BUTTON_BG_HOVER,
+                        '--modal-btn-text': GLOBAL.CANCEL_BUTTON_TEXT,
+                        '--modal-btn-border': GLOBAL.CANCEL_BUTTON_BORDER
+                    } as React.CSSProperties}
                 >
                     Cancel
                 </button>
-                <button onClick={handleDelete} className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150" style={{ backgroundColor: GLOBAL.DELETE_BUTTON_BG, color: GLOBAL.DELETE_BUTTON_TEXT }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG_HOVER} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG}>Delete Assignment</button>
+                <button
+                    onClick={handleDelete}
+                    className="modal-btn modal-btn-inline"
+                    style={{
+                        '--modal-btn-bg': GLOBAL.DELETE_BUTTON_BG,
+                        '--modal-btn-bg-hover': GLOBAL.DELETE_BUTTON_BG_HOVER,
+                        '--modal-btn-text': GLOBAL.DELETE_BUTTON_TEXT
+                    } as React.CSSProperties}
+                >
+                    Delete Assignment
+                </button>
             </div>
         </div>
     );

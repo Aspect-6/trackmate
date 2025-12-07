@@ -93,23 +93,24 @@ export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
                     <button
                         type="button"
                         onClick={onClose}
-                        className="px-4 py-2 rounded-lg text-sm font-medium"
+                        className="modal-btn modal-btn-cancel modal-btn-inline"
                         style={{
-                            backgroundColor: GLOBAL.CANCEL_BUTTON_BG,
-                            color: GLOBAL.CANCEL_BUTTON_TEXT,
-                            border: `1px solid ${GLOBAL.CANCEL_BUTTON_BORDER}`
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG_HOVER}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG}
+                            '--modal-btn-bg': GLOBAL.CANCEL_BUTTON_BG,
+                            '--modal-btn-bg-hover': GLOBAL.CANCEL_BUTTON_BG_HOVER,
+                            '--modal-btn-text': GLOBAL.CANCEL_BUTTON_TEXT,
+                            '--modal-btn-border': GLOBAL.CANCEL_BUTTON_BORDER
+                        } as React.CSSProperties}
                     >
                         Cancel
                     </button>
                     <button
                         type="submit"
-                        className="px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors duration-150"
-                        style={{ backgroundColor: MY_CLASSES.CLASS_MODAL_BUTTON_BG }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = MY_CLASSES.CLASS_MODAL_BUTTON_BG_HOVER}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = MY_CLASSES.CLASS_MODAL_BUTTON_BG}
+                        className="modal-btn modal-btn-inline"
+                        style={{
+                            '--modal-btn-bg': MY_CLASSES.CLASS_MODAL_BUTTON_BG,
+                            '--modal-btn-bg-hover': MY_CLASSES.CLASS_MODAL_BUTTON_BG_HOVER,
+                            '--modal-btn-text': '#ffffff'
+                        } as React.CSSProperties}
                     >
                         Create Class
                     </button>
@@ -194,28 +195,40 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
                     </div>
                 </div>
                 <div className="flex justify-between mt-6">
-                    <button type="button" onClick={() => { onClose(); openModal('delete-class', classId); }} className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150" style={{ backgroundColor: GLOBAL.DELETE_BUTTON_BG, color: GLOBAL.DELETE_BUTTON_TEXT }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG_HOVER} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG}>Delete</button>
+                    <button
+                        type="button"
+                        onClick={() => { onClose(); openModal('delete-class', classId); }}
+                        className="modal-btn modal-btn-inline"
+                        style={{
+                            '--modal-btn-bg': GLOBAL.DELETE_BUTTON_BG,
+                            '--modal-btn-bg-hover': GLOBAL.DELETE_BUTTON_BG_HOVER,
+                            '--modal-btn-text': GLOBAL.DELETE_BUTTON_TEXT
+                        } as React.CSSProperties}
+                    >
+                        Delete
+                    </button>
                     <div className="flex space-x-3">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-4 py-2 rounded-lg text-sm font-medium"
+                            className="modal-btn modal-btn-cancel modal-btn-inline"
                             style={{
-                                backgroundColor: GLOBAL.CANCEL_BUTTON_BG,
-                                color: GLOBAL.CANCEL_BUTTON_TEXT,
-                                border: `1px solid ${GLOBAL.CANCEL_BUTTON_BORDER}`
-                            }}
-                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG_HOVER}
-                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG}
+                                '--modal-btn-bg': GLOBAL.CANCEL_BUTTON_BG,
+                                '--modal-btn-bg-hover': GLOBAL.CANCEL_BUTTON_BG_HOVER,
+                                '--modal-btn-text': GLOBAL.CANCEL_BUTTON_TEXT,
+                                '--modal-btn-border': GLOBAL.CANCEL_BUTTON_BORDER
+                            } as React.CSSProperties}
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
-                            className="px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors duration-150"
-                            style={{ backgroundColor: MY_CLASSES.CLASS_MODAL_BUTTON_BG }}
-                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = MY_CLASSES.CLASS_MODAL_BUTTON_BG_HOVER}
-                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = MY_CLASSES.CLASS_MODAL_BUTTON_BG}
+                            className="modal-btn modal-btn-inline"
+                            style={{
+                                '--modal-btn-bg': MY_CLASSES.CLASS_MODAL_BUTTON_BG,
+                                '--modal-btn-bg-hover': MY_CLASSES.CLASS_MODAL_BUTTON_BG_HOVER,
+                                '--modal-btn-text': '#ffffff'
+                            } as React.CSSProperties}
                         >
                             Save Changes
                         </button>
@@ -246,18 +259,27 @@ export const DeleteClassModal: React.FC<ClassModalProps> = ({ onClose, classId }
             <div className="flex justify-end space-x-3">
                 <button
                     onClick={onClose}
-                    className="px-4 py-2 rounded-lg text-sm font-medium"
+                    className="modal-btn modal-btn-cancel modal-btn-inline"
                     style={{
-                        backgroundColor: GLOBAL.CANCEL_BUTTON_BG,
-                        color: GLOBAL.CANCEL_BUTTON_TEXT,
-                        border: `1px solid ${GLOBAL.CANCEL_BUTTON_BORDER}`
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG_HOVER}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG}
+                        '--modal-btn-bg': GLOBAL.CANCEL_BUTTON_BG,
+                        '--modal-btn-bg-hover': GLOBAL.CANCEL_BUTTON_BG_HOVER,
+                        '--modal-btn-text': GLOBAL.CANCEL_BUTTON_TEXT,
+                        '--modal-btn-border': GLOBAL.CANCEL_BUTTON_BORDER
+                    } as React.CSSProperties}
                 >
                     Cancel
                 </button>
-                <button onClick={handleDelete} className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150" style={{ backgroundColor: GLOBAL.DELETE_BUTTON_BG, color: GLOBAL.DELETE_BUTTON_TEXT }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG_HOVER} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.DELETE_BUTTON_BG}>Delete Class</button>
+                <button
+                    onClick={handleDelete}
+                    className="modal-btn modal-btn-inline"
+                    style={{
+                        '--modal-btn-bg': GLOBAL.DELETE_BUTTON_BG,
+                        '--modal-btn-bg-hover': GLOBAL.DELETE_BUTTON_BG_HOVER,
+                        '--modal-btn-text': GLOBAL.DELETE_BUTTON_TEXT
+                    } as React.CSSProperties}
+                >
+                    Delete Class
+                </button>
             </div>
         </div>
     );

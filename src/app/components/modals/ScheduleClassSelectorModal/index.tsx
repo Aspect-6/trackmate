@@ -53,14 +53,13 @@ export const ScheduleClassSelectorModal: React.FC<ScheduleModalProps> = ({ onClo
             <div className="flex justify-end space-x-3 pt-4 mt-4" style={{ borderTop: `1px solid ${GLOBAL.BORDER_SECONDARY}` }}>
                 <button
                     onClick={onClose}
-                    className="py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                    className="modal-btn modal-btn-cancel modal-btn-inline"
                     style={{
-                        backgroundColor: GLOBAL.CANCEL_BUTTON_BG,
-                        color: GLOBAL.CANCEL_BUTTON_TEXT,
-                        border: `1px solid ${GLOBAL.CANCEL_BUTTON_BORDER}`
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG_HOVER}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.CANCEL_BUTTON_BG}
+                        '--modal-btn-bg': GLOBAL.CANCEL_BUTTON_BG,
+                        '--modal-btn-bg-hover': GLOBAL.CANCEL_BUTTON_BG_HOVER,
+                        '--modal-btn-text': GLOBAL.CANCEL_BUTTON_TEXT,
+                        '--modal-btn-border': GLOBAL.CANCEL_BUTTON_BORDER
+                    } as React.CSSProperties}
                 >
                     Cancel
                 </button>

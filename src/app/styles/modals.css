@@ -6,7 +6,7 @@
     --modal-input-text: #ffffff;
     --modal-body-text: #d1d5db;
     --modal-delete-body-text: hsl(215, 15%, 78%);
-    --modal-color-grid-bg: #1f2937;
+    --modal-color-grid-bg: var(--modal-input-bg);
     --modal-scrollbar-track: #374151;
     --modal-scrollbar-thumb: #9ca3af;
     --modal-scrollbar-thumb-hover: #d1d5db;
@@ -22,7 +22,7 @@
     --modal-input-text: hsl(215, 25%, 15%);
     --modal-body-text: hsl(215, 25%, 25%);
     --modal-delete-body-text: hsl(215, 20%, 40%);
-    --modal-color-grid-bg: hsl(215, 25%, 95%);
+    --modal-color-grid-bg: var(--modal-input-bg);
     --modal-scrollbar-track: hsl(215, 20%, 90%);
     --modal-scrollbar-thumb: hsl(215, 15%, 60%);
     --modal-scrollbar-thumb-hover: hsl(215, 15%, 45%);
@@ -43,6 +43,57 @@
     scrollbar-color: var(--modal-scrollbar-thumb) var(--modal-scrollbar-track);
     background-color: var(--modal-surface-bg);
     border: 1px solid var(--border-primary);
+}
+
+.modal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    border: 1px solid var(--modal-btn-border, transparent);
+    background-color: var(--modal-btn-bg, transparent);
+    color: var(--modal-btn-text, #fff);
+    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    white-space: nowrap;
+}
+
+.modal-btn:hover {
+    background-color: var(--modal-btn-bg-hover, var(--modal-btn-bg));
+    color: var(--modal-btn-text-hover, var(--modal-btn-text));
+    border-color: var(--modal-btn-border-hover, var(--modal-btn-border, transparent));
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.modal-btn-inline {
+    width: auto;
+}
+
+.modal-btn-cancel {
+    font-weight: 500;
+    width: auto;
+    padding: 0.625rem 1rem;
+}
+
+@media (max-width: 480px) {
+    .modal-btn {
+        padding: 0.65rem 0.85rem;
+        font-size: 0.95rem;
+        gap: 0.6rem;
+    }
+    .modal-btn-inline {
+        width: auto;
+    }
+    .modal-date-input {
+        padding: 0.5rem 0.7rem;
+        font-size: 0.95rem;
+        min-height: 2.25rem;
+        line-height: 1.15rem;
+    }
 }
 
 .modal-container::-webkit-scrollbar {
@@ -97,8 +148,14 @@
 }
 
 .modal-date-input {
-    padding: 0.5rem;
+    box-sizing: border-box;
+    padding: 0.55rem 0.75rem;
     cursor: pointer;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    min-height: 2.4rem;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 .modal-textarea {
