@@ -136,6 +136,11 @@
     border-color: var(--modal-tab-active-border);
 }
 
+/* Keep modal body height stable when switching tabs */
+.modal-tab-panel {
+    min-height: 360px;
+}
+
 .modal-tab:focus-visible {
     outline: 2px solid var(--focus-color, var(--modal-input-border));
     outline-offset: 1px;

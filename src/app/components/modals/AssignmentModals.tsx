@@ -126,7 +126,7 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
                 </div>
 
                 {activeTab === 'details' ? (
-                    <div className="space-y-4">
+                    <div className="modal-tab-panel space-y-4">
                         <div>
                             <label className="modal-label">Title</label>
                             <input
@@ -191,7 +191,7 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
                         </div>
                     </div>
                 ) : (
-                    <div className="space-y-4">
+                    <div className="modal-tab-panel space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="modal-label">Priority</label>
@@ -360,7 +360,7 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
                 </div>
 
                 {activeTab === 'details' ? (
-                    <div className="space-y-4">
+                    <div className="modal-tab-panel space-y-4">
                         <div>
                             <label className="modal-label">Title</label>
                             <input
@@ -419,7 +419,7 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
                         </div>
                     </div>
                 ) : (
-                    <div className="space-y-4">
+                    <div className="modal-tab-panel space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="modal-label">Priority</label>
