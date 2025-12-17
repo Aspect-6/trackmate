@@ -312,6 +312,18 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         }));
     };
 
+    const clearAllAssignments = (): void => {
+        setAssignments([]);
+        localStorage.removeItem(ASSIGNMENTS_KEY);
+        window.location.reload();
+    };
+
+    const clearAllEvents = (): void => {
+        setEvents([]);
+        localStorage.removeItem(EVENTS_KEY);
+        window.location.reload();
+    };
+
     const clearAllData = (): void => {
         localStorage.removeItem(ASSIGNMENTS_KEY);
         localStorage.removeItem(CLASSES_KEY);
@@ -393,6 +405,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             addClass, updateClass, deleteClass, reorderClasses,
             addEvent, updateEvent, deleteEvent,
             addNoSchool, updateNoSchool, deleteNoSchool, updateSchedule, setReferenceDayType, clearAllData,
+            clearAllAssignments, clearAllEvents,
             getDayTypeForDate, getClassesForDate, getClassById,
             activeModal, modalData, openModal, closeModal,
             theme, setTheme

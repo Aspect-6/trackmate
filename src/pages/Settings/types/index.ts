@@ -7,6 +7,8 @@ export interface ScheduleSettingsProps {
 }
 
 export interface DangerZoneProps {
+    onOpenClearAssignmentsModal: () => void;
+    onOpenClearEventsModal: () => void;
     onOpenClearDataModal: () => void;
 }
 

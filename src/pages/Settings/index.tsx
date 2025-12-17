@@ -10,7 +10,6 @@ import { APP_NAME, CURRENT_APP_VERSION, DEVELOPER_NAME } from '@/app/config/bran
 
 const Settings: React.FC = () => {
     const {
-        clearAllData,
         openModal,
         setReferenceDayType,
         getDayTypeForDate,
@@ -44,6 +43,8 @@ const Settings: React.FC = () => {
             />
 
             <DangerZone 
+                onOpenClearAssignmentsModal={() => openModal('clear-assignments')}
+                onOpenClearEventsModal={() => openModal('clear-events')}
                 onOpenClearDataModal={() => openModal('clear-all-data')}
             />
 

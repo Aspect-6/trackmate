@@ -196,6 +196,10 @@ export interface AppContextType {
     // Utility actions
     /** Clears all application data (Danger Zone) */
     clearAllData: () => void;
+    /** Clears all assignments */
+    clearAllAssignments: () => void;
+    /** Clears all events */
+    clearAllEvents: () => void;
 
     // Helper functions
     /** Calculates the day type (A, B, or null) for a specific date */

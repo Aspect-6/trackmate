@@ -1,30 +1,68 @@
 import React from 'react';
-import { Trash2 } from 'lucide-react';
 import { DangerZoneProps } from '@/pages/Settings/types';
 import { SETTINGS } from '@/app/styles/colors';
 
-const DangerZone: React.FC<DangerZoneProps> = ({ onOpenClearDataModal }) => {
+const DangerZone: React.FC<DangerZoneProps> = ({ onOpenClearAssignmentsModal, onOpenClearEventsModal, onOpenClearDataModal }) => {
     return (
         <div
-            className="p-6 rounded-xl"
+            className="p-6 rounded-xl danger-card"
             style={{
                 backgroundColor: SETTINGS.MODULE_BG,
                 border: `1px solid ${SETTINGS.MODULE_BORDER}`,
                 boxShadow: SETTINGS.MODULE_SHADOW,
             }}
         >
-            <h2 className="text-xl font-bold mb-4" style={{ color: SETTINGS.TEXT_DANGER }}>Danger Zone</h2>
-            <p className="mb-6" style={{ color: SETTINGS.BODY_TEXT }}>
-                This action will permanently delete all your assignments, classes, events, and schedule data.
-                This cannot be undone.
+            <div className="flex items-start justify-between mb-3 gap-3 flex-wrap">
+                <h2 className="text-xl font-bold" style={{ color: SETTINGS.TEXT_DANGER }}>Danger Zone</h2>
+                <span className="text-sm font-medium px-3 py-1 rounded-full" style={{
+                    backgroundColor: 'rgba(248, 113, 113, 0.12)',
+                    color: SETTINGS.TEXT_DANGER,
+                    border: '1px solid rgba(248, 113, 113, 0.35)'
+                }}>
+                    Irreversible
+                </span>
+            </div>
+            <p className="mb-5 text-base" style={{ color: SETTINGS.BODY_TEXT }}>
+                Permanently delete your data. These actions cannot be undone.
             </p>
-            <button
-                onClick={onOpenClearDataModal}
-                className="flex items-center py-2 px-4 settings-button-danger rounded-lg font-medium"
-            >
-                <Trash2 className="w-5 h-5 mr-2" />
-                Clear All Data
-            </button>
+            <div className="danger-rows">
+                <div className="danger-row">
+                    <div className="danger-label">
+                        <p className="danger-title">Delete All Assignments</p>
+                        <p className="danger-sub">Delete every assignment from your account.</p>
+                    </div>
+                    <button
+                        onClick={onOpenClearAssignmentsModal}
+                        className="danger-btn settings-button-danger"
+                    >
+                        Delete All
+                    </button>
+                </div>
+                <div className="danger-row">
+                    <div className="danger-label">
+                        <p className="danger-title">Delete All Events</p>
+                        <p className="danger-sub">Delete every calendar event from your account.</p>
+                    </div>
+                    <button
+                        onClick={onOpenClearEventsModal}
+                        className="danger-btn settings-button-danger"
+                    >
+                        Delete All
+                    </button>
+                </div>
+                <div className="danger-row">
+                    <div className="danger-label">
+                        <p className="danger-title">Clear All Data</p>
+                        <p className="danger-sub">Clear all data from your account. There is no going back.</p>
+                    </div>
+                    <button
+                        onClick={onOpenClearDataModal}
+                        className="danger-btn settings-button-danger"
+                    >
+                        Clear All
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
