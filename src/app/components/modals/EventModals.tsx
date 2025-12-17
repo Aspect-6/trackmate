@@ -71,6 +71,7 @@ export const AddEventModal: React.FC<ModalProps> = ({ onClose }) => {
                         <input
                             type="time"
                             name="startTime"
+                            placeholder="--:--"
                             className="modal-date-input"
                             style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                         />
@@ -80,11 +81,13 @@ export const AddEventModal: React.FC<ModalProps> = ({ onClose }) => {
                         <input
                             type="time"
                             name="endTime"
+                            placeholder="--:--"
                             className="modal-date-input"
                             style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                         />
                     </div>
                 </div>
+                <p className="text-xs text-gray-400">Leave blank for all-day.</p>
                 <div>
                     <label className="modal-label">Description (Optional)</label>
                     <textarea name="description" rows={2}
@@ -207,6 +210,7 @@ export const EditEventModal: React.FC<EventModalProps> = ({ onClose, eventId }) 
                         />
                     </div>
                 </div>
+                <p className="text-xs text-gray-400">Leave blank for all-day.</p>
                 <div>
                     <label className="modal-label">Description</label>
                     <textarea
