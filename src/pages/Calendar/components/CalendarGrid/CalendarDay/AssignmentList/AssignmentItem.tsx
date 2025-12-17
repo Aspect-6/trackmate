@@ -1,8 +1,8 @@
 import React from 'react';
-import { CalendarDayAssignmentProps } from '@/pages/Calendar/types';
+import { AssignmentItemsProps } from '@/pages/Calendar/types';
 import { getTextColorForBackground } from '@/app/lib/utils';
 
-const CalendarDayAssignment: React.FC<CalendarDayAssignmentProps> = ({ assignment, color, onClick }) => {
+const AssignmentItem: React.FC<AssignmentItemsProps> = ({ assignment, color, onClick }) => {
     const textColor = getTextColorForBackground(color);
     return (
         <div
@@ -15,4 +15,4 @@ const CalendarDayAssignment: React.FC<CalendarDayAssignmentProps> = ({ assignmen
     );
 };
 
-export default CalendarDayAssignment;
+export default AssignmentItem;

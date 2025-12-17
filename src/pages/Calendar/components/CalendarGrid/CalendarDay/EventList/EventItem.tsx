@@ -1,8 +1,8 @@
 import React from 'react';
-import { CalendarDayEventProps } from '@/pages/Calendar/types';
+import { EventItemProps } from '@/pages/Calendar/types';
 import { getTextColorForBackground } from '@/app/lib/utils';
 
-const CalendarDayEvent: React.FC<CalendarDayEventProps> = ({ event, onClick }) => {
+const EventItem: React.FC<EventItemProps> = ({ event, onClick }) => {
     const textColor = getTextColorForBackground(event.color);
     return (
         <div
@@ -15,4 +15,4 @@ const CalendarDayEvent: React.FC<CalendarDayEventProps> = ({ event, onClick }) =
     );
 };
 
-export default CalendarDayEvent;
+export default EventItem;
