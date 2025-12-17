@@ -11,9 +11,9 @@ export type Priority = 'High' | 'Medium' | 'Low';
 export type Status = 'To Do' | 'In Progress' | 'Done';
 
 /**
- * Represents the category/type of an assignment.
+ * Represents the category/type of an assignment. User-configurable string label.
  */
-export type AssignmentType = 'assignment' | 'project' | 'quiz' | 'exam';
+export type AssignmentType = string;
 
 /**
  * Represents the type of school day in the schedule rotation.
@@ -144,6 +144,14 @@ export interface AppContextType {
     theme: ThemeMode;
     /** Updates the active theme */
     setTheme: (mode: ThemeMode) => void;
+    /** Ordered list of assignment types used across the app */
+    assignmentTypes: AssignmentType[];
+    /** Add a new assignment type (case-insensitive uniqueness) */
+    addAssignmentType: (type: AssignmentType) => boolean;
+    /** Remove an existing assignment type */
+    removeAssignmentType: (type: AssignmentType) => void;
+    /** Reorder the assignment types list */
+    reorderAssignmentTypes: (types: AssignmentType[]) => void;
 
     // Assignment actions
     /** Adds a new assignment to the state */

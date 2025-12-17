@@ -4,11 +4,22 @@ import { todayString } from '@/app/lib/utils';
 import ScheduleSettings from '@/pages/Settings/components/ScheduleSettings';
 import DangerZone from '@/pages/Settings/components/DangerZone';
 import ThemeSettings from '@/pages/Settings/components/ThemeSettings';
+import AssignmentTypeSettings from '@/pages/Settings/components/AssignmentTypeSettings';
 import './index.css';
 import { APP_NAME, CURRENT_APP_VERSION, DEVELOPER_NAME } from '@/app/config/brand';
 
 const Settings: React.FC = () => {
-    const { clearAllData, setReferenceDayType, getDayTypeForDate, theme, setTheme: setThemeMode } = useApp();
+    const {
+        clearAllData,
+        setReferenceDayType,
+        getDayTypeForDate,
+        theme,
+        setTheme: setThemeMode,
+        assignmentTypes,
+        addAssignmentType,
+        removeAssignmentType,
+        reorderAssignmentTypes
+    } = useApp();
     const today = todayString();
     const currentDayType = getDayTypeForDate(today);
 
@@ -17,6 +28,13 @@ const Settings: React.FC = () => {
             <ThemeSettings
                 currentTheme={theme}
                 onChangeTheme={setThemeMode}
+            />
+
+            <AssignmentTypeSettings
+                types={assignmentTypes}
+                onAddType={addAssignmentType}
+                onRemoveType={removeAssignmentType}
+                onReorderTypes={reorderAssignmentTypes}
             />
 
             <ScheduleSettings 

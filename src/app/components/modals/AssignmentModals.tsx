@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useApp } from '@/app/context/AppContext';
+import { DEFAULT_ASSIGNMENT_TYPES, useApp } from '@/app/context/AppContext';
 import { useToast } from '@/app/context/ToastContext';
 import { todayString } from '@/app/lib/utils';
 import { Assignment, AssignmentType, Priority, Status } from '@/app/types';
@@ -14,7 +14,7 @@ interface EditModalProps extends ModalProps {
 }
 
 export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
-    const { classes, addAssignment } = useApp();
+    const { classes, addAssignment, assignmentTypes } = useApp();
     const { showToast } = useToast();
     const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details');
     const [formData, setFormData] = useState<{
@@ -34,8 +34,10 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
         dueTime: '23:59',
         priority: 'Low',
         status: 'To Do',
-        type: 'assignment'
+        type: ''
     });
+
+    const currentTypes = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES;
 
     useEffect(() => {
         if (classes.length > 0 && !formData.classId) {
@@ -46,12 +48,22 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
         }
     }, [classes, formData.classId]);
 
+    useEffect(() => {
+        const types = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES;
+        const fallbackType = types[0] ?? '';
+        if (!formData.type && types.length) {
+            setFormData(prev => ({ ...prev, type: fallbackType }));
+        } else if (formData.type && !types.includes(formData.type)) {
+            setFormData(prev => ({ ...prev, type: fallbackType }));
+        }
+    }, [assignmentTypes, formData.type]);
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const validPriorities: Priority[] = ['High', 'Medium', 'Low'];
         const validStatuses: Status[] = ['To Do', 'In Progress', 'Done'];
-        const validTypes: AssignmentType[] = ['assignment', 'project', 'quiz', 'exam'];
+        const validTypes: AssignmentType[] = currentTypes.length ? currentTypes : DEFAULT_ASSIGNMENT_TYPES;
 
         const safeData = { ...formData };
 
@@ -80,8 +92,9 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
             safeData.dueTime = '23:59';
         }
 
+        const fallbackType = validTypes[0] ?? '';
         if (!safeData.type || !validTypes.includes(safeData.type as AssignmentType)) {
-            safeData.type = 'assignment';
+            safeData.type = fallbackType;
         }
 
         addAssignment(safeData);
@@ -218,10 +231,9 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
                                 onChange={e => setFormData({ ...formData, type: e.target.value as AssignmentType })}
                                 style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                             >
-                                <option value="assignment">Assignment</option>
-                                <option value="project">Project</option>
-                                <option value="quiz">Quiz</option>
-                                <option value="exam">Exam</option>
+                                {currentTypes.map(type => (
+                                    <option key={type} value={type}>{type}</option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -259,15 +271,27 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
 };
 
 export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignmentId }) => {
-    const { classes, assignments, updateAssignment, openModal } = useApp();
+    const { classes, assignments, assignmentTypes, updateAssignment, openModal } = useApp();
     const { showToast } = useToast();
     const [formData, setFormData] = useState<Assignment | null>(null);
     const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details');
+
+    const currentTypes = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES;
 
     useEffect(() => {
         const assignment = assignments.find(a => a.id === assignmentId);
         if (assignment) setFormData(assignment);
     }, [assignmentId, assignments]);
+
+    useEffect(() => {
+        if (!formData) return;
+        const fallbackType = currentTypes[0] ?? '';
+        if (!formData.type && currentTypes.length) {
+            setFormData(prev => prev ? { ...prev, type: fallbackType } : prev);
+        } else if (formData.type && !currentTypes.includes(formData.type)) {
+            setFormData(prev => prev ? { ...prev, type: fallbackType } : prev);
+        }
+    }, [assignmentTypes, currentTypes, formData]);
 
     if (!formData) return null;
 
@@ -277,7 +301,7 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
         // Validate data before updating
         const validPriorities: Priority[] = ['High', 'Medium', 'Low'];
         const validStatuses: Status[] = ['To Do', 'In Progress', 'Done'];
-        const validTypes: AssignmentType[] = ['assignment', 'project', 'quiz', 'exam'];
+        const validTypes: AssignmentType[] = currentTypes.length ? currentTypes : DEFAULT_ASSIGNMENT_TYPES;
 
         const safeData = { ...formData };
 
@@ -297,8 +321,9 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
             safeData.dueTime = '23:59';
         }
 
+        const fallbackType = validTypes[0] ?? '';
         if (!safeData.type || !validTypes.includes(safeData.type as AssignmentType)) {
-            safeData.type = 'assignment';
+            safeData.type = fallbackType;
         }
 
         if (!safeData.title.trim()) {
@@ -428,14 +453,13 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
                             <select
                                 name="type"
                                 className="modal-select"
-                                value={formData.type || 'assignment'}
-                                onChange={e => setFormData({ ...formData, type: e.target.value as any })}
+                                value={formData.type || currentTypes[0] || ''}
+                                onChange={e => setFormData({ ...formData, type: e.target.value as AssignmentType })}
                                 style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                             >
-                                <option value="assignment">Assignment</option>
-                                <option value="project">Project</option>
-                                <option value="quiz">Quiz</option>
-                                <option value="exam">Exam</option>
+                                {currentTypes.map(type => (
+                                    <option key={type} value={type}>{type}</option>
+                                ))}
                             </select>
                         </div>
                     </div>

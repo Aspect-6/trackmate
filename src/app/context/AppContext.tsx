@@ -21,6 +21,22 @@ const SCHEDULE_KEY = 'studentTrackerSchedule';
 const EVENTS_KEY = 'studentTrackerEvents';
 const NO_SCHOOL_KEY = 'studentTrackerNoSchool';
 const THEME_KEY = 'trackmateTheme';
+const ASSIGNMENT_TYPES_KEY = 'trackmateAssignmentTypes';
+
+export const DEFAULT_ASSIGNMENT_TYPES: AssignmentType[] = [
+    'Homework',
+    'Classwork',
+    'Study',
+    'Workbook',
+    'Project',
+    'Paper',
+    'Lab',
+    'Quiz',
+    'Test',
+    'Midterm',
+    'Final Exam',
+    'Other'
+];
 
 const loadFromLocalStorage = <T,>(key: string, defaultValue: T): T => {
     const data = localStorage.getItem(key);
@@ -48,6 +64,7 @@ interface AppProviderProps {
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const { showToast } = useToast();
     const [assignments, setAssignments] = useState<Assignment[]>([]);
+    const [assignmentTypes, setAssignmentTypes] = useState<AssignmentType[]>(DEFAULT_ASSIGNMENT_TYPES);
     const [classes, setClasses] = useState<Class[]>([]);
     const [events, setEvents] = useState<Event[]>([]);
     const [noSchool, setNoSchool] = useState<NoSchoolPeriod[]>([]);
@@ -75,6 +92,33 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     };
 
     // Load Data
+    const sanitizeTypes = (types: AssignmentType[]): AssignmentType[] => {
+        const seen = new Set<string>();
+        const cleaned: AssignmentType[] = [];
+        types.forEach(t => {
+            const trimmed = (t || '').toString().trim();
+            if (!trimmed) return;
+            const key = trimmed.toLowerCase();
+            if (seen.has(key)) return;
+            seen.add(key);
+            cleaned.push(trimmed);
+        });
+        return cleaned;
+    };
+
+    const hydrateAssignmentTypes = (types: AssignmentType[]): AssignmentType[] => {
+        const cleaned = sanitizeTypes(types);
+        return cleaned.length ? cleaned : DEFAULT_ASSIGNMENT_TYPES;
+    };
+
+    const setTypesAndEnsureAssignments = (types: AssignmentType[]): AssignmentType[] => {
+        const valid = hydrateAssignmentTypes(types);
+        const fallbackType: AssignmentType = (valid[0] ?? DEFAULT_ASSIGNMENT_TYPES[0]) as AssignmentType;
+        setAssignmentTypes(valid);
+        setAssignments(prev => prev.map(a => (valid.includes(a.type) ? a : { ...a, type: fallbackType })));
+        return valid;
+    };
+
     useEffect(() => {
         const loadedClasses = loadFromLocalStorage<Class[]>(CLASSES_KEY, []).map(c => ({
             ...c,
@@ -83,6 +127,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             color: c.color || '#64748b', // Default color if not set
         }));
         setClasses(loadedClasses);
+
+        const storedTypes = loadFromLocalStorage<AssignmentType[]>(ASSIGNMENT_TYPES_KEY, DEFAULT_ASSIGNMENT_TYPES);
+        const hydratedTypes = setTypesAndEnsureAssignments(storedTypes);
 
         const loadedSchedule = loadFromLocalStorage<Schedule>(SCHEDULE_KEY, {
             aDay: [],
@@ -108,9 +155,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             if (!a.dueTime || typeof a.dueTime !== 'string') {
                 a.dueTime = '23:59';
             }
-            const validTypes: AssignmentType[] = ['assignment', 'project', 'quiz', 'exam'];
+            const validTypes = hydrateAssignmentTypes(hydratedTypes);
             if (!a.type || !validTypes.includes(a.type)) {
-                a.type = 'assignment';
+                a.type = validTypes[0];
             }
             return a;
         }).filter(a => a.classId);
@@ -146,6 +193,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     useEffect(() => { if (isInitialized) saveToLocalStorage(SCHEDULE_KEY, schedule); }, [schedule, isInitialized]);
     useEffect(() => { if (isInitialized) saveToLocalStorage(EVENTS_KEY, events); }, [events, isInitialized]);
     useEffect(() => { if (isInitialized) saveToLocalStorage(NO_SCHOOL_KEY, noSchool); }, [noSchool, isInitialized]);
+    useEffect(() => { if (isInitialized) saveToLocalStorage(ASSIGNMENT_TYPES_KEY, assignmentTypes); }, [assignmentTypes, isInitialized]);
     useEffect(() => {
         const root = document.documentElement;
         root.classList.remove('light', 'dark');
@@ -164,6 +212,39 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
     const deleteAssignment = (id: string): void => {
         setAssignments(prev => prev.filter(a => a.id !== id));
+    };
+
+    const addAssignmentType = (type: AssignmentType): boolean => {
+        const trimmed = (type || '').trim();
+        if (!trimmed) {
+            showToast('Assignment type cannot be empty.', 'error');
+            return false;
+        }
+        const exists = assignmentTypes.some(t => t.toLowerCase() === trimmed.toLowerCase());
+        if (exists) {
+            showToast('That assignment type already exists.', 'error');
+            return false;
+        }
+        const next = [...assignmentTypes, trimmed];
+        setTypesAndEnsureAssignments(next);
+        showToast(`Added "${trimmed}"`, 'success');
+        return true;
+    };
+
+    const removeAssignmentType = (type: AssignmentType): void => {
+        if (assignmentTypes.length <= 1) {
+            showToast('Keep at least one assignment type.', 'error');
+            return;
+        }
+        const next = assignmentTypes.filter(t => t !== type);
+        const validated = setTypesAndEnsureAssignments(next);
+        if (!validated.includes(type)) {
+            showToast(`Removed "${type}"`, 'info');
+        }
+    };
+
+    const reorderAssignmentTypes = (types: AssignmentType[]): void => {
+        setTypesAndEnsureAssignments(types);
     };
 
     const addClass = (newClass: Omit<Class, 'id'>): boolean => {
@@ -312,6 +393,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         <AppContext.Provider value={{
             assignments, classes, events, noSchool, schedule,
             addAssignment, updateAssignment, deleteAssignment,
+            assignmentTypes, addAssignmentType, removeAssignmentType, reorderAssignmentTypes,
             addClass, updateClass, deleteClass, reorderClasses,
             addEvent, updateEvent, deleteEvent,
             addNoSchool, updateNoSchool, deleteNoSchool, updateSchedule, setReferenceDayType, clearAllData,

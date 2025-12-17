@@ -61,6 +61,7 @@
 	/* Red-800 */
 }
 
+.toast-notification.toast-info,
 .toast-notification.toast-success {
 	background-color: #22c55e;
 	/* Green-500 */

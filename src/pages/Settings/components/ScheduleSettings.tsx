@@ -1,5 +1,4 @@
 import React from 'react';
-import { Calendar } from 'lucide-react';
 import { ScheduleSettingsProps } from '@/pages/Settings/types';
 import { GLOBAL, SETTINGS } from '@/app/styles/colors';
 
@@ -13,8 +12,7 @@ const ScheduleSettings: React.FC<ScheduleSettingsProps> = ({ currentDayType, onS
                 boxShadow: SETTINGS.MODULE_SHADOW,
             }}
         >
-            <h2 className="text-lg sm:text-xl font-bold flex items-center gap-2" style={{ color: SETTINGS.SCHEDULE_SETTINGS_HEADER }}>
-                <Calendar className="w-6 h-6 mr-2" />
+            <h2 className="text-lg sm:text-xl font-bold" style={{ color: SETTINGS.SCHEDULE_SETTINGS_HEADER }}>
                 Schedule Settings
             </h2>
             <p className="text-sm sm:text-base" style={{ color: SETTINGS.BODY_TEXT }}>
