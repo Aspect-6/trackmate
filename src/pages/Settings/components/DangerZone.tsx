@@ -1,6 +1,6 @@
-import React from 'react';
-import { DangerZoneProps } from '@/pages/Settings/types';
-import { SETTINGS } from '@/app/styles/colors';
+import React from 'react'
+import { DangerZoneProps } from '@/pages/Settings/types'
+import { SETTINGS } from '@/app/styles/colors'
 
 const DangerZone: React.FC<DangerZoneProps> = ({ onOpenClearAssignmentsModal, onOpenClearEventsModal, onOpenClearDataModal }) => {
     return (
@@ -64,7 +64,7 @@ const DangerZone: React.FC<DangerZoneProps> = ({ onOpenClearAssignmentsModal, on
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default DangerZone;
+export default DangerZone

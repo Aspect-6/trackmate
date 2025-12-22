@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import type { CalendarHeader } from '@/pages/Calendar/types';
-import { ChevronLeft } from 'lucide-react';
-import { CALENDAR } from '@/app/styles/colors';
+import React, { useState } from 'react'
+import type { CalendarHeader } from '@/pages/Calendar/types'
+import { ChevronLeft } from 'lucide-react'
+import { CALENDAR } from '@/app/styles/colors'
 
 const PrevButton: React.FC<CalendarHeader.CalendarHeaderButtonProps> = ({ onClick }) => {
-    const [hovered, setHovered] = useState(false);
+    const [hovered, setHovered] = useState(false)
     return (
         <button
             onClick={onClick}
@@ -16,7 +16,7 @@ const PrevButton: React.FC<CalendarHeader.CalendarHeaderButtonProps> = ({ onClic
         >
             <ChevronLeft className="w-7 h-7 md:w-6 md:h-6" style={{ color: CALENDAR.HEADER_ICON }} />
         </button>
-    );
-};
+    )
+}
 
-export default PrevButton;
+export default PrevButton

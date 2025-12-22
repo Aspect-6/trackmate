@@ -1,10 +1,10 @@
-import React from 'react';
-import { cn } from '@/app/lib/utils';
-import { DASHBOARD } from '@/app/styles/colors';
+import React from 'react'
+import { cn } from '@/app/lib/utils'
+import { DASHBOARD } from '@/app/styles/colors'
 
 interface AssignmentDetailsTitleProps {
-    status: string;
-    children: React.ReactNode;
+    status: string
+    children: React.ReactNode
 }
 
 const AssignmentDetailsTitle: React.FC<AssignmentDetailsTitleProps> = ({ status, children }) => {
@@ -18,7 +18,7 @@ const AssignmentDetailsTitle: React.FC<AssignmentDetailsTitleProps> = ({ status,
         >
             {children}
         </h3>
-    );
-};
+    )
+}
 
-export default AssignmentDetailsTitle;
+export default AssignmentDetailsTitle

@@ -1,10 +1,10 @@
-import React from 'react';
-import { Class } from '@/app/types';
-import { MY_CLASSES } from '@/app/styles/colors';
+import React from 'react'
+import { Class } from '@/app/types'
+import { MY_CLASSES } from '@/app/styles/colors'
 
 interface ClassSelectionItemProps {
-    classItem: Class;
-    onSelect: (classId: string) => void;
+    classItem: Class
+    onSelect: (classId: string) => void
 }
 
 export const ClassSelectionItem: React.FC<ClassSelectionItemProps> = ({ classItem, onSelect }) => {
@@ -18,12 +18,12 @@ export const ClassSelectionItem: React.FC<ClassSelectionItemProps> = ({ classIte
                 boxShadow: MY_CLASSES.SHADOW
             }}
             onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = MY_CLASSES.HOVER_BORDER;
-                e.currentTarget.style.backgroundColor = MY_CLASSES.CARD_HOVER_BG;
+                e.currentTarget.style.borderColor = MY_CLASSES.HOVER_BORDER
+                e.currentTarget.style.backgroundColor = MY_CLASSES.CARD_HOVER_BG
             }}
             onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = MY_CLASSES.BORDER;
-                e.currentTarget.style.backgroundColor = MY_CLASSES.CLASS_CARD_BG;
+                e.currentTarget.style.borderColor = MY_CLASSES.BORDER
+                e.currentTarget.style.backgroundColor = MY_CLASSES.CLASS_CARD_BG
             }}
         >
             <div
@@ -37,5 +37,5 @@ export const ClassSelectionItem: React.FC<ClassSelectionItemProps> = ({ classIte
                 </div>
             </div>
         </button>
-    );
-};
+    )
+}

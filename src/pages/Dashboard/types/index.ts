@@ -40,43 +40,43 @@ export namespace AssignmentCard {
 
 export namespace TodaysClasses {
     export interface Props {
-        classIds: (string | null)[];
-        noSchool?: NoSchoolPeriod;
-        getClassById: (id: string) => Class | undefined;
-        openModal: (modalType: string, id?: string) => void;
-        isMobile?: boolean;
-        isCollapsed?: boolean;
-        onToggleCollapse?: () => void;
+        classIds: (string | null)[]
+        noSchool?: NoSchoolPeriod
+        getClassById: (id: string) => Class | undefined
+        openModal: (modalType: string, id?: string) => void
+        isMobile?: boolean
+        isCollapsed?: boolean
+        onToggleCollapse?: () => void
     }
     // ======================
 
     export interface HeaderProps {
-        isMobile?: boolean;
-        isCollapsed?: boolean;
-        onToggleCollapse?: () => void;
+        isMobile?: boolean
+        isCollapsed?: boolean
+        onToggleCollapse?: () => void
     }
     export namespace Body {
         export interface Props {
-            isMobile?: boolean;
-            isCollapsed?: boolean;
-            children: React.ReactNode;
+            isMobile?: boolean
+            isCollapsed?: boolean
+            children: React.ReactNode
         }
         // ======================
         export interface NoClassesScheduledProps { }
         export interface NoSchoolProps {
-            noSchool: NoSchoolPeriod;
+            noSchool: NoSchoolPeriod
         }
         export namespace ClassList {
             export interface Props {
-                classIds: (string | null)[];
-                getClassById: (id: string) => Class | undefined;
-                openModal: (modalType: string, id?: string) => void;
+                classIds: (string | null)[]
+                getClassById: (id: string) => Class | undefined
+                openModal: (modalType: string, id?: string) => void
             }
             // ======================
             export interface ClassItemProps {
-                classInfo: Class;
-                period: number;
-                openModal: (modalType: string, id?: string) => void;
+                classInfo: Class
+                period: number
+                openModal: (modalType: string, id?: string) => void
             }
         }
     }
@@ -84,36 +84,36 @@ export namespace TodaysClasses {
 
 export namespace TodaysEvents {
     export interface Props {
-        events: Event[];
-        onEventClick: (id: string) => void;
-        isMobile?: boolean;
-        isCollapsed?: boolean;
-        onToggleCollapse?: () => void;
+        events: Event[]
+        onEventClick: (id: string) => void
+        isMobile?: boolean
+        isCollapsed?: boolean
+        onToggleCollapse?: () => void
     }
     // ======================
 
     export interface HeaderProps {
-        isMobile?: boolean;
-        isCollapsed?: boolean;
-        onToggleCollapse?: () => void;
+        isMobile?: boolean
+        isCollapsed?: boolean
+        onToggleCollapse?: () => void
     }
     export namespace Body {
         export interface Props {
-            isMobile?: boolean;
-            isCollapsed?: boolean;
-            children: React.ReactNode;
+            isMobile?: boolean
+            isCollapsed?: boolean
+            children: React.ReactNode
         }
         // ======================
         export interface NoEventsScheduledProps {}
         export namespace EventList {
             export interface Props {
-                events: Event[];
-                onEventClick: (id: string) => void;
+                events: Event[]
+                onEventClick: (id: string) => void
             }
             // ======================
             export interface EventItemProps {
-                event: Event;
-                onClick: () => void;
+                event: Event
+                onClick: () => void
             }
         }
     }

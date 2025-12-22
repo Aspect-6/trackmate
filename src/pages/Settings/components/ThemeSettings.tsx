@@ -1,13 +1,13 @@
-import React from 'react';
-import { Sun, Moon } from 'lucide-react';
-import { ThemeSettingsProps } from '@/pages/Settings/types';
-import { SETTINGS } from '@/app/styles/colors';
+import React from 'react'
+import { Sun, Moon } from 'lucide-react'
+import { ThemeSettingsProps } from '@/pages/Settings/types'
+import { SETTINGS } from '@/app/styles/colors'
 
 const ThemeSettings: React.FC<ThemeSettingsProps> = ({ currentTheme, onChangeTheme }) => {
     const options: Array<{ key: 'light' | 'dark'; label: string; description: string; Icon: typeof Sun }> = [
         { key: 'light', label: 'Light Mode', description: 'Bright, paper-like interface', Icon: Sun },
         { key: 'dark', label: 'Dark Mode', description: 'Soft glow for relaxed eyes.', Icon: Moon },
-    ];
+    ]
 
     return (
         <div
@@ -25,7 +25,7 @@ const ThemeSettings: React.FC<ThemeSettingsProps> = ({ currentTheme, onChangeThe
 
             <div className="theme-toggle">
                 {options.map(({ key, label, description, Icon }) => {
-                    const active = currentTheme === key;
+                    const active = currentTheme === key
                     return (
                         <button
                             key={key}
@@ -41,11 +41,11 @@ const ThemeSettings: React.FC<ThemeSettingsProps> = ({ currentTheme, onChangeThe
                                 <div className="text-xs opacity-80">{description}</div>
                             </div>
                         </button>
-                    );
+                    )
                 })}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default ThemeSettings;
+export default ThemeSettings

@@ -1,35 +1,35 @@
-import React, { useState } from 'react';
-import type { AssignmentCard } from '@/pages/Dashboard/types';
-import { useApp } from '@/app/context/AppContext';
-import { DASHBOARD } from '@/app/styles/colors';
-import PriorityBadge from '@/app/components/PriorityBadge';
-import StatusButton from './StatusButton';
-import AssignmentDetails, { AssignmentDetailsBody, AssignmentDetailsClass, AssignmentDetailsDue, AssignmentDetailsTitle } from './AssignmentDetails';
-import AssignmentCardMobileFooter from './AssignmentCardMobileFooter';
+import React, { useState } from 'react'
+import type { AssignmentCard } from '@/pages/Dashboard/types'
+import { useApp } from '@/app/context/AppContext'
+import { DASHBOARD } from '@/app/styles/colors'
+import PriorityBadge from '@/app/components/PriorityBadge'
+import StatusButton from './StatusButton'
+import AssignmentDetails, { AssignmentDetailsBody, AssignmentDetailsClass, AssignmentDetailsDue, AssignmentDetailsTitle } from './AssignmentDetails'
+import AssignmentCardMobileFooter from './AssignmentCardMobileFooter'
 
 const AssignmentCard: React.FC<AssignmentCard.Props> = ({ assignment }) => {
-    const { getClassById, updateAssignment, openModal } = useApp();
-    const classInfo = getClassById(assignment.classId)!;
-    const [isCompleting, setIsCompleting] = useState(false);
+    const { getClassById, updateAssignment, openModal } = useApp()
+    const classInfo = getClassById(assignment.classId)!
+    const [isCompleting, setIsCompleting] = useState(false)
 
     const handleStatusUpdate = (e: React.MouseEvent) => {
-        e.stopPropagation();
+        e.stopPropagation()
 
         switch (assignment.status) {
             case 'To Do':
-                updateAssignment(assignment.id, { status: 'In Progress' });
-                break;
+                updateAssignment(assignment.id, { status: 'In Progress' })
+                break
             case 'In Progress':
-                setIsCompleting(true);
+                setIsCompleting(true)
                 setTimeout(() => {
-                    updateAssignment(assignment.id, { status: 'Done' });
-                }, 600);
-                break;
+                    updateAssignment(assignment.id, { status: 'Done' })
+                }, 600)
+                break
             default:
-                updateAssignment(assignment.id, { status: 'To Do' });
-                break;
+                updateAssignment(assignment.id, { status: 'To Do' })
+                break
         }
-    };
+    }
 
     return (
         <div
@@ -65,7 +65,7 @@ const AssignmentCard: React.FC<AssignmentCard.Props> = ({ assignment }) => {
 
             <AssignmentCardMobileFooter assignment={assignment} />
         </div>
-    );
-};
+    )
+}
 
-export default AssignmentCard;
+export default AssignmentCard

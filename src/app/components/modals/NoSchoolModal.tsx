@@ -1,43 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { useApp } from '@/app/context/AppContext';
-import { todayString } from '@/app/lib/utils';
-import { NoSchoolPeriod } from '@/app/types';
-import { MODALS } from '@/app/styles/colors';
+import React, { useEffect, useState } from 'react'
+import { useApp } from '@/app/context/AppContext'
+import { todayString } from '@/app/lib/utils'
+import { NoSchoolPeriod } from '@/app/types'
+import { MODALS } from '@/app/styles/colors'
 
 interface ModalProps {
-    onClose: () => void;
+    onClose: () => void
 }
 
 interface NoSchoolModalProps extends ModalProps {
-    noSchoolId: string;
+    noSchoolId: string
 }
 
 export const AddNoSchoolModal: React.FC<ModalProps> = ({ onClose }) => {
-    const { addNoSchool } = useApp();
+    const { addNoSchool } = useApp()
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+        e.preventDefault()
+        const form = e.currentTarget
+        const formData = new FormData(form)
 
-        let startDate = formData.get('startDate') as string;
+        let startDate = formData.get('startDate') as string
         if (!startDate || isNaN(new Date(startDate).getTime())) {
-            startDate = todayString();
+            startDate = todayString()
         }
 
-        let endDate = formData.get('endDate') as string;
+        let endDate = formData.get('endDate') as string
         if (!endDate || isNaN(new Date(endDate).getTime())) {
-            endDate = todayString();
+            endDate = todayString()
         }
 
         const newNoSchool = {
             name: formData.get('name') as string,
             startDate: startDate,
             endDate: endDate
-        };
-        addNoSchool(newNoSchool);
-        onClose();
-    };
+        }
+        addNoSchool(newNoSchool)
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -95,34 +95,34 @@ export const AddNoSchoolModal: React.FC<ModalProps> = ({ onClose }) => {
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 
 export const EditNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSchoolId }) => {
-    const { noSchool, updateNoSchool, openModal } = useApp();
-    const [formData, setFormData] = useState<NoSchoolPeriod | null>(null);
+    const { noSchool, updateNoSchool, openModal } = useApp()
+    const [formData, setFormData] = useState<NoSchoolPeriod | null>(null)
 
     useEffect(() => {
-        const period = noSchool.find(ns => ns.id === noSchoolId);
-        if (period) setFormData(period);
-    }, [noSchoolId, noSchool]);
+        const period = noSchool.find(ns => ns.id === noSchoolId)
+        if (period) setFormData(period)
+    }, [noSchoolId, noSchool])
 
-    if (!formData) return null;
+    if (!formData) return null
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        const safeData = { ...formData };
+        const safeData = { ...formData }
         if (!safeData.startDate || isNaN(new Date(safeData.startDate).getTime())) {
-            safeData.startDate = todayString();
+            safeData.startDate = todayString()
         }
         if (!safeData.endDate || isNaN(new Date(safeData.endDate).getTime())) {
-            safeData.endDate = todayString();
+            safeData.endDate = todayString()
         }
 
-        updateNoSchool(noSchoolId, safeData);
-        onClose();
-    };
+        updateNoSchool(noSchoolId, safeData)
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -166,7 +166,7 @@ export const EditNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSch
                 <div className="flex justify-between mt-6">
                     <button
                         type="button"
-                        onClick={() => { onClose(); openModal('delete-no-school', noSchoolId); }}
+                        onClick={() => { onClose(); openModal('delete-no-school', noSchoolId) }}
                         className="modal-btn modal-btn-inline"
                         style={{
                             '--modal-btn-bg': MODALS.BASE.DELETE_BG,
@@ -205,19 +205,19 @@ export const EditNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSch
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 
 export const DeleteNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSchoolId }) => {
-    const { noSchool, deleteNoSchool } = useApp();
-    const periodToDelete = noSchool.find(ns => ns.id === noSchoolId);
+    const { noSchool, deleteNoSchool } = useApp()
+    const periodToDelete = noSchool.find(ns => ns.id === noSchoolId)
 
-    if (!periodToDelete) return null;
+    if (!periodToDelete) return null
 
     const handleDelete = () => {
-        deleteNoSchool(noSchoolId);
-        onClose();
-    };
+        deleteNoSchool(noSchoolId)
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -251,5 +251,5 @@ export const DeleteNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noS
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}

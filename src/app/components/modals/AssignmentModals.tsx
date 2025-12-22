@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { DEFAULT_ASSIGNMENT_TYPES, useApp } from '@/app/context/AppContext';
-import { useToast } from '@/app/context/ToastContext';
-import { todayString } from '@/app/lib/utils';
-import { Assignment, AssignmentType, Priority, Status } from '@/app/types';
-import { MODALS } from '@/app/styles/colors';
+import React, { useEffect, useState } from 'react'
+import { DEFAULT_ASSIGNMENT_TYPES, useApp } from '@/app/context/AppContext'
+import { useToast } from '@/app/context/ToastContext'
+import { todayString } from '@/app/lib/utils'
+import { Assignment, AssignmentType, Priority, Status } from '@/app/types'
+import { MODALS } from '@/app/styles/colors'
 
 interface ModalProps {
-    onClose: () => void;
+    onClose: () => void
 }
 
 interface EditModalProps extends ModalProps {
-    assignmentId: string;
+    assignmentId: string
 }
 
 export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
-    const { classes, addAssignment, assignmentTypes } = useApp();
-    const { showToast } = useToast();
-    const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details');
+    const { classes, addAssignment, assignmentTypes } = useApp()
+    const { showToast } = useToast()
+    const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details')
     const [formData, setFormData] = useState<{
-        title: string;
-        classId: string;
-        description: string;
-        dueDate: string;
-        dueTime: string;
-        priority: Priority;
-        status: Status;
-        type: AssignmentType;
+        title: string
+        classId: string
+        description: string
+        dueDate: string
+        dueTime: string
+        priority: Priority
+        status: Status
+        type: AssignmentType
     }>({
         title: '',
         classId: '',
@@ -35,72 +35,72 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
         priority: 'Low',
         status: 'To Do',
         type: ''
-    });
+    })
 
-    const currentTypes = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES;
+    const currentTypes = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES
 
     useEffect(() => {
         if (classes.length > 0 && !formData.classId) {
-            const firstClassId = classes[0]?.id || '';
+            const firstClassId = classes[0]?.id || ''
             if (firstClassId) {
-                setFormData(prev => ({ ...prev, classId: prev.classId || firstClassId }));
+                setFormData(prev => ({ ...prev, classId: prev.classId || firstClassId }))
             }
         }
-    }, [classes, formData.classId]);
+    }, [classes, formData.classId])
 
     useEffect(() => {
-        const types = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES;
-        const fallbackType = types[0] ?? '';
+        const types = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES
+        const fallbackType = types[0] ?? ''
         if (!formData.type && types.length) {
-            setFormData(prev => ({ ...prev, type: fallbackType }));
+            setFormData(prev => ({ ...prev, type: fallbackType }))
         } else if (formData.type && !types.includes(formData.type)) {
-            setFormData(prev => ({ ...prev, type: fallbackType }));
+            setFormData(prev => ({ ...prev, type: fallbackType }))
         }
-    }, [assignmentTypes, formData.type]);
+    }, [assignmentTypes, formData.type])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        const validPriorities: Priority[] = ['High', 'Medium', 'Low'];
-        const validStatuses: Status[] = ['To Do', 'In Progress', 'Done'];
-        const validTypes: AssignmentType[] = currentTypes.length ? currentTypes : DEFAULT_ASSIGNMENT_TYPES;
+        const validPriorities: Priority[] = ['High', 'Medium', 'Low']
+        const validStatuses: Status[] = ['To Do', 'In Progress', 'Done']
+        const validTypes: AssignmentType[] = currentTypes.length ? currentTypes : DEFAULT_ASSIGNMENT_TYPES
 
-        const safeData = { ...formData };
+        const safeData = { ...formData }
 
         if (!safeData.title.trim()) {
-            showToast('Please enter a title.', 'error');
-            return;
+            showToast('Please enter a title.', 'error')
+            return
         }
 
         if (!safeData.classId && classes.length > 0) {
-            safeData.classId = classes[0]?.id || '';
+            safeData.classId = classes[0]?.id || ''
         }
 
         if (!validPriorities.includes(safeData.priority)) {
-            safeData.priority = 'Low';
+            safeData.priority = 'Low'
         }
 
         if (!validStatuses.includes(safeData.status)) {
-            safeData.status = 'To Do';
+            safeData.status = 'To Do'
         }
 
         if (!safeData.dueDate || isNaN(new Date(safeData.dueDate).getTime())) {
-            safeData.dueDate = todayString();
+            safeData.dueDate = todayString()
         }
 
         if (!safeData.dueTime || typeof safeData.dueTime !== 'string') {
-            safeData.dueTime = '23:59';
+            safeData.dueTime = '23:59'
         }
 
-        const fallbackType = validTypes[0] ?? '';
+        const fallbackType = validTypes[0] ?? ''
         if (!safeData.type || !validTypes.includes(safeData.type as AssignmentType)) {
-            safeData.type = fallbackType;
+            safeData.type = fallbackType
         }
 
-        addAssignment(safeData);
-        showToast('Assignment added!', 'success');
-        onClose();
-    };
+        addAssignment(safeData)
+        showToast('Assignment added!', 'success')
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -267,74 +267,74 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 
 export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignmentId }) => {
-    const { classes, assignments, assignmentTypes, updateAssignment, openModal } = useApp();
-    const { showToast } = useToast();
-    const [formData, setFormData] = useState<Assignment | null>(null);
-    const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details');
+    const { classes, assignments, assignmentTypes, updateAssignment, openModal } = useApp()
+    const { showToast } = useToast()
+    const [formData, setFormData] = useState<Assignment | null>(null)
+    const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details')
 
-    const currentTypes = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES;
-
-    useEffect(() => {
-        const assignment = assignments.find(a => a.id === assignmentId);
-        if (assignment) setFormData(assignment);
-    }, [assignmentId, assignments]);
+    const currentTypes = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES
 
     useEffect(() => {
-        if (!formData) return;
-        const fallbackType = currentTypes[0] ?? '';
+        const assignment = assignments.find(a => a.id === assignmentId)
+        if (assignment) setFormData(assignment)
+    }, [assignmentId, assignments])
+
+    useEffect(() => {
+        if (!formData) return
+        const fallbackType = currentTypes[0] ?? ''
         if (!formData.type && currentTypes.length) {
-            setFormData(prev => prev ? { ...prev, type: fallbackType } : prev);
+            setFormData(prev => prev ? { ...prev, type: fallbackType } : prev)
         } else if (formData.type && !currentTypes.includes(formData.type)) {
-            setFormData(prev => prev ? { ...prev, type: fallbackType } : prev);
+            setFormData(prev => prev ? { ...prev, type: fallbackType } : prev)
         }
-    }, [assignmentTypes, currentTypes, formData]);
+    }, [assignmentTypes, currentTypes, formData])
 
-    if (!formData) return null;
+    if (!formData) return null
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        e.preventDefault()
 
         // Validate data before updating
-        const validPriorities: Priority[] = ['High', 'Medium', 'Low'];
-        const validStatuses: Status[] = ['To Do', 'In Progress', 'Done'];
-        const validTypes: AssignmentType[] = currentTypes.length ? currentTypes : DEFAULT_ASSIGNMENT_TYPES;
+        const validPriorities: Priority[] = ['High', 'Medium', 'Low']
+        const validStatuses: Status[] = ['To Do', 'In Progress', 'Done']
+        const validTypes: AssignmentType[] = currentTypes.length ? currentTypes : DEFAULT_ASSIGNMENT_TYPES
 
-        const safeData = { ...formData };
+        const safeData = { ...formData }
 
         if (!validPriorities.includes(safeData.priority)) {
-            safeData.priority = 'Low';
+            safeData.priority = 'Low'
         }
 
         if (!validStatuses.includes(safeData.status)) {
-            safeData.status = 'To Do';
+            safeData.status = 'To Do'
         }
 
         if (!safeData.dueDate || isNaN(new Date(safeData.dueDate).getTime())) {
-            safeData.dueDate = todayString();
+            safeData.dueDate = todayString()
         }
 
         if (!safeData.dueTime || typeof safeData.dueTime !== 'string') {
-            safeData.dueTime = '23:59';
+            safeData.dueTime = '23:59'
         }
 
-        const fallbackType = validTypes[0] ?? '';
+        const fallbackType = validTypes[0] ?? ''
         if (!safeData.type || !validTypes.includes(safeData.type as AssignmentType)) {
-            safeData.type = fallbackType;
+            safeData.type = fallbackType
         }
 
         if (!safeData.title.trim()) {
-            showToast('Please enter a title.', 'error');
-            return;
+            showToast('Please enter a title.', 'error')
+            return
         }
 
-        updateAssignment(assignmentId, safeData);
-        showToast('Assignment updated.', 'success');
-        onClose();
-    };
+        updateAssignment(assignmentId, safeData)
+        showToast('Assignment updated.', 'success')
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -468,7 +468,7 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
                 <div className="flex justify-between mt-6">
                     <button
                         type="button"
-                        onClick={() => { onClose(); openModal('delete-assignment', assignmentId); }}
+                        onClick={() => { onClose(); openModal('delete-assignment', assignmentId) }}
                         className="modal-btn modal-btn-inline"
                         style={{
                             '--modal-btn-bg': MODALS.BASE.DELETE_BG,
@@ -507,18 +507,18 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 export const DeleteAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignmentId }) => {
-    const { assignments, deleteAssignment } = useApp();
-    const assignmentToDelete = assignments.find(a => a.id === assignmentId);
+    const { assignments, deleteAssignment } = useApp()
+    const assignmentToDelete = assignments.find(a => a.id === assignmentId)
 
-    if (!assignmentToDelete) return null;
+    if (!assignmentToDelete) return null
 
     const handleDelete = () => {
-        deleteAssignment(assignmentId);
-        onClose();
-    };
+        deleteAssignment(assignmentId)
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -552,5 +552,5 @@ export const DeleteAssignmentModal: React.FC<EditModalProps> = ({ onClose, assig
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}

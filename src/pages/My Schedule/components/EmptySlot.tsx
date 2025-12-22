@@ -1,5 +1,5 @@
-import React from 'react';
-import { EmptySlotProps } from '@/pages/My Schedule/types';
+import React from 'react'
+import { EmptySlotProps } from '@/pages/My Schedule/types'
 
 
 const EmptySlot: React.FC<EmptySlotProps> = ({ onClick }) => {
@@ -15,7 +15,7 @@ const EmptySlot: React.FC<EmptySlotProps> = ({ onClick }) => {
                 </h4>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default EmptySlot;
+export default EmptySlot

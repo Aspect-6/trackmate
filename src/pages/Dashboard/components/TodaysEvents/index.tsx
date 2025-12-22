@@ -1,8 +1,8 @@
-import React from 'react';
-import type { TodaysEvents } from '@/pages/Dashboard/types';
-import { DASHBOARD } from '@/app/styles/colors';
-import TodaysEventsHeader from './TodaysEventsHeader';
-import TodaysEventsBody, { EventList, NoEventsScheduled } from './Body';
+import React from 'react'
+import type { TodaysEvents } from '@/pages/Dashboard/types'
+import { DASHBOARD } from '@/app/styles/colors'
+import TodaysEventsHeader from './TodaysEventsHeader'
+import TodaysEventsBody, { EventList, NoEventsScheduled } from './Body'
 
 const TodaysEvents: React.FC<TodaysEvents.Props> = ({
     events,
@@ -11,7 +11,7 @@ const TodaysEvents: React.FC<TodaysEvents.Props> = ({
     isCollapsed,
     onToggleCollapse
 }) => {
-    const hasEvents = events.length > 0;
+    const hasEvents = events.length > 0
 
     return (
         <div
@@ -40,7 +40,7 @@ const TodaysEvents: React.FC<TodaysEvents.Props> = ({
                 )}
             </TodaysEventsBody>
         </div>
-    );
-};
+    )
+}
 
-export default TodaysEvents;
+export default TodaysEvents

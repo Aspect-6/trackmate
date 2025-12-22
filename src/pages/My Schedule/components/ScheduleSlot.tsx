@@ -1,8 +1,8 @@
-import React from 'react';
-import { ScheduleSlotProps } from '@/pages/My Schedule/types';
-import FilledSlot from '@/pages/My Schedule/components/FilledSlot';
-import EmptySlot from '@/pages/My Schedule/components/EmptySlot';
-import { MY_SCHEDULE } from '@/app/styles/colors';
+import React from 'react'
+import { ScheduleSlotProps } from '@/pages/My Schedule/types'
+import FilledSlot from '@/pages/My Schedule/components/FilledSlot'
+import EmptySlot from '@/pages/My Schedule/components/EmptySlot'
+import { MY_SCHEDULE } from '@/app/styles/colors'
 
 const ScheduleSlot: React.FC<ScheduleSlotProps> = ({
     dayType,
@@ -12,7 +12,7 @@ const ScheduleSlot: React.FC<ScheduleSlotProps> = ({
     onRemove,
     onSelect
 }) => {
-    const classInfo = classId ? getClassById(classId) : null;
+    const classInfo = classId ? getClassById(classId) : null
 
     return (
         <div className="mb-4">
@@ -28,7 +28,7 @@ const ScheduleSlot: React.FC<ScheduleSlotProps> = ({
                 />
             )}
         </div>
-    );
-};
+    )
+}
 
-export default ScheduleSlot;
+export default ScheduleSlot

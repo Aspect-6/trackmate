@@ -3,56 +3,56 @@
 /**
  * Represents the priority level of an assignment.
  */
-export type Priority = 'High' | 'Medium' | 'Low';
+export type Priority = 'High' | 'Medium' | 'Low'
 
 /**
  * Represents the current status of an assignment.
  */
-export type Status = 'To Do' | 'In Progress' | 'Done';
+export type Status = 'To Do' | 'In Progress' | 'Done'
 
 /**
  * Represents the category/type of an assignment. User-configurable string label.
  */
-export type AssignmentType = string;
+export type AssignmentType = string
 
 /**
  * Represents the type of school day in the schedule rotation.
  * 'A' and 'B' are alternating block schedule days.
  * null represents a day with no specific schedule type (e.g. weekend or break).
  */
-export type DayType = 'A' | 'B' | null;
+export type DayType = 'A' | 'B' | null
 
 /**
  * UI theme preference applied to the root element.
  */
-export type ThemeMode = 'light' | 'dark';
+export type ThemeMode = 'light' | 'dark'
 
 /**
  * Represents a single school assignment.
  */
 export interface Assignment {
     /** Unique identifier for the assignment */
-    id: string;
+    id: string
     /** The title or name of the assignment */
-    title: string;
+    title: string
     /** The due date in ISO format (YYYY-MM-DD) */
-    dueDate: string;
+    dueDate: string
     /** The due time in 24-hour format (HH:MM) */
-    dueTime: string;
+    dueTime: string
     /** The priority level of the assignment */
-    priority: Priority;
+    priority: Priority
     /** The current completion status */
-    status: Status;
+    status: Status
     /** The ID of the class this assignment belongs to */
-    classId: string;
+    classId: string
     /** The assignment category/type */
-    type: AssignmentType;
+    type: AssignmentType
     /** Optional subject tag (often redundant with classId but useful for display) */
-    subject?: string;
+    subject?: string
     /** Timestamp of when the assignment was created */
-    createdAt: string;
+    createdAt: string
     /** Optional detailed description or notes */
-    description?: string;
+    description?: string
 }
 
 /**
@@ -60,15 +60,15 @@ export interface Assignment {
  */
 export interface Class {
     /** Unique identifier for the class */
-    id: string;
+    id: string
     /** The name of the class (e.g., "AP Calculus") */
-    name: string;
+    name: string
     /** The color code (hex) associated with this class for UI styling */
-    color: string;
+    color: string
     /** The name of the teacher for this class */
-    teacherName: string;
+    teacherName: string
     /** The room number where the class meets */
-    roomNumber: string;
+    roomNumber: string
 }
 
 /**
@@ -76,21 +76,21 @@ export interface Class {
  */
 export interface Event {
     /** Unique identifier for the event */
-    id: string;
+    id: string
     /** The title of the event */
-    title: string;
+    title: string
     /** The date of the event in ISO format (YYYY-MM-DD) */
-    date: string;
+    date: string
     /** Start time in 24-hour format (HH:MM), or null for all-day */
-    startTime: string | null;
+    startTime: string | null
     /** End time in 24-hour format (HH:MM), or null if not applicable */
-    endTime: string | null;
+    endTime: string | null
     /** Color code (hex) for the event in the calendar */
-    color: string;
+    color: string
     /** Timestamp of when the event was created */
-    createdAt: string;
+    createdAt: string
     /** Optional description or location details */
-    description?: string;
+    description?: string
 }
 
 /**
@@ -98,15 +98,15 @@ export interface Event {
  */
 export interface NoSchoolPeriod {
     /** Unique identifier for the no-school period */
-    id: string;
+    id: string
     /** The start date of the break in ISO format (YYYY-MM-DD) */
-    startDate: string;
+    startDate: string
     /** The end date of the break in ISO format (YYYY-MM-DD) */
-    endDate: string;
+    endDate: string
     /** The name or reason for the break (e.g., "Winter Break") */
-    name: string;
+    name: string
     /** Timestamp of when this period was added */
-    createdAt: string;
+    createdAt: string
 }
 
 /**
@@ -114,13 +114,13 @@ export interface NoSchoolPeriod {
  */
 export interface Schedule {
     /** Array of class IDs representing the schedule for A-Days (indices correspond to periods) */
-    aDay: (string | null)[];
+    aDay: (string | null)[]
     /** Array of class IDs representing the schedule for B-Days (indices correspond to periods) */
-    bDay: (string | null)[];
+    bDay: (string | null)[]
     /** A reference date used to calculate the A/B rotation for any given date */
-    referenceDate: string;
+    referenceDate: string
     /** The day type ('A' or 'B') of the reference date */
-    referenceType: 'A' | 'B';
+    referenceType: 'A' | 'B'
 }
 
 // Context types
@@ -131,104 +131,104 @@ export interface Schedule {
 export interface AppContextType {
     // State
     /** List of all tracked assignments */
-    assignments: Assignment[];
+    assignments: Assignment[]
     /** List of all user classes */
-    classes: Class[];
+    classes: Class[]
     /** List of all calendar events */
-    events: Event[];
+    events: Event[]
     /** List of no-school periods */
-    noSchool: NoSchoolPeriod[];
+    noSchool: NoSchoolPeriod[]
     /** Current schedule configuration */
-    schedule: Schedule;
+    schedule: Schedule
     /** Currently selected UI theme */
-    theme: ThemeMode;
+    theme: ThemeMode
     /** Updates the active theme */
-    setTheme: (mode: ThemeMode) => void;
+    setTheme: (mode: ThemeMode) => void
     /** Ordered list of assignment types used across the app */
-    assignmentTypes: AssignmentType[];
+    assignmentTypes: AssignmentType[]
     /** Add a new assignment type (case-insensitive uniqueness) */
-    addAssignmentType: (type: AssignmentType) => boolean;
+    addAssignmentType: (type: AssignmentType) => boolean
     /** Remove an existing assignment type */
-    removeAssignmentType: (type: AssignmentType) => void;
+    removeAssignmentType: (type: AssignmentType) => void
     /** Reorder the assignment types list */
-    reorderAssignmentTypes: (types: AssignmentType[]) => void;
+    reorderAssignmentTypes: (types: AssignmentType[]) => void
 
     // Assignment actions
     /** Adds a new assignment to the state */
-    addAssignment: (assignment: Omit<Assignment, 'id' | 'createdAt'>) => void;
+    addAssignment: (assignment: Omit<Assignment, 'id' | 'createdAt'>) => void
     /** Updates an existing assignment */
-    updateAssignment: (id: string, updates: Partial<Assignment>) => void;
+    updateAssignment: (id: string, updates: Partial<Assignment>) => void
     /** Removes an assignment by ID */
-    deleteAssignment: (id: string) => void;
+    deleteAssignment: (id: string) => void
 
     // Class actions
     /** Adds a new class. Returns true if successful. */
-    addClass: (newClass: Omit<Class, 'id'>) => boolean;
+    addClass: (newClass: Omit<Class, 'id'>) => boolean
     /** Updates an existing class */
-    updateClass: (id: string, updates: Partial<Class>) => void;
+    updateClass: (id: string, updates: Partial<Class>) => void
     /** Removes a class by ID */
-    deleteClass: (id: string) => void;
+    deleteClass: (id: string) => void
     /** Reorders the list of classes (for UI display order) */
-    reorderClasses: (newOrder: Class[]) => void;
+    reorderClasses: (newOrder: Class[]) => void
 
     // Event actions
     /** Adds a new calendar event */
-    addEvent: (event: Omit<Event, 'id' | 'createdAt'>) => void;
+    addEvent: (event: Omit<Event, 'id' | 'createdAt'>) => void
     /** Updates an existing event */
-    updateEvent: (id: string, updates: Partial<Event>) => void;
+    updateEvent: (id: string, updates: Partial<Event>) => void
     /** Removes an event by ID */
-    deleteEvent: (id: string) => void;
+    deleteEvent: (id: string) => void
 
     // No school actions
     /** Adds a new no-school period */
-    addNoSchool: (period: Omit<NoSchoolPeriod, 'id' | 'createdAt'>) => void;
+    addNoSchool: (period: Omit<NoSchoolPeriod, 'id' | 'createdAt'>) => void
     /** Updates an existing no-school period */
-    updateNoSchool: (id: string, updates: Partial<NoSchoolPeriod>) => void;
+    updateNoSchool: (id: string, updates: Partial<NoSchoolPeriod>) => void
     /** Removes a no-school period by ID */
-    deleteNoSchool: (id: string) => void;
+    deleteNoSchool: (id: string) => void
 
     // Schedule actions
     /** Updates a specific period in the A or B day schedule */
-    updateSchedule: (dayType: 'A' | 'B', index: number, classId: string | null) => void;
+    updateSchedule: (dayType: 'A' | 'B', index: number, classId: string | null) => void
     /** Manually sets the day type for the current reference date to correct rotation */
-    setReferenceDayType: (type: 'A' | 'B') => void;
+    setReferenceDayType: (type: 'A' | 'B') => void
 
     // Utility actions
     /** Clears all application data (Danger Zone) */
-    clearAllData: () => void;
+    clearAllData: () => void
     /** Clears all assignments */
-    clearAllAssignments: () => void;
+    clearAllAssignments: () => void
     /** Clears all events */
-    clearAllEvents: () => void;
+    clearAllEvents: () => void
 
     // Helper functions
     /** Calculates the day type (A, B, or null) for a specific date */
-    getDayTypeForDate: (dateString: string) => DayType;
+    getDayTypeForDate: (dateString: string) => DayType
     /** Returns the list of class IDs scheduled for a specific date */
-    getClassesForDate: (dateString: string) => (string | null)[];
+    getClassesForDate: (dateString: string) => (string | null)[]
     /** Retrieves a class object by its ID */
-    getClassById: (id: string) => Class;
+    getClassById: (id: string) => Class
 
     // Modal state
     /** The name of the currently active modal, or null if none */
-    activeModal: string | null;
+    activeModal: string | null
     /** Data passed to the active modal */
-    modalData: any;
+    modalData: any
     /** Opens a modal by name with optional data */
-    openModal: (modalName: string, data?: any) => void;
+    openModal: (modalName: string, data?: any) => void
     /** Closes the currently active modal */
-    closeModal: () => void;
+    closeModal: () => void
 }
 
 /**
  * Types of toast notifications available.
  */
-export type ToastType = 'success' | 'error' | 'info';
+export type ToastType = 'success' | 'error' | 'info'
 
 /**
  * Context interface for managing toast notifications.
  */
 export interface ToastContextType {
     /** Displays a toast message with a specific type */
-    showToast: (message: string, type?: ToastType) => void;
+    showToast: (message: string, type?: ToastType) => void
 }

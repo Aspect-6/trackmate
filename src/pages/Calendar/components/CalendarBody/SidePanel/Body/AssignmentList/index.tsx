@@ -1,7 +1,7 @@
-import React from 'react';
-import type { CalendarBody } from '@/pages/Calendar/types';
-import AssignmentItem from './AssignmentItem';
-import { CALENDAR } from '@/app/styles/colors';
+import React from 'react'
+import type { CalendarBody } from '@/pages/Calendar/types'
+import AssignmentItem from './AssignmentItem'
+import { CALENDAR } from '@/app/styles/colors'
 
 const AssignmentList: React.FC<CalendarBody.SidePanel.Body.AssignmentList.Props> = ({ assignments, getClassById, onAssignmentClick }) => {
     return (
@@ -22,7 +22,7 @@ const AssignmentList: React.FC<CalendarBody.SidePanel.Body.AssignmentList.Props>
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default AssignmentList;
+export default AssignmentList

@@ -1,6 +1,6 @@
-import React from 'react';
-import { ScheduleSettingsProps } from '@/pages/Settings/types';
-import { GLOBAL, SETTINGS } from '@/app/styles/colors';
+import React from 'react'
+import { ScheduleSettingsProps } from '@/pages/Settings/types'
+import { GLOBAL, SETTINGS } from '@/app/styles/colors'
 
 const ScheduleSettings: React.FC<ScheduleSettingsProps> = ({ currentDayType, onSetDayType }) => {
     return (
@@ -45,7 +45,7 @@ const ScheduleSettings: React.FC<ScheduleSettingsProps> = ({ currentDayType, onS
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default ScheduleSettings;
+export default ScheduleSettings

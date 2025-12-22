@@ -8,7 +8,7 @@
 | ----------------- | -------- |
 | Calendar          | Done     |
 | Dashboard         | Done     |
-| My Assignments    | Current  |
-| My Classes        | To-Do    |
-| My Schedule       | To-Do    |
+| My Assignments    | Done     |
+| My Classes        | Done     |
+| My Schedule       | Current  |
 | Settings          | To-Do    |

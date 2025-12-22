@@ -1,30 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
-import type { TodaysEvents } from '@/pages/Dashboard/types';
+import React, { useEffect, useRef, useState } from 'react'
+import type { TodaysEvents } from '@/pages/Dashboard/types'
 
 const TodaysEventsBody: React.FC<TodaysEvents.Body.Props> = ({ isMobile, isCollapsed, children }) => {
-    const contentRef = useRef<HTMLDivElement>(null);
-    const [contentHeight, setContentHeight] = useState<number>(0);
+    const contentRef = useRef<HTMLDivElement>(null)
+    const [contentHeight, setContentHeight] = useState<number>(0)
 
     useEffect(() => {
-        if (!isMobile) return;
+        if (!isMobile) return
 
         const computeHeight = () => {
             if (contentRef.current) {
-                setContentHeight(contentRef.current.scrollHeight);
+                setContentHeight(contentRef.current.scrollHeight)
             }
-        };
-
-        computeHeight();
-
-        if (typeof ResizeObserver !== 'undefined') {
-            const observer = new ResizeObserver(() => computeHeight());
-            if (contentRef.current) observer.observe(contentRef.current);
-            return () => observer.disconnect();
         }
 
-        window.addEventListener('resize', computeHeight);
-        return () => window.removeEventListener('resize', computeHeight);
-    }, [isMobile, children]);
+        computeHeight()
+
+        if (typeof ResizeObserver !== 'undefined') {
+            const observer = new ResizeObserver(() => computeHeight())
+            if (contentRef.current) observer.observe(contentRef.current)
+            return () => observer.disconnect()
+        }
+
+        window.addEventListener('resize', computeHeight)
+        return () => window.removeEventListener('resize', computeHeight)
+    }, [isMobile, children])
 
     return (
         <div
@@ -38,10 +38,10 @@ const TodaysEventsBody: React.FC<TodaysEvents.Body.Props> = ({ isMobile, isColla
                 {children}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default TodaysEventsBody;
+export default TodaysEventsBody
 
-export { default as EventList } from './EventList';
-export { default as NoEventsScheduled } from './NoEventsScheduled';
+export { default as EventList } from './EventList'
+export { default as NoEventsScheduled } from './NoEventsScheduled'

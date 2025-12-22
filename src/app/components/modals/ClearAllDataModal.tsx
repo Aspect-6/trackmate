@@ -1,17 +1,17 @@
-import React from 'react';
-import { useApp } from '@/app/context/AppContext';
-import { MODALS } from '@/app/styles/colors';
+import React from 'react'
+import { useApp } from '@/app/context/AppContext'
+import { MODALS } from '@/app/styles/colors'
 
 interface ModalProps {
-    onClose: () => void;
+    onClose: () => void
 }
 
 export const ClearAllDataModal: React.FC<ModalProps> = ({ onClose }) => {
-    const { clearAllData } = useApp();
+    const { clearAllData } = useApp()
 
     const handleDelete = () => {
-        clearAllData();
-    };
+        clearAllData()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -48,15 +48,15 @@ export const ClearAllDataModal: React.FC<ModalProps> = ({ onClose }) => {
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export const ClearAllAssignmentsModal: React.FC<ModalProps> = ({ onClose }) => {
-    const { clearAllAssignments } = useApp();
+    const { clearAllAssignments } = useApp()
 
     const handleDelete = () => {
-        clearAllAssignments();
-    };
+        clearAllAssignments()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -92,15 +92,15 @@ export const ClearAllAssignmentsModal: React.FC<ModalProps> = ({ onClose }) => {
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export const ClearAllEventsModal: React.FC<ModalProps> = ({ onClose }) => {
-    const { clearAllEvents } = useApp();
+    const { clearAllEvents } = useApp()
 
     const handleDelete = () => {
-        clearAllEvents();
-    };
+        clearAllEvents()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -136,5 +136,5 @@ export const ClearAllEventsModal: React.FC<ModalProps> = ({ onClose }) => {
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}

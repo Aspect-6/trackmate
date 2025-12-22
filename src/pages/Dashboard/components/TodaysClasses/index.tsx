@@ -1,8 +1,8 @@
-import React from 'react';
-import type { TodaysClasses } from '@/pages/Dashboard/types';
-import { DASHBOARD } from '@/app/styles/colors';
-import TodaysClassesHeader from './TodaysClassesHeader';
-import TodaysClassesBody, { ClassList, NoClassesScheduled, NoSchool } from './Body';
+import React from 'react'
+import type { TodaysClasses } from '@/pages/Dashboard/types'
+import { DASHBOARD } from '@/app/styles/colors'
+import TodaysClassesHeader from './TodaysClassesHeader'
+import TodaysClassesBody, { ClassList, NoClassesScheduled, NoSchool } from './Body'
 
 const TodaysClasses: React.FC<TodaysClasses.Props> = ({
     classIds,
@@ -13,8 +13,8 @@ const TodaysClasses: React.FC<TodaysClasses.Props> = ({
     isCollapsed,
     onToggleCollapse
 }) => {
-    const hasClasses = classIds.length > 0 && classIds.some(id => id !== null);
-    const showEmptyState = noSchool || !hasClasses;
+    const hasClasses = classIds.length > 0 && classIds.some(id => id !== null)
+    const showEmptyState = noSchool || !hasClasses
 
     return (
         <div
@@ -48,7 +48,7 @@ const TodaysClasses: React.FC<TodaysClasses.Props> = ({
                 )}
             </TodaysClassesBody>
         </div>
-    );
-};
+    )
+}
 
-export default TodaysClasses;
+export default TodaysClasses

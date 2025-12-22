@@ -1,20 +1,20 @@
-import React from 'react';
-import { useApp } from '@/app/context/AppContext';
-import { DayType } from '@/app/types';
-import { MY_SCHEDULE } from '@/app/styles/colors';
-import DaySchedule from '@/pages/My Schedule/components/DaySchedule';
-import './index.css';
+import React from 'react'
+import { useApp } from '@/app/context/AppContext'
+import { DayType } from '@/app/types'
+import { MY_SCHEDULE } from '@/app/styles/colors'
+import DaySchedule from '@/pages/My Schedule/components/DaySchedule'
+import './index.css'
 
 const Schedule: React.FC = () => {
-    const { schedule, getClassById, openModal, updateSchedule } = useApp();
+    const { schedule, getClassById, openModal, updateSchedule } = useApp()
 
     const handleRemove = (dayType: NonNullable<DayType>, index: number) => {
-        updateSchedule(dayType, index, null);
-    };
+        updateSchedule(dayType, index, null)
+    }
 
     const handleSelect = (dayType: NonNullable<DayType>, index: number) => {
-        openModal('schedule-class-selector', { dayType, index });
-    };
+        openModal('schedule-class-selector', { dayType, index })
+    }
 
     return (
         <div
@@ -44,7 +44,7 @@ const Schedule: React.FC = () => {
                 />
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Schedule;
+export default Schedule

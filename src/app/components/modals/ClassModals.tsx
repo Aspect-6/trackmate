@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { useApp } from '@/app/context/AppContext';
-import { Class } from '@/app/types';
-import { MODALS } from '@/app/styles/colors';
+import React, { useEffect, useState } from 'react'
+import { useApp } from '@/app/context/AppContext'
+import { Class } from '@/app/types'
+import { MODALS } from '@/app/styles/colors'
 
 interface ModalProps {
-    onClose: () => void;
+    onClose: () => void
 }
 
 interface ClassModalProps extends ModalProps {
-    classId: string;
+    classId: string
 }
 
 export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
-    const { addClass } = useApp();
-    const [selectedColor, setSelectedColor] = useState<string>(MODALS.CLASS.COLORS[0]!);
+    const { addClass } = useApp()
+    const [selectedColor, setSelectedColor] = useState<string>(MODALS.CLASS.COLORS[0]!)
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+        e.preventDefault()
+        const form = e.currentTarget
+        const formData = new FormData(form)
         const newClass = {
             name: formData.get('name') as string,
             color: selectedColor,
             teacherName: formData.get('teacherName') as string,
             roomNumber: formData.get('roomNumber') as string
-        };
-        const success = addClass(newClass);
-        if (success) onClose();
-    };
+        }
+        const success = addClass(newClass)
+        if (success) onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -114,25 +114,25 @@ export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 
 export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) => {
-    const { classes, updateClass, openModal } = useApp();
-    const [formData, setFormData] = useState<Class | null>(null);
+    const { classes, updateClass, openModal } = useApp()
+    const [formData, setFormData] = useState<Class | null>(null)
 
     useEffect(() => {
-        const classInfo = classes.find(c => c.id === classId);
-        if (classInfo) setFormData(classInfo);
-    }, [classId, classes]);
+        const classInfo = classes.find(c => c.id === classId)
+        if (classInfo) setFormData(classInfo)
+    }, [classId, classes])
 
-    if (!formData) return null;
+    if (!formData) return null
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        updateClass(classId, formData);
-        onClose();
-    };
+        e.preventDefault()
+        updateClass(classId, formData)
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -194,7 +194,7 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
                 <div className="flex justify-between mt-6">
                     <button
                         type="button"
-                        onClick={() => { onClose(); openModal('delete-class', classId); }}
+                        onClick={() => { onClose(); openModal('delete-class', classId) }}
                         className="modal-btn modal-btn-inline"
                         style={{
                             '--modal-btn-bg': MODALS.BASE.DELETE_BG,
@@ -233,19 +233,19 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 
 export const DeleteClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) => {
-    const { classes, deleteClass } = useApp();
-    const classToDelete = classes.find(c => c.id === classId);
+    const { classes, deleteClass } = useApp()
+    const classToDelete = classes.find(c => c.id === classId)
 
-    if (!classToDelete) return null;
+    if (!classToDelete) return null
 
     const handleDelete = () => {
-        deleteClass(classId);
-        onClose();
-    };
+        deleteClass(classId)
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -279,5 +279,5 @@ export const DeleteClassModal: React.FC<ClassModalProps> = ({ onClose, classId }
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}

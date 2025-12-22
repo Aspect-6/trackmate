@@ -1,7 +1,7 @@
-import React from 'react';
-import type { CalendarBody } from '@/pages/Calendar/types';
-import EventItem from './EventItem';
-import { CALENDAR } from '@/app/styles/colors';
+import React from 'react'
+import type { CalendarBody } from '@/pages/Calendar/types'
+import EventItem from './EventItem'
+import { CALENDAR } from '@/app/styles/colors'
 
 const EventList: React.FC<CalendarBody.SidePanel.Body.EventList.Props> = ({ events, onEventClick }) => {
     return (
@@ -17,7 +17,7 @@ const EventList: React.FC<CalendarBody.SidePanel.Body.EventList.Props> = ({ even
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default EventList;
+export default EventList

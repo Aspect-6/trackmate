@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors, closestCenter } from '@dnd-kit/core';
-import { SortableContext, arrayMove, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { Plus, Trash2, GripVertical, ChevronUp, ChevronDown } from 'lucide-react';
-import { AssignmentType } from '@/app/types';
-import { SETTINGS, GLOBAL } from '@/app/styles/colors';
-import { AssignmentTypeSettingsProps } from '@/pages/Settings/types';
+import React, { useState } from 'react'
+import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors, closestCenter } from '@dnd-kit/core'
+import { SortableContext, arrayMove, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import { Plus, Trash2, GripVertical, ChevronUp, ChevronDown } from 'lucide-react'
+import { AssignmentType } from '@/app/types'
+import { SETTINGS, GLOBAL } from '@/app/styles/colors'
+import { AssignmentTypeSettingsProps } from '@/pages/Settings/types'
 
 const AssignmentTypeSettings: React.FC<AssignmentTypeSettingsProps> = ({
     types,
@@ -13,46 +13,46 @@ const AssignmentTypeSettings: React.FC<AssignmentTypeSettingsProps> = ({
     onRemoveType,
     onReorderTypes
 }) => {
-    const [newType, setNewType] = useState<string>('');
+    const [newType, setNewType] = useState<string>('')
     const sensors = useSensors(
         useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
         useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 8 } })
-    );
+    )
 
     const handleAdd = () => {
-        const success = onAddType(newType);
+        const success = onAddType(newType)
         if (success) {
-            setNewType('');
+            setNewType('')
         }
-    };
+    }
 
     const handleDragEnd = (event: any) => {
-        const { active, over } = event;
-        if (!over || active.id === over.id) return;
-        const oldIndex = types.findIndex(t => t === active.id);
-        const newIndex = types.findIndex(t => t === over.id);
-        if (oldIndex === -1 || newIndex === -1) return;
-        const updated = arrayMove(types, oldIndex, newIndex);
-        onReorderTypes(updated);
-    };
+        const { active, over } = event
+        if (!over || active.id === over.id) return
+        const oldIndex = types.findIndex(t => t === active.id)
+        const newIndex = types.findIndex(t => t === over.id)
+        if (oldIndex === -1 || newIndex === -1) return
+        const updated = arrayMove(types, oldIndex, newIndex)
+        onReorderTypes(updated)
+    }
 
     const moveType = (type: AssignmentType, direction: 'up' | 'down') => {
-        const index = types.findIndex(t => t === type);
-        if (index === -1) return;
-        const targetIndex = direction === 'up' ? Math.max(0, index - 1) : Math.min(types.length - 1, index + 1);
-        if (targetIndex === index) return;
-        onReorderTypes(arrayMove(types, index, targetIndex));
-    };
+        const index = types.findIndex(t => t === type)
+        if (index === -1) return
+        const targetIndex = direction === 'up' ? Math.max(0, index - 1) : Math.min(types.length - 1, index + 1)
+        if (targetIndex === index) return
+        onReorderTypes(arrayMove(types, index, targetIndex))
+    }
 
     const SortableRow: React.FC<{ type: AssignmentType }> = ({ type }) => {
-        const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: type });
+        const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: type })
         const style = {
             transform: CSS.Translate.toString(transform),
             transition,
             opacity: isDragging ? 0.8 : 1,
             backgroundColor: SETTINGS.CARD_BG,
             borderColor: SETTINGS.CARD_BORDER
-        } as React.CSSProperties;
+        } as React.CSSProperties
 
         return (
             <div
@@ -106,8 +106,8 @@ const AssignmentTypeSettings: React.FC<AssignmentTypeSettingsProps> = ({
                     </button>
                 </div>
             </div>
-        );
-    };
+        )
+    }
 
     return (
         <div
@@ -161,7 +161,7 @@ const AssignmentTypeSettings: React.FC<AssignmentTypeSettingsProps> = ({
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default AssignmentTypeSettings;
+export default AssignmentTypeSettings

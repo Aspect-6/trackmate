@@ -1,27 +1,27 @@
-import React from 'react';
-import { useApp } from '@/app/context/AppContext';
-import { ClassSelectionItem } from './ClassSelectionItem';
-import { EmptyClassList } from './EmptyClassList';
-import { MODALS } from '@/app/styles/colors';
+import React from 'react'
+import { useApp } from '@/app/context/AppContext'
+import { ClassSelectionItem } from './ClassSelectionItem'
+import { EmptyClassList } from './EmptyClassList'
+import { MODALS } from '@/app/styles/colors'
 
 interface ScheduleModalProps {
-    onClose: () => void;
+    onClose: () => void
     data: {
-        dayType: 'A' | 'B';
-        index: number;
-    };
+        dayType: 'A' | 'B'
+        index: number
+    }
 }
 
 export const ScheduleClassSelectorModal: React.FC<ScheduleModalProps> = ({ onClose, data }) => {
-    const { classes, updateSchedule } = useApp();
-    const { dayType, index } = data;
+    const { classes, updateSchedule } = useApp()
+    const { dayType, index } = data
 
     const handleSelect = (classId: string) => {
-        updateSchedule(dayType, index, classId);
-        onClose();
-    };
+        updateSchedule(dayType, index, classId)
+        onClose()
+    }
 
-    const dayLabel = dayType === 'A' ? 'A-Day' : 'B-Day';
+    const dayLabel = dayType === 'A' ? 'A-Day' : 'B-Day'
 
     return (
         <div
@@ -63,5 +63,5 @@ export const ScheduleClassSelectorModal: React.FC<ScheduleModalProps> = ({ onClo
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}

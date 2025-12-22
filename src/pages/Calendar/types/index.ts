@@ -1,4 +1,4 @@
-import { Assignment, Event, NoSchoolPeriod, Class } from '@/app/types';
+import { Assignment, Event, NoSchoolPeriod, Class } from '@/app/types'
 
 // Components
 export namespace CalendarHeader {
@@ -8,10 +8,10 @@ export namespace CalendarHeader {
     // ======================
 
     export interface CalendarHeaderButtonProps {
-        onClick: () => void;
+        onClick: () => void
     }
     export interface MonthTitleProps {
-        monthName: string;
+        monthName: string
     }
 }
 
@@ -28,66 +28,66 @@ export namespace CalendarBody {
         // ======================
 
         export interface HeaderProps {
-            backgroundColor?: string;
-            textColor?: string;
+            backgroundColor?: string
+            textColor?: string
         }
         export namespace Day {
             export interface Props {
-                day: number;
-                month: number;
-                year: number;
-                isToday: boolean;
-                noSchool?: NoSchoolPeriod;
-                assignments: Assignment[];
-                events: Event[];
-                onSelectDate: (date: Date) => void;
-                onAssignmentClick: (id: string) => void;
-                onEventClick: (id: string) => void;
-                getClassColor: (classId: string) => string;
+                day: number
+                month: number
+                year: number
+                isToday: boolean
+                noSchool?: NoSchoolPeriod
+                assignments: Assignment[]
+                events: Event[]
+                onSelectDate: (date: Date) => void
+                onAssignmentClick: (id: string) => void
+                onEventClick: (id: string) => void
+                getClassColor: (classId: string) => string
             }
             // ======================
 
             export interface ContainerProps {
-                year: number;
-                month: number;
-                day: number;
-                isToday?: boolean;
-                noSchool?: NoSchoolPeriod | undefined;
-                onSelectDate: (d: Date) => void;
-                children?: React.ReactNode;
+                year: number
+                month: number
+                day: number
+                isToday?: boolean
+                noSchool?: NoSchoolPeriod | undefined
+                onSelectDate: (d: Date) => void
+                children?: React.ReactNode
             }
             export interface NumberProps {
-                day: number;
-                noSchool?: NoSchoolPeriod | undefined;
+                day: number
+                noSchool?: NoSchoolPeriod | undefined
             }
             export namespace AssignmentList {
                 export interface Props {
-                    assignments: Assignment[];
-                    getClassColor: (classId: string) => string;
-                    onAssignmentClick: (id: string) => void;
+                    assignments: Assignment[]
+                    getClassColor: (classId: string) => string
+                    onAssignmentClick: (id: string) => void
                 }
                 // ======================
                 export interface AssignmentItemProps {
-                    assignment: Assignment;
-                    color: string;
-                    onClick: (id: string) => void;
+                    assignment: Assignment
+                    color: string
+                    onClick: (id: string) => void
                 }
             }
             export namespace EventList {
                 export interface Props {
-                    events: Event[];
-                    onEventClick: (id: string) => void;
-                    hasAssignments?: boolean;
+                    events: Event[]
+                    onEventClick: (id: string) => void
+                    hasAssignments?: boolean
                 }
                 // ======================
                 export interface EventItemProps {
-                    event: Event;
-                    onClick: (id: string) => void;
+                    event: Event
+                    onClick: (id: string) => void
                 }
             }
-            export type MobileDot = { id: string; color: string };
+            export type MobileDot = { id: string color: string }
             export interface MobileDotsProps {
-                dots: MobileDot[];
+                dots: MobileDot[]
             }
         }
         export interface EmptyDayProps {}
@@ -177,20 +177,20 @@ export namespace CalendarBody {
 // Hooks
 export namespace UseCalendar {
     interface BaseCalendarCell {
-        key: string;
+        key: string
     }
     
     export interface EmptyCalendarCell extends BaseCalendarCell {
-        type: 'empty';
+        type: 'empty'
     }
     export interface DayCalendarCell extends BaseCalendarCell {
-        type: 'day';
-        day: number;
-        dateString: string;
-        isToday: boolean;
-        noSchool: NoSchoolPeriod | undefined;
-        assignments: Assignment[];
-        events: Event[];
+        type: 'day'
+        day: number
+        dateString: string
+        isToday: boolean
+        noSchool: NoSchoolPeriod | undefined
+        assignments: Assignment[]
+        events: Event[]
     }
-    export type CalendarCell = EmptyCalendarCell | DayCalendarCell;
+    export type CalendarCell = EmptyCalendarCell | DayCalendarCell
 }

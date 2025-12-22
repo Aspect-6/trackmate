@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import type { CalendarBody } from '@/pages/Calendar/types';
-import { CALENDAR } from '@/app/styles/colors';
-import PriorityBadge from '@/app/components/PriorityBadge';
+import React, { useState } from 'react'
+import type { CalendarBody } from '@/pages/Calendar/types'
+import { CALENDAR } from '@/app/styles/colors'
+import PriorityBadge from '@/app/components/PriorityBadge'
 
 const AssignmentItem: React.FC<CalendarBody.SidePanel.Body.AssignmentList.AssignmentItemProps> = ({ assignment, getClassById, onAssignmentClick }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    const linkedClass = getClassById(assignment.classId);
-    const classColor = linkedClass ? linkedClass.color : CALENDAR.DEFAULT_CLASS_COLOR;
-    const className = linkedClass ? linkedClass.name : 'Unassigned';
-    const isDone = assignment.status === 'Done';
+    const [isHovered, setIsHovered] = useState(false)
+    const linkedClass = getClassById(assignment.classId)
+    const classColor = linkedClass ? linkedClass.color : CALENDAR.DEFAULT_CLASS_COLOR
+    const className = linkedClass ? linkedClass.name : 'Unassigned'
+    const isDone = assignment.status === 'Done'
 
     return (
         <div
@@ -30,7 +30,7 @@ const AssignmentItem: React.FC<CalendarBody.SidePanel.Body.AssignmentList.Assign
                 />
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default React.memo(AssignmentItem);
+export default React.memo(AssignmentItem)

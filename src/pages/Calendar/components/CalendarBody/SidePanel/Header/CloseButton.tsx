@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import type { CalendarBody } from '@/pages/Calendar/types';
-import { CALENDAR } from '@/app/styles/colors';
+import React, { useState } from 'react'
+import type { CalendarBody } from '@/pages/Calendar/types'
+import { CALENDAR } from '@/app/styles/colors'
 
 const CloseButton: React.FC<CalendarBody.SidePanel.Header.CloseButtonProps> = ({ onClick, children }) => {
-    const [hovered, setHovered] = useState(false);
+    const [hovered, setHovered] = useState(false)
     return (
         <button
             onClick={onClick}
@@ -14,7 +14,7 @@ const CloseButton: React.FC<CalendarBody.SidePanel.Header.CloseButtonProps> = ({
         >
             {children}
         </button>
-    );
-};
+    )
+}
 
-export default CloseButton;
+export default CloseButton

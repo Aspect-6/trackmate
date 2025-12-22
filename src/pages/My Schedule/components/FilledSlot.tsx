@@ -1,6 +1,6 @@
-import React from 'react';
-import { FilledSlotProps } from '@/pages/My Schedule/types';
-import { MY_SCHEDULE } from '@/app/styles/colors';
+import React from 'react'
+import { FilledSlotProps } from '@/pages/My Schedule/types'
+import { MY_SCHEDULE } from '@/app/styles/colors'
 
 const FilledSlot: React.FC<FilledSlotProps> = ({ classInfo, onRemove }) => {
     return (
@@ -25,7 +25,7 @@ const FilledSlot: React.FC<FilledSlotProps> = ({ classInfo, onRemove }) => {
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default FilledSlot;
+export default FilledSlot

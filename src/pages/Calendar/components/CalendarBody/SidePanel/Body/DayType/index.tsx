@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import type { CalendarBody } from '@/pages/Calendar/types';
-import { CALENDAR } from '@/app/styles/colors';
+import React, { useState } from 'react'
+import type { CalendarBody } from '@/pages/Calendar/types'
+import { CALENDAR } from '@/app/styles/colors'
 
 const DayType: React.FC<CalendarBody.SidePanel.Body.DayType.Props> = ({ noSchoolDay, dayType, onNoSchoolClick, children }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    if (!noSchoolDay && !dayType) return null;
+    const [isHovered, setIsHovered] = useState(false)
+    if (!noSchoolDay && !dayType) return null
 
-    const isInteractive = Boolean(noSchoolDay && onNoSchoolClick);
+    const isInteractive = Boolean(noSchoolDay && onNoSchoolClick)
 
     return (
         <div
@@ -19,7 +19,7 @@ const DayType: React.FC<CalendarBody.SidePanel.Body.DayType.Props> = ({ noSchool
         >
             {children}
         </div>
-    );
-};
+    )
+}
 
-export default DayType;
+export default DayType

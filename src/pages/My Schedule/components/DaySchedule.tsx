@@ -1,7 +1,7 @@
-import React from 'react';
-import { DayScheduleProps } from '@/pages/My Schedule/types';
-import ScheduleSlot from '@/pages/My Schedule/components/ScheduleSlot';
-import { MY_SCHEDULE } from '@/app/styles/colors';
+import React from 'react'
+import { DayScheduleProps } from '@/pages/My Schedule/types'
+import ScheduleSlot from '@/pages/My Schedule/components/ScheduleSlot'
+import { MY_SCHEDULE } from '@/app/styles/colors'
 
 const DaySchedule: React.FC<DayScheduleProps> = ({
     title,
@@ -28,7 +28,7 @@ const DaySchedule: React.FC<DayScheduleProps> = ({
                 ))}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default DaySchedule;
+export default DaySchedule

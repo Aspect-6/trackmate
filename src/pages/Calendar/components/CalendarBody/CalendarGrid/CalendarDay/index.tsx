@@ -1,10 +1,10 @@
-import React from 'react';
-import type { CalendarBody } from '@/pages/Calendar/types';
-import CalendarDayContainer from './CalendarDayContainer';
-import CalendarDayNumber from './CalendarDayNumber';
-import CalendarDayMobileDots from './CalendarDayMobileDots';
-import AssignmentList from './AssignmentList';
-import EventList from './EventList';
+import React from 'react'
+import type { CalendarBody } from '@/pages/Calendar/types'
+import CalendarDayContainer from './CalendarDayContainer'
+import CalendarDayNumber from './CalendarDayNumber'
+import CalendarDayMobileDots from './CalendarDayMobileDots'
+import AssignmentList from './AssignmentList'
+import EventList from './EventList'
 
 const CalendarDay: React.FC<CalendarBody.Grid.Day.Props> = ({
     day,
@@ -22,7 +22,7 @@ const CalendarDay: React.FC<CalendarBody.Grid.Day.Props> = ({
     const mobileDots = [
         ...assignments.map(a => ({ id: `assignment-${a.id}`, color: getClassColor(a.classId) })),
         ...events.map(e => ({ id: `event-${e.id}`, color: e.color }))
-    ];
+    ]
 
     return (
         <CalendarDayContainer year={year} month={month} day={day} isToday={isToday} noSchool={noSchool} onSelectDate={onSelectDate}>
@@ -36,7 +36,7 @@ const CalendarDay: React.FC<CalendarBody.Grid.Day.Props> = ({
                 <EventList events={events} onEventClick={onEventClick} />
             </div>
         </CalendarDayContainer>
-    );
-};
+    )
+}
 
-export default React.memo(CalendarDay);
+export default React.memo(CalendarDay)

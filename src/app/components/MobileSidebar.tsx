@@ -1,13 +1,13 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Calendar, FileText, BookOpen, Clock, Settings, X } from 'lucide-react';
-import { cn } from '@/app/lib/utils';
-import { GLOBAL } from '@/app/styles/colors';
-import { APP_NAME } from '@/app/config/brand';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { LayoutDashboard, Calendar, FileText, BookOpen, Clock, Settings, X } from 'lucide-react'
+import { cn } from '@/app/lib/utils'
+import { GLOBAL } from '@/app/styles/colors'
+import { APP_NAME } from '@/app/config/brand'
 
 interface MobileSidebarProps {
-    isOpen: boolean;
-    onClose: () => void;
+    isOpen: boolean
+    onClose: () => void
 }
 
 const MobileSidebar: React.FC<MobileSidebarProps> = ({ isOpen, onClose }) => {
@@ -17,9 +17,9 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({ isOpen, onClose }) => {
         { to: '/assignments', label: 'My Assignments', icon: FileText },
         { to: '/classes', label: 'My Classes', icon: BookOpen },
         { to: '/schedule', label: 'My Schedule', icon: Clock },
-    ];
+    ]
 
-    if (!isOpen) return null;
+    if (!isOpen) return null
 
     return (
         <div className="fixed inset-0 z-50 flex flex-col" style={{ backgroundColor: GLOBAL.SIDEBAR_BG }}>
@@ -40,8 +40,8 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({ isOpen, onClose }) => {
                         to={item.to}
                         onClick={onClose}
                         style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.SIDEBAR_ACTIVE_TAB_GREEN_BG, color: GLOBAL.SIDEBAR_TEXT_ACTIVE } : { color: GLOBAL.SIDEBAR_TEXT_INACTIVE, backgroundColor: GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG }}
-                        onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG_HOVER; }}
-                        onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG; }}
+                        onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG_HOVER }}
+                        onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG }}
                         className={({ isActive }) => cn(
                             "flex items-center p-3 rounded-xl font-medium transition duration-150",
                             isActive && "active"
@@ -58,8 +58,8 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({ isOpen, onClose }) => {
                     to="/settings"
                     onClick={onClose}
                     style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.SIDEBAR_ACTIVE_TAB_GREEN_BG, color: GLOBAL.SIDEBAR_TEXT_ACTIVE } : { color: GLOBAL.SIDEBAR_TEXT_INACTIVE, backgroundColor: GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG }}
-                    onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG_HOVER; }}
-                    onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG; }}
+                    onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG_HOVER }}
+                    onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG }}
                     className={({ isActive }) => cn(
                         "flex items-center p-3 rounded-xl font-medium transition duration-150",
                         isActive && "active"
@@ -70,7 +70,7 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({ isOpen, onClose }) => {
                 </NavLink>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default MobileSidebar;
+export default MobileSidebar

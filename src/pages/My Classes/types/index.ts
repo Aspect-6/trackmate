@@ -1,24 +1,62 @@
-import { Class } from '@/app/types';
+import { Class } from '@/app/types'
 
-export interface EmptyClassesStateProps {
-    onAddClass: () => void;
-}
+export namespace ClassBoard {
+    export interface Props {
+        classes: Class[]
+        onReorder: (classes: Class[]) => void
+        onAddClass: () => void
+        openModal: (modal: 'add-class' | 'edit-class' | 'delete-class', classId?: string) => void
+    }
+    // ======================
 
-export interface SortableClassCardProps {
-    classInfo: Class;
-    openModal: (modal: string, id: string) => void;
-}
+    export interface EmptyStateProps {
+        onAddClass: () => void
+    }
 
-export interface ClassCardHeaderProps {
-    name: string;
-    attributes: any;
-    listeners: any;
-    onEdit: () => void;
-    onDelete: () => void;
-}
+    export namespace Card {
+        export interface Props {
+            classInfo: Class
+            children: React.ReactNode
+        }
+        // ======================
 
-export interface ClassCardDetailsProps {
-    teacherName: string;
-    roomNumber: string;
-    color: string;
+        export interface ColorStripProps {
+            color: string
+        }
+        export interface ContainerProps {
+            children: React.ReactNode
+        }
+
+        export namespace Header {
+            export interface Props {
+                children: React.ReactNode
+            }
+            // ======================
+
+            export interface TitleProps {
+                name: string
+            }
+            export interface ButtonsProps {
+                onEdit: () => void
+                onDelete: () => void
+            }
+        }
+
+        export namespace Body {
+            export interface Props {
+                children: React.ReactNode
+            }
+            // ======================
+
+            export interface InstructorProps {
+                teacherName?: string | null
+            }
+            export interface RoomProps {
+                roomNumber?: string | number | null
+            }
+            export interface ColorProps {
+                color?: string | null
+            }
+        }
+    }
 }

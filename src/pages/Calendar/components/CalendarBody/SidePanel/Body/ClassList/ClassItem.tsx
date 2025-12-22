@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import type { CalendarBody } from '@/pages/Calendar/types';
-import { CALENDAR } from '@/app/styles/colors';
+import React, { useState } from 'react'
+import type { CalendarBody } from '@/pages/Calendar/types'
+import { CALENDAR } from '@/app/styles/colors'
 
 const ClassItem: React.FC<CalendarBody.SidePanel.Body.ClassList.ClassItemProps> = ({ classId, index, getClassById }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    if (!classId) return null;
-    const classInfo = getClassById(classId);
-    if (!classInfo) return null;
+    const [isHovered, setIsHovered] = useState(false)
+    if (!classId) return null
+    const classInfo = getClassById(classId)
+    if (!classInfo) return null
 
     return (
         <div 
@@ -25,7 +25,7 @@ const ClassItem: React.FC<CalendarBody.SidePanel.Body.ClassList.ClassItemProps> 
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default React.memo(ClassItem);
+export default React.memo(ClassItem)

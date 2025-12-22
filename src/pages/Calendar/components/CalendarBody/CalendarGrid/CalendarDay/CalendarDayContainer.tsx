@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import type { CalendarBody } from '@/pages/Calendar/types';
-import { CALENDAR } from '@/app/styles/colors';
+import React, { useState } from 'react'
+import type { CalendarBody } from '@/pages/Calendar/types'
+import { CALENDAR } from '@/app/styles/colors'
 
 const CalendarDayContainer: React.FC<CalendarBody.Grid.Day.ContainerProps> = ({ year, month, day, isToday, noSchool, onSelectDate, children }) => {
-    const [isHovered, setIsHovered] = useState(false);
+    const [isHovered, setIsHovered] = useState(false)
 
     return (
         <div
@@ -20,7 +20,7 @@ const CalendarDayContainer: React.FC<CalendarBody.Grid.Day.ContainerProps> = ({ 
         >
             {children}
         </div>
-    );
-};
+    )
+}
 
-export default React.memo(CalendarDayContainer);
+export default React.memo(CalendarDayContainer)

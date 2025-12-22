@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import type { TodaysClasses } from '@/pages/Dashboard/types';
-import { DASHBOARD } from '@/app/styles/colors';
+import React, { useState } from 'react'
+import type { TodaysClasses } from '@/pages/Dashboard/types'
+import { DASHBOARD } from '@/app/styles/colors'
 
 const ClassItem: React.FC<TodaysClasses.Body.ClassList.ClassItemProps> = ({ classInfo, period, openModal }) => {
-    const [isHovered, setIsHovered] = useState(false);
+    const [isHovered, setIsHovered] = useState(false)
 
     return (
         <div
@@ -28,7 +28,7 @@ const ClassItem: React.FC<TodaysClasses.Body.ClassList.ClassItemProps> = ({ clas
                 <p className="text-xs ml-2" style={{ color: DASHBOARD.TEXT_GRAY_400 }}>Room: {classInfo.roomNumber}</p>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default ClassItem;
+export default ClassItem

@@ -1,6 +1,6 @@
-import React from 'react';
-import type { TodaysEvents } from '@/pages/Dashboard/types';
-import EventItem from './EventItem';
+import React from 'react'
+import type { TodaysEvents } from '@/pages/Dashboard/types'
+import EventItem from './EventItem'
 
 const EventList: React.FC<TodaysEvents.Body.EventList.Props> = ({ events, onEventClick }) => {
     return (
@@ -13,7 +13,7 @@ const EventList: React.FC<TodaysEvents.Body.EventList.Props> = ({ events, onEven
                 />
             ))}
         </>
-    );
-};
+    )
+}
 
-export default EventList;
+export default EventList

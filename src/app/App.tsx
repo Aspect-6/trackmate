@@ -1,13 +1,13 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Layout from '@/app/layouts/Layout';
-import Dashboard from '@/pages/Dashboard';
-import ModalManager from '@/app/components/ModalManager';
-import MyAssignments from '@/pages/My Assignments';
-import Classes from '@/pages/My Classes';
-import Schedule from '@/pages/My Schedule';
-import Calendar from '@/pages/Calendar';
-import Settings from '@/pages/Settings';
+import React from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Layout from '@/app/layouts/Layout'
+import Dashboard from '@/pages/Dashboard'
+import ModalManager from '@/app/components/ModalManager'
+import MyAssignments from '@/pages/My Assignments'
+import Classes from '@/pages/My Classes'
+import Schedule from '@/pages/My Schedule'
+import Calendar from '@/pages/Calendar'
+import Settings from '@/pages/Settings'
 
 const App: React.FC = () => {
   return (
@@ -25,7 +25,7 @@ const App: React.FC = () => {
         </Route>
       </Routes>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

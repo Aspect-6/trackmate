@@ -1,7 +1,7 @@
-import React from 'react';
-import type { TodaysClasses } from '@/pages/Dashboard/types';
-import { ChevronDown } from 'lucide-react';
-import { DASHBOARD } from '@/app/styles/colors';
+import React from 'react'
+import type { TodaysClasses } from '@/pages/Dashboard/types'
+import { ChevronDown } from 'lucide-react'
+import { DASHBOARD } from '@/app/styles/colors'
 
 const TodaysClassesHeader: React.FC<TodaysClasses.HeaderProps> = ({ isMobile, isCollapsed, onToggleCollapse }) => {
     const headerProps = isMobile ? {
@@ -10,11 +10,11 @@ const TodaysClassesHeader: React.FC<TodaysClasses.HeaderProps> = ({ isMobile, is
         onClick: onToggleCollapse,
         onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => {
             if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                onToggleCollapse?.();
+                event.preventDefault()
+                onToggleCollapse?.()
             }
         }
-    } : {};
+    } : {}
 
     return (
         <div
@@ -33,7 +33,7 @@ const TodaysClassesHeader: React.FC<TodaysClasses.HeaderProps> = ({ isMobile, is
                 <h2 className="text-xl font-bold" style={{ color: DASHBOARD.CLASS_HEADING_TEXT }}>Today's Classes</h2>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default TodaysClassesHeader;
+export default TodaysClassesHeader

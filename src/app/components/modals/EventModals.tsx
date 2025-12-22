@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { useApp } from '@/app/context/AppContext';
-import { todayString } from '@/app/lib/utils';
-import { Event } from '@/app/types';
-import { GLOBAL, MODALS } from '@/app/styles/colors';
+import React, { useEffect, useState } from 'react'
+import { useApp } from '@/app/context/AppContext'
+import { todayString } from '@/app/lib/utils'
+import { Event } from '@/app/types'
+import { GLOBAL, MODALS } from '@/app/styles/colors'
 
 interface ModalProps {
-    onClose: () => void;
+    onClose: () => void
 }
 
 interface EventModalProps extends ModalProps {
-    eventId: string;
+    eventId: string
 }
 
 export const AddEventModal: React.FC<ModalProps> = ({ onClose }) => {
-    const { addEvent } = useApp();
-    const [selectedColor, setSelectedColor] = useState<string>(MODALS.EVENT.COLORS[0]!);
+    const { addEvent } = useApp()
+    const [selectedColor, setSelectedColor] = useState<string>(MODALS.EVENT.COLORS[0]!)
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+        e.preventDefault()
+        const form = e.currentTarget
+        const formData = new FormData(form)
 
-        let date = formData.get('date') as string;
+        let date = formData.get('date') as string
         if (!date || isNaN(new Date(date).getTime())) {
-            date = todayString();
+            date = todayString()
         }
 
         const newEvent = {
@@ -33,10 +33,10 @@ export const AddEventModal: React.FC<ModalProps> = ({ onClose }) => {
             endTime: (formData.get('endTime') as string) || null,
             description: formData.get('description') as string,
             color: selectedColor
-        };
-        addEvent(newEvent);
-        onClose();
-    };
+        }
+        addEvent(newEvent)
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
@@ -132,31 +132,31 @@ export const AddEventModal: React.FC<ModalProps> = ({ onClose }) => {
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 
 export const EditEventModal: React.FC<EventModalProps> = ({ onClose, eventId }) => {
-    const { events, updateEvent, openModal } = useApp();
-    const [formData, setFormData] = useState<Event | null>(null);
+    const { events, updateEvent, openModal } = useApp()
+    const [formData, setFormData] = useState<Event | null>(null)
 
     useEffect(() => {
-        const event = events.find(e => e.id === eventId);
-        if (event) setFormData(event);
-    }, [eventId, events]);
+        const event = events.find(e => e.id === eventId)
+        if (event) setFormData(event)
+    }, [eventId, events])
 
-    if (!formData) return null;
+    if (!formData) return null
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        const safeData = { ...formData };
+        const safeData = { ...formData }
         if (!safeData.date || isNaN(new Date(safeData.date).getTime())) {
-            safeData.date = todayString();
+            safeData.date = todayString()
         }
 
-        updateEvent(eventId, safeData);
-        onClose();
-    };
+        updateEvent(eventId, safeData)
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
@@ -233,7 +233,7 @@ export const EditEventModal: React.FC<EventModalProps> = ({ onClose, eventId }) 
                 <div className="flex justify-between mt-6">
                     <button
                         type="button"
-                        onClick={() => { onClose(); openModal('delete-event', eventId); }}
+                        onClick={() => { onClose(); openModal('delete-event', eventId) }}
                         className="modal-btn modal-btn-inline"
                         style={{
                             '--modal-btn-bg': MODALS.BASE.DELETE_BG,
@@ -272,19 +272,19 @@ export const EditEventModal: React.FC<EventModalProps> = ({ onClose, eventId }) 
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 
 export const DeleteEventModal: React.FC<EventModalProps> = ({ onClose, eventId }) => {
-    const { events, deleteEvent } = useApp();
-    const eventToDelete = events.find(e => e.id === eventId);
+    const { events, deleteEvent } = useApp()
+    const eventToDelete = events.find(e => e.id === eventId)
 
-    if (!eventToDelete) return null;
+    if (!eventToDelete) return null
 
     const handleDelete = () => {
-        deleteEvent(eventId);
-        onClose();
-    };
+        deleteEvent(eventId)
+        onClose()
+    }
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
@@ -318,5 +318,5 @@ export const DeleteEventModal: React.FC<EventModalProps> = ({ onClose, eventId }
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}

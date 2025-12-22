@@ -1,9 +1,9 @@
-import React from 'react';
-import type { AssignmentCard } from '@/pages/Dashboard/types';
-import { Clock } from 'lucide-react';
-import { formatDate } from '@/app/lib/utils';
-import { DASHBOARD } from '@/app/styles/colors';
-import PriorityBadge from '@/app/components/PriorityBadge';
+import React from 'react'
+import type { AssignmentCard } from '@/pages/Dashboard/types'
+import { Clock } from 'lucide-react'
+import { formatDate } from '@/app/lib/utils'
+import { DASHBOARD } from '@/app/styles/colors'
+import PriorityBadge from '@/app/components/PriorityBadge'
 
 const AssignmentCardMobileFooter: React.FC<AssignmentCard.MobileFooterProps> = ({ assignment }) => {
     return (
@@ -17,7 +17,7 @@ const AssignmentCardMobileFooter: React.FC<AssignmentCard.MobileFooterProps> = (
                 className="text-[11px] px-2 py-0.5 self-end"
             />
         </div>
-    );
-};
+    )
+}
 
-export default AssignmentCardMobileFooter;
+export default AssignmentCardMobileFooter

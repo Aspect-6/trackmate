@@ -1,20 +1,20 @@
-import React from 'react';
-import type { TodaysEvents } from '@/pages/Dashboard/types';
-import { DASHBOARD } from '@/app/styles/colors';
+import React from 'react'
+import type { TodaysEvents } from '@/pages/Dashboard/types'
+import { DASHBOARD } from '@/app/styles/colors'
 
 const EventItem: React.FC<TodaysEvents.Body.EventList.EventItemProps> = ({ event, onClick }) => {
     const formatEventTime = (start: string | null, end: string | null): string => {
-        if (!start && !end) return 'All Day';
+        if (!start && !end) return 'All Day'
         if (start && !end) {
-            return new Date(`2000-01-01T${start}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            return new Date(`2000-01-01T${start}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
         }
         if (!start && end) {
-            return `Until ${new Date(`2000-01-01T${end}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`;
+            return `Until ${new Date(`2000-01-01T${end}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`
         }
-        const s = new Date(`2000-01-01T${start}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-        const e = new Date(`2000-01-01T${end}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-        return `${s} - ${e}`;
-    };
+        const s = new Date(`2000-01-01T${start}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+        const e = new Date(`2000-01-01T${end}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+        return `${s} - ${e}`
+    }
 
     return (
         <div
@@ -35,7 +35,7 @@ const EventItem: React.FC<TodaysEvents.Body.EventList.EventItemProps> = ({ event
                 </p>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default EventItem;
+export default EventItem

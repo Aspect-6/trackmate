@@ -1,20 +1,20 @@
-import React from 'react';
-import { useApp } from '@/app/context/AppContext';
-import { AddAssignmentModal, EditAssignmentModal, DeleteAssignmentModal } from '@/app/components/modals/AssignmentModals';
-import { AddClassModal, EditClassModal, DeleteClassModal } from '@/app/components/modals/ClassModals';
-import { AddEventModal, EditEventModal, DeleteEventModal } from '@/app/components/modals/EventModals';
-import { AddNoSchoolModal, EditNoSchoolModal, DeleteNoSchoolModal } from '@/app/components/modals/NoSchoolModal';
-import { ClearAllDataModal, ClearAllAssignmentsModal, ClearAllEventsModal } from '@/app/components/modals/ClearAllDataModal';
-import { ScheduleClassSelectorModal } from '@/app/components/modals/ScheduleClassSelectorModal/index';
-import { FileText, BookOpen, X } from 'lucide-react';
+import React from 'react'
+import { useApp } from '@/app/context/AppContext'
+import { AddAssignmentModal, EditAssignmentModal, DeleteAssignmentModal } from '@/app/components/modals/AssignmentModals'
+import { AddClassModal, EditClassModal, DeleteClassModal } from '@/app/components/modals/ClassModals'
+import { AddEventModal, EditEventModal, DeleteEventModal } from '@/app/components/modals/EventModals'
+import { AddNoSchoolModal, EditNoSchoolModal, DeleteNoSchoolModal } from '@/app/components/modals/NoSchoolModal'
+import { ClearAllDataModal, ClearAllAssignmentsModal, ClearAllEventsModal } from '@/app/components/modals/ClearAllDataModal'
+import { ScheduleClassSelectorModal } from '@/app/components/modals/ScheduleClassSelectorModal/index'
+import { FileText, BookOpen, X } from 'lucide-react'
 
 import {
     GLOBAL
-} from '@/app/styles/colors';
+} from '@/app/styles/colors'
 
 interface TypeSelectorModalProps {
-    onClose: () => void;
-    openModal: (modalName: string, data?: string | null) => void;
+    onClose: () => void
+    openModal: (modalName: string, data?: string | null) => void
 }
 
 const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, openModal }) => (
@@ -94,59 +94,59 @@ const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, openModa
             </button>
         </div>
     </div>
-);
+)
 
 const ModalManager: React.FC = () => {
-    const { activeModal, modalData, closeModal, openModal } = useApp();
+    const { activeModal, modalData, closeModal, openModal } = useApp()
 
-    if (!activeModal) return null;
+    if (!activeModal) return null
 
     const renderModalContent = () => {
         switch (activeModal) {
             case 'type-selector':
-                return <TypeSelectorModal onClose={closeModal} openModal={openModal} />;
+                return <TypeSelectorModal onClose={closeModal} openModal={openModal} />
             case 'add-assignment':
-                return <AddAssignmentModal onClose={closeModal} />;
+                return <AddAssignmentModal onClose={closeModal} />
             case 'edit-assignment':
-                return <EditAssignmentModal onClose={closeModal} assignmentId={modalData} />;
+                return <EditAssignmentModal onClose={closeModal} assignmentId={modalData} />
             case 'delete-assignment':
-                return <DeleteAssignmentModal onClose={closeModal} assignmentId={modalData} />;
+                return <DeleteAssignmentModal onClose={closeModal} assignmentId={modalData} />
             case 'add-class':
-                return <AddClassModal onClose={closeModal} />;
+                return <AddClassModal onClose={closeModal} />
             case 'edit-class':
-                return <EditClassModal onClose={closeModal} classId={modalData} />;
+                return <EditClassModal onClose={closeModal} classId={modalData} />
             case 'delete-class':
-                return <DeleteClassModal onClose={closeModal} classId={modalData} />;
+                return <DeleteClassModal onClose={closeModal} classId={modalData} />
             case 'add-event':
-                return <AddEventModal onClose={closeModal} />;
+                return <AddEventModal onClose={closeModal} />
             case 'edit-event':
-                return <EditEventModal onClose={closeModal} eventId={modalData} />;
+                return <EditEventModal onClose={closeModal} eventId={modalData} />
             case 'delete-event':
-                return <DeleteEventModal onClose={closeModal} eventId={modalData} />;
+                return <DeleteEventModal onClose={closeModal} eventId={modalData} />
             case 'add-no-school':
-                return <AddNoSchoolModal onClose={closeModal} />;
+                return <AddNoSchoolModal onClose={closeModal} />
             case 'edit-no-school':
-                return <EditNoSchoolModal onClose={closeModal} noSchoolId={modalData} />;
+                return <EditNoSchoolModal onClose={closeModal} noSchoolId={modalData} />
             case 'delete-no-school':
-                return <DeleteNoSchoolModal onClose={closeModal} noSchoolId={modalData} />;
+                return <DeleteNoSchoolModal onClose={closeModal} noSchoolId={modalData} />
             case 'schedule-class-selector':
-                return <ScheduleClassSelectorModal onClose={closeModal} data={modalData} />;
+                return <ScheduleClassSelectorModal onClose={closeModal} data={modalData} />
             case 'clear-all-data':
-                return <ClearAllDataModal onClose={closeModal} />;
+                return <ClearAllDataModal onClose={closeModal} />
             case 'clear-assignments':
-                return <ClearAllAssignmentsModal onClose={closeModal} />;
+                return <ClearAllAssignmentsModal onClose={closeModal} />
             case 'clear-events':
-                return <ClearAllEventsModal onClose={closeModal} />;
+                return <ClearAllEventsModal onClose={closeModal} />
             default:
-                return null;
+                return null
         }
-    };
+    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center p-4 z-50" style={{ backgroundColor: GLOBAL.MODAL_BACKDROP }}>
             {renderModalContent()}
         </div>
-    );
-};
+    )
+}
 
-export default ModalManager;
+export default ModalManager

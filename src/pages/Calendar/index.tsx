@@ -1,17 +1,17 @@
-import React, { useCallback } from 'react';
-import { X } from 'lucide-react';
-import { useApp } from '@/app/context/AppContext';
-import { useCalendar } from './hooks/useCalendar';
-import { CALENDAR } from '@/app/styles/colors';
-import CalendarHeader, { PrevButton, NextButton, MonthTitle } from './components/CalendarHeader';
-import CalendarBody from './components/CalendarBody';
-import CalendarGrid, { CalendarGridDayHeader, CalendarDay, CalendarGridEmptyDay } from './components/CalendarBody/CalendarGrid';
-import CalendarSidePanel, { DayType, ClassList, AssignmentList, EventList, NoSchoolInfo, DayTypeDisplay, CalendarSidePanelHeader, CalendarSidePanelBody, DateDisplay, CloseButton } from './components/CalendarBody/SidePanel';
+import React, { useCallback } from 'react'
+import { X } from 'lucide-react'
+import { useApp } from '@/app/context/AppContext'
+import { useCalendar } from './hooks/useCalendar'
+import { CALENDAR } from '@/app/styles/colors'
+import CalendarHeader, { PrevButton, NextButton, MonthTitle } from './components/CalendarHeader'
+import CalendarBody from './components/CalendarBody'
+import CalendarGrid, { CalendarGridDayHeader, CalendarDay, CalendarGridEmptyDay } from './components/CalendarBody/CalendarGrid'
+import CalendarSidePanel, { DayType, ClassList, AssignmentList, EventList, NoSchoolInfo, DayTypeDisplay, CalendarSidePanelHeader, CalendarSidePanelBody, DateDisplay, CloseButton } from './components/CalendarBody/SidePanel'
 
-import './index.css';
+import './index.css'
 
 const Calendar: React.FC = () => {
-    const { getClassById, openModal } = useApp();
+    const { getClassById, openModal } = useApp()
     const {
         setSelectedDate,
         changeMonth,
@@ -20,12 +20,12 @@ const Calendar: React.FC = () => {
         monthName,
         month,
         year
-    } = useCalendar();
+    } = useCalendar()
 
     const getClassColor = useCallback((classId: string) => {
-        const linkedClass = getClassById(classId);
-        return linkedClass ? linkedClass.color : CALENDAR.DEFAULT_CLASS_COLOR;
-    }, [getClassById]);
+        const linkedClass = getClassById(classId)
+        return linkedClass ? linkedClass.color : CALENDAR.DEFAULT_CLASS_COLOR
+    }, [getClassById])
 
     return (
         <div className="calendar-page flex-1 min-h-0 flex flex-col">
@@ -49,7 +49,7 @@ const Calendar: React.FC = () => {
 
                         {calendarCells.map((cell) => {
                             if (cell.type === 'empty') {
-                                return <CalendarGridEmptyDay key={cell.key} />;
+                                return <CalendarGridEmptyDay key={cell.key} />
                             }
                             return (
                                 <CalendarDay
@@ -66,7 +66,7 @@ const Calendar: React.FC = () => {
                                     onEventClick={(id) => openModal('edit-event', id)}
                                     getClassColor={getClassColor}
                                 />
-                            );
+                            )
                         })}
                     </CalendarGrid>
 
@@ -91,7 +91,7 @@ const Calendar: React.FC = () => {
                 </CalendarBody>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Calendar;
+export default Calendar
