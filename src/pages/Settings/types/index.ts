@@ -1,25 +1,146 @@
-import { DayType, ThemeMode } from '@/app/types'
-import { AssignmentType } from '@/app/types'
+import { AssignmentType, DayType } from '@/app/types'
+import { DragEndEvent, SensorDescriptor, SensorOptions } from '@dnd-kit/core'
+import { LucideIcon } from 'lucide-react'
 
-export interface ScheduleSettingsProps {
-    currentDayType: DayType
-    onSetDayType: (type: 'A' | 'B') => void
+// SettingsModule namespace
+export namespace BaseSettingsModule {
+    export interface HeaderProps {
+        title: string
+        color?: string
+        className?: string
+    }
+    export interface DescriptionProps {
+        children: React.ReactNode
+    }
 }
 
-export interface DangerZoneProps {
-    onOpenClearAssignmentsModal: () => void
-    onOpenClearEventsModal: () => void
-    onOpenClearDataModal: () => void
+// ThemeSettings namespace
+export namespace ThemeSettings {
+    export interface Props {
+        children: React.ReactNode
+    }
+    // ======================
+
+    export namespace Content {
+        export interface Props {
+            children: React.ReactNode
+        }
+        // ======================
+        export interface ThemeButtonProps {
+            label: string
+            description: string
+            Icon: LucideIcon
+            active: boolean
+            onClick: () => void
+        }
+    }
 }
 
-export interface ThemeSettingsProps {
-    currentTheme: ThemeMode
-    onChangeTheme: (mode: ThemeMode) => void
+// AssignmentTypeSettings namespace
+export namespace AssignmentTypeSettings {
+    export interface Props {
+        children: React.ReactNode
+    }
+    // ======================
+
+    export namespace Content {
+        export interface Props {
+            children: React.ReactNode
+        }
+        // ======================
+
+        export namespace AssignmentTypeList {
+            export interface Props {
+                sensors: SensorDescriptor<SensorOptions>[]
+                onDragEnd: (event: DragEndEvent) => void
+                items: string[]
+                children: React.ReactNode
+            }
+            // ======================
+            export interface AssignmentTypeListRowProps {
+                type: AssignmentType
+                isFirst: boolean
+                isLast: boolean
+                isOnly: boolean
+                onMoveUp: () => void
+                onMoveDown: () => void
+                onRemove: () => void
+            }
+        }
+        export namespace AddTypeForm {
+            export interface Props {
+                children: React.ReactNode
+            }
+            // ======================
+
+            export interface AddTypeInputProps {
+                value: string
+                onChange: (value: string) => void
+                placeholder?: string
+            }
+            export interface AddTypeButtonProps {
+                onClick: () => void
+                children: React.ReactNode
+            }
+        }
+    }
 }
 
-export interface AssignmentTypeSettingsProps {
-    types: AssignmentType[]
-    onAddType: (type: AssignmentType) => boolean
-    onRemoveType: (type: AssignmentType) => void
-    onReorderTypes: (types: AssignmentType[]) => void
+// ScheduleSettings namespace
+export namespace ScheduleSettings {
+    export interface Props {
+        children: React.ReactNode
+    }
+    // ======================
+
+    export namespace Content {
+        export interface Props {
+            children: React.ReactNode
+        }
+        // ======================
+
+        export interface CurrentDayCalculationProps {
+            currentDayType: string
+        }
+        export interface SetDayTypeButtonProps {
+            dayType: NonNullable<DayType>
+            onClick: () => void
+            children: React.ReactNode
+        }
+    }
+}
+
+// DangerZone namespace
+export namespace DangerZone {
+    export interface Props {
+        children: React.ReactNode
+    }
+    // ======================
+
+    export interface BadgeProps {
+        children: React.ReactNode
+    }
+
+    export namespace Content {
+        export interface Props {
+            children: React.ReactNode
+        }
+        // ======================
+
+        export namespace DangerRow {
+            export interface Props {
+                children: React.ReactNode
+            }
+            // ======================
+
+            export interface DetailsProps {
+                title: string
+                children: React.ReactNode
+            }
+            export interface ButtonProps {
+                onClick: () => void
+                children: React.ReactNode
+            }
+        }
+    }
 }

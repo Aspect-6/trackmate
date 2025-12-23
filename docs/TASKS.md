@@ -11,4 +11,4 @@
 | My Assignments    | Done     |
 | My Classes        | Done     |
 | My Schedule       | Done     |
-| Settings          | Current  |
+| Settings          | Done     |
