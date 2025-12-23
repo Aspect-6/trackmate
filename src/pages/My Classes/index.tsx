@@ -3,7 +3,7 @@ import { useApp } from '@/app/contexts/AppContext'
 import ClassBoard from './components/ClassBoard'
 import './index.css'
 
-const Classes: React.FC = () => {
+const MyClasses: React.FC = () => {
     const { classes, openModal, reorderClasses } = useApp()
 
     return (
@@ -18,4 +18,4 @@ const Classes: React.FC = () => {
     )
 }
 
-export default Classes
+export default MyClasses
