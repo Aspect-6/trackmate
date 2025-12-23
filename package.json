@@ -1,6 +1,5 @@
 {
   "name": "trackmate-academic-planner",
-  "private": true,
   "version": "0.8.10",
   "type": "module",
   "scripts": {
