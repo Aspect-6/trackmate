@@ -136,7 +136,7 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
-            <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.CLASS.HEADING }}>Edit Class Details</h2>
+            <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.CLASS.HEADING }}>Edit Class</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Row 1: Class Name */}
                 <div>
