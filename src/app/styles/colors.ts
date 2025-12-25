@@ -371,7 +371,7 @@ export const SETTINGS = {
 
     TEXT_DANGER: 'var(--settings-text-danger)',
     BUTTON_DANGER_BG: 'var(--settings-button-danger-bg)',
-    BUTTON_DANGER_HOVER: 'var(--settings-button-danger-hover)',
+    BUTTON_DANGER_HOVER: 'var(--settings-button-danger-bg-hover)',
     BUTTON_DANGER_TEXT: 'var(--settings-button-danger-text)',
 
     BUTTON_A_BG: 'var(--settings-button-a-bg)',

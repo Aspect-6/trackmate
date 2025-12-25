@@ -23,6 +23,7 @@ import AssignmentTypeSettings, {
 // Schedule settings imports
 import ScheduleSettings, {
     ScheduleSettingsContent,
+    ScheduleTypeDropdown,
     CurrentDayCalculation,
     SetDayTypeButton
 } from '@/pages/Settings/components/ScheduleSettings'
@@ -138,6 +139,12 @@ const Settings: React.FC = () => {
 
             <ScheduleSettings>
                 <BaseModuleHeader title="Schedule Settings" />
+                
+                <BaseModuleDescription>
+                    Select the kind of schedule that your institution uses.
+                </BaseModuleDescription>
+                <ScheduleTypeDropdown className='mb-10'/>
+
                 <BaseModuleDescription>
                     Manually set the current day type to correct the A/B day rotation.
                     Future days will alternate based on this setting.

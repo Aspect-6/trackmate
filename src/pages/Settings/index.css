@@ -12,145 +12,24 @@
 
     --settings-text-danger: #f87171;
     --settings-button-danger-bg: #dc2626;
-    --settings-button-danger-hover: #b91c1c;
+    --settings-button-danger-bg-hover: #b91c1c;
     --settings-button-danger-text: #ffffff;
 
+    --settings-danger-btn-border: var(--settings-button-danger-bg);
+    --settings-danger-btn-text: var(--settings-text-danger);
+    --settings-danger-btn-bg-hover: var(--settings-button-danger-bg);
+    --settings-danger-btn-text-hover: var(--settings-button-danger-text);
+
     --settings-button-a-bg: #7c3aed;
-    --settings-button-a-hover: #6d28d9;
+    --settings-button-a-bg-hover: #6d28d9;
     --settings-button-b-bg: #2563eb;
-    --settings-button-b-hover: #1d4ed8;
+    --settings-button-b-bg-hover: #1d4ed8;
     --settings-text-a: hsl(260, 60%, 50%);
     --settings-text-b: hsl(215, 90%, 50%);
 
     --settings-semester-bg: hsl(215, 15%, 16.5%);
 
     --settings-empty-border-hover: hsl(215, 11%, 65%);
-}
-
-.settings-button-danger {
-    background-color: var(--settings-button-danger-bg);
-    color: var(--settings-button-danger-text);
-    transition: background-color 0.15s;
-}
-
-.settings-button-danger:hover {
-    background-color: var(--settings-button-danger-hover);
-}
-
-.term-empty-state {
-    border-color: var(--settings-card-border);
-    transition: border-color 0.2s ease;
-}
-
-.term-empty-state:hover {
-    border-color: var(--settings-empty-border-hover);
-}
-
-.danger-card {
-    max-width: 860px;
-    margin: 0 auto;
-}
-
-.danger-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 0.85rem;
-}
-
-
-.danger-rows {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.danger-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.35rem 0;
-}
-
-.danger-label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-}
-
-.danger-title {
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--settings-schedule-header);
-}
-
-.danger-sub {
-    color: var(--settings-body-text);
-    font-size: 0.95rem;
-    line-height: 1.35;
-}
-
-.danger-btn {
-    width: 180px;
-    justify-content: center;
-    padding: 0.6rem 0.85rem;
-    border-radius: 0.6rem;
-    font-weight: 700;
-    font-size: 0.96rem;
-    display: inline-flex;
-    align-items: center;
-    transition: background-color 0.12s ease, color 0.12s ease;
-    background: var(--settings-module-bg);
-    border: 1px solid var(--settings-button-danger-bg);
-    color: var(--settings-text-danger);
-}
-
-.danger-btn:hover {
-    background: var(--settings-button-danger-bg);
-    color: var(--settings-button-danger-text);
-}
-
-@media (max-width: 480px) {
-    .danger-row {
-        grid-template-columns: 1fr;
-        align-items: flex-start;
-    }
-
-    .danger-btn {
-        width: 100%;
-    }
-}
-
-/* Remove tile separators visually but keep subtle dividers */
-.danger-row + .danger-row {
-    border-top: 1px solid var(--settings-module-border);
-    padding-top: 0.75rem;
-}
-
-.settings-button-a {
-    background-color: var(--settings-button-a-bg);
-    transition: background-color 0.15s;
-}
-
-.settings-button-a:hover {
-    background-color: var(--settings-button-a-hover);
-}
-
-.settings-button-b {
-    background-color: var(--settings-button-b-bg);
-    transition: background-color 0.15s;
-}
-
-.settings-button-b:hover {
-    background-color: var(--settings-button-b-hover);
-}
-
-.text-day-a {
-    color: var(--settings-text-a);
-}
-
-.text-day-b {
-    color: var(--settings-text-b);
 }
 
 :root.light {
@@ -166,13 +45,18 @@
 
     --settings-text-danger: hsl(0, 70%, 50%);
     --settings-button-danger-bg: hsl(0, 70%, 60%);
-    --settings-button-danger-hover: hsl(0, 70%, 50%);
+    --settings-button-danger-bg-hover: hsl(0, 70%, 50%);
     --settings-button-danger-text: #ffffff;
 
+    --settings-danger-btn-border: var(--settings-button-danger-bg);
+    --settings-danger-btn-text: var(--settings-text-danger);
+    --settings-danger-btn-bg-hover: var(--settings-button-danger-bg);
+    --settings-danger-btn-text-hover: var(--settings-button-danger-text);
+
     --settings-button-a-bg: hsl(260, 60%, 60%);
-    --settings-button-a-hover: hsl(260, 60%, 50%);
+    --settings-button-a-bg-hover: hsl(260, 60%, 50%);
     --settings-button-b-bg: hsl(215, 90%, 55%);
-    --settings-button-b-hover: hsl(215, 90%, 45%);
+    --settings-button-b-bg-hover: hsl(215, 90%, 45%);
     --settings-text-a: hsl(260, 60%, 50%);
     --settings-text-b: hsl(215, 90%, 50%);
 
@@ -181,6 +65,7 @@
     --settings-empty-border-hover: hsl(215, 20%, 70%);
 }
 
+/* ThemeSettings theme toggle styles */
 .theme-toggle {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -215,4 +100,32 @@
 
 .theme-toggle-option[data-active="true"] svg {
     color: #ffffff;
+}
+
+/* ScheduleSettings select dropdown styles */
+.settings-select {
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: var(--modal-input-bg);
+    border: 1px solid var(--modal-input-border);
+    color: var(--settings-body-text);
+    padding: 0.5rem 2.25rem 0.5rem 0.75rem;
+    appearance: none;
+    background-image: var(--modal-select-arrow);
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.5em 1.5em;
+    cursor: pointer;
+    text-overflow: ellipsis;
+}
+
+.settings-select:focus {
+    outline: none;
+    border-color: var(--focus-color, var(--sidebar-active-tab-background));
+}
+
+/* DangerZoneSettings danger row divider styles */
+.danger-row+.danger-row {
+    border-top: 1px solid var(--settings-module-border);
+    padding-top: 0.75rem;
 }

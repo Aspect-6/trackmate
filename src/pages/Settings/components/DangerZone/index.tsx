@@ -5,7 +5,7 @@ import { SETTINGS } from '@/app/styles/colors'
 const DangerZoneSettings: React.FC<DangerZone.Props> = ({ children }) => {
     return (
         <div
-            className="p-6 rounded-xl danger-card"
+            className="p-6 rounded-xl max-w-4xl mx-auto"
             style={{
                 backgroundColor: SETTINGS.MODULE_BG,
                 border: `1px solid ${SETTINGS.MODULE_BORDER}`,
