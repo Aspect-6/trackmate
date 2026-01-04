@@ -5,11 +5,13 @@ import ClassName from './ClassName'
 import RoomNumber from './RoomNumber'
 import RemoveButton from './RemoveButton'
 
-const FilledCell: React.FC<SemesterSchedule.ScheduleTable.Row.FilledCell.Props> = ({ classData, onRemove }) => {
+const FilledCell: React.FC<SemesterSchedule.ScheduleTable.Row.FilledCell.Props> = ({ isLastRow, classData, onRemove }) => {
     return (
         <td
             className="p-3 text-center schedule-cell"
-            style={{ borderBottom: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` }}
+            style={{
+                borderBottom: !isLastRow ? `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` : 'none'
+            }}
         >
             <div
                 className="relative min-h-[72px] flex items-center justify-center rounded-lg px-3 py-2"

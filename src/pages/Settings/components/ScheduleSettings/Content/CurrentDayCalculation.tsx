@@ -6,10 +6,10 @@ const CurrentDayCalculation: React.FC<ScheduleSettings.Content.CurrentDayCalcula
     return (
         <div
             className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-lg border gap-2 sm:gap-0"
-            style={{ backgroundColor: 'var(--modal-surface-bg)', borderColor: 'var(--settings-module-border)' }}
+            style={{ backgroundColor: SETTINGS.BACKGROUND_SECONDARY, borderColor: SETTINGS.BORDER_PRIMARY }}
         >
             <span style={{ color: GLOBAL.TEXT_SECONDARY }}>Current Calculation for Today:</span>
-            <span style={{ color: currentDayType === 'A' ? SETTINGS.TEXT_A : currentDayType === 'B' ? SETTINGS.TEXT_B : GLOBAL.TEXT_TERTIARY }}>
+            <span style={{ color: currentDayType === 'A' ? SETTINGS.TEXT_A_DAY : currentDayType === 'B' ? SETTINGS.TEXT_B_DAY : GLOBAL.TEXT_TERTIARY }}>
                 {currentDayType ? `${currentDayType}-Day` : 'No School / Weekend'}
             </span>
         </div>

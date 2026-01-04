@@ -1,6 +1,6 @@
 import React from 'react'
 import { useApp } from '@/app/contexts/AppContext'
-import { MODALS } from '@/app/styles/colors'
+import { GLOBAL, MODALS } from '@/app/styles/colors'
 import type { SemesterScheduleData, SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
 import { BookOpen, Calendar } from 'lucide-react'
 
@@ -105,7 +105,7 @@ export const SemesterClassSelectorModal: React.FC<SemesterClassSelectorModalProp
                                 onClick={() => handleSelect(classData.id, !!classData.semesterId)}
                                 className="w-full group relative overflow-hidden rounded-xl text-left transition-all duration-200 hover:translate-x-1"
                                 style={{
-                                    backgroundColor: 'var(--block-module-bg)',
+                                    backgroundColor: GLOBAL.BACKGROUND_PRIMARY,
                                     border: `1px solid ${MODALS.BASE.BORDER}`
                                 }}
                             >

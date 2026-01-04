@@ -23,18 +23,16 @@ const Calendar: React.FC = () => {
     } = useCalendar()
 
     const getClassColor = useCallback((classId: string) => {
-        const linkedClass = getClassById(classId)
-        return linkedClass ? linkedClass.color : CALENDAR.DEFAULT_CLASS_COLOR
+        return getClassById(classId).color
     }, [getClassById])
 
     return (
         <div className="calendar-page flex-1 min-h-0 flex flex-col">
             <div
-                className="p-4 md:p-6 rounded-xl overflow-hidden flex flex-col h-full"
+                className="p-4 md:p-6 rounded-xl shadow-lg overflow-hidden flex flex-col h-full"
                 style={{
-                    backgroundColor: CALENDAR.BG_COLOR,
-                    border: `1px solid ${CALENDAR.BORDER_COLOR} `,
-                    boxShadow: CALENDAR.CONTAINER_SHADOW,
+                    backgroundColor: CALENDAR.BACKGROUND_PRIMARY,
+                    border: `1px solid ${CALENDAR.BORDER_PRIMARY} `,
                 }}
             >
                 <CalendarHeader>
@@ -45,7 +43,7 @@ const Calendar: React.FC = () => {
 
                 <CalendarBody>
                     <CalendarGrid>
-                        <CalendarGridDayHeader backgroundColor={CALENDAR.DAY_HEADER_BG} textColor={CALENDAR.DAY_HEADER_TEXT} />
+                        <CalendarGridDayHeader backgroundColor={CALENDAR.BACKGROUND_SECONDARY} textColor={CALENDAR.TEXT_SECONDARY} />
 
                         {calendarCells.map((cell) => {
                             if (cell.type === 'empty') {

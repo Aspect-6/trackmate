@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useApp } from '@/app/contexts/AppContext'
-import type { SemesterScheduleData, SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
 import type { TermSchedule } from '@/app/types'
+import type { SemesterScheduleData, SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
+import { GLOBAL } from '@/app/styles/colors'
 
 /**
  * Generates an SVG dropdown arrow with the given color
@@ -68,7 +69,7 @@ export const useScheduleData = () => {
     useEffect(() => {
         const updateColor = () => {
             const color = getComputedStyle(document.documentElement)
-                .getPropertyValue('--sidebar-active-tab-background')
+                .getPropertyValue(GLOBAL.SIDEBAR_ACTIVE_TAB_GREEN_BG.slice(4, -1))
                 .trim()
             if (color) setArrowColor(color)
         }

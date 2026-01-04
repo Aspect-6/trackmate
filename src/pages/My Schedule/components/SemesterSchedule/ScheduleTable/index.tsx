@@ -4,12 +4,11 @@ import { MY_SCHEDULE } from '@/app/styles/colors'
 
 const ScheduleTable: React.FC<SemesterSchedule.ScheduleTable.Props> = ({ children }) => {
     return (
-        <div className="overflow-x-auto p-[2px]">
+        <div className="overflow-x-auto p-1">
             <div
-                className="rounded-lg overflow-hidden w-full"
+                className="overflow-x-hidden shadow-sm rounded-lg w-full"
                 style={{
                     border: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}`,
-                    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.1)',
                     minWidth: 'max-content'
                 }}
             >
@@ -21,7 +20,7 @@ const ScheduleTable: React.FC<SemesterSchedule.ScheduleTable.Props> = ({ childre
                     }}
                 >
                     <thead>
-                        <tr style={{ backgroundColor: MY_SCHEDULE.BLOCK_MODULE_BG }}>
+                        <tr style={{ backgroundColor: MY_SCHEDULE.BACKGROUND_PRIMARY }}>
                             <th
                                 className="p-3 text-left font-semibold text-sm"
                                 style={{

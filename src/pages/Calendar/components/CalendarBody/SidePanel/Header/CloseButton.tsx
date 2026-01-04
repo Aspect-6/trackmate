@@ -10,7 +10,7 @@ const CloseButton: React.FC<CalendarBody.SidePanel.Header.CloseButtonProps> = ({
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             className="calendar-side-panel-close transition-colors"
-            style={{ color: hovered ? CALENDAR.SIDE_PANEL_CLOSE_ICON_HOVER : CALENDAR.SIDE_PANEL_CLOSE_ICON }}
+            style={{ color: hovered ? CALENDAR.TEXT_PRIMARY : CALENDAR.TEXT_TERTIARY }}
         >
             {children}
         </button>

@@ -11,8 +11,8 @@ const DayType: React.FC<CalendarBody.SidePanel.Body.DayType.Props> = ({ noSchool
     return (
         <div
             id="day-type-info"
-            className={`mb-4 p-3 rounded-lg${isInteractive ? ' calendar-side-panel-item cursor-pointer transition-colors' : ''}`}
-            style={{ backgroundColor: isInteractive && isHovered ? CALENDAR.ITEM_BG_HOVER : CALENDAR.ITEM_BG }}
+            className={`mb-4 p-3 rounded-lg${isInteractive ? ' cursor-pointer transition-colors' : ''}`}
+            style={{ border: `1px solid ${CALENDAR.BORDER_PRIMARY}`, backgroundColor: isInteractive && isHovered ? CALENDAR.ITEM_BG_HOVER : CALENDAR.ITEM_BG }}
             onClick={() => isInteractive && onNoSchoolClick!(noSchoolDay!.id)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}

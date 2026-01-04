@@ -7,9 +7,9 @@ const TermItem: React.FC<TermSettings.Content.TermList.TermItem.Props> = ({ chil
         <div
             className={'p-5 rounded-xl border transition-colors'}
             style={{
-                backgroundColor: SETTINGS.MODAL_BG,
-                borderColor: SETTINGS.CARD_BORDER,
-                color: SETTINGS.BODY_TEXT,
+                backgroundColor: SETTINGS.BACKGROUND_SECONDARY,
+                borderColor: SETTINGS.BORDER_PRIMARY,
+                color: SETTINGS.TEXT_PRIMARY,
             }}
         >
             {children}

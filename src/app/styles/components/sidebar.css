@@ -1,23 +1,23 @@
 :root.light {
-    --sidebar-background: hsl(215, 36%, 95%);
+    --sidebar-bg: hsl(215, 36%, 95%);
     --sidebar-border: var(--border-secondary);
-    --sidebar-inactive-tab-contrast: hsl(215, 20%, 92%);
+    --sidebar-tab-active-bg: hsl(var(--global-accent-hue), 60%, 60%);
+    --sidebar-tab-inactive-bg: transparent;
+    --sidebar-tab-inactive-contrast: hsl(215, 20%, 92%);
     --sidebar-text-active: hsl(0, 0%, 100%);
     --sidebar-text-inactive: hsl(216, 12%, 35%);
-    --sidebar-active-tab-background: hsl(var(--global-accent-hue), 60%, 60%);
-    --sidebar-inactive-tab-background: transparent;
-    --sidebar-close-icon: hsl(215, 11%, 45%);
-    --sidebar-close-icon-tap: hsl(215, 11%, 30%);
+    --sidebar-icon-close: hsl(215, 11%, 45%);
+    --sidebar-icon-close-tap: hsl(215, 11%, 30%);
 }
 
 :root.dark {
-    --sidebar-background: hsl(215, 28%, 12%);
+    --sidebar-bg: hsl(215, 28%, 12%);
     --sidebar-border: hsl(215, 22%, 24%);
-    --sidebar-inactive-tab-contrast: hsl(215, 24%, 18%);
-    --sidebar-active-tab-background: hsl(var(--global-accent-hue), 60%, 36%);
+    --sidebar-tab-active-bg: hsl(var(--global-accent-hue), 60%, 36%);
+    --sidebar-tab-inactive-bg: transparent;
+    --sidebar-tab-inactive-contrast: hsl(215, 24%, 18%);
     --sidebar-text-active: hsl(0, 0%, 100%);
     --sidebar-text-inactive: hsl(216, 15%, 82%);
-    --sidebar-inactive-tab-background: transparent;
-    --sidebar-close-icon: hsl(215, 14%, 70%);
-    --sidebar-close-icon-tap: hsl(215, 14%, 85%);
+    --sidebar-icon-close: hsl(215, 14%, 70%);
+    --sidebar-icon-close-tap: hsl(215, 14%, 85%);
 }

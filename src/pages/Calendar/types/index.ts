@@ -20,7 +20,7 @@ export namespace CalendarBody {
         children: React.ReactNode
     }
     // ======================
-    
+
     export namespace Grid {
         export interface Props {
             children: React.ReactNode
@@ -28,8 +28,8 @@ export namespace CalendarBody {
         // ======================
 
         export interface HeaderProps {
-            backgroundColor?: string;
-            textColor?: string;
+            backgroundColor: string;
+            textColor: string;
         }
         export namespace Day {
             export interface Props {
@@ -90,7 +90,7 @@ export namespace CalendarBody {
                 dots: MobileDot[];
             }
         }
-        export interface EmptyDayProps {}
+        export interface EmptyDayProps { }
     }
 
     export namespace SidePanel {
@@ -99,7 +99,7 @@ export namespace CalendarBody {
             children: React.ReactNode
         }
         // ======================
-       
+
         export namespace Header {
             export interface Props {
                 children: React.ReactNode
@@ -111,7 +111,7 @@ export namespace CalendarBody {
             export interface CloseButtonProps {
                 onClick: () => void
                 children: React.ReactNode
-            }         
+            }
         }
         export namespace Body {
             export interface Props {
@@ -137,7 +137,7 @@ export namespace CalendarBody {
                 export interface Props {
                     classes: (string | null)[]
                     noSchoolDay?: NoSchoolPeriod
-                    getClassById: (id: string) => Class | undefined
+                    getClassById: (id: string) => Class
                 }
                 // ======================
                 export interface ClassItemProps {
@@ -149,7 +149,7 @@ export namespace CalendarBody {
             export namespace AssignmentList {
                 export interface Props {
                     assignments: Assignment[]
-                    getClassById: (id: string) => Class | undefined
+                    getClassById: (id: string) => Class
                     onAssignmentClick: (id: string) => void
                 }
                 // ======================
@@ -179,7 +179,7 @@ export namespace UseCalendar {
     interface BaseCalendarCell {
         key: string;
     }
-    
+
     export interface EmptyCalendarCell extends BaseCalendarCell {
         type: 'empty';
     }

@@ -7,11 +7,11 @@ const DayTypeDisplay: React.FC<CalendarBody.SidePanel.Body.DayType.DisplayProps>
 
     return (
         <div className="text-center">
-            <div className="font-bold text-lg" style={{ color: dayType === 'A' ? CALENDAR.A_DAY_TEXT : CALENDAR.B_DAY_TEXT }}>
+            <div className="font-bold text-lg" style={{ color: dayType === 'A' ? CALENDAR.TEXT_A_DAY : CALENDAR.TEXT_B_DAY }}>
                 {dayType}-Day
             </div>
         </div>
     )
 }
 
-export default React.memo(DayTypeDisplay)
+export default DayTypeDisplay

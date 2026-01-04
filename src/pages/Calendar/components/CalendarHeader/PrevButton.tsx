@@ -11,10 +11,10 @@ const PrevButton: React.FC<CalendarHeader.CalendarHeaderButtonProps> = ({ onClic
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             className="calendar-header-btn p-3 md:p-2 rounded-full transition touch-manipulation min-w-[48px] min-h-[48px] flex items-center justify-center"
-            style={{ backgroundColor: hovered ? CALENDAR.HEADER_BUTTON_HOVER : undefined }}
+            style={{ backgroundColor: hovered ? CALENDAR.BACKGROUND_QUATERNARY : undefined }}
             aria-label="Previous Month"
         >
-            <ChevronLeft className="w-7 h-7 md:w-6 md:h-6" style={{ color: CALENDAR.HEADER_ICON }} />
+            <ChevronLeft className="w-7 h-7 md:w-6 md:h-6" style={{ color: CALENDAR.FOCUS_COLOR }} />
         </button>
     )
 }

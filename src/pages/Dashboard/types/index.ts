@@ -42,7 +42,7 @@ export namespace TodaysClasses {
     export interface Props {
         classIds: (string | null)[]
         noSchool?: NoSchoolPeriod
-        getClassById: (id: string) => Class | undefined
+        getClassById: (id: string) => Class
         openModal: (modalType: string, id?: string) => void
         isMobile?: boolean
         isCollapsed?: boolean
@@ -69,7 +69,7 @@ export namespace TodaysClasses {
         export namespace ClassList {
             export interface Props {
                 classIds: (string | null)[]
-                getClassById: (id: string) => Class | undefined
+                getClassById: (id: string) => Class
                 openModal: (modalType: string, id?: string) => void
             }
             // ======================

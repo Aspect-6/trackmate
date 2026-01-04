@@ -1,114 +1,19 @@
 /* Settings Page Variables */
 :root.dark {
-    --settings-module-bg: var(--block-module-bg);
-    --settings-module-border: var(--border-primary);
-    --settings-module-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
-    --settings-schedule-header: var(--text-primary);
-    --settings-body-text: hsl(215, 20%, 78%);
-
-    --settings-card-bg: #161b22;
-    --settings-card-border: #30363d;
-    --settings-theme-option-hover: hsl(215, 23%, 16%);
-
-    --settings-text-danger: #f87171;
-    --settings-button-danger-bg: #dc2626;
-    --settings-button-danger-bg-hover: #b91c1c;
-    --settings-button-danger-text: #ffffff;
-
-    --settings-danger-btn-border: var(--settings-button-danger-bg);
-    --settings-danger-btn-text: var(--settings-text-danger);
-    --settings-danger-btn-bg-hover: var(--settings-button-danger-bg);
-    --settings-danger-btn-text-hover: var(--settings-button-danger-text);
-
-    --settings-button-a-bg: #7c3aed;
-    --settings-button-a-bg-hover: #6d28d9;
-    --settings-button-b-bg: #2563eb;
-    --settings-button-b-bg-hover: #1d4ed8;
-    --settings-text-a: hsl(260, 60%, 50%);
-    --settings-text-b: hsl(215, 90%, 50%);
-
-    --settings-semester-bg: hsl(215, 15%, 16.5%);
-
-    --settings-empty-border-hover: hsl(215, 10%, 45%);
+    --settings-semester-bg: var(--background-quaternary);
 }
 
 :root.light {
-    --settings-module-bg: var(--block-module-bg);
-    --settings-module-border: var(--border-primary);
-    --settings-module-shadow: 0 4px 10px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
-    --settings-schedule-header: hsl(215, 25%, 15%);
-    --settings-body-text: hsl(215, 20%, 35%);
-
-    --settings-card-bg: hsl(215, 20%, 96%);
-    --settings-card-border: var(--border-primary);
-    --settings-theme-option-hover: hsl(215, 25%, 90%);
-
-    --settings-text-danger: hsl(0, 70%, 50%);
-    --settings-button-danger-bg: hsl(0, 70%, 60%);
-    --settings-button-danger-bg-hover: hsl(0, 70%, 50%);
-    --settings-button-danger-text: #ffffff;
-
-    --settings-danger-btn-border: var(--settings-button-danger-bg);
-    --settings-danger-btn-text: var(--settings-text-danger);
-    --settings-danger-btn-bg-hover: var(--settings-button-danger-bg);
-    --settings-danger-btn-text-hover: var(--settings-button-danger-text);
-
-    --settings-button-a-bg: hsl(260, 60%, 60%);
-    --settings-button-a-bg-hover: hsl(260, 60%, 50%);
-    --settings-button-b-bg: hsl(215, 90%, 55%);
-    --settings-button-b-bg-hover: hsl(215, 90%, 45%);
-    --settings-text-a: hsl(260, 60%, 50%);
-    --settings-text-b: hsl(215, 90%, 50%);
-
-    --settings-semester-bg: hsl(25, 0%, 90%);
-
-    --settings-empty-border-hover: hsl(215, 20%, 70%);
-}
-
-/* ThemeSettings theme toggle styles */
-.theme-toggle {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-}
-
-.theme-toggle-option {
-    display: flex;
-    align-items: center;
-    padding: 0.9rem 1.1rem;
-    border-radius: 0.9rem;
-    border: 1px solid var(--settings-module-border);
-    background-color: var(--modal-surface-bg);
-    color: var(--settings-body-text);
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-
-.theme-toggle-option:not([data-active="true"]):hover {
-    background-color: var(--settings-theme-option-hover);
-    border-color: var(--sidebar-active-tab-background);
-}
-
-.theme-toggle-option svg {
-    color: var(--sidebar-active-tab-background);
-}
-
-.theme-toggle-option[data-active="true"] {
-    border-color: var(--sidebar-active-tab-background);
-    background-color: var(--sidebar-active-tab-background);
-    color: #ffffff;
-}
-
-.theme-toggle-option[data-active="true"] svg {
-    color: #ffffff;
+    --settings-semester-bg: var(--background-quaternary);
 }
 
 /* ScheduleSettings select dropdown styles */
 .settings-select {
     width: 100%;
     border-radius: 0.5rem;
-    background-color: var(--modal-surface-bg);
-    border: 1px solid var(--settings-module-border);
-    color: var(--settings-body-text);
+    background-color: var(--background-secondary);
+    border: 1px solid var(--border-primary);
+    color: var(--text-secondary);
     padding: 0.5rem 2.25rem 0.5rem 0.75rem;
     appearance: none;
     background-image: var(--modal-select-arrow);
@@ -121,11 +26,11 @@
 
 .settings-select:focus {
     outline: none;
-    border-color: var(--focus-color, var(--sidebar-active-tab-background));
+    border-color: var(--focus-color, var(--sidebar-tab-active-bg));
 }
 
 /* DangerZoneSettings danger row divider styles */
 .danger-row+.danger-row {
-    border-top: 1px solid var(--settings-module-border);
+    border-top: 1px solid var(--border-primary);
     padding-top: 0.75rem;
 }

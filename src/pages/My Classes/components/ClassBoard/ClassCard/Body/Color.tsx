@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import type { ClassBoard } from '@/pages/My Classes/types'
+import { MY_CLASSES } from '@/app/styles/colors'
 
 const cssColorToHex = (value: string): string => {
     if (typeof window === 'undefined') return value
@@ -66,13 +67,13 @@ const ClassCardColor: React.FC<ClassBoard.Card.Body.ColorProps> = ({ color }) =>
 
     return (
         <div className="flex items-center text-sm">
-            <span className="w-24 class-detail-label">Color:</span>
+            <span className="w-24" style={{ color: MY_CLASSES.TEXT_SECONDARY }}>Color:</span>
             <div className="flex items-center space-x-2">
                 <div
-                    className="w-4 h-4 rounded-full class-color-swatch"
-                    style={{ backgroundColor: resolvedColor }}
+                    className="w-4 h-4 rounded-full"
+                    style={{ border: `1px solid ${MY_CLASSES.BORDER_LIGHT}`, backgroundColor: resolvedColor }}
                 />
-                <span className="class-detail-value text-xs uppercase">{colorLabel}</span>
+                <span className="text-xs uppercase" style={{ color: MY_CLASSES.TEXT_PRIMARY }}>{colorLabel}</span>
             </div>
         </div>
     )

@@ -6,7 +6,6 @@
 @import "./styles/components/sidebar.css";
 @import "./styles/resources-types.css";
 
-
 /* Page-specific styles */
 @import "../pages/Dashboard/index.css";
 @import "../pages/Calendar/index.css";
@@ -19,6 +18,30 @@
 	--font-sans: 'Inter', sans-serif;
 }
 
+/* Custom scrollbar styles */
+.custom-scrollbar {
+	scrollbar-width: thin;
+	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+	width: 0.5rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: var(--scrollbar-track);
+	border-radius: 999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background: var(--scrollbar-thumb);
+	border-radius: 999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: var(--scrollbar-thumb-hover);
+}
+
 .class-card {
 	background-color: var(--dashboard-card-bg);
 	border: 1px solid var(--dashboard-module-border);
@@ -26,7 +49,7 @@
 }
 
 
-/* Toast Notifications */
+/* Toast notifications */
 .toast-container {
 	position: fixed;
 	top: 20px;

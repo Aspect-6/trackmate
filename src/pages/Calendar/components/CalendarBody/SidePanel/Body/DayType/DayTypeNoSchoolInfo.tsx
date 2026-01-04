@@ -7,10 +7,10 @@ const NoSchoolInfo: React.FC<CalendarBody.SidePanel.Body.DayType.NoSchoolInfoPro
 
     return (
         <div className="text-center">
-            <div className="font-semibold" style={{ color: CALENDAR.NO_SCHOOL_HEADING }}>No School</div>
-            <div className="text-sm" style={{ color: CALENDAR.SIDE_PANEL_DIM_TEXT }}>{noSchoolDay.name}</div>
+            <div className="font-semibold" style={{ color: CALENDAR.SCHEDULE_HEADING_TEXT }}>No School</div>
+            <div className="text-sm" style={{ color: CALENDAR.TEXT_SECONDARY }}>{noSchoolDay.name}</div>
         </div>
     )
 }
 
-export default React.memo(NoSchoolInfo)
+export default NoSchoolInfo

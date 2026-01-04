@@ -1,139 +1,26 @@
 /* Dashboard Page Variables */
 :root.dark {
     /* Dashboard Colors */
-    --dashboard-module-bg: var(--block-module-bg);
-    --dashboard-module-border: var(--border-primary);
     --dashboard-module-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    --dashboard-card-bg: #161b22;
-    --dashboard-item-hover-bg: hsl(215, 18%, 13%);
-    --dashboard-card-hover-bg: var(--dashboard-item-hover-bg);
-    --dashboard-badge-bg: #05080d;
-    --dashboard-class-item-hover-bg: var(--dashboard-item-hover-bg);
-    --dashboard-event-item-hover-bg: var(--dashboard-item-hover-bg);
-    --dashboard-card-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-    /* Dashboard Text */
-    --dashboard-text-primary: hsl(215, 0%, 90%);
-    --dashboard-text-secondary: #9ca3af;
-    --dashboard-text-gray-400: #9ca3af;
-    --dashboard-text-gray-500: #6b7280;
-    --dashboard-text-white: hsl(215, 0%, 90%);
-    --dashboard-no-school-text: #f87171;
-
 
     /* Icon Colors */
     --dashboard-icon-play-default: #6b7280;
-    --dashboard-icon-play-hover: var(--page-header-green);
+    --dashboard-icon-play-hover: var(--focus-color);
     --dashboard-icon-in-progress: #6b7280;
-    --dashboard-icon-in-progress-hover: var(--page-header-green);
+    --dashboard-icon-in-progress-hover: var(--focus-color);
     --dashboard-icon-complete: #22c55e;
     --dashboard-icon-complete-hover: #6b7280;
-
-    /* Item Backgrounds */
-    --dashboard-class-item-bg: var(--dashboard-card-bg);
-    --dashboard-event-item-bg: var(--dashboard-card-bg);
 }
 
 :root.light {
     /* Dashboard Colors */
-    --dashboard-module-bg: var(--block-module-bg);
-    --dashboard-module-border: var(--border-primary);
     --dashboard-module-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    --dashboard-card-bg: hsl(215, 0%, 93.5%);
-    --dashboard-item-hover-bg: hsl(215, 0%, 91%);
-    --dashboard-card-hover-bg: var(--dashboard-item-hover-bg);
-    --dashboard-badge-bg: hsl(215, 0%, 83%);
-    --dashboard-class-item-hover-bg: var(--dashboard-item-hover-bg);
-    --dashboard-event-item-hover-bg: var(--dashboard-item-hover-bg);
-    --dashboard-card-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-    /* Dashboard Text */
-    --dashboard-text-primary: hsl(215, 25%, 15%);
-    --dashboard-text-secondary: hsl(215, 15%, 40%);
-    --dashboard-text-gray-400: hsl(215, 15%, 40%);
-    --dashboard-text-gray-500: hsl(215, 15%, 60%);
-    --dashboard-text-white: hsl(215, 25%, 15%);
-    --dashboard-no-school-text: hsl(0, 70%, 55%);
-
-
+    
     /* Icon Colors */
     --dashboard-icon-play-default: hsl(215, 15%, 40%);
-    --dashboard-icon-play-hover: var(--page-header-green);
+    --dashboard-icon-play-hover: var(--page-header-text);
     --dashboard-icon-in-progress: hsl(215, 15%, 40%);
-    --dashboard-icon-in-progress-hover: var(--page-header-green);
+    --dashboard-icon-in-progress-hover: var(--page-header-text);
     --dashboard-icon-complete: hsl(142, 60%, 45%);
     --dashboard-icon-complete-hover: hsl(215, 15%, 40%);
-
-    /* Item Backgrounds */
-    --dashboard-class-item-bg: var(--dashboard-card-bg);
-    --dashboard-event-item-bg: var(--dashboard-card-bg);
-}
-
-.upcoming-assignments-card {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-bottom: 1.5rem;
-}
-
-.upcoming-assignments-list {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 0.5rem;
-    margin-right: -0.5rem;
-    scrollbar-width: thin;
-}
-
-.upcoming-assignments-list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.upcoming-assignments-list::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-.upcoming-assignments-list::-webkit-scrollbar-thumb {
-    background-color: var(--border-secondary);
-    border-radius: 999px;
-}
-
-.assignment-card {
-    box-shadow: var(--dashboard-card-shadow);
-    border-radius: 1rem;
-}
-
-.dashboard-collapsible-header {
-    transition: border-color 0.2s ease;
-}
-
-@media (max-width: 767px) {
-    .dashboard-collapsible[data-collapsed="true"] {
-        padding-bottom: 0;
-    }
-}
-
-.dashboard-collapse-outer {
-    transition: max-height 0.25s ease;
-    overflow: hidden;
-}
-
-/* .dashboard-collapse-inner {} */
-
-@media (max-width: 640px) {
-    .assignment-card {
-        box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
-        border-radius: 1.125rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .upcoming-assignments-card {
-        padding-bottom: 1.5rem;
-    }
-
-    .upcoming-assignments-list {
-        overflow: visible;
-        padding-right: 0;
-        margin-right: 0;
-    }
 }

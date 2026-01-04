@@ -10,7 +10,7 @@ const AddTypeInput: React.FC<AssignmentTypeSettings.Content.AddTypeForm.AddTypeI
             onChange={e => onChange(e.target.value)}
             placeholder={placeholder}
             className="flex-1 rounded-lg border px-3 py-1"
-            style={{ backgroundColor: SETTINGS.MODAL_BG, borderColor: SETTINGS.MODULE_BORDER, color: SETTINGS.BODY_TEXT }}
+            style={{ backgroundColor: SETTINGS.BACKGROUND_SECONDARY, borderColor: SETTINGS.BORDER_PRIMARY, color: SETTINGS.TEXT_SECONDARY }}
         />
     )
 }

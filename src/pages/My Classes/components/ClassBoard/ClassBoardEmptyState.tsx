@@ -8,10 +8,10 @@ const ClassBoardEmptyState: React.FC<ClassBoard.EmptyStateProps> = ({ onAddClass
             <p className="text-lg" style={{ color: GLOBAL.TEXT_SECONDARY }}>No classes added yet.</p>
             <button
                 onClick={onAddClass}
-                className="mt-4 font-medium"
-                style={{ color: MY_CLASSES.CLASS_TEXT_THEME }}
-                onMouseEnter={(e) => e.currentTarget.style.color = MY_CLASSES.CLASS_TEXT_THEME_HOVER}
-                onMouseLeave={(e) => e.currentTarget.style.color = MY_CLASSES.CLASS_TEXT_THEME}
+                className="mt-4 font-medium transition-colors"
+                style={{ color: MY_CLASSES.CLASS_HEADING_TEXT }}
+                onMouseEnter={(e) => e.currentTarget.style.color = MY_CLASSES.CLASS_BUTTON_BG_HOVER}
+                onMouseLeave={(e) => e.currentTarget.style.color = MY_CLASSES.CLASS_HEADING_TEXT}
             >
                 Add your first class
             </button>

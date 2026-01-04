@@ -1,31 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
 import type { TodaysClasses } from '@/pages/Dashboard/types'
 import { DASHBOARD } from '@/app/styles/colors'
 
 const ClassItem: React.FC<TodaysClasses.Body.ClassList.ClassItemProps> = ({ classInfo, period, openModal }) => {
-    const [isHovered, setIsHovered] = useState(false)
-
     return (
         <div
-            className="flex items-center justify-between p-3 class-card rounded-lg transition-colors cursor-pointer border"
+            className="flex items-center justify-between p-3 class-card rounded-lg transition-colors shadow-md cursor-pointer"
             style={{
-                borderColor: DASHBOARD.MODULE_BORDER,
-                boxShadow: DASHBOARD.CARD_SHADOW,
-                borderLeftWidth: '4px',
-                borderLeftStyle: 'solid',
-                borderLeftColor: classInfo.color,
-                backgroundColor: isHovered ? DASHBOARD.CLASS_ITEM_HOVER_BG : DASHBOARD.CLASS_ITEM_BG
+                border: `1px solid ${DASHBOARD.BORDER_PRIMARY}`,
+                borderLeft: `4px solid ${classInfo.color}`,
+                backgroundColor: DASHBOARD.BACKGROUND_PRIMARY
             }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             onClick={() => openModal('edit-class', classInfo.id)}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = DASHBOARD.BACKGROUND_TERTIARY}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = DASHBOARD.BACKGROUND_PRIMARY}
         >
             <div className="flex-1">
-                <p className="font-semibold text-sm sm:text-base" style={{ color: DASHBOARD.TEXT_WHITE }}>{classInfo.name}</p>
-                <p className="text-xs mt-1" style={{ color: DASHBOARD.TEXT_GRAY_400 }}>Period {period} • {classInfo.teacherName}</p>
+                <p className="font-semibold text-sm sm:text-base" style={{ color: DASHBOARD.TEXT_PRIMARY }}>{classInfo.name}</p>
+                <p className="text-xs mt-1" style={{ color: DASHBOARD.TEXT_SECONDARY }}>Period {period} • {classInfo.teacherName}</p>
             </div>
             <div className="text-right">
-                <p className="text-xs ml-2" style={{ color: DASHBOARD.TEXT_GRAY_400 }}>Room: {classInfo.roomNumber}</p>
+                <p className="text-xs ml-2" style={{ color: DASHBOARD.TEXT_SECONDARY }}>Room: {classInfo.roomNumber}</p>
             </div>
         </div>
     )

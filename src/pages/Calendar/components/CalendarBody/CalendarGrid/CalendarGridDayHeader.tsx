@@ -1,10 +1,9 @@
 import React from 'react'
 import type { CalendarBody } from '@/pages/Calendar/types'
-import { CALENDAR } from '@/app/styles/colors'
 
 const CalendarGridDayHeader: React.FC<CalendarBody.Grid.HeaderProps> = ({ backgroundColor, textColor }) => {
-	const bg = backgroundColor ?? CALENDAR.DAY_HEADER_BG
-	const txt = textColor ?? CALENDAR.DAY_HEADER_TEXT
+	const bg = backgroundColor
+	const txt = textColor
 	const weekdayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 	return (

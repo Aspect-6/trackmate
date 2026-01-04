@@ -5,11 +5,10 @@ import { SETTINGS } from '@/app/styles/colors'
 const ThemeSettingsComponent: React.FC<ThemeSettings.Props> = ({ children }) => {
     return (
         <div
-            className="p-6 rounded-xl mb-6"
+            className="p-6 rounded-xl mb-6 shadow-md"
             style={{
-                backgroundColor: SETTINGS.MODULE_BG,
-                border: `1px solid ${SETTINGS.MODULE_BORDER}`,
-                boxShadow: SETTINGS.MODULE_SHADOW,
+                backgroundColor: SETTINGS.BACKGROUND_PRIMARY,
+                border: `1px solid ${SETTINGS.BORDER_PRIMARY}`,
             }}
         >
             {children}

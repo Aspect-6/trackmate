@@ -20,7 +20,7 @@ const TermModeDropdown: React.FC<TermSettings.Content.TermModeDropdown.Props> = 
             >
                 {children}
             </select>
-            <span className="text-sm opacity-60 block mt-1.5 ml-2" style={{ color: SETTINGS.BODY_TEXT }}>
+            <span className="text-sm opacity-60 block mt-1.5 ml-2" style={{ color: SETTINGS.TEXT_SECONDARY }}>
                 {messages[termMode]}
             </span>
         </div>

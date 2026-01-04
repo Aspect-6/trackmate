@@ -19,8 +19,8 @@ const AssignmentTypeListRow: React.FC<AssignmentTypeSettings.Content.AssignmentT
         transform: CSS.Translate.toString(transform),
         transition,
         opacity: isDragging ? 0.8 : 1,
-        backgroundColor: SETTINGS.MODAL_BG,
-        borderColor: SETTINGS.CARD_BORDER
+        backgroundColor: SETTINGS.BACKGROUND_SECONDARY,
+        borderColor: SETTINGS.BORDER_PRIMARY
     } as React.CSSProperties
 
     return (
@@ -29,7 +29,7 @@ const AssignmentTypeListRow: React.FC<AssignmentTypeSettings.Content.AssignmentT
             style={style}
             className="flex items-center justify-between gap-3 px-3 py-2 rounded-lg border"
         >
-            <div className="flex items-center gap-3 text-sm sm:text-base" style={{ color: SETTINGS.BODY_TEXT }}>
+            <div className="flex items-center gap-3 text-sm sm:text-base" style={{ color: SETTINGS.TEXT_SECONDARY }}>
                 <button
                     type="button"
                     className="p-1 rounded hover:bg-white/5 cursor-grab touch-none"
@@ -48,7 +48,7 @@ const AssignmentTypeListRow: React.FC<AssignmentTypeSettings.Content.AssignmentT
                     onClick={onMoveUp}
                     disabled={isFirst}
                     className="p-2 rounded-lg border disabled:opacity-40 hover:bg-white/5"
-                    style={{ borderColor: SETTINGS.CARD_BORDER, color: SETTINGS.BODY_TEXT }}
+                    style={{ borderColor: SETTINGS.BORDER_PRIMARY, color: SETTINGS.TEXT_SECONDARY }}
                     aria-label={`Move ${type} up`}
                 >
                     <ChevronUp className="w-4 h-4" />
@@ -58,7 +58,7 @@ const AssignmentTypeListRow: React.FC<AssignmentTypeSettings.Content.AssignmentT
                     onClick={onMoveDown}
                     disabled={isLast}
                     className="p-2 rounded-lg border disabled:opacity-40 hover:bg-white/5"
-                    style={{ borderColor: SETTINGS.CARD_BORDER, color: SETTINGS.BODY_TEXT }}
+                    style={{ borderColor: SETTINGS.BORDER_PRIMARY, color: SETTINGS.TEXT_SECONDARY }}
                     aria-label={`Move ${type} down`}
                 >
                     <ChevronDown className="w-4 h-4" />
@@ -68,7 +68,7 @@ const AssignmentTypeListRow: React.FC<AssignmentTypeSettings.Content.AssignmentT
                     onClick={onRemove}
                     disabled={isOnly}
                     className="p-2 rounded-lg border disabled:opacity-40 hover:bg-red-500/10"
-                    style={{ borderColor: SETTINGS.CARD_BORDER, color: GLOBAL.DELETE_BUTTON_BG }}
+                    style={{ borderColor: SETTINGS.BORDER_PRIMARY, color: GLOBAL.DELETE_BUTTON_BG }}
                     aria-label={`Remove ${type}`}
                 >
                     <Trash2 className="w-4 h-4" />

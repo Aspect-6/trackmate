@@ -90,16 +90,19 @@ export namespace SemesterSchedule {
 
         export namespace Row {
             export interface Props {
+                isLastRow: boolean
                 dayType: ScheduleDayType
                 children: React.ReactNode
             }
 
             export interface EmptyCellProps {
+                isLastRow: boolean
                 onClick: () => void
             }
 
             export namespace FilledCell {
                 export interface Props {
+                    isLastRow: boolean
                     classData: Class
                     onRemove: () => void
                 }

@@ -56,7 +56,7 @@ const Layout: React.FC = () => {
             "app-container flex bg-[#0d1117] text-[#c9d1d9]",
             isFixedViewportPage ? "h-[100dvh] overflow-hidden" : "min-h-[100dvh]"
         )}
-            style={{ backgroundColor: GLOBAL.BACKGROUND }}
+            style={{ backgroundColor: GLOBAL.WEBPAGE_BACKGROUND }}
         >
             <Sidebar />
             <MobileSidebar isOpen={isMobileSidebarOpen} onClose={() => setIsMobileSidebarOpen(false)} />
@@ -88,9 +88,33 @@ const Layout: React.FC = () => {
                             return openModal('type-selector')
                         }}
                         className="flex items-center py-2 px-3 sm:px-4 border border-transparent rounded-lg shadow-sm text-xs sm:text-sm font-medium text-white transition duration-150 ease-in-out whitespace-nowrap flex-shrink-0"
-                        style={{ backgroundColor: location.pathname === '/classes' ? MY_CLASSES.CLASS_MODAL_BUTTON_BG : location.pathname === '/assignments' ? GLOBAL.ASSIGNMENT_BUTTON_BG : location.pathname === '/calendar' ? GLOBAL.EVENT_BUTTON_BG : GLOBAL.ADDITEM_BUTTON_BG }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = location.pathname === '/classes' ? MY_CLASSES.CLASS_MODAL_BUTTON_BG_HOVER : location.pathname === '/assignments' ? GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER : location.pathname === '/calendar' ? GLOBAL.EVENT_BUTTON_BG_HOVER : GLOBAL.ADDITEM_BUTTON_BG_HOVER}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = location.pathname === '/classes' ? MY_CLASSES.CLASS_MODAL_BUTTON_BG : location.pathname === '/assignments' ? GLOBAL.ASSIGNMENT_BUTTON_BG : location.pathname === '/calendar' ? GLOBAL.EVENT_BUTTON_BG : GLOBAL.ADDITEM_BUTTON_BG}
+                        style={{
+                            backgroundColor: location.pathname === '/classes'
+                                ? MY_CLASSES.CLASS_BUTTON_BG
+                                : location.pathname === '/assignments'
+                                    ? GLOBAL.ASSIGNMENT_BUTTON_BG
+                                    : location.pathname === '/calendar'
+                                        ? GLOBAL.EVENT_BUTTON_BG
+                                        : GLOBAL.ADDITEM_BUTTON_BG
+                        }}
+                        onMouseEnter={(e) =>
+                            e.currentTarget.style.backgroundColor = location.pathname === '/classes'
+                                ? MY_CLASSES.CLASS_BUTTON_BG_HOVER
+                                : location.pathname === '/assignments'
+                                    ? GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER
+                                    : location.pathname === '/calendar'
+                                        ? GLOBAL.EVENT_BUTTON_BG_HOVER
+                                        : GLOBAL.ADDITEM_BUTTON_BG_HOVER
+                        }
+                        onMouseLeave={(e) =>
+                            e.currentTarget.style.backgroundColor = location.pathname === '/classes'
+                                ? MY_CLASSES.CLASS_BUTTON_BG
+                                : location.pathname === '/assignments'
+                                    ? GLOBAL.ASSIGNMENT_BUTTON_BG
+                                    : location.pathname === '/calendar'
+                                        ? GLOBAL.EVENT_BUTTON_BG
+                                        : GLOBAL.ADDITEM_BUTTON_BG
+                        }
                     >
                         <Plus className="w-4 h-4 sm:w-5 sm:h-5 mr-1" />
                         <span className="hidden sm:inline">{location.pathname === '/classes' ? 'Add Class' :

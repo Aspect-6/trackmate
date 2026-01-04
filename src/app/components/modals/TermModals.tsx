@@ -149,7 +149,7 @@ export const AddTermModal: React.FC<ModalProps> = ({ onClose }) => {
 
     return (
         <div className="modal-container overflow-y-auto max-h-[90vh]" style={{ backgroundColor: MODALS.BASE.BG }}>
-            <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.NOSCHOOL.HEADING }}>Add Academic Term</h2>
+            <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.ACADEMICTERM.HEADING }}>Add Academic Term</h2>
             <div className="text-sm my-4 text-left" style={{ color: GLOBAL.TEXT_TERTIARY }}>
                 {termMode === 'Semesters Only'
                     ? 'Add a term with Fall and Spring semesters.'
@@ -160,17 +160,17 @@ export const AddTermModal: React.FC<ModalProps> = ({ onClose }) => {
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="modal-label">Term Name</label>
-                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="2025-2026" className="modal-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="2025-2026" className="modal-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="modal-label">Year Start</label>
-                        <input type="date" value={termStart} onChange={e => setTermStart(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                        <input type="date" value={termStart} onChange={e => setTermStart(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                     </div>
                     <div>
                         <label className="modal-label">Year End</label>
-                        <input type="date" value={termEnd} onChange={e => setTermEnd(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                        <input type="date" value={termEnd} onChange={e => setTermEnd(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                     </div>
                 </div>
 
@@ -178,12 +178,12 @@ export const AddTermModal: React.FC<ModalProps> = ({ onClose }) => {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="modal-label">Fall Semester End</label>
-                            <input type="date" value={fallEnd} onChange={e => setFallEnd(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                            <input type="date" value={fallEnd} onChange={e => setFallEnd(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                             <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Starts on Year Start</span>
                         </div>
                         <div>
                             <label className="modal-label">Spring Semester Start</label>
-                            <input type="date" value={springStart} onChange={e => setSpringStart(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                            <input type="date" value={springStart} onChange={e => setSpringStart(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                             <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Ends on Year End</span>
                         </div>
                     </div>
@@ -192,34 +192,34 @@ export const AddTermModal: React.FC<ModalProps> = ({ onClose }) => {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="modal-label">Q1 End</label>
-                                <input type="date" value={q1End} onChange={e => setQ1End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q1End} onChange={e => setQ1End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Starts on Year Start</span>
                             </div>
                             <div>
                                 <label className="modal-label">Q2 Start</label>
-                                <input type="date" value={q2Start} onChange={e => setQ2Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q2Start} onChange={e => setQ2Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="modal-label">Q2 End</label>
-                                <input type="date" value={q2End} onChange={e => setQ2End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q2End} onChange={e => setQ2End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Serves as Fall semester end</span>
                             </div>
                             <div>
                                 <label className="modal-label">Q3 Start</label>
-                                <input type="date" value={q3Start} onChange={e => setQ3Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q3Start} onChange={e => setQ3Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Serves as Spring semester start</span>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="modal-label">Q3 End</label>
-                                <input type="date" value={q3End} onChange={e => setQ3End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q3End} onChange={e => setQ3End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                             </div>
                             <div>
                                 <label className="modal-label">Q4 Start</label>
-                                <input type="date" value={q4Start} onChange={e => setQ4Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q4Start} onChange={e => setQ4Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Ends on Year End</span>
                             </div>
                         </div>
@@ -228,7 +228,7 @@ export const AddTermModal: React.FC<ModalProps> = ({ onClose }) => {
 
                 <div className="flex justify-end space-x-3 mt-6">
                     <button type="button" onClick={onClose} className="modal-btn modal-btn-cancel modal-btn-inline" style={{ '--modal-btn-bg': MODALS.BASE.CANCEL_BG, '--modal-btn-bg-hover': MODALS.BASE.CANCEL_BG_HOVER, '--modal-btn-text': MODALS.BASE.CANCEL_TEXT, '--modal-btn-border': MODALS.BASE.CANCEL_BORDER } as React.CSSProperties}>Cancel</button>
-                    <button type="submit" className="modal-btn modal-btn-inline" style={{ '--modal-btn-bg': MODALS.NOSCHOOL.PRIMARY_BG, '--modal-btn-bg-hover': MODALS.NOSCHOOL.PRIMARY_BG_HOVER, '--modal-btn-text': MODALS.NOSCHOOL.PRIMARY_TEXT } as React.CSSProperties}>Add Term</button>
+                    <button type="submit" className="modal-btn modal-btn-inline" style={{ '--modal-btn-bg': MODALS.ACADEMICTERM.PRIMARY_BG, '--modal-btn-bg-hover': MODALS.ACADEMICTERM.PRIMARY_BG_HOVER, '--modal-btn-text': MODALS.ACADEMICTERM.PRIMARY_TEXT } as React.CSSProperties}>Add Term</button>
                 </div>
             </form>
         </div>
@@ -375,22 +375,22 @@ export const EditTermModal: React.FC<EditTermModalProps> = ({ onClose, termId })
 
     return (
         <div className="modal-container overflow-y-auto max-h-[90vh]" style={{ backgroundColor: MODALS.BASE.BG }}>
-            <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.NOSCHOOL.HEADING }}>Edit Academic Term</h2>
+            <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.ACADEMICTERM.HEADING }}>Edit Academic Term</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="modal-label">Term Name</label>
-                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="2025-2026" className="modal-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="2025-2026" className="modal-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="modal-label">Year Start</label>
-                        <input type="date" value={termStart} onChange={e => setTermStart(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                        <input type="date" value={termStart} onChange={e => setTermStart(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                     </div>
                     <div>
                         <label className="modal-label">Year End</label>
-                        <input type="date" value={termEnd} onChange={e => setTermEnd(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                        <input type="date" value={termEnd} onChange={e => setTermEnd(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                     </div>
                 </div>
 
@@ -399,34 +399,34 @@ export const EditTermModal: React.FC<EditTermModalProps> = ({ onClose, termId })
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="modal-label">Q1 End</label>
-                                <input type="date" value={q1End} onChange={e => setQ1End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q1End} onChange={e => setQ1End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Starts on Year Start</span>
                             </div>
                             <div>
                                 <label className="modal-label">Q2 Start</label>
-                                <input type="date" value={q2Start} onChange={e => setQ2Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q2Start} onChange={e => setQ2Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="modal-label">Q2 End</label>
-                                <input type="date" value={q2End} onChange={e => setQ2End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q2End} onChange={e => setQ2End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Serves as Fall semester end</span>
                             </div>
                             <div>
                                 <label className="modal-label">Q3 Start</label>
-                                <input type="date" value={q3Start} onChange={e => setQ3Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q3Start} onChange={e => setQ3Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Serves as Spring semester start</span>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="modal-label">Q3 End</label>
-                                <input type="date" value={q3End} onChange={e => setQ3End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q3End} onChange={e => setQ3End(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                             </div>
                             <div>
                                 <label className="modal-label">Q4 Start</label>
-                                <input type="date" value={q4Start} onChange={e => setQ4Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                                <input type="date" value={q4Start} onChange={e => setQ4Start(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Ends on Year End</span>
                             </div>
                         </div>
@@ -435,12 +435,12 @@ export const EditTermModal: React.FC<EditTermModalProps> = ({ onClose, termId })
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="modal-label">Fall Semester End</label>
-                            <input type="date" value={fallEnd} onChange={e => setFallEnd(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                            <input type="date" value={fallEnd} onChange={e => setFallEnd(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                             <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Starts on Year Start</span>
                         </div>
                         <div>
                             <label className="modal-label">Spring Semester Start</label>
-                            <input type="date" value={springStart} onChange={e => setSpringStart(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties} />
+                            <input type="date" value={springStart} onChange={e => setSpringStart(e.target.value)} className="modal-date-input" style={{ '--focus-color': MODALS.ACADEMICTERM.PRIMARY_BG } as React.CSSProperties} />
                             <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Ends on Year End</span>
                         </div>
                     </div>
@@ -448,7 +448,7 @@ export const EditTermModal: React.FC<EditTermModalProps> = ({ onClose, termId })
 
                 <div className="flex justify-end space-x-3 mt-6">
                     <button type="button" onClick={onClose} className="modal-btn modal-btn-cancel modal-btn-inline" style={{ '--modal-btn-bg': MODALS.BASE.CANCEL_BG, '--modal-btn-bg-hover': MODALS.BASE.CANCEL_BG_HOVER, '--modal-btn-text': MODALS.BASE.CANCEL_TEXT, '--modal-btn-border': MODALS.BASE.CANCEL_BORDER } as React.CSSProperties}>Cancel</button>
-                    <button type="submit" className="modal-btn modal-btn-inline" style={{ '--modal-btn-bg': MODALS.NOSCHOOL.PRIMARY_BG, '--modal-btn-bg-hover': MODALS.NOSCHOOL.PRIMARY_BG_HOVER, '--modal-btn-text': MODALS.NOSCHOOL.PRIMARY_TEXT } as React.CSSProperties}>Save Changes</button>
+                    <button type="submit" className="modal-btn modal-btn-inline" style={{ '--modal-btn-bg': MODALS.ACADEMICTERM.PRIMARY_BG, '--modal-btn-bg-hover': MODALS.ACADEMICTERM.PRIMARY_BG_HOVER, '--modal-btn-text': MODALS.ACADEMICTERM.PRIMARY_TEXT } as React.CSSProperties}>Save Changes</button>
                 </div>
             </form>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useApp } from '@/app/contexts/AppContext'
 import type { ClassBoard } from '@/pages/My Classes/types'
+import { MY_CLASSES } from '@/app/styles/colors'
 
 const ClassCardTerm: React.FC<ClassBoard.Card.Body.TermProps> = ({ termId, semesterId }) => {
     const { academicTerms } = useApp()
@@ -23,8 +24,8 @@ const ClassCardTerm: React.FC<ClassBoard.Card.Body.TermProps> = ({ termId, semes
 
     return (
         <div className="flex items-center text-sm">
-            <span className="w-24 class-detail-label">Term:</span>
-            <span className="class-detail-value font-medium">{getTermDisplay()}</span>
+            <span className="w-24" style={{ color: MY_CLASSES.TEXT_SECONDARY }}>Term:</span>
+            <span className="font-medium" style={{ color: MY_CLASSES.TEXT_PRIMARY }}>{getTermDisplay()}</span>
         </div>
     )
 }

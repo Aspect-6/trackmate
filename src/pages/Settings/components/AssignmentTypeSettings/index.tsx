@@ -5,11 +5,10 @@ import { SETTINGS } from '@/app/styles/colors'
 const AssignmentTypeSettingsComponent: React.FC<AssignmentTypeSettings.Props> = ({ children }) => {
     return (
         <div
-            className="settings-card p-5 sm:p-6 rounded-xl mb-6 space-y-4"
+            className="settings-card p-5 sm:p-6 rounded-xl shadow-md mb-6 space-y-4"
             style={{
-                backgroundColor: SETTINGS.MODULE_BG,
-                border: `1px solid ${SETTINGS.MODULE_BORDER}`,
-                boxShadow: SETTINGS.MODULE_SHADOW
+                backgroundColor: SETTINGS.BACKGROUND_PRIMARY,
+                border: `1px solid ${SETTINGS.BORDER_PRIMARY}`,
             }}
         >
             {children}

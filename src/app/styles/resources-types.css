@@ -1,53 +1,59 @@
 :root.light {
-    --assignment-background: hsl(280, 38%, 62%);
-    --assignment-background-hover: hsl(280, 38%, 54%);
+    --assignment-theme: hsl(280, 38%, 62%);
+    --assignment-theme-hover: hsl(280, 38%, 54%);
     --assignment-text-color: hsl(280, 38%, 47%);
 
-    --class-background: hsl(235, 50%, 69%);
-    --class-background-hover: hsl(235, 50%, 61%);
+    --class-theme: hsl(235, 50%, 69%);
+    --class-theme-hover: hsl(235, 50%, 61%);
     --class-text-color: hsl(235, 50%, 54%);
 
-    --event-background: hsl(119, 20%, 57%);
-    --event-background-hover: hsl(119, 20%, 49%);
+    --event-theme: hsl(119, 20%, 57%);
+    --event-theme-hover: hsl(119, 20%, 49%);
     --event-text-color: hsl(119, 20%, 42%);
 
-    --noschool-background: hsl(203, 40%, 59%);
-    --noschool-background-hover: hsl(203, 40%, 51%);
-    --noschool-text-color: hsl(203, 40%, 44%);
+    --schedule-theme: hsl(203, 40%, 59%);
+    --schedule-theme-hover: hsl(203, 40%, 51%);
+    --schedule-text-color: hsl(203, 40%, 44%);
 
     /* Common buttons */
-    --cancel-button-background: hsl(215, 20%, 83%);
-    --cancel-button-background-hover: hsl(215, 20%, 76%);
+    --cancel-button-bg: hsl(215, 20%, 83%);
+    --cancel-button-bg-hover: hsl(215, 20%, 76%);
     --cancel-button-border: hsl(215, 20%, 78%);
 
     --delete-button-bg: hsl(0, 72%, 51%);
     --delete-button-bg-hover: hsl(0, 72%, 43%);
-    --delete-text-white: hsl(0, 0%, 100%);
+    --delete-button-text: hsl(0, 0%, 100%);
+
+    --hover-zone-button-border: hsl(215, 20%, 70%);
+    --hover-zone-button-border-hover: hsl(215, 20%, 46%);
 }
 
 :root.dark {
-    --assignment-background: hsl(280, 38%, 47%);
-    --assignment-background-hover: hsl(280, 38%, 39%);
+    --assignment-theme: hsl(280, 38%, 47%);
+    --assignment-theme-hover: hsl(280, 38%, 39%);
     --assignment-text-color: hsl(280, 38%, 47%);
 
-    --class-background: hsl(235, 50%, 54%);
-    --class-background-hover: hsl(235, 50%, 46%);
+    --class-theme: hsl(235, 50%, 54%);
+    --class-theme-hover: hsl(235, 50%, 46%);
     --class-text-color: hsl(235, 50%, 54%);
 
-    --event-background: hsl(119, 20%, 42%);
-    --event-background-hover: hsl(119, 20%, 34%);
+    --event-theme: hsl(119, 20%, 42%);
+    --event-theme-hover: hsl(119, 20%, 34%);
     --event-text-color: hsl(119, 20%, 42%);
 
-    --noschool-background: hsl(203, 40%, 44%);
-    --noschool-background-hover: hsl(203, 40%, 36%);
-    --noschool-text-color: hsl(203, 40%, 44%);
+    --schedule-theme: hsl(203, 40%, 44%);
+    --schedule-theme-hover: hsl(203, 40%, 36%);
+    --schedule-text-color: hsl(203, 40%, 44%);
 
     /* Common buttons */
-    --cancel-button-background: hsl(217, 20%, 27%);
-    --cancel-button-background-hover: hsl(217, 20%, 19%);
+    --cancel-button-bg: hsl(217, 20%, 27%);
+    --cancel-button-bg-hover: hsl(217, 20%, 19%);
     --cancel-button-border: hsl(215, 20%, 34%);
 
     --delete-button-bg: hsl(0, 62%, 45%);
     --delete-button-bg-hover: hsl(0, 62%, 35%);
-    --delete-text-white: hsl(0, 0%, 100%);
+    --delete-button-text: hsl(0, 0%, 100%);
+
+    --hover-zone-button-border: hsl(215, 20%, 36%);
+    --hover-zone-button-border-hover: hsl(215, 20%, 50%);
 }

@@ -3,71 +3,92 @@
     --global-accent-hue: 158;
 
     --modal-underlay-dark: hsla(0, 0%, 0%, 0.75);
-    --page-header-green: hsl(var(--global-accent-hue), 50%, 48%);
-    --focus-color: hsl(var(--global-accent-hue), 70%, 42%);
+    --page-header-text: hsl(var(--global-accent-hue), 50%, 48%);
+
+    --focus-color-hsl: var(--global-accent-hue), 70%, 42%;
+    --focus-color: hsl(var(--focus-color-hsl));
+    --focus-color-70: hsla(var(--focus-color-hsl), 0.7);
+    --focus-color-30: hsla(var(--focus-color-hsl), 0.3);
 
     --text-a-day: hsl(260, 60%, 50%);
+    --text-a-day-contrast: hsl(260, 60%, 42%);
     --text-b-day: hsl(215, 90%, 50%);
+    --text-b-day-contrast: hsl(215, 90%, 42%);
 }
 
 :root.dark {
     /* General Colors */
-    --webpage-background-color: hsl(215, 28%, 7%);
-    --block-module-bg: hsl(215, 21%, 10.5%);
-    --modal-surface-bg: hsl(215, 21%, 10.5%);
+    --webpage-background-color: hsl(215, 21%, 7%);
 
     /* Header Menu Icon */
     --header-menu-icon: hsl(215, 18%, 70%);
     --header-menu-icon-hover: hsl(215, 28%, 90%);
 
+    /* Background Colors */
+    --background-primary: hsl(215, 21%, 10.5%);
+    --background-secondary: hsl(215, 21%, 11.3%);
+    --background-tertiary: hsl(215, 21%, 13%);
+    --background-quaternary: hsl(215, 21%, 15%);
+
     /* Border Colors */
-    --border-primary: #30363d;
-    --border-secondary: #4b5563;
-    --border-light: #374151;
+    --border-primary: hsl(212, 12%, 21%);
+    --border-secondary: hsl(215, 14%, 34%);
+    --border-light: hsl(217, 19%, 27%);
     --page-header-divider: hsl(215, 24%, 20%);
 
     /* Text Colors */
-    --text-primary: hsl(218, 0%, 90%);
+    --text-primary: hsl(218, 0%, 83%);
     --text-secondary: hsl(218, 11%, 65%);
     --text-tertiary: hsl(218, 9%, 46%);
     --text-muted: hsl(217, 19%, 27%);
+    --text-danger: hsl(0, 100%, 68.57%);
+    --text-white: hsl(217, 0%, 95%);
+
+    /* Scrollbar Colors */
+    --scrollbar-track: hsl(217, 19%, 27%);
+    --scrollbar-thumb: hsl(218, 11%, 65%);
+    --scrollbar-thumb-hover: hsl(216, 12%, 84%);
 
     /* Common Buttons */
     --cancel-text: hsl(217, 20%, 60%);
 
     /* Add Item Button Colors */
-    --additem-green: hsl(var(--global-accent-hue), 70%, 28%);
-    --additem-green-dark: hsl(var(--global-accent-hue), 70%, 23.5%);
-    --additem-text-green: hsl(var(--global-accent-hue), 70%, 37%);
+    --additem-bg: hsl(var(--global-accent-hue), 70%, 28%);
+    --additem-bg-hover: hsl(var(--global-accent-hue), 70%, 23.5%);
+    --additem-text: hsl(var(--global-accent-hue), 70%, 37%);
 
     /* Global Priority Colors */
-    --priority-high-bg: rgba(248, 113, 113, 0.15);
-    --priority-high-border: rgba(248, 113, 113, 0.4);
-    --priority-high-text: #fca5a5;
+    --priority-high-bg: hsla(0, 91%, 71%, 0.15);
+    --priority-high-border: hsla(0, 91%, 71%, 0.4);
+    --priority-high-text: hsl(0, 94%, 82%);
 
-    --priority-medium-bg: rgba(250, 204, 21, 0.15);
-    --priority-medium-border: rgba(250, 204, 21, 0.4);
-    --priority-medium-text: #fde047;
+    --priority-medium-bg: hsla(48, 96%, 53%, 0.15);
+    --priority-medium-border: hsla(48, 96%, 53%, 0.4);
+    --priority-medium-text: hsl(50, 98%, 64%);
 
-    --priority-low-bg: rgba(96, 165, 250, 0.15);
-    --priority-low-border: rgba(96, 165, 250, 0.4);
-    --priority-low-text: #93c5fd;
+    --priority-low-bg: hsla(213, 94%, 68%, 0.15);
+    --priority-low-border: hsla(213, 94%, 68%, 0.4);
+    --priority-low-text: hsl(212, 96%, 78%);
 
-    /* Global Status Colors (e.g. Done) */
-    --status-done-bg: rgba(34, 197, 94, 0.15);
-    --status-done-border: rgba(34, 197, 94, 0.4);
-    --status-done-text: #86efac;
+    /* Status Colors (e.g. Done) */
+    --status-done-bg: hsla(142, 71%, 45%, 0.15);
+    --status-done-border: hsla(142, 71%, 45%, 0.4);
+    --status-done-text: hsl(142, 77%, 73%);
 }
 
 :root.light {
     /* General Colors */
     --webpage-background-color: hsl(215, 36%, 93%);
-    --block-module-bg: hsl(215, 20%, 93.5%);
-    --modal-surface-bg: hsl(215, 0%, 95%);
-
+    
     /* Header Menu Icon */
     --header-menu-icon: hsl(215, 15%, 45%);
     --header-menu-icon-hover: hsl(215, 25%, 28%);
+    
+    /* Background Colors */
+    --background-primary: hsl(215, 20%, 94%);
+    --background-secondary: hsl(215, 15%, 92.2%);
+    --background-tertiary: hsl(215, 7%, 91.7%);
+    --background-quaternary: hsl(215, 7%, 88.7%);
 
     /* Border Colors */
     --border-primary: hsl(215, 20%, 85%);
@@ -80,14 +101,21 @@
     --text-secondary: hsl(215, 15%, 40%);
     --text-tertiary: hsl(215, 15%, 60%);
     --text-muted: hsl(215, 15%, 60%);
+    --text-danger: hsl(0, 70%, 50%);
+    --text-white: hsl(217, 0%, 95%);
+
+    /* Scrollbar Colors */
+    --scrollbar-track: hsl(215, 20%, 90%);
+    --scrollbar-thumb: hsl(215, 15%, 60%);
+    --scrollbar-thumb-hover: hsl(215, 15%, 45%);
 
     /* Common Buttons */
     --cancel-text: hsl(217, 20%, 40%);
 
     /* Add Item Button Colors */
-    --additem-green: hsl(var(--global-accent-hue), 50%, 55%);
-    --additem-green-dark: hsl(var(--global-accent-hue), 70%, 40%);
-    --additem-text-green: hsl(var(--global-accent-hue), 40%, 52%);
+    --additem-bg: hsl(var(--global-accent-hue), 50%, 55%);
+    --additem-bg-hover: hsl(var(--global-accent-hue), 70%, 40%);
+    --additem-text: hsl(var(--global-accent-hue), 40%, 52%);
 
     /* Global Priority Colors */
     --priority-high-bg: hsl(0, 70%, 95%);

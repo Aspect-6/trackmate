@@ -76,7 +76,7 @@ const Dashboard: React.FC = () => {
     const assignmentsToShow = activeAssignments.slice(0, 3)
 
     return (
-        <div className="dashboard-page flex-1 min-h-0 flex flex-col gap-6 w-full overflow-x-hidden">
+        <div className="dashboard-page flex-1 min-h-0 flex flex-col gap-6 w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-shrink-0 w-full">
                 <TodaysEvents
                     events={todaysEvents}
@@ -99,15 +99,14 @@ const Dashboard: React.FC = () => {
 
             {/* Assignment List */}
             <div
-                className="border p-6 rounded-xl upcoming-assignments-card flex-1 min-h-0"
+                className="border p-6 rounded-xl shadow-sm sm:shadow-md flex-1 min-h-0"
                 style={{
-                    backgroundColor: DASHBOARD.MODULE_BG,
-                    borderColor: DASHBOARD.MODULE_BORDER,
-                    boxShadow: DASHBOARD.MODULE_SHADOW
+                    backgroundColor: DASHBOARD.BACKGROUND_PRIMARY,
+                    borderColor: DASHBOARD.BORDER_PRIMARY,
                 }}
             >
                 <h2 className="text-xl font-bold mb-4" style={{ color: DASHBOARD.ASSIGNMENT_HEADING_TEXT }}>Upcoming Assignments</h2>
-                <div className="space-y-3 upcoming-assignments-list">
+                <div className="space-y-3 custom-scrollbar">
                     {assignmentsToShow.length === 0 ? (
                         <div className="text-center py-z8">
                             <p style={{ color: DASHBOARD.TEXT_TERTIARY }}>No upcoming assignments to display.</p>

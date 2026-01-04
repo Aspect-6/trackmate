@@ -6,7 +6,7 @@ const SettingsModuleDescription: React.FC<BaseSettingsModule.DescriptionProps> =
     return (
         <p
             className={"text-sm sm:text-base mb-3 " + className}
-            style={{ color: SETTINGS.BODY_TEXT }}
+            style={{ color: SETTINGS.TEXT_SECONDARY }}
         >
             {children}
         </p>

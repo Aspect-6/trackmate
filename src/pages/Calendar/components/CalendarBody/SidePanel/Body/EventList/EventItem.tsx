@@ -23,15 +23,16 @@ const EventItem: React.FC<CalendarBody.SidePanel.Body.EventList.EventItemProps> 
             onClick={() => onEventClick(event.id)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="calendar-side-panel-item p-3 rounded-lg cursor-pointer transition-colors"
-            style={{ 
-                borderLeft: `4px solid ${event.color}`, 
-                backgroundColor: isHovered ? CALENDAR.ITEM_BG_HOVER : CALENDAR.ITEM_BG 
+            className="p-3 rounded-lg cursor-pointer transition-colors"
+            style={{
+                border: `1px solid ${CALENDAR.BORDER_PRIMARY}`,
+                borderLeft: `4px solid ${event.color}`,
+                backgroundColor: isHovered ? CALENDAR.ITEM_BG_HOVER : CALENDAR.ITEM_BG
             }}
         >
-            <div className="font-semibold" style={{ color: CALENDAR.SIDE_PANEL_TEXT }}>{event.title}</div>
-            <div className="text-sm" style={{ color: CALENDAR.SIDE_PANEL_DIM_TEXT }}>{formatEventTime(event.startTime, event.endTime)}</div>
-            {event.description && <div className="text-xs mt-1" style={{ color: CALENDAR.SIDE_PANEL_DIM_TEXT }}>{event.description}</div>}
+            <div className="font-semibold" style={{ color: CALENDAR.TEXT_PRIMARY }}>{event.title}</div>
+            <div className="text-sm" style={{ color: CALENDAR.TEXT_SECONDARY }}>{formatEventTime(event.startTime, event.endTime)}</div>
+            {event.description && <div className="text-xs mt-1" style={{ color: CALENDAR.TEXT_SECONDARY }}>{event.description}</div>}
         </div>
     )
 }

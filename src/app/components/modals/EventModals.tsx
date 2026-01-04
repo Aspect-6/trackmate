@@ -39,7 +39,7 @@ export const AddEventModal: React.FC<ModalProps> = ({ onClose }) => {
     }
 
     return (
-        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.BACKGROUND_SECONDARY }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.EVENT_HEADING_TEXT }}>Add New Event</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -159,7 +159,7 @@ export const EditEventModal: React.FC<EventModalProps> = ({ onClose, eventId }) 
     }
 
     return (
-        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.BACKGROUND_SECONDARY }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.EVENT_HEADING_TEXT }}>Edit Event</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>

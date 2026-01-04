@@ -12,10 +12,10 @@ const CalendarDayContainer: React.FC<CalendarBody.Grid.Day.ContainerProps> = ({ 
             onMouseLeave={() => setIsHovered(false)}
             className="border-r border-b p-2 overflow-y-auto relative cursor-pointer transition-colors"
             style={{
-                borderColor: CALENDAR.GRID_BORDER,
-                backgroundColor: isHovered ? CALENDAR.DAY_BG_HOVER : (isToday ? CALENDAR.TODAY_BG : (noSchool ? CALENDAR.NO_SCHOOL_BG : undefined)),
+                borderColor: CALENDAR.BORDER_PRIMARY,
+                backgroundColor: isHovered ? CALENDAR.BACKGROUND_TERTIARY : (noSchool ? CALENDAR.NO_SCHOOL_BG : undefined),
                 backgroundImage: noSchool ? CALENDAR.NO_SCHOOL_PATTERN : undefined,
-                boxShadow: isToday ? `inset 0 0 0 2px ${CALENDAR.TODAY_BORDER}` : undefined
+                boxShadow: isToday ? `inset 0 0 0 2px ${CALENDAR.SIDEBAR_ACTIVE_TAB_GREEN_BG}` : undefined
             }}
         >
             {children}

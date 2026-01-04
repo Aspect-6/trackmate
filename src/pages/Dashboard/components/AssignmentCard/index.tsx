@@ -34,15 +34,14 @@ const AssignmentCard: React.FC<AssignmentCard.Props> = ({ assignment }) => {
     return (
         <div
             onClick={() => openModal('edit-assignment', assignment.id)}
-            className="assignment-card flex flex-col gap-3 p-3 sm:p-4 rounded-xl border cursor-pointer bg-[var(--card-bg)] hover:bg-[var(--card-hover-bg)] transition-colors group"
+            className="flex flex-col gap-3 p-3 sm:p-4 rounded-xl shadow-md cursor-pointer transition-colors"
             style={{
-                '--card-bg': DASHBOARD.CARD_BG,
-                borderColor: DASHBOARD.MODULE_BORDER,
-                borderLeftWidth: '4px',
-                borderLeftStyle: 'solid',
-                borderLeftColor: classInfo.color,
-                '--card-hover-bg': DASHBOARD.CARD_HOVER_BG
-            } as React.CSSProperties}
+                backgroundColor: DASHBOARD.BACKGROUND_PRIMARY,
+                border: `1px solid ${DASHBOARD.BORDER_PRIMARY}`,
+                borderLeft: `4px solid ${classInfo.color}`,
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = DASHBOARD.BACKGROUND_TERTIARY}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = DASHBOARD.BACKGROUND_PRIMARY}
         >
             <div className="flex items-start sm:items-center gap-3 sm:gap-4">
                 <StatusButton

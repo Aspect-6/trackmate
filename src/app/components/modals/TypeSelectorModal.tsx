@@ -11,7 +11,7 @@ export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, o
     <div
         className="w-full max-w-sm p-6 rounded-xl"
         style={{
-            backgroundColor: GLOBAL.MODAL_BG,
+            backgroundColor: GLOBAL.BACKGROUND_SECONDARY,
             border: `1px solid ${GLOBAL.BORDER_PRIMARY}`,
             boxShadow: '0 12px 30px rgba(0,0,0,0.25)'
         }}
@@ -60,8 +60,8 @@ export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, o
                 onClick={() => openModal('add-no-school')}
                 className="modal-btn flex items-center"
                 style={{
-                    '--modal-btn-bg': GLOBAL.NOSCHOOL_BUTTON_BG,
-                    '--modal-btn-bg-hover': GLOBAL.NOSCHOOL_BUTTON_BG_HOVER,
+                    '--modal-btn-bg': GLOBAL.SCHEDULE_BUTTON_BG,
+                    '--modal-btn-bg-hover': GLOBAL.SCHEDULE_BUTTON_BG_HOVER,
                     '--modal-btn-text': '#ffffff'
                 } as React.CSSProperties}
             >

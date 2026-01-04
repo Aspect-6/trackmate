@@ -1,156 +1,23 @@
 /* My Assignments Page Variables */
 :root.dark {
-    --my-assignments-board-bg: var(--block-module-bg);
-    --my-assignments-column-border: var(--border-primary);
-    --my-assignments-column-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-    --my-assignments-header-todo: #d1d5db;
-    --my-assignments-header-inprogress: #fdba74;
-    --my-assignments-header-done: #86efac;
-    --my-assignments-count-border-todo: rgba(209, 213, 219, 0.35);
-    --my-assignments-count-border-inprogress: rgba(253, 186, 116, 0.35);
-    --my-assignments-count-border-done: rgba(134, 239, 172, 0.35);
-
-    --my-assignments-item-bg: #161b22;
-    --my-assignments-item-hover-bg: hsl(215, 18%, 13%);
-    --my-assignments-item-text: hsl(215, 0%, 90%);
-    --my-assignments-item-text: hsl(215, 0%, 90%);
-    --my-assignments-item-subtext: #9ca3af;
-    --my-assignments-item-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-
-}
+    --my-assignments-header-upcoming: hsl(216, 12%, 84%);
+    --my-assignments-header-inprogress: hsl(31, 97%, 72%);
+    --my-assignments-header-done: hsl(142, 77%, 73%);}
 
 :root.light {
-    --my-assignments-board-bg: var(--block-module-bg);
-    --my-assignments-column-border: var(--border-primary);
-    --my-assignments-column-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-    --my-assignments-header-todo: hsl(215, 15%, 40%);
+    --my-assignments-header-upcoming: hsl(215, 15%, 40%);
     --my-assignments-header-inprogress: hsl(30, 80%, 50%);
     --my-assignments-header-done: hsl(142, 70%, 40%);
-    --my-assignments-count-border-todo: var(--my-assignments-header-todo);
-    --my-assignments-count-border-inprogress: var(--my-assignments-header-inprogress);
-    --my-assignments-count-border-done: var(--my-assignments-header-done);
-
-    --my-assignments-item-bg: hsl(215, 0%, 93.5%);
-    --my-assignments-item-hover-bg: hsl(215, 0%, 91%);
-    --my-assignments-item-text: hsl(215, 25%, 15%);
-    --my-assignments-item-subtext: hsl(215, 15%, 40%);
-    --my-assignments-item-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
 }
 
-/* Assignment Items */
-.my-assignments-page .assignments-item {
-    cursor: grab;
-    border-left: 4px solid;
-    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-        box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-    transform: translate(0, 0);
-    will-change: transform;
+/* Default: Mobile layout spacing */
+.assignments-board+.assignments-board {
+    margin-top: 0.5rem;
 }
 
-.my-assignments-page .assignments-collapse-outer {
-    min-height: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.my-assignments-page .assignment-list {
-    min-height: 0;
-    flex: 1;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--my-assignments-column-border) transparent;
-}
-
-.assignment-list[data-over="true"] {
-    background-color: rgba(0, 0, 0, 0.04);
-}
-
-.my-assignments-page .assignment-list::-webkit-scrollbar {
-    width: 0.5rem;
-}
-
-.my-assignments-page .assignment-list::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 999px;
-}
-
-.my-assignments-page .assignment-list::-webkit-scrollbar-thumb {
-    background: var(--my-assignments-column-border);
-    border-radius: 999px;
-    border: 2px solid transparent;
-}
-
-.my-assignments-page .assignment-list::-webkit-scrollbar-thumb:hover {
-    background: var(--my-assignments-header-inprogress);
-}
-
-.assignment-drop-placeholder {
-    height: 64px;
-    border: 2px dashed var(--my-assignments-column-border);
-    border-radius: 0.75rem;
-    background-color: rgba(0, 0, 0, 0.035);
-}
-
-:root.dark .assignment-drop-placeholder {
-    background-color: rgba(255, 255, 255, 0.04);
-}
-
-.my-assignments-page .assignments-item:active {
-    cursor: grabbing;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-}
-
-.assignment-column-header {
-    transition: background-color 0.2s ease;
-}
-
-.assignments-empty-copy {
-    margin: 0;
-    padding: 0.75rem 0;
-    font-size: 0.85rem;
-    font-style: italic;
-    color: var(--my-assignments-item-subtext);
-    text-align: center;
-}
-
-@media (max-width: 1023px) {
-    .assignments-column-layout {
-        overflow: visible;
+/* Desktop: Reset for desktop layout */
+@media (width >= theme(--breakpoint-lg)) {
+    .assignments-board+.assignments-board {
+        margin-top: 0;
     }
-
-    .my-assignments-page .assignments-col {
-        width: 100%;
-    }
-
-    .my-assignments-page .assignments-col+.assignments-col {
-        margin-top: 0.5rem;
-    }
-
-    .my-assignments-page .assignments-col[data-collapsed="true"] {
-        padding-bottom: 0;
-    }
-
-    .my-assignments-page .assignment-column-header {
-        user-select: none;
-    }
-
-    .my-assignments-page .assignments-col[data-collapsed="true"] .assignment-column-header {
-        border-bottom-color: transparent;
-    }
-
-    .my-assignments-page .assignments-collapse-outer {
-        transition: none;
-    }
-
-    .my-assignments-page .assignments-collapse-outer[data-animate="true"] {
-        transition: max-height 0.25s ease;
-    }
-
-    /* .my-assignments-page .assignment-list {} */
 }

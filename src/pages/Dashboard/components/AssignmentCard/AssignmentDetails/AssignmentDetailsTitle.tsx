@@ -14,7 +14,7 @@ const AssignmentDetailsTitle: React.FC<AssignmentDetailsTitleProps> = ({ status,
                 "font-semibold truncate mb-1 text-base sm:text-lg",
                 status === 'Done' && "line-through"
             )}
-            style={{ color: status === 'Done' ? DASHBOARD.TEXT_TERTIARY : DASHBOARD.TEXT_WHITE }}
+            style={{ color: status === 'Done' ? DASHBOARD.TEXT_TERTIARY : DASHBOARD.TEXT_PRIMARY }}
         >
             {children}
         </h3>

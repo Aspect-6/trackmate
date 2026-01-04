@@ -41,14 +41,14 @@ export const AddNoSchoolModal: React.FC<ModalProps> = ({ onClose }) => {
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
-            <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.NOSCHOOL.HEADING }}>Add No School Period</h2>
+            <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.SCHEDULE.HEADING }}>Add No School Period</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="modal-label">Reason / Name</label>
                     <input type="text" name="name" required
                         className="modal-input"
                         placeholder="e.g. Winter Break"
-                        style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties}
+                        style={{ '--focus-color': MODALS.SCHEDULE.PRIMARY_BG } as React.CSSProperties}
                     />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -56,14 +56,14 @@ export const AddNoSchoolModal: React.FC<ModalProps> = ({ onClose }) => {
                         <label className="modal-label">Start Date</label>
                         <input type="date" name="startDate" required defaultValue={todayString()}
                             className="modal-date-input"
-                            style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties}
+                            style={{ '--focus-color': MODALS.SCHEDULE.PRIMARY_BG } as React.CSSProperties}
                         />
                     </div>
                     <div>
                         <label className="modal-label">End Date</label>
                         <input type="date" name="endDate" required defaultValue={todayString()}
                             className="modal-date-input"
-                            style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties}
+                            style={{ '--focus-color': MODALS.SCHEDULE.PRIMARY_BG } as React.CSSProperties}
                         />
                     </div>
                 </div>
@@ -85,9 +85,9 @@ export const AddNoSchoolModal: React.FC<ModalProps> = ({ onClose }) => {
                         type="submit"
                         className="modal-btn modal-btn-inline"
                         style={{
-                            '--modal-btn-bg': MODALS.NOSCHOOL.PRIMARY_BG,
-                            '--modal-btn-bg-hover': MODALS.NOSCHOOL.PRIMARY_BG_HOVER,
-                            '--modal-btn-text': MODALS.NOSCHOOL.PRIMARY_TEXT
+                            '--modal-btn-bg': MODALS.SCHEDULE.PRIMARY_BG,
+                            '--modal-btn-bg-hover': MODALS.SCHEDULE.PRIMARY_BG_HOVER,
+                            '--modal-btn-text': MODALS.SCHEDULE.PRIMARY_TEXT
                         } as React.CSSProperties}
                     >
                         Add Period
@@ -126,7 +126,7 @@ export const EditNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSch
 
     return (
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
-            <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.NOSCHOOL.HEADING }}>Edit No School Period</h2>
+            <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.SCHEDULE.HEADING }}>Edit No School Period</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="modal-label">Reason / Name</label>
@@ -136,7 +136,7 @@ export const EditNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSch
                         onChange={e => setFormData({ ...formData, name: e.target.value })}
                         required
                         className="modal-input"
-                        style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties}
+                        style={{ '--focus-color': MODALS.SCHEDULE.PRIMARY_BG } as React.CSSProperties}
                     />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -148,7 +148,7 @@ export const EditNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSch
                             onChange={e => setFormData({ ...formData, startDate: e.target.value })}
                             required
                             className="modal-date-input"
-                            style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties}
+                            style={{ '--focus-color': MODALS.SCHEDULE.PRIMARY_BG } as React.CSSProperties}
                         />
                     </div>
                     <div>
@@ -159,7 +159,7 @@ export const EditNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSch
                             onChange={e => setFormData({ ...formData, endDate: e.target.value })}
                             required
                             className="modal-date-input"
-                            style={{ '--focus-color': MODALS.NOSCHOOL.PRIMARY_BG } as React.CSSProperties}
+                            style={{ '--focus-color': MODALS.SCHEDULE.PRIMARY_BG } as React.CSSProperties}
                         />
                     </div>
                 </div>
@@ -194,9 +194,9 @@ export const EditNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSch
                             type="submit"
                             className="modal-btn modal-btn-inline"
                             style={{
-                                '--modal-btn-bg': MODALS.NOSCHOOL.PRIMARY_BG,
-                                '--modal-btn-bg-hover': MODALS.NOSCHOOL.PRIMARY_BG_HOVER,
-                                '--modal-btn-text': MODALS.NOSCHOOL.PRIMARY_TEXT
+                                '--modal-btn-bg': MODALS.SCHEDULE.PRIMARY_BG,
+                                '--modal-btn-bg-hover': MODALS.SCHEDULE.PRIMARY_BG_HOVER,
+                                '--modal-btn-text': MODALS.SCHEDULE.PRIMARY_TEXT
                             } as React.CSSProperties}
                         >
                             Save Changes

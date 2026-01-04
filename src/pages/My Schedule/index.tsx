@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MY_SCHEDULE } from '@/app/styles/colors'
 import { useScheduleData } from './hooks/useScheduleData'
 import type { SemesterName } from './types'
@@ -8,6 +8,7 @@ import ScheduleTableRow from './components/SemesterSchedule/ScheduleTable/Row'
 import EmptyCell from './components/SemesterSchedule/ScheduleTable/Row/EmptyCell'
 import FilledCell from './components/SemesterSchedule/ScheduleTable/Row/FilledCell'
 import './index.css'
+import { DayType } from '@/app/types'
 
 const MySchedule: React.FC = () => {
     const {
@@ -21,30 +22,47 @@ const MySchedule: React.FC = () => {
         getClassById
     } = useScheduleData()
 
+    const [isHovered, setIsHovered] = useState<boolean>(false)
+    const [isFocused, setIsFocused] = useState<boolean>(false)
+
     const renderScheduleTable = (semester: SemesterName) => {
         const scheduleData = getScheduleForSemester(semester)
 
+        const dayTypes: NonNullable<DayType>[] = ['A', 'B']
+        const dayTypeToScheduleData = {
+            A: scheduleData.aDay,
+            B: scheduleData.bDay
+        }
+
         return (
             <ScheduleTable>
-                {(['A', 'B'] as const).map(dayType => (
-                    <ScheduleTableRow key={dayType} dayType={dayType}>
-                        {(dayType === 'A' ? scheduleData.aDay : scheduleData.bDay).map((classId, periodIndex) => {
+                {dayTypes.map(dayType => {
+                    const isLastRow = dayType === dayTypes[dayTypes.length - 1]
+                    return (
+                        <ScheduleTableRow
+                            key={dayType}
+                            isLastRow={isLastRow}
+                            dayType={dayType}
+                        >
+                        {dayTypeToScheduleData[dayType].map((classId, periodIndex) => {
                             const classData = classId ? getClassById(classId) : null
                             return classData ? (
                                 <FilledCell
                                     key={periodIndex}
+                                    isLastRow={isLastRow}
                                     classData={classData}
                                     onRemove={() => handleRemove(semester, dayType, periodIndex)}
                                 />
                             ) : (
                                 <EmptyCell
                                     key={periodIndex}
+                                    isLastRow={isLastRow}
                                     onClick={() => handleCellClick(semester, dayType, periodIndex)}
                                 />
                             )
                         })}
                     </ScheduleTableRow>
-                ))}
+                )})}
             </ScheduleTable>
         )
     }
@@ -52,11 +70,10 @@ const MySchedule: React.FC = () => {
     return (
         <div className="my-schedule-page flex-1 min-h-0 flex flex-col">
             <div
-                className="p-6 rounded-xl flex-1 flex flex-col transition-colors overflow-auto"
+                className="overflow-x-hidden p-6 rounded-xl shadow-md flex-1 flex flex-col transition-colors overflow-auto"
                 style={{
-                    backgroundColor: MY_SCHEDULE.MODULE_BG,
-                    border: `1px solid ${MY_SCHEDULE.MODULE_BORDER}`,
-                    boxShadow: MY_SCHEDULE.MODULE_SHADOW,
+                    border: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}`,
+                    backgroundColor: MY_SCHEDULE.BACKGROUND_PRIMARY,
                 }}
             >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
@@ -65,8 +82,18 @@ const MySchedule: React.FC = () => {
                         <select
                             value={selectedTermId || ''}
                             onChange={(e) => setTermId(e.target.value || null)}
-                            className="schedule-inline-select max-w-full text-ellipsis"
-                            style={arrowStyle}
+                            className="bg-right max-w-full text-ellipsis appearance-none bg-no-repeat cursor-pointer"
+                            style={{
+                                ...arrowStyle,
+                                color: MY_SCHEDULE.SIDEBAR_ACTIVE_TAB_GREEN_BG,
+                                borderBottom: `2px ${(isHovered || isFocused) ? 'solid' : 'dashed'} ${isFocused ? MY_SCHEDULE.SIDEBAR_ACTIVE_TAB_GREEN_BG : MY_SCHEDULE.BORDER_PRIMARY}`,
+                                backgroundSize: '1em 1em',
+                                padding: '0 1.25rem 0.125rem 0',
+                            }}
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            onFocus={() => setIsFocused(true)}
+                            onBlur={() => setIsFocused(false)}
                         >
                             <option value="">select term</option>
                             {academicTerms.map(term => (
@@ -80,7 +107,7 @@ const MySchedule: React.FC = () => {
 
                 <div
                     className="-mx-6 mb-6"
-                    style={{ borderBottom: `1px solid ${MY_SCHEDULE.MODULE_BORDER}` }}
+                    style={{ borderBottom: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` }}
                 />
 
                 {selectedTermId ? (
@@ -88,17 +115,14 @@ const MySchedule: React.FC = () => {
                         <SemesterSchedule title="Fall Semester">
                             {renderScheduleTable('Fall')}
                         </SemesterSchedule>
-
                         <SemesterSchedule title="Spring Semester">
                             {renderScheduleTable('Spring')}
                         </SemesterSchedule>
-
-
                     </>
                 ) : (
                     <div
                         className="text-center py-12"
-                        style={{ color: 'var(--text-tertiary)' }}
+                        style={{ color: MY_SCHEDULE.TEXT_TERTIARY }}
                     >
                         <p className="text-lg">Select an academic term to view and edit your schedule.</p>
                     </div>
