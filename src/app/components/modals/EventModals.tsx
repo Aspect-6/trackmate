@@ -93,7 +93,7 @@ export const AddEventModal: React.FC<ModalProps> = ({ onClose }) => {
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
-                    <div className="color-tile-grid">
+                    <div className="color-tile-grid custom-scrollbar-horizontal">
                         {MODALS.EVENT.COLORS.map(color => (
                             <div
                                 key={color}
@@ -219,7 +219,7 @@ export const EditEventModal: React.FC<EventModalProps> = ({ onClose, eventId }) 
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
-                    <div className="color-tile-grid">
+                    <div className="color-tile-grid custom-scrollbar-horizontal">
                         {MODALS.EVENT.COLORS.map(color => (
                             <div
                                 key={color}

@@ -248,26 +248,6 @@
     border: 1px solid var(--modal-input-border);
     border-radius: 8px;
     background: var(--modal-color-grid-bg);
-    scrollbar-width: thin;
-    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-}
-
-.color-tile-grid::-webkit-scrollbar {
-    height: 0.5rem;
-}
-
-.color-tile-grid::-webkit-scrollbar-track {
-    background: var(--scrollbar-track);
-    border-radius: 999px;
-}
-
-.color-tile-grid::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border-radius: 999px;
-}
-
-.color-tile-grid::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-thumb-hover);
 }
 
 /* Color Picker - Individual Color Tiles */

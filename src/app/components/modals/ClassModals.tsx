@@ -101,7 +101,7 @@ export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
                         {/* Color Code */}
                         <div>
                             <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
-                            <div className="color-tile-grid">
+                            <div className="color-tile-grid custom-scrollbar-horizontal">
                                 {MODALS.CLASS.COLORS.map(color => (
                                     <div
                                         key={color}
@@ -276,7 +276,7 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
                         {/* Color Code */}
                         <div>
                             <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
-                            <div className="color-tile-grid">
+                            <div className="color-tile-grid custom-scrollbar-horizontal">
                                 {MODALS.CLASS.COLORS.map(color => (
                                     <div
                                         key={color}
