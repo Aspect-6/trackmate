@@ -1,9 +1,4 @@
-/* Dashboard Page Variables */
 :root.dark {
-    /* Dashboard Colors */
-    --dashboard-module-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-    /* Icon Colors */
     --dashboard-icon-play-default: #6b7280;
     --dashboard-icon-play-hover: var(--focus-color);
     --dashboard-icon-in-progress: #6b7280;
@@ -12,11 +7,7 @@
     --dashboard-icon-complete-hover: #6b7280;
 }
 
-:root.light {
-    /* Dashboard Colors */
-    --dashboard-module-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    
-    /* Icon Colors */
+:root.light {    
     --dashboard-icon-play-default: hsl(215, 15%, 40%);
     --dashboard-icon-play-hover: var(--page-header-text);
     --dashboard-icon-in-progress: hsl(215, 15%, 40%);

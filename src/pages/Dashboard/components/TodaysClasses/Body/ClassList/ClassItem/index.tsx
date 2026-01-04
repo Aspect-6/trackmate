@@ -5,7 +5,7 @@ import { DASHBOARD } from '@/app/styles/colors'
 const ClassItem: React.FC<TodaysClasses.Body.ClassList.ClassItemProps> = ({ classInfo, period, openModal }) => {
     return (
         <div
-            className="flex items-center justify-between p-3 class-card rounded-lg transition-colors shadow-md cursor-pointer"
+            className="flex items-center justify-between p-3 rounded-lg transition-colors shadow-md cursor-pointer"
             style={{
                 border: `1px solid ${DASHBOARD.BORDER_PRIMARY}`,
                 borderLeft: `4px solid ${classInfo.color}`,
