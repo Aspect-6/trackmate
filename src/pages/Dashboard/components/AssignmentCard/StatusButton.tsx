@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import type { AssignmentCard } from '@/pages/Dashboard/types'
 import { CheckCircle, Circle, PlayCircle } from 'lucide-react'
 import { DASHBOARD } from '@/app/styles/colors'
 import { cn } from '@/app/lib/utils'
 
 const StatusButton: React.FC<AssignmentCard.StatusButtonProps> = ({ status, isCompleting, onClick }) => {
+    const [isHovered, setIsHovered] = useState(false)
+
+    useEffect(() => {
+        setIsHovered(false)
+    }, [status, isCompleting])
+
     const getStatusConfig = () => {
         if (isCompleting) return {
             Icon: CheckCircle,
@@ -53,16 +59,15 @@ const StatusButton: React.FC<AssignmentCard.StatusButtonProps> = ({ status, isCo
             className="group/status focus:outline-none transition-all flex-shrink-0 rounded-full p-1 hover:bg-neutral-500/5 active:scale-90"
             title={title}
             aria-label={title}
-            style={{
-                '--icon-color': color,
-                '--icon-hover': hoverColor
-            } as React.CSSProperties}
         >
             <Icon
                 className={cn(
-                    "w-6 h-6 transition-all duration-200 [color:var(--icon-color)] group-hover/status:[color:var(--icon-hover)]",
+                    "w-6 h-6 transition-colors duration-200",
                     className
                 )}
+                style={{ color: isHovered ? hoverColor : color }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
             />
         </button>
     )

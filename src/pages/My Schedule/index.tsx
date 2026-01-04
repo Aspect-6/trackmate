@@ -77,7 +77,7 @@ const MySchedule: React.FC = () => {
                 }}
             >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
-                    <h2 className="text-xl font-bold flex flex-wrap items-baseline gap-2" style={{ color: 'var(--text-primary)' }}>
+                    <h2 className="text-xl font-bold flex flex-wrap items-baseline gap-2" style={{ color: MY_SCHEDULE.TEXT_PRIMARY }}>
                         <span>Schedule for</span>
                         <select
                             value={selectedTermId || ''}
