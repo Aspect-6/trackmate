@@ -1,17 +1,19 @@
 import React from 'react'
+import { useHover } from '@/app/hooks/useHover'
 import type { ClassBoard } from '@/pages/My Classes/types'
-import { GLOBAL, MY_CLASSES } from '@/app/styles/colors'
+import { MY_CLASSES } from '@/app/styles/colors'
 
 const ClassBoardEmptyState: React.FC<ClassBoard.EmptyStateProps> = ({ onAddClass }) => {
+    const { isHovered, hoverProps } = useHover()
+
     return (
         <div className="col-span-full text-center py-12">
-            <p className="text-lg" style={{ color: GLOBAL.TEXT_SECONDARY }}>No classes added yet.</p>
+            <p className="text-lg" style={{ color: MY_CLASSES.TEXT_SECONDARY }}>No classes added yet.</p>
             <button
                 onClick={onAddClass}
                 className="mt-4 font-medium transition-colors"
-                style={{ color: MY_CLASSES.CLASS_HEADING_TEXT }}
-                onMouseEnter={(e) => e.currentTarget.style.color = MY_CLASSES.CLASS_BUTTON_BG_HOVER}
-                onMouseLeave={(e) => e.currentTarget.style.color = MY_CLASSES.CLASS_HEADING_TEXT}
+                style={{ color: isHovered ? MY_CLASSES.CLASS_BUTTON_BG_HOVER : MY_CLASSES.CLASS_HEADING_TEXT }}
+                {...hoverProps}
             >
                 Add your first class
             </button>

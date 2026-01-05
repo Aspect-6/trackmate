@@ -1,7 +1,8 @@
 import React from 'react'
-import type { ClassBoard } from '@/pages/My Classes/types'
+import { useHover } from '@/app/hooks/useHover'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import type { ClassBoard } from '@/pages/My Classes/types'
 import { ClassCardProvider } from '@/pages/My Classes/contexts/ClassCardContext'
 import { MY_CLASSES } from '@/app/styles/colors'
 
@@ -15,6 +16,8 @@ const ClassCard: React.FC<ClassBoard.Card.Props> = ({ classInfo, children }) => 
         isDragging
     } = useSortable({ id: classInfo.id })
 
+    const { isHovered, hoverProps } = useHover()
+
     return (
         <ClassCardProvider value={{ attributes, listeners }}>
             <div
@@ -22,17 +25,14 @@ const ClassCard: React.FC<ClassBoard.Card.Props> = ({ classInfo, children }) => 
                 className={`rounded-xl shadow-lg overflow-hidden flex flex-col transition-all group ${isDragging ? 'dragging' : ''}`}
                 style={{
                     backgroundColor: MY_CLASSES.BACKGROUND_PRIMARY,
-                    border: isDragging
-                        ? `2px dashed ${MY_CLASSES.FOCUS_COLOR_70}`
-                        : `1px solid ${MY_CLASSES.BORDER_PRIMARY}`,
+                    border: `${isDragging ? '2px' : '1px'} ${isDragging ? 'dashed' : 'solid'} ${isHovered ? MY_CLASSES.FOCUS_COLOR_70 : MY_CLASSES.BORDER_PRIMARY}`,
                     transform: CSS.Transform.toString(transform),
                     transition: isDragging ? 'none' : transition,
                     zIndex: isDragging ? 10 : 1,
                     opacity: isDragging ? 0.5 : 1,
                     willChange: 'transform',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.border = `1px solid ${MY_CLASSES.FOCUS_COLOR_70}`}
-                onMouseLeave={(e) => e.currentTarget.style.border = `1px solid ${MY_CLASSES.BORDER_PRIMARY}`}
+                {...hoverProps}
             >
                 {children}
             </div>
