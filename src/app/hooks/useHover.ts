@@ -5,6 +5,12 @@ interface HoverProps {
     onMouseLeave: () => void
 }
 
+interface UseHoverReturn {
+    isHovered: boolean
+    hoverProps: HoverProps
+    resetHover: () => void
+}
+
 /**
  * A hook that provides hover state and event handlers.
  * Returns the hover state and props to spread onto an element.
@@ -14,7 +20,7 @@ interface HoverProps {
  * 
  * <div {...hoverProps} style={{ backgroundColor: isHovered ? BG_HOVER : BG_DEFAULT }}>
  */
-export const useHover = (): { isHovered: boolean, hoverProps: HoverProps } => {
+export const useHover = (): UseHoverReturn => {
     const [isHovered, setIsHovered] = useState(false)
 
     const hoverProps: HoverProps = {
@@ -22,8 +28,11 @@ export const useHover = (): { isHovered: boolean, hoverProps: HoverProps } => {
         onMouseLeave: useCallback(() => setIsHovered(false), []),
     }
 
+    const resetHover = useCallback(() => setIsHovered(false), [])
+
     return {
         isHovered,
-        hoverProps
+        hoverProps,
+        resetHover
     }
 }
