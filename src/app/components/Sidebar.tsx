@@ -1,9 +1,9 @@
 import React from 'react'
+import { cn } from '@/app/lib/utils'
 import { NavLink } from 'react-router-dom'
 import { LayoutDashboard, Calendar, FileText, BookOpen, Clock, Settings } from 'lucide-react'
-import { cn } from '@/app/lib/utils'
-import { GLOBAL } from '@/app/styles/colors'
 import { APP_NAME } from '@/app/config/brand'
+import { GLOBAL } from '@/app/styles/colors'
 
 const Sidebar: React.FC = () => {
     const navItems = [
