@@ -1,39 +1,6 @@
-/* My Schedule Page Variables */
-:root.dark {
-    --my-schedule-module-shadow: 0 1px 3px rgba(0, 0, 0, 0.24), 0 1px 2px rgba(0, 0, 0, 0.48);
-    --my-schedule-text-header: #fff;
-    --my-schedule-card-bg: hsl(215, 21%, 15%);
+/* :root.dark { }
 
-    /* To be removed */
-    --my-schedule-remove-button-bg: var(--delete-button-bg);
-    --my-schedule-remove-button-bg-hover: var(--delete-button-bg-hover);
-    --my-schedule-remove-button-text: var(--delete-button-text);
-
-    /* Empty Slot */
-    --my-schedule-empty-bg: transparent;
-    --my-schedule-empty-border: hsl(215, 14%, 34%);
-    --my-schedule-empty-border-hover: hsl(215, 11%, 65%);
-    --my-schedule-empty-text: hsl(215, 9%, 46%);
-    --my-schedule-empty-subtext: hsl(215, 14%, 34%);
-}
-
-:root.light {
-    --my-schedule-module-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    --my-schedule-text-header: hsl(215, 25%, 15%);
-    --my-schedule-card-bg: #ffffff;
-
-    /* To be removed */
-    --my-schedule-remove-button-bg: var(--delete-button-bg);
-    --my-schedule-remove-button-bg-hover: var(--delete-button-bg-hover);
-    --my-schedule-remove-button-text: var(--delete-button-text);
-
-    /* Empty Slot */
-    --my-schedule-empty-bg: transparent;
-    --my-schedule-empty-border: hsl(215, 20%, 70%);
-    --my-schedule-empty-border-hover: hsl(215, 20%, 70%);
-    --my-schedule-empty-text: hsl(215, 15%, 60%);
-    --my-schedule-empty-subtext: hsl(215, 15%, 80%);
-}
+:root.light { } */
 
 /* Vertical dividers between schedule cells */
 .schedule-cell:not(:last-child) {

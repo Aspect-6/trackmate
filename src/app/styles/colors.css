@@ -2,14 +2,19 @@
     /* Primary webpage accent color */
     --global-accent-hue: 158;
 
+    /* General Colors */    
     --modal-underlay-dark: hsla(0, 0%, 0%, 0.75);
-    --page-header-text: hsl(var(--global-accent-hue), 50%, 48%);
 
+    --background-black-50: hsla(0, 0%, 0%, 0.5);
+    --background-black-30: hsla(0, 0%, 0%, 0.3);
+    
     --focus-color-hsl: var(--global-accent-hue), 70%, 42%;
     --focus-color: hsl(var(--focus-color-hsl));
     --focus-color-70: hsla(var(--focus-color-hsl), 0.7);
     --focus-color-30: hsla(var(--focus-color-hsl), 0.3);
-
+    
+    /* Text Colors */
+    --page-header-text: hsl(var(--global-accent-hue), 50%, 48%);
     --text-a-day: hsl(260, 60%, 50%);
     --text-a-day-contrast: hsl(260, 60%, 42%);
     --text-b-day: hsl(215, 90%, 50%);

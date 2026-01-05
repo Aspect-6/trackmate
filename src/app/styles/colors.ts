@@ -6,6 +6,8 @@ export const GLOBAL = {
     BACKGROUND_SECONDARY: 'var(--background-secondary)',
     BACKGROUND_TERTIARY: 'var(--background-tertiary)',
     BACKGROUND_QUATERNARY: 'var(--background-quaternary)',
+    BACKGROUND_BLACK_50: 'var(--background-black-50)',
+    BACKGROUND_BLACK_30: 'var(--background-black-30)',
     MODAL_BACKDROP: 'var(--modal-underlay-dark)',
     PAGE_HEADER_TEXT: 'var(--page-header-text)',
     FOCUS_COLOR: 'var(--focus-color)',
