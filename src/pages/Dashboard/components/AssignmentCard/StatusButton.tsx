@@ -1,53 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useHover } from '@/app/hooks/useHover'
 import type { AssignmentCard } from '@/pages/Dashboard/types'
 import { cn } from '@/app/lib/utils'
 import { CheckCircle, Circle, PlayCircle } from 'lucide-react'
 import { DASHBOARD } from '@/app/styles/colors'
 
-const StatusButton: React.FC<AssignmentCard.StatusButtonProps> = ({ status, isCompleting, onClick }) => {
-    const [isHovered, setIsHovered] = useState(false)
-
-    useEffect(() => {
-        setIsHovered(false)
-    }, [status, isCompleting])
-
-    const getStatusConfig = () => {
-        if (isCompleting) return {
-            Icon: CheckCircle,
-            color: DASHBOARD.ICON_COMPLETE,
-            hoverColor: DASHBOARD.ICON_COMPLETE,
-            className: "scale-110 animate-pulse",
-            title: "Completing..."
-        }
-
-        switch (status) {
-            case 'To Do':
-                return {
-                    Icon: PlayCircle,
-                    color: DASHBOARD.ICON_PLAY_DEFAULT,
-                    hoverColor: DASHBOARD.ICON_PLAY_HOVER,
-                    title: "Start Assignment"
-                }
-            case 'In Progress':
-                return {
-                    Icon: Circle,
-                    color: DASHBOARD.ICON_IN_PROGRESS,
-                    hoverColor: DASHBOARD.ICON_IN_PROGRESS_HOVER,
-                    title: "Complete Assignment"
-                }
-            case 'Done':
-                return {
-                    Icon: CheckCircle,
-                    color: DASHBOARD.ICON_COMPLETE,
-                    hoverColor: DASHBOARD.ICON_COMPLETE_HOVER,
-                    title: "Mark as Undone"
-                }
-            default:
-                return null
-        }
+const STATUS_CONFIG = {
+    'To Do': {
+        Icon: PlayCircle,
+        color: DASHBOARD.ICON_PLAY_DEFAULT,
+        hoverColor: DASHBOARD.ICON_PLAY_HOVER,
+        title: "Start Assignment",
+        className: undefined
+    },
+    'In Progress': {
+        Icon: Circle,
+        color: DASHBOARD.ICON_IN_PROGRESS,
+        hoverColor: DASHBOARD.ICON_IN_PROGRESS_HOVER,
+        title: "Mark as Done",
+        className: undefined
+    },
+    'Completing': {
+        Icon: CheckCircle,
+        color: DASHBOARD.ICON_COMPLETE,
+        hoverColor: DASHBOARD.ICON_COMPLETE,
+        title: "Completing...",
+        className: "scale-110 animate-pulse"
     }
+}
 
-    const config = getStatusConfig()
+const StatusButton: React.FC<AssignmentCard.StatusButtonProps> = ({ status, isCompleting, onClick }) => {
+    const { isHovered, hoverProps, resetHover } = useHover()
+
+    useEffect(() => { resetHover() }, [status, isCompleting, resetHover])
+
+    const configKey = isCompleting ? 'Completing' : status
+    const config = STATUS_CONFIG[configKey as keyof typeof STATUS_CONFIG]
     if (!config) return null
 
     const { Icon, color, hoverColor, title, className } = config
@@ -66,8 +54,7 @@ const StatusButton: React.FC<AssignmentCard.StatusButtonProps> = ({ status, isCo
                     className
                 )}
                 style={{ color: isHovered ? hoverColor : color }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+                {...hoverProps}
             />
         </button>
     )
