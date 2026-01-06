@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useApp } from '@/app/contexts/AppContext'
-import { Assignment, Event, NoSchoolPeriod } from '@/app/types'
+import { useAssignments } from '@/app/hooks/useAssignments'
+import { Event, NoSchoolPeriod } from '@/app/types'
 import { dateToLocalISOString, parseDateLocal } from '@/app/lib/utils'
 
 /**
@@ -8,17 +9,8 @@ import { dateToLocalISOString, parseDateLocal } from '@/app/lib/utils'
  * Creates lookup maps for assignments, events, and no-school periods.
  */
 export const useCalendarData = () => {
-    const { assignments, events, noSchool: noSchoolPeriods } = useApp()
-
-    const assignmentsByDate = useMemo(() =>
-        assignments.reduce<Record<string, Assignment[]>>((acc, assignment) => {
-            if (assignment.dueDate) {
-                if (!acc[assignment.dueDate]) acc[assignment.dueDate] = []
-                acc[assignment.dueDate]!.push(assignment)
-            }
-            return acc
-        }, {}),
-    [assignments])
+    const { events, noSchool: noSchoolPeriods } = useApp()
+    const { assignments, assignmentsByDate } = useAssignments()
 
     const eventsByDate = useMemo(() =>
         events.reduce<Record<string, Event[]>>((acc, event) => {
@@ -28,7 +20,7 @@ export const useCalendarData = () => {
             }
             return acc
         }, {}),
-    [events])
+        [events])
 
     const noSchoolByDate = useMemo(() =>
         noSchoolPeriods.reduce<Record<string, NoSchoolPeriod>>((acc, noSchoolPeriod) => {
@@ -40,7 +32,7 @@ export const useCalendarData = () => {
             }
             return acc
         }, {}),
-    [noSchoolPeriods])
+        [noSchoolPeriods])
 
     return {
         assignments,
