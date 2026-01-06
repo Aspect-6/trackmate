@@ -59,7 +59,8 @@ const saveToLocalStorage = <T,>(key: string, data: T): void => {
 const getStoredTheme = (): ThemeMode => {
     if (typeof window === 'undefined') return 'light'
     const stored = localStorage.getItem(THEME_KEY)
-    return stored === 'dark' ? 'dark' : 'light'
+    if (!stored) return 'light'
+    return stored as ThemeMode
 }
 
 const getStoredTermMode = (): TermMode => {
