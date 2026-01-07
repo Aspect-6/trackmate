@@ -190,7 +190,6 @@ export namespace ScheduleSettings {
             export interface Props {
                 className?: string
                 children: React.ReactNode
-                defaultValue: string
             }
             // ======================
             export interface OptionProps {

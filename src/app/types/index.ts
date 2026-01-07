@@ -132,7 +132,11 @@ export interface TermSchedule {
 /**
  * Complete schedule storage including A/B rotation config and per-term schedules.
  */
+export type ScheduleType = 'alternating-ab' | 'none'
+
 export interface ScheduleStore {
+    /** The type of schedule rotation in use */
+    scheduleType: ScheduleType
     /** A reference date used to calculate the A/B rotation for any given date */
     referenceDate: string
     /** The day type ('A' or 'B') of the reference date */
@@ -263,6 +267,8 @@ export interface AppContextType {
     deleteAcademicTerm: (id: string) => void
 
     // Schedule actions
+    /** Updates the schedule type (rotation mode) */
+    setScheduleType: (type: ScheduleType) => void
     /** Updates the schedule for a specific term */
     updateTermSchedule: (termId: string, schedule: TermSchedule) => void
     /** Manually sets the day type for the current reference date to correct rotation */

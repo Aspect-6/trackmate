@@ -9,6 +9,7 @@ import type {
     NoSchoolPeriod,
     AcademicTerm,
     ScheduleStore,
+    ScheduleType,
     TermSchedule,
     AppContextType,
     DayType,
@@ -82,6 +83,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const [noSchool, setNoSchool] = useState<NoSchoolPeriod[]>([])
     const [academicTerms, setAcademicTerms] = useState<AcademicTerm[]>([])
     const [scheduleStore, setScheduleStore] = useState<ScheduleStore>({
+        scheduleType: 'alternating-ab',
         referenceDate: '2025-11-26',
         referenceType: 'A',
         terms: {}
@@ -150,10 +152,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         const hydratedTypes = setTypesAndEnsureAssignments(storedTypes)
 
         const loadedScheduleStore = loadFromLocalStorage<ScheduleStore>(SCHEDULES_KEY, {
+            scheduleType: 'alternating-ab',
             referenceDate: '2025-11-26',
             referenceType: 'A',
             terms: {}
         })
+        // Migrate: ensure scheduleType exists (for existing users)
+        if (!loadedScheduleStore.scheduleType) {
+            loadedScheduleStore.scheduleType = 'alternating-ab'
+        }
         setScheduleStore(loadedScheduleStore)
 
         let loadedAssignments = loadFromLocalStorage<any[]>(ASSIGNMENTS_KEY, [])
@@ -372,6 +379,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         }))
     }
 
+    const setScheduleType = (type: ScheduleType): void => {
+        setScheduleStore(prev => ({
+            ...prev,
+            scheduleType: type
+        }))
+    }
+
     const setReferenceDayType = (type: 'A' | 'B'): void => {
         setScheduleStore(prev => ({
             ...prev,
@@ -470,7 +484,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             addNoSchool, updateNoSchool, deleteNoSchool,
             termMode, setTermMode: setTermModeState, filteredAcademicTerms,
             addAcademicTerm, updateAcademicTerm, deleteAcademicTerm,
-            updateTermSchedule, setReferenceDayType, clearAllData,
+            updateTermSchedule, setScheduleType, setReferenceDayType, clearAllData,
             clearAllAssignments, clearAllEvents,
             getDayTypeForDate, getClassById,
             activeModal, modalData, openModal, closeModal,

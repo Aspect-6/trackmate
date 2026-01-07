@@ -1,4 +1,5 @@
 import React from 'react'
+import { useApp } from '@/app/contexts/AppContext'
 import { useHover } from '@/app/hooks/useHover'
 import { useFocus } from '@/app/hooks/useFocus'
 import { useScheduleData } from './hooks/useScheduleData'
@@ -10,6 +11,8 @@ import { MY_SCHEDULE } from '@/app/styles/colors'
 import './index.css'
 
 const MySchedule: React.FC = () => {
+    const { scheduleStore } = useApp()
+
     const {
         selectedTermId,
         setTermId,
@@ -43,25 +46,26 @@ const MySchedule: React.FC = () => {
                             isLastRow={isLastRow}
                             dayType={dayType}
                         >
-                        {dayTypeToScheduleData[dayType].map((classId, periodIndex) => {
-                            const classData = classId ? getClassById(classId) : null
-                            return classData ? (
-                                <FilledCell
-                                    key={periodIndex}
-                                    isLastRow={isLastRow}
-                                    classData={classData}
-                                    onRemove={() => handleRemove(semester, dayType, periodIndex)}
-                                />
-                            ) : (
-                                <EmptyCell
-                                    key={periodIndex}
-                                    isLastRow={isLastRow}
-                                    onClick={() => handleCellClick(semester, dayType, periodIndex)}
-                                />
-                            )
-                        })}
-                    </ScheduleTableRow>
-                )})}
+                            {dayTypeToScheduleData[dayType].map((classId, periodIndex) => {
+                                const classData = classId ? getClassById(classId) : null
+                                return classData ? (
+                                    <FilledCell
+                                        key={periodIndex}
+                                        isLastRow={isLastRow}
+                                        classData={classData}
+                                        onRemove={() => handleRemove(semester, dayType, periodIndex)}
+                                    />
+                                ) : (
+                                    <EmptyCell
+                                        key={periodIndex}
+                                        isLastRow={isLastRow}
+                                        onClick={() => handleCellClick(semester, dayType, periodIndex)}
+                                    />
+                                )
+                            })}
+                        </ScheduleTableRow>
+                    )
+                })}
             </ScheduleTable>
         )
     }
@@ -92,8 +96,8 @@ const MySchedule: React.FC = () => {
                             {...hoverProps}
                             {...focusProps}
                         >
-                            <option value="">select term</option>
-                            {academicTerms.map(term => (
+                            {academicTerms.length === 0 && <option value="">no terms available</option>}
+                            {academicTerms.length > 0 && academicTerms.map(term => (
                                 <option key={term.id} value={term.id}>
                                     {term.name}
                                 </option>
@@ -107,23 +111,27 @@ const MySchedule: React.FC = () => {
                     style={{ borderBottom: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` }}
                 />
 
-                {selectedTermId ? (
-                    <>
-                        <SemesterSchedule title="Fall Semester">
-                            {renderScheduleTable('Fall')}
-                        </SemesterSchedule>
-                        <SemesterSchedule title="Spring Semester">
-                            {renderScheduleTable('Spring')}
-                        </SemesterSchedule>
-                    </>
-                ) : (
-                    <div
-                        className="text-center py-12"
-                        style={{ color: MY_SCHEDULE.TEXT_TERTIARY }}
-                    >
-                        <p className="text-lg">Select an academic term to view and edit your schedule.</p>
-                    </div>
-                )}
+                {scheduleStore.scheduleType === 'alternating-ab'
+                    ? selectedTermId
+                        ? (
+                            <>
+                                <SemesterSchedule title="Fall Semester">
+                                    {renderScheduleTable('Fall')}
+                                </SemesterSchedule>
+                                <SemesterSchedule title="Spring Semester">
+                                    {renderScheduleTable('Spring')}
+                                </SemesterSchedule>
+                            </>
+                        ) : (
+                            <div
+                                className="text-center py-12"
+                                style={{ color: MY_SCHEDULE.TEXT_TERTIARY }}
+                            >
+                                <p className="text-lg">Select an academic term to view and edit your schedule.</p>
+                            </div>
+                        )
+                    : null
+                }
             </div>
         </div>
     )

@@ -146,7 +146,7 @@ const Settings: React.FC = () => {
                 <BaseModuleDescription>
                     Select the kind of schedule that your institution uses.
                 </BaseModuleDescription>
-                <ScheduleTypeDropdown className='mb-10' defaultValue='alternating-ab'>
+                <ScheduleTypeDropdown className='mb-10'>
                     <ScheduleTypeDropdownOption value="alternating-ab">Alternating A/B Days</ScheduleTypeDropdownOption>
                 </ScheduleTypeDropdown>
 
@@ -199,44 +199,44 @@ const Settings: React.FC = () => {
                         </NoTermsYetButton>
                     ) : (
                         <>
-                        <TermList>
-                            {filteredAcademicTerms.map((term) => (
-                                <TermItem key={term.id}>
-                                    <TermItemHeader>
-                                        <div className="flex flex-col gap-1">
-                                            <TermItemHeaderName>{term.name}</TermItemHeaderName>
-                                            <TermItemHeaderDates>{formatDate('medium', term.startDate)} — {formatDate('medium', term.endDate)}</TermItemHeaderDates>
-                                        </div>
-                                        <div className="flex items-center gap-1 -mr-2 -mt-2">
-                                            <TermItemHeaderEditButton term={term} />
-                                            <TermItemHeaderDeleteButton term={term} />
-                                        </div>
-                                    </TermItemHeader>
+                            <TermList>
+                                {filteredAcademicTerms.map((term) => (
+                                    <TermItem key={term.id}>
+                                        <TermItemHeader>
+                                            <div className="flex flex-col gap-1">
+                                                <TermItemHeaderName>{term.name}</TermItemHeaderName>
+                                                <TermItemHeaderDates>{formatDate('medium', term.startDate)} — {formatDate('medium', term.endDate)}</TermItemHeaderDates>
+                                            </div>
+                                            <div className="flex items-center gap-1 -mr-2 -mt-2">
+                                                <TermItemHeaderEditButton term={term} />
+                                                <TermItemHeaderDeleteButton term={term} />
+                                            </div>
+                                        </TermItemHeader>
 
-                                    <TermItemBody>
-                                        <TermItemBodySemester
-                                            name="Fall"
-                                            startDate={term.semesters.find(sem => sem.name === 'Fall')!.startDate}
-                                            endDate={term.semesters.find(sem => sem.name === 'Fall')!.endDate}
-                                            quarters={term.termType === 'Semesters With Quarters'
-                                                ? term.semesters.find(sem => sem.name === 'Fall')!.quarters
-                                                : undefined
-                                            }
-                                        />
-                                        <TermItemBodySemester
-                                            name="Spring"
-                                            startDate={term.semesters.find(sem => sem.name === 'Spring')!.startDate}
-                                            endDate={term.semesters.find(sem => sem.name === 'Spring')!.endDate}
-                                            quarters={term.termType === 'Semesters With Quarters'
-                                                ? term.semesters.find(sem => sem.name === 'Spring')!.quarters
-                                                : undefined
-                                            }
-                                        />
-                                    </TermItemBody>
-                                </TermItem>
-                            ))}
-                        </TermList>
-                        <AddTermButton>Add Term</AddTermButton>
+                                        <TermItemBody>
+                                            <TermItemBodySemester
+                                                name="Fall"
+                                                startDate={term.semesters.find(sem => sem.name === 'Fall')!.startDate}
+                                                endDate={term.semesters.find(sem => sem.name === 'Fall')!.endDate}
+                                                quarters={term.termType === 'Semesters With Quarters'
+                                                    ? term.semesters.find(sem => sem.name === 'Fall')!.quarters
+                                                    : undefined
+                                                }
+                                            />
+                                            <TermItemBodySemester
+                                                name="Spring"
+                                                startDate={term.semesters.find(sem => sem.name === 'Spring')!.startDate}
+                                                endDate={term.semesters.find(sem => sem.name === 'Spring')!.endDate}
+                                                quarters={term.termType === 'Semesters With Quarters'
+                                                    ? term.semesters.find(sem => sem.name === 'Spring')!.quarters
+                                                    : undefined
+                                                }
+                                            />
+                                        </TermItemBody>
+                                    </TermItem>
+                                ))}
+                            </TermList>
+                            <AddTermButton>Add Term</AddTermButton>
                         </>
                     )}
                 </TermSettingsContent>
