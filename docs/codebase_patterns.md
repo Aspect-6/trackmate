@@ -11,8 +11,9 @@ This document describes the architectural patterns, coding conventions, and "lan
 ```
 src/
 ├── app/          # Core application infrastructure (shared)
-│   ├── components/   # Global components (modals, sidebar)
+│   ├── components/   # Global components (modals, sidebar, PriorityBadge)
 │   ├── contexts/     # React contexts (AppContext, ToastContext)
+│   ├── hooks/        # Shared hooks (domain + UI interaction)
 │   ├── layouts/      # Layout components
 │   ├── lib/          # Utility functions (utils.ts)
 │   ├── styles/       # Global CSS and color system
@@ -200,7 +201,10 @@ closeModal: () => void
 
 Well-documented interfaces with JSDoc comments:
 
-- `Assignment`, `Class`, `Event`, `NoSchoolPeriod`, `Schedule`, `AcademicTerm`, `Semester`
+- `Priority`, `Status`, `AssignmentType`, `DayType`, `ThemeMode`
+- `Assignment`, `Class`, `Event`, `NoSchoolPeriod`
+- `SemesterScheduleData`, `TermSchedule`, `ScheduleStore`
+- `TermMode`, `Quarter`, `Semester`, `AcademicTerm`
 - `AppContextType` - the context interface
 
 ### Type Aliases
@@ -217,15 +221,78 @@ export type SemesterScheduleData = Pick<Schedule, 'aDay' | 'bDay'>
 
 ## Custom Hooks
 
-Page-specific logic is extracted into hooks:
+### Two-Tier Hook Architecture
+
+1. **App-Level Hooks** (`app/hooks/`) - Shared domain logic and UI utilities
+2. **Page-Level Hooks** (`pages/<Page>/hooks/`) - Feature-specific logic
+
+### Domain Hooks (`app/hooks/`)
+
+Provide filtered views, indexed data, lookup functions, and CRUD operations:
+
+| Hook | Purpose |
+|------|--------|
+| `useAssignments` | Assignment data, filtering (active/completed/overdue), indexed by date |
+| `useEvents` | Event data, filtering (today/upcoming), indexed by date, sorted by time |
+| `useNoSchool` | No-school periods, indexed by date, date range expansion |
+
+**Domain Hook Pattern:**
 
 ```typescript
-export const useCalendar = () => {
-    const { assignments, events, ... } = useApp()
-    // Hook logic
-    return { currentDate, selectedDate, calendarCells, ... }
+export const useAssignments = () => {
+    const { assignments, addAssignment, ... } = useApp()
+    
+    // Filtered views
+    const activeAssignments = useMemo(() => ...)
+    
+    // Indexed data
+    const assignmentsByDate = useMemo(() => ...)
+    
+    // Lookup functions
+    const getAssignmentById = useCallback((id: string) => ...)
+    
+    // Actions
+    const openAddAssignment = useCallback(() => openModal('add-assignment'))
+    
+    return {
+        // Raw data
+        assignments,
+        // Counts
+        totalNum,
+        // Filtered views
+        activeAssignments, completedAssignments, overdueAssignments,
+        // Indexed data
+        assignmentsByDate,
+        // Lookup functions
+        getAssignmentById, getAssignmentsForDate,
+        // Actions
+        addAssignment, updateAssignment, deleteAssignment, openAddAssignment,
+    }
 }
 ```
+
+### UI Interaction Hooks (`app/hooks/`)
+
+| Hook | Purpose |
+|------|--------|
+| `useFocus` | Track focus state, returns `isFocused` and `focusProps` to spread |
+| `useHover` | Track hover state, returns `isHovered`, `hoverProps`, and `resetHover` |
+
+**Usage Pattern:**
+
+```typescript
+const { isHovered, hoverProps } = useHover()
+<div {...hoverProps} style={{ backgroundColor: isHovered ? BG_HOVER : BG_DEFAULT }}>
+```
+
+### Page-Level Hooks
+
+Feature-specific hooks live in `pages/<Page>/hooks/`:
+
+| Page | Hooks |
+|------|-------|
+| Calendar | `useCalendarGrid`, `useCalendarNavigation`, `useSelectedDate`, `useSidePanel` |
+| Settings | `useAssignmentTypeSettings` |
 
 ---
 
@@ -235,13 +302,14 @@ export const useCalendar = () => {
 |----------|-------------|
 | `cn()` | Tailwind class merging |
 | `generateId()` | Unique ID generation |
-| `formatDate()` | Short date format (e.g., "Jan 1") |
-| `formatMediumDate()` | Medium date format (e.g., "Jan 1, 2023") |
-| `formatFullDate()` | Full date format (e.g., "January 1, 2023") |
+| `formatDate(format, dateString)` | Format date ('short', 'medium', 'long', 'full', 'period') |
 | `todayString()` | Current date as YYYY-MM-DD |
 | `parseDateLocal()` | Parse YYYY-MM-DD to Date |
 | `dateToLocalISOString()` | Date to YYYY-MM-DD |
-| `getTextColorForBackground()` | Contrast calculation |
+| `getTextColorForBackground()` | Contrast calculation (black/white) for hex colors |
+| `parse12HourTime()` | Convert "2:30 PM" → "14:30" (24-hour format) |
+| `addDaysToDateString()` | Add/subtract days from YYYY-MM-DD string |
+| `formatEventTimeRange()` | Format time range for display (e.g., "2:30 PM - 4:00 PM") |
 
 ---
 
