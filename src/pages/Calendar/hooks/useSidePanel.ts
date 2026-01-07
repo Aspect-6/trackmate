@@ -24,7 +24,7 @@ export const useSidePanel = ({ selectedDate }: UseSidePanelProps) => {
 
         const dateString = dateToLocalISOString(selectedDate)
         const noSchoolDay = getNoSchoolStatusForDate(dateString)
-        const dayType = getDayTypeForDate ? getDayTypeForDate(dateString) : null
+        const dayType = getDayTypeForDate(dateString)
         // TODO: Classes now stored per-term - need to determine active term to show classes
         const dayClasses: (string | null)[] = []
         const dueAssignments = getAssignmentsForDate(dateString)

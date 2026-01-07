@@ -3,7 +3,10 @@ import { X } from 'lucide-react'
 import { useApp } from '@/app/contexts/AppContext'
 import { useEvents } from '@/app/hooks/useEvents'
 import { useNoSchool } from '@/app/hooks/useNoSchool'
-import { useCalendar } from './hooks/useCalendar'
+import { useSelectedDate } from './hooks/useSelectedDate'
+import { useCalendarNavigation } from './hooks/useCalendarNavigation'
+import { useCalendarGrid } from './hooks/useCalendarGrid'
+import { useSidePanel } from './hooks/useSidePanel'
 import { CALENDAR } from '@/app/styles/colors'
 import CalendarHeader, { PrevButton, NextButton, MonthTitle } from './components/CalendarHeader'
 import CalendarBody from './components/CalendarBody'
@@ -16,15 +19,10 @@ const Calendar: React.FC = () => {
     const { getClassById, openModal } = useApp()
     const { openEditEvent } = useEvents()
     const { openEditNoSchool } = useNoSchool()
-    const {
-        setSelectedDate,
-        changeMonth,
-        sidePanelData,
-        calendarCells,
-        period,
-        month,
-        year
-    } = useCalendar()
+    const { selectedDate, setSelectedDate, clearSelection } = useSelectedDate()
+    const { changeMonth, period, month, year } = useCalendarNavigation(clearSelection)
+    const calendarCells = useCalendarGrid({ month, year })
+    const sidePanelData = useSidePanel({ selectedDate })
 
     const getClassColor = useCallback((classId: string) => {
         return getClassById(classId).color

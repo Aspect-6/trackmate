@@ -1,27 +1,24 @@
 import { useMemo } from 'react'
-import { useCalendarData } from './useCalendarData'
+import { useAssignments } from '@/app/hooks/useAssignments'
+import { useEvents } from '@/app/hooks/useEvents'
+import { useNoSchool } from '@/app/hooks/useNoSchool'
 import { todayString } from '@/app/lib/utils'
 import type { UseCalendar } from '@/pages/Calendar/types'
 
 interface UseCalendarGridProps {
     month: number
     year: number
-    assignmentsByDate: ReturnType<typeof useCalendarData>['assignmentsByDate']
-    eventsByDate: ReturnType<typeof useCalendarData>['eventsByDate']
-    noSchoolByDate: ReturnType<typeof useCalendarData>['noSchoolByDate']
 }
 
 /**
  * Hook for computing the calendar grid cells.
  * Generates an array of cells representing days and empty slots for a month view.
  */
-export const useCalendarGrid = ({
-    month,
-    year,
-    assignmentsByDate,
-    eventsByDate,
-    noSchoolByDate,
-}: UseCalendarGridProps) => {
+export const useCalendarGrid = ({ month, year }: UseCalendarGridProps) => {
+    const { getAssignmentsForDate } = useAssignments()
+    const { getEventsForDate } = useEvents()
+    const { getNoSchoolStatusForDate } = useNoSchool()
+
     const calendarCells = useMemo(() => {
         const cells: UseCalendar.CalendarCell[] = []
         const firstDayOfMonth = new Date(year, month, 1).getDay()
@@ -39,10 +36,9 @@ export const useCalendarGrid = ({
         for (let day = 1; day <= daysInMonth; day++) {
             const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
             const isToday = dateString === todayStr
-            const noSchool = noSchoolByDate[dateString]
-
-            const dayAssignments = assignmentsByDate[dateString] || []
-            const dayEvents = eventsByDate[dateString] ?? []
+            const noSchool = getNoSchoolStatusForDate(dateString)
+            const dayAssignments = getAssignmentsForDate(dateString)
+            const dayEvents = getEventsForDate(dateString)
 
             cells.push({
                 type: 'day',
@@ -50,7 +46,7 @@ export const useCalendarGrid = ({
                 day,
                 dateString,
                 isToday,
-                noSchool,
+                noSchool: noSchool ?? undefined,
                 assignments: dayAssignments,
                 events: dayEvents
             })
@@ -62,7 +58,7 @@ export const useCalendarGrid = ({
         }
 
         return cells
-    }, [year, month, assignmentsByDate, eventsByDate, noSchoolByDate])
+    }, [year, month, getAssignmentsForDate, getEventsForDate, getNoSchoolStatusForDate])
 
     return calendarCells
 }
