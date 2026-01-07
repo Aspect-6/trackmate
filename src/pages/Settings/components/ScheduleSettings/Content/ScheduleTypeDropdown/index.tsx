@@ -4,7 +4,7 @@ import type { ScheduleSettings } from '@/pages/Settings/types'
 import type { ScheduleType } from '@/app/types'
 
 const ScheduleTypeDropdown: React.FC<ScheduleSettings.Content.ScheduleTypeDropdown.Props> = ({ className, children }) => {
-    const { scheduleStore, setScheduleType } = useApp()
+    const { schedules, setScheduleType } = useApp()
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setScheduleType(e.target.value as ScheduleType)
@@ -13,7 +13,7 @@ const ScheduleTypeDropdown: React.FC<ScheduleSettings.Content.ScheduleTypeDropdo
     return (
         <div className={className}>
             <select
-                value={scheduleStore.scheduleType}
+                value={schedules.type}
                 onChange={handleChange}
                 className="settings-select"
             >

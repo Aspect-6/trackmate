@@ -11,7 +11,7 @@ import { MY_SCHEDULE } from '@/app/styles/colors'
 import './index.css'
 
 const MySchedule: React.FC = () => {
-    const { scheduleStore } = useApp()
+    const { schedules } = useApp()
 
     const {
         selectedTermId,
@@ -30,23 +30,18 @@ const MySchedule: React.FC = () => {
     const renderScheduleTable = (semester: SemesterName) => {
         const scheduleData = getScheduleForSemester(semester)
 
-        const dayTypes: NonNullable<DayType>[] = ['A', 'B']
-        const dayTypeToScheduleData = {
-            A: scheduleData.aDay,
-            B: scheduleData.bDay
-        }
-
         return (
             <ScheduleTable>
-                {dayTypes.map(dayType => {
-                    const isLastRow = dayType === dayTypes[dayTypes.length - 1]
+                {scheduleData.days.map((daySchedule, dayIndex) => {
+                    const isLastRow = dayIndex === scheduleData.days.length - 1
+                    const dayType = daySchedule.dayLabel as NonNullable<DayType>
                     return (
                         <ScheduleTableRow
-                            key={dayType}
+                            key={daySchedule.dayLabel}
                             isLastRow={isLastRow}
                             dayType={dayType}
                         >
-                            {dayTypeToScheduleData[dayType].map((classId, periodIndex) => {
+                            {daySchedule.classes.map((classId: string | null, periodIndex: number) => {
                                 const classData = classId ? getClassById(classId) : null
                                 return classData ? (
                                     <FilledCell
@@ -111,7 +106,7 @@ const MySchedule: React.FC = () => {
                     style={{ borderBottom: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` }}
                 />
 
-                {scheduleStore.scheduleType === 'alternating-ab'
+                {schedules.type === 'alternating-ab'
                     ? selectedTermId
                         ? (
                             <>

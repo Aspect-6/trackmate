@@ -8,7 +8,7 @@ import type {
     Event,
     NoSchoolPeriod,
     AcademicTerm,
-    ScheduleStore,
+    Schedules,
     ScheduleType,
     TermSchedule,
     AppContextType,
@@ -82,11 +82,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const [events, setEvents] = useState<Event[]>([])
     const [noSchool, setNoSchool] = useState<NoSchoolPeriod[]>([])
     const [academicTerms, setAcademicTerms] = useState<AcademicTerm[]>([])
-    const [scheduleStore, setScheduleStore] = useState<ScheduleStore>({
-        scheduleType: 'alternating-ab',
-        referenceDate: '2025-11-26',
-        referenceType: 'A',
-        terms: {}
+    const [schedules, setSchedules] = useState<Schedules>({
+        type: 'alternating-ab',
+        'alternating-ab': {
+            startDate: '2025-09-02',
+            startDayType: 'A',
+            dayTypeOverrides: {},
+            terms: {}
+        }
     })
     const [theme, setThemeState] = useState<ThemeMode>(() => getStoredTheme())
     const [termMode, setTermModeState] = useState<TermMode>(() => getStoredTermMode())
@@ -151,17 +154,17 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         const storedTypes = loadFromLocalStorage<AssignmentType[]>(ASSIGNMENT_TYPES_KEY, DEFAULT_ASSIGNMENT_TYPES)
         const hydratedTypes = setTypesAndEnsureAssignments(storedTypes)
 
-        const loadedScheduleStore = loadFromLocalStorage<ScheduleStore>(SCHEDULES_KEY, {
-            scheduleType: 'alternating-ab',
-            referenceDate: '2025-11-26',
-            referenceType: 'A',
-            terms: {}
+        // Load schedules from localStorage
+        const loadedSchedules = loadFromLocalStorage<Schedules>(SCHEDULES_KEY, {
+            type: 'alternating-ab',
+            'alternating-ab': {
+                startDate: '2025-09-02',
+                startDayType: 'A',
+                dayTypeOverrides: {},
+                terms: {}
+            }
         })
-        // Migrate: ensure scheduleType exists (for existing users)
-        if (!loadedScheduleStore.scheduleType) {
-            loadedScheduleStore.scheduleType = 'alternating-ab'
-        }
-        setScheduleStore(loadedScheduleStore)
+        setSchedules(loadedSchedules)
 
         let loadedAssignments = loadFromLocalStorage<any[]>(ASSIGNMENTS_KEY, [])
         loadedAssignments = loadedAssignments.map(a => {
@@ -243,7 +246,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     // Save Data Effects - only save after initialization
     useEffect(() => { if (isInitialized) saveToLocalStorage(ASSIGNMENTS_KEY, assignments) }, [assignments, isInitialized])
     useEffect(() => { if (isInitialized) saveToLocalStorage(CLASSES_KEY, classes) }, [classes, isInitialized])
-    useEffect(() => { if (isInitialized) saveToLocalStorage(SCHEDULES_KEY, scheduleStore) }, [scheduleStore, isInitialized])
+    useEffect(() => { if (isInitialized) saveToLocalStorage(SCHEDULES_KEY, schedules) }, [schedules, isInitialized])
     useEffect(() => { if (isInitialized) saveToLocalStorage(EVENTS_KEY, events) }, [events, isInitialized])
     useEffect(() => { if (isInitialized) saveToLocalStorage(NO_SCHOOL_KEY, noSchool) }, [noSchool, isInitialized])
     useEffect(() => { if (isInitialized) saveToLocalStorage(TERMS_KEY, academicTerms) }, [academicTerms, isInitialized])
@@ -370,28 +373,45 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     }
 
     const updateTermSchedule = (termId: string, newSchedule: TermSchedule): void => {
-        setScheduleStore(prev => ({
-            ...prev,
-            terms: {
-                ...prev.terms,
-                [termId]: newSchedule
+        setSchedules(prev => {
+            const abData = prev['alternating-ab']
+            if (!abData) return prev
+            return {
+                ...prev,
+                'alternating-ab': {
+                    ...abData,
+                    terms: {
+                        ...abData.terms,
+                        [termId]: newSchedule
+                    }
+                }
             }
-        }))
+        })
     }
 
     const setScheduleType = (type: ScheduleType): void => {
-        setScheduleStore(prev => ({
+        setSchedules(prev => ({
             ...prev,
-            scheduleType: type
+            type
         }))
     }
 
     const setReferenceDayType = (type: 'A' | 'B'): void => {
-        setScheduleStore(prev => ({
-            ...prev,
-            referenceType: type,
-            referenceDate: todayString()
-        }))
+        const today = todayString()
+        setSchedules(prev => {
+            const abData = prev['alternating-ab']
+            if (!abData) return prev
+            return {
+                ...prev,
+                'alternating-ab': {
+                    ...abData,
+                    dayTypeOverrides: {
+                        ...abData.dayTypeOverrides,
+                        [today]: type
+                    }
+                }
+            }
+        })
     }
 
     const clearAllAssignments = (): void => {
@@ -423,60 +443,87 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
     // Helpers
     const getDayTypeForDate = (dateString: string): DayType => {
+        if (schedules.type !== 'alternating-ab') return null
+
+        const abData = schedules['alternating-ab']
+        if (!abData) return null
+
         const date = parseDateLocal(dateString)
-        const refDate = parseDateLocal(scheduleStore.referenceDate)
         const dayOfWeek = date.getDay()
         if (dayOfWeek === 0 || dayOfWeek === 6) return null
 
-        const isNoSchool = noSchool.some(ns => {
+        const isNoSchoolDay = noSchool.some(ns => {
             const start = parseDateLocal(ns.startDate)
             const end = parseDateLocal(ns.endDate)
             const check = parseDateLocal(dateString)
             return check >= start && check <= end
         })
-        if (isNoSchool) return null
+        if (isNoSchoolDay) return null
+
+        // Check for override first
+        if (abData.dayTypeOverrides[dateString]) {
+            return abData.dayTypeOverrides[dateString]
+        }
+
+        // Find the most recent override before this date to calculate from
+        const overrideDates = Object.keys(abData.dayTypeOverrides).sort()
+        let refDate = abData.startDate
+        let refType: 'A' | 'B' = abData.startDayType
+
+        for (const overrideDate of overrideDates) {
+            if (overrideDate <= dateString) {
+                refDate = overrideDate
+                const ot = abData.dayTypeOverrides[overrideDate]
+                if (ot) refType = ot
+            } else {
+                break
+            }
+        }
+
+        // Count school days from reference
+        const refDateParsed = parseDateLocal(refDate)
+        const target = parseDateLocal(dateString)
 
         let count = 0
-        let current = new Date(refDate)
-        const target = new Date(date)
+        let current = new Date(refDateParsed)
 
         if (target < current) {
             while (current > target) {
                 current.setDate(current.getDate() - 1)
                 const dow = current.getDay()
                 if (dow !== 0 && dow !== 6) {
-                    const isNoSchoolDay = noSchool.some(ns => {
+                    const isNoSchool = noSchool.some(ns => {
                         const start = parseDateLocal(ns.startDate)
                         const end = parseDateLocal(ns.endDate)
                         return current >= start && current <= end
                     })
-                    if (!isNoSchoolDay) count--
+                    if (!isNoSchool) count--
                 }
             }
         } else {
             while (current < target) {
                 const dow = current.getDay()
                 if (dow !== 0 && dow !== 6) {
-                    const isNoSchoolDay = noSchool.some(ns => {
+                    const isNoSchool = noSchool.some(ns => {
                         const start = parseDateLocal(ns.startDate)
                         const end = parseDateLocal(ns.endDate)
                         return current >= start && current <= end
                     })
-                    if (!isNoSchoolDay) count++
+                    if (!isNoSchool) count++
                 }
                 current.setDate(current.getDate() + 1)
             }
         }
 
         const isEven = count % 2 === 0
-        return isEven ? scheduleStore.referenceType : (scheduleStore.referenceType === 'A' ? 'B' : 'A')
+        return isEven ? refType : (refType === 'A' ? 'B' : 'A')
     }
 
     const getClassById = (id: string): Class => classes.find(c => c.id === id) as Class
 
     return (
         <AppContext.Provider value={{
-            assignments, classes, events, noSchool, academicTerms, scheduleStore,
+            assignments, classes, events, noSchool, academicTerms, schedules,
             addAssignment, updateAssignment, deleteAssignment,
             assignmentTypes, addAssignmentType, removeAssignmentType, reorderAssignmentTypes,
             addClass, updateClass, deleteClass, reorderClasses,

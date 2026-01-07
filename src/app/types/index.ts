@@ -112,13 +112,21 @@ export interface NoSchoolPeriod {
 }
 
 /**
+ * Schedule for a single day type (e.g., "A", "B", "Day 1", "Monday").
+ */
+export interface DaySchedule {
+    /** Label for this day type (e.g., "A", "B") */
+    dayLabel: string
+    /** Class IDs for each period (null = empty slot) */
+    classes: (string | null)[]
+}
+
+/**
  * Schedule data for a single semester within a term.
  */
 export interface SemesterScheduleData {
-    /** Class IDs for A-Day periods (null = empty slot) */
-    aDay: (string | null)[]
-    /** Class IDs for B-Day periods (null = empty slot) */
-    bDay: (string | null)[]
+    /** Array of day schedules (supports any rotation type) */
+    days: DaySchedule[]
 }
 
 /**
@@ -130,19 +138,39 @@ export interface TermSchedule {
 }
 
 /**
- * Complete schedule storage including A/B rotation config and per-term schedules.
+ * Available schedule rotation types.
  */
 export type ScheduleType = 'alternating-ab' | 'none'
 
-export interface ScheduleStore {
-    /** The type of schedule rotation in use */
-    scheduleType: ScheduleType
-    /** A reference date used to calculate the A/B rotation for any given date */
-    referenceDate: string
-    /** The day type ('A' or 'B') of the reference date */
-    referenceType: NonNullable<DayType>
+/**
+ * Configuration data specific to alternating A/B schedule.
+ */
+export interface AlternatingABData {
+    /** First day of the school year */
+    startDate: string
+    /** What day type the start date was */
+    startDayType: 'A' | 'B'
+    /** Manual overrides for specific dates (sparse map) */
+    dayTypeOverrides: Record<string, 'A' | 'B'>
     /** Per-term schedule data (termId -> schedule) */
     terms: Record<string, TermSchedule>
+}
+
+/**
+ * Configuration data for no schedule (placeholder for future types).
+ */
+export interface NoScheduleData { }
+
+/**
+ * Top-level schedule storage with type-keyed data.
+ */
+export interface Schedules {
+    /** The active schedule type */
+    type: ScheduleType
+    /** A/B schedule data (present when type is 'alternating-ab') */
+    'alternating-ab'?: AlternatingABData
+    /** No schedule data (present when type is 'none') */
+    'none'?: NoScheduleData
 }
 
 /**
@@ -207,7 +235,7 @@ export interface AppContextType {
     /** List of academic terms */
     academicTerms: AcademicTerm[]
     /** Current schedule configuration (rotation + per-term schedules) */
-    scheduleStore: ScheduleStore
+    schedules: Schedules
     /** Currently selected UI theme */
     theme: ThemeMode
     /** Updates the active theme */

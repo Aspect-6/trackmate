@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useApp } from '@/app/contexts/AppContext'
-import type { TermSchedule } from '@/app/types'
-import type { SemesterScheduleData, SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
+import type { TermSchedule, SemesterScheduleData, DaySchedule } from '@/app/types'
+import type { SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
 import { GLOBAL } from '@/app/styles/colors'
 
 /**
@@ -12,9 +12,13 @@ const getArrowSvg = (color: string) => {
     return `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='${encodedColor}'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`
 }
 
+const EMPTY_DAY: DaySchedule = { dayLabel: 'A', classes: [null, null, null, null] }
+
 const EMPTY_SEMESTER: SemesterScheduleData = {
-    aDay: [null, null, null, null],
-    bDay: [null, null, null, null]
+    days: [
+        { dayLabel: 'A', classes: [null, null, null, null] },
+        { dayLabel: 'B', classes: [null, null, null, null] }
+    ]
 }
 
 const EMPTY_TERM_SCHEDULE: TermSchedule = {
@@ -31,24 +35,35 @@ const getScheduleForTerm = (store: Record<string, TermSchedule>, termId: string 
 }
 
 /**
+ * Helper to find a day schedule by label
+ */
+const findDayByLabel = (semester: SemesterScheduleData, label: string): DaySchedule => {
+    return semester.days.find(d => d.dayLabel === label) || EMPTY_DAY
+}
+
+/**
  * Custom hook for managing schedule data.
- * Now uses termSchedules from AppContext instead of its own localStorage.
  */
 export const useScheduleData = () => {
     const {
         getClassById,
         openModal,
         filteredAcademicTerms,
-        scheduleStore,
+        schedules,
         updateTermSchedule
     } = useApp()
+
+    // Get terms from the alternating-ab data
+    const terms = schedules.type === 'alternating-ab'
+        ? schedules['alternating-ab']?.terms || {}
+        : {}
 
     // Currently selected term
     const [selectedTermId, setSelectedTermId] = useState<string | null>(null)
 
     // Auto-select the current term based on today's date
     useEffect(() => {
-        if (selectedTermId !== null) return // Don't override if already set
+        if (selectedTermId !== null) return
 
         const today = new Date()
         const currentTerm = filteredAcademicTerms.find(term => {
@@ -62,10 +77,9 @@ export const useScheduleData = () => {
         }
     }, [filteredAcademicTerms, selectedTermId])
 
-    // Arrow color for dropdown (reads from CSS)
+    // Arrow color for dropdown
     const [arrowColor, setArrowColor] = useState('')
 
-    // Read the accent color from CSS on mount and theme change
     useEffect(() => {
         const updateColor = () => {
             const color = getComputedStyle(document.documentElement)
@@ -75,7 +89,6 @@ export const useScheduleData = () => {
         }
         updateColor()
 
-        // Watch for theme changes
         const observer = new MutationObserver(updateColor)
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
         return () => observer.disconnect()
@@ -83,15 +96,15 @@ export const useScheduleData = () => {
 
     const arrowStyle = { backgroundImage: getArrowSvg(arrowColor) }
 
-    // Current term's schedule data from context
-    const currentSchedule = getScheduleForTerm(scheduleStore.terms, selectedTermId)
+    // Current term's schedule data
+    const currentSchedule = getScheduleForTerm(terms, selectedTermId)
 
     const setTermId = (termId: string | null) => {
         setSelectedTermId(termId)
     }
 
     /**
-     * Updates a cell in the schedule (for both semester and year-long classes)
+     * Updates a cell in the schedule
      */
     const updateCell = (
         semester: SemesterName,
@@ -102,29 +115,27 @@ export const useScheduleData = () => {
     ) => {
         if (!selectedTermId) return
 
-        let newSchedule: TermSchedule
+        const semesterData = currentSchedule[semester]
+        let newDays: DaySchedule[]
 
         if (isSemesterClass) {
-            // Semester class: fill BOTH A and B days at this period
-            newSchedule = {
-                ...currentSchedule,
-                [semester]: {
-                    aDay: currentSchedule[semester].aDay.map((id, i) => i === periodIndex ? classId : id),
-                    bDay: currentSchedule[semester].bDay.map((id, i) => i === periodIndex ? classId : id)
-                }
-            }
+            // Semester class: fill ALL days at this period
+            newDays = semesterData.days.map(day => ({
+                ...day,
+                classes: day.classes.map((id, i) => i === periodIndex ? classId : id)
+            }))
         } else {
-            // Year-long class: only fill the specific slot that was clicked
-            const dayKey = dayType === 'A' ? 'aDay' : 'bDay'
-            newSchedule = {
-                ...currentSchedule,
-                [semester]: {
-                    ...currentSchedule[semester],
-                    [dayKey]: currentSchedule[semester][dayKey].map(
-                        (id, i) => i === periodIndex ? classId : id
-                    )
-                }
-            }
+            // Year-long class: only fill the specific day
+            newDays = semesterData.days.map(day =>
+                day.dayLabel === dayType
+                    ? { ...day, classes: day.classes.map((id, i) => i === periodIndex ? classId : id) }
+                    : day
+            )
+        }
+
+        const newSchedule: TermSchedule = {
+            ...currentSchedule,
+            [semester]: { days: newDays }
         }
 
         updateTermSchedule(selectedTermId, newSchedule)
@@ -148,11 +159,11 @@ export const useScheduleData = () => {
     }
 
     /**
-     * Removes a class from a cell (handles semester vs year-long logic)
+     * Removes a class from a cell
      */
     const handleRemove = (semester: SemesterName, dayType: ScheduleDayType, periodIndex: number) => {
-        const dayKey = dayType === 'A' ? 'aDay' : 'bDay'
-        const classId = currentSchedule[semester][dayKey][periodIndex]
+        const daySchedule = findDayByLabel(currentSchedule[semester], dayType)
+        const classId = daySchedule.classes[periodIndex]
         const classData = classId ? getClassById(classId) : null
         const isSemesterClass = classData?.semesterId ? true : false
 

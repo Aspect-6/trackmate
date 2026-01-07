@@ -1,7 +1,8 @@
 import React from 'react'
 import { useApp } from '@/app/contexts/AppContext'
 import { GLOBAL, MODALS } from '@/app/styles/colors'
-import type { SemesterScheduleData, SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
+import type { SemesterScheduleData } from '@/app/types'
+import type { SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
 import { BookOpen, Calendar } from 'lucide-react'
 
 interface SemesterClassSelectorModalProps {
@@ -26,10 +27,11 @@ export const SemesterClassSelectorModal: React.FC<SemesterClassSelectorModalProp
     }
 
     // Get all class IDs used in the other semester
-    const otherSemesterClassIds = new Set([
-        ...otherSemesterSchedule.aDay.filter((id): id is string => id !== null),
-        ...otherSemesterSchedule.bDay.filter((id): id is string => id !== null)
-    ])
+    const otherSemesterClassIds = new Set(
+        otherSemesterSchedule.days.flatMap(day =>
+            day.classes.filter((id): id is string => id !== null)
+        )
+    )
 
     // Filter classes:
     // 1. Must belong to the selected term

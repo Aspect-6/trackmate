@@ -203,7 +203,7 @@ Well-documented interfaces with JSDoc comments:
 
 - `Priority`, `Status`, `AssignmentType`, `DayType`, `ThemeMode`
 - `Assignment`, `Class`, `Event`, `NoSchoolPeriod`
-- `SemesterScheduleData`, `TermSchedule`, `ScheduleStore`
+- `DaySchedule`, `SemesterScheduleData`, `TermSchedule`, `Schedules`, `AlternatingABData`
 - `TermMode`, `Quarter`, `Semester`, `AcademicTerm`
 - `AppContextType` - the context interface
 
