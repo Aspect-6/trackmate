@@ -3,7 +3,7 @@ import { useAlternatingABSchedule } from '@/pages/My Schedule/hooks/useAlternati
 import type { DayType } from '@/app/types'
 import type { SemesterName } from '@/pages/My Schedule/types'
 import type { ScheduleRendererProps } from './index'
-import SemesterSchedule, { ScheduleTable, ScheduleTableRow, EmptyCell, FilledCell } from '../SemesterSchedule'
+import AlternatingDaysSchedule, { ScheduleTable, ScheduleTableRow, EmptyCell, FilledCell } from '../AlternatingDaysSchedule'
 
 /**
  * Renderer for alternating A/B day schedule.
@@ -57,12 +57,12 @@ const AlternatingABRenderer: React.FC<ScheduleRendererProps> = ({ selectedTermId
 
     return (
         <>
-            <SemesterSchedule title="Fall Semester">
+            <AlternatingDaysSchedule title="Fall Semester">
                 {renderScheduleTable('Fall')}
-            </SemesterSchedule>
-            <SemesterSchedule title="Spring Semester">
+            </AlternatingDaysSchedule>
+            <AlternatingDaysSchedule title="Spring Semester">
                 {renderScheduleTable('Spring')}
-            </SemesterSchedule>
+            </AlternatingDaysSchedule>
         </>
     )
 }

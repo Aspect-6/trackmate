@@ -1,11 +1,11 @@
 import React from 'react'
-import type { SemesterSchedule } from '@/pages/My Schedule/types'
+import type { AlternatingDaysSchedule } from '@/pages/My Schedule/types'
 import { MY_SCHEDULE } from '@/app/styles/colors'
 import ClassName from './ClassName'
 import RoomNumber from './RoomNumber'
 import RemoveButton from './RemoveButton'
 
-const FilledCell: React.FC<SemesterSchedule.ScheduleTable.Row.FilledCell.Props> = ({ isLastRow, classData, onRemove }) => {
+const FilledCell: React.FC<AlternatingDaysSchedule.ScheduleTable.Row.FilledCell.Props> = ({ isLastRow, classData, onRemove }) => {
     return (
         <td
             className="p-3 text-center schedule-cell"

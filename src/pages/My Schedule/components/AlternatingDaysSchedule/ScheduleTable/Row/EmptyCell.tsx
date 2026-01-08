@@ -1,10 +1,10 @@
 import React from 'react'
 import { useHover } from '@/app/hooks/useHover'
-import type { SemesterSchedule } from '@/pages/My Schedule/types'
+import type { AlternatingDaysSchedule } from '@/pages/My Schedule/types'
 import { Plus } from 'lucide-react'
 import { MY_SCHEDULE } from '@/app/styles/colors'
 
-const EmptyCell: React.FC<SemesterSchedule.ScheduleTable.Row.EmptyCellProps> = ({ isLastRow, onClick }) => {
+const EmptyCell: React.FC<AlternatingDaysSchedule.ScheduleTable.Row.EmptyCellProps> = ({ isLastRow, onClick }) => {
     const { isHovered, hoverProps } = useHover()
 
     return (

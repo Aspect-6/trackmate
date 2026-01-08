@@ -1,8 +1,8 @@
 import React from 'react'
-import type { SemesterSchedule } from '@/pages/My Schedule/types'
+import type { AlternatingDaysSchedule } from '@/pages/My Schedule/types'
 import { MY_SCHEDULE } from '@/app/styles/colors'
 
-const SemesterSchedule: React.FC<SemesterSchedule.Props> = ({ title, children }) => {
+const AlternatingDaysSchedule: React.FC<AlternatingDaysSchedule.Props> = ({ title, children }) => {
     return (
         <div className="mb-8">
             <h3
@@ -16,7 +16,7 @@ const SemesterSchedule: React.FC<SemesterSchedule.Props> = ({ title, children })
     )
 }
 
-export default SemesterSchedule
+export default AlternatingDaysSchedule
 
 export { default as ScheduleTable } from './ScheduleTable'
 export { default as ScheduleTableRow } from './ScheduleTable/Row'

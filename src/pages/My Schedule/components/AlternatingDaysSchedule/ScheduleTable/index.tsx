@@ -1,8 +1,8 @@
 import React from 'react'
-import type { SemesterSchedule } from '@/pages/My Schedule/types'
+import type { AlternatingDaysSchedule } from '@/pages/My Schedule/types'
 import { MY_SCHEDULE } from '@/app/styles/colors'
 
-const ScheduleTable: React.FC<SemesterSchedule.ScheduleTable.Props> = ({ children }) => {
+const ScheduleTable: React.FC<AlternatingDaysSchedule.ScheduleTable.Props> = ({ children }) => {
     return (
         <div className="overflow-x-auto p-1">
             <div

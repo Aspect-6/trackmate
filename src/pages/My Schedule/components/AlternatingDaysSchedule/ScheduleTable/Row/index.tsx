@@ -1,8 +1,8 @@
 import React from 'react'
-import type { SemesterSchedule } from '@/pages/My Schedule/types'
+import type { AlternatingDaysSchedule } from '@/pages/My Schedule/types'
 import { MY_SCHEDULE } from '@/app/styles/colors'
 
-const ScheduleTableRow: React.FC<SemesterSchedule.ScheduleTable.Row.Props> = ({ isLastRow, dayType, children }) => {
+const ScheduleTableRow: React.FC<AlternatingDaysSchedule.ScheduleTable.Row.Props> = ({ isLastRow, dayType, children }) => {
     return (
         <tr>
             <td
