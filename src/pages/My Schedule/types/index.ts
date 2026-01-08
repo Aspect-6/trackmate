@@ -1,6 +1,6 @@
 import { Class, DayType, Semester } from '@/app/types'
 
-/** Semester name type - reuses existing Semester interface */
+/** Semester name type */
 export type SemesterName = Semester['name']
 
 /** Non-nullable day type for A/B days */
