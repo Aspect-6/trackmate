@@ -1,8 +1,8 @@
 import React from 'react'
 import { useHover } from '@/app/hooks/useHover'
 import { useFocus } from '@/app/hooks/useFocus'
+import { useScheduleComponents } from '@/app/contexts/ScheduleComponentsContext'
 import { useScheduleData } from './hooks/useScheduleData'
-import { SCHEDULE_RENDERERS } from './components/scheduleRenderers'
 import { MY_SCHEDULE } from '@/app/styles/colors'
 
 import './index.css'
@@ -12,15 +12,12 @@ const MySchedule: React.FC = () => {
         selectedTermId,
         setTermId,
         academicTerms,
-        arrowStyle,
-        scheduleType
+        arrowStyle
     } = useScheduleData()
 
+    const { ScheduleRenderer } = useScheduleComponents()
     const { isHovered, hoverProps } = useHover()
     const { isFocused, focusProps } = useFocus()
-
-    // Get the renderer for the current schedule type
-    const ScheduleRenderer = SCHEDULE_RENDERERS[scheduleType]
 
     return (
         <div className="my-schedule-page flex-1 min-h-0 flex flex-col">

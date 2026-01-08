@@ -1,8 +1,8 @@
 import React from 'react'
 import { useApp } from '@/app/contexts/AppContext'
+import { useScheduleComponents } from '@/app/contexts/ScheduleComponentsContext'
 import { useNoSchool } from '@/app/hooks/useNoSchool'
 import { todayString } from '@/app/lib/utils'
-import { CLASS_LIST_RENDERERS } from '@/app/components/ClassListRenderers'
 import type { TodaysClasses } from '@/pages/Dashboard/types'
 import { DASHBOARD } from '@/app/styles/colors'
 import TodaysClassesHeader from './TodaysClassesHeader'
@@ -13,14 +13,12 @@ const TodaysClasses: React.FC<TodaysClasses.Props> = ({
     isCollapsed,
     onToggleCollapse
 }) => {
-    const { schedules, getClassById, openModal } = useApp()
+    const { getClassById, openModal } = useApp()
+    const { ClassListRenderer } = useScheduleComponents()
     const { getNoSchoolStatusForDate } = useNoSchool()
 
     const today = todayString()
     const noSchool = getNoSchoolStatusForDate(today)
-
-    // Get the renderer for the current schedule type
-    const ClassListRenderer = CLASS_LIST_RENDERERS[schedules.type]
 
     return (
         <div

@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { AppProvider } from '@/app/contexts/AppContext'
+import { ScheduleComponentsProvider } from '@/app/contexts/ScheduleComponentsContext'
 import { ToastProvider } from '@/app/contexts/ToastContext'
 import App from '@/app/App'
 import { APP_FULL_NAME } from '@/app/config/brand'
@@ -28,9 +29,12 @@ createRoot(rootElement).render(
 		<BrowserRouter>
 			<ToastProvider>
 				<AppProvider>
-					<App />
+					<ScheduleComponentsProvider>
+						<App />
+					</ScheduleComponentsProvider>
 				</AppProvider>
 			</ToastProvider>
 		</BrowserRouter>
 	</StrictMode>
 )
+

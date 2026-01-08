@@ -7,7 +7,7 @@ import { useArrowStyle } from './useArrowStyle'
  * Type-specific operations live in their respective renderers.
  */
 export const useScheduleData = () => {
-    const { filteredAcademicTerms, schedules } = useApp()
+    const { filteredAcademicTerms } = useApp()
     const arrowStyle = useArrowStyle()
 
     // Currently selected term
@@ -47,7 +47,6 @@ export const useScheduleData = () => {
         selectedTermId,
         setTermId,
         academicTerms: filteredAcademicTerms,
-        arrowStyle,
-        scheduleType: schedules.type
+        arrowStyle
     }
 }
