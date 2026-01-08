@@ -1,6 +1,7 @@
 import React from 'react'
 import { useApp } from '@/app/contexts/AppContext'
 import { useScheduleComponents } from '@/app/contexts/ScheduleComponentsContext'
+import { useClasses } from '@/app/hooks/useClasses'
 import { useNoSchool } from '@/app/hooks/useNoSchool'
 import { todayString } from '@/app/lib/utils'
 import type { TodaysClasses } from '@/pages/Dashboard/types'
@@ -13,7 +14,8 @@ const TodaysClasses: React.FC<TodaysClasses.Props> = ({
     isCollapsed,
     onToggleCollapse
 }) => {
-    const { getClassById, openModal } = useApp()
+    const { openModal } = useApp()
+    const { getClassById } = useClasses()
     const { ClassListRenderer } = useScheduleComponents()
     const { getNoSchoolStatusForDate } = useNoSchool()
 

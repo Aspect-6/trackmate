@@ -22,7 +22,7 @@ import ClassCardContainer from './ClassCard/ClassCardContainer'
 import ClassCardHeader, { ClassCardTitle, ClassCardButtons } from './ClassCard/Header'
 import ClassCardBody, { ClassCardInstructor, ClassCardRoom, ClassCardColor, ClassCardTerm } from './ClassCard/Body'
 
-const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass, openModal }) => {
+const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass, openEditClass }) => {
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
@@ -65,8 +65,8 @@ const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass
                                     <ClassCardHeader>
                                         <ClassCardTitle name={classInfo.name} />
                                         <ClassCardButtons
-                                            onEdit={() => openModal('edit-class', classInfo.id)}
-                                            onDelete={() => openModal('delete-class', classInfo.id)}
+                                            onEdit={() => openEditClass(classInfo.id)}
+                                            onDelete={() => openEditClass(classInfo.id)}
                                         />
                                     </ClassCardHeader>
                                     <ClassCardBody>

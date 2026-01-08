@@ -5,7 +5,7 @@ export namespace ClassBoard {
         classes: Class[]
         onReorder: (classes: Class[]) => void
         onAddClass: () => void
-        openModal: (modal: 'add-class' | 'edit-class' | 'delete-class', classId?: string) => void
+        openEditClass: (id: string) => void
     }
     // ======================
 

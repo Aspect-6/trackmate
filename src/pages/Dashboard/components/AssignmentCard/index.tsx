@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useApp } from '@/app/contexts/AppContext'
 import { useAssignments } from '@/app/hooks/useAssignments'
+import { useClasses } from '@/app/hooks/useClasses'
 import { useHover } from '@/app/hooks/useHover'
 import type { AssignmentCard } from '@/pages/Dashboard/types'
 import PriorityBadge from '@/app/components/PriorityBadge'
@@ -10,7 +10,7 @@ import AssignmentCardMobileFooter from './AssignmentCardMobileFooter'
 import { DASHBOARD } from '@/app/styles/colors'
 
 const AssignmentCard: React.FC<AssignmentCard.Props> = ({ assignment }) => {
-    const { getClassById } = useApp()
+    const { getClassById } = useClasses()
     const { updateAssignment, openEditAssignment } = useAssignments()
     const { isHovered, hoverProps } = useHover()
     const [isCompleting, setIsCompleting] = useState(false)

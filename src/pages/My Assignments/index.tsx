@@ -1,5 +1,5 @@
 import React from "react"
-import { useApp } from "@/app/contexts/AppContext"
+import { useClasses } from "@/app/hooks/useClasses"
 import AssignmentBoard from "@/pages/My Assignments/components/AssignmentBoard"
 import AssignmentDragOverlay from "@/pages/My Assignments/components/AssignmentDragOverlay"
 import { useAssignmentBoard } from "@/pages/My Assignments/hooks/useAssignmentBoard"
@@ -7,7 +7,7 @@ import { DndContext, DragOverlay } from "@dnd-kit/core"
 import "./index.css"
 
 const MyAssignments: React.FC = () => {
-	const { getClassById } = useApp()
+	const { getClassById } = useClasses()
 
 	const {
 		columnConfigs,

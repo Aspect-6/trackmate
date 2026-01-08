@@ -1,18 +1,18 @@
 import React from 'react'
-import { useApp } from '@/app/contexts/AppContext'
+import { useClasses } from '@/app/hooks/useClasses'
 import ClassBoard from './components/ClassBoard'
 import './index.css'
 
 const MyClasses: React.FC = () => {
-    const { classes, openModal, reorderClasses } = useApp()
+    const { classes, reorderClasses, openAddClass, openEditClass } = useClasses()
 
     return (
         <div className="space-y-6">
             <ClassBoard
                 classes={classes}
                 onReorder={reorderClasses}
-                onAddClass={() => openModal('add-class')}
-                openModal={openModal}
+                onAddClass={openAddClass}
+                openEditClass={openEditClass}
             />
         </div>
     )
