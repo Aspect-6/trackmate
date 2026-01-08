@@ -8,6 +8,7 @@ import MyClasses from '@/pages/My Classes'
 import MySchedule from '@/pages/My Schedule'
 import Calendar from '@/pages/Calendar'
 import Settings from '@/pages/Settings'
+import NotFound from '@/pages/NotFound'
 
 const App: React.FC = () => {
     return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
                     <Route path="schedule" element={<MySchedule />} />
                     <Route path="settings" element={<Settings />} />
                 </Route>
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </>
     )
