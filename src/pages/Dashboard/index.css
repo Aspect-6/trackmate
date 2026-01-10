@@ -7,11 +7,26 @@
     --dashboard-icon-complete-hover: #6b7280;
 }
 
-:root.light {    
+:root.light {
     --dashboard-icon-play-default: hsl(215, 15%, 40%);
     --dashboard-icon-play-hover: var(--page-header-text);
     --dashboard-icon-in-progress: hsl(215, 15%, 40%);
     --dashboard-icon-in-progress-hover: var(--page-header-text);
     --dashboard-icon-complete: hsl(142, 60%, 45%);
     --dashboard-icon-complete-hover: hsl(215, 15%, 40%);
+}
+
+.dashboard-collapsible-header {
+    transition: border-color 0.2s ease;
+}
+
+@media (max-width: 767px) {
+    .dashboard-collapsible[data-collapsed="true"] {
+        padding-bottom: 0;
+    }
+}
+
+.dashboard-collapse-outer {
+    transition: max-height 0.25s ease;
+    overflow: hidden;
 }

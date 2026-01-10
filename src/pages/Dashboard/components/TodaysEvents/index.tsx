@@ -15,12 +15,13 @@ const TodaysEvents: React.FC<TodaysEvents.Props> = ({
 
     return (
         <div
-            className="p-6 rounded-xl shadow-sm sm:shadow-md"
+            className="border p-6 rounded-xl dashboard-collapsible"
             style={{
                 backgroundColor: DASHBOARD.BACKGROUND_PRIMARY,
-                border: `1px solid ${DASHBOARD.BORDER_PRIMARY}`,
-                paddingBottom: isMobile && isCollapsed ? '0' : undefined
+                borderColor: DASHBOARD.BORDER_PRIMARY,
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
             }}
+            data-collapsed={isMobile && isCollapsed ? 'true' : 'false'}
         >
             <TodaysEventsHeader
                 isMobile={isMobile}

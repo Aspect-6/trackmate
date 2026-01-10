@@ -10,11 +10,12 @@ const EventItem: React.FC<TodaysEvents.Body.EventList.EventItemProps> = ({ event
     return (
         <div
             onClick={onClick}
-            className="flex items-center p-3 rounded-lg border mb-2 shadow-md cursor-pointer transition-colors"
+            className="flex items-center p-3 rounded-lg border mb-2 cursor-pointer transition-colors"
             style={{
-                border: `1px solid ${DASHBOARD.BORDER_PRIMARY}`,
+                borderColor: DASHBOARD.BORDER_PRIMARY,
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
                 borderLeft: `4px solid ${event.color}`,
-                backgroundColor: isHovered ? DASHBOARD.BACKGROUND_TERTIARY : DASHBOARD.BACKGROUND_PRIMARY,
+                backgroundColor: isHovered ? DASHBOARD.BACKGROUND_TERTIARY : DASHBOARD.BACKGROUND_SECONDARY
             }}
             {...hoverProps}
         >

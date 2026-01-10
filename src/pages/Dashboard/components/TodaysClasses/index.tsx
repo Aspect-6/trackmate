@@ -7,7 +7,7 @@ import { todayString } from '@/app/lib/utils'
 import type { TodaysClasses } from '@/pages/Dashboard/types'
 import { DASHBOARD } from '@/app/styles/colors'
 import TodaysClassesHeader from './TodaysClassesHeader'
-import TodaysClassesBody from './Body'
+import TodaysClassesBody, { ClassList, NoClassesScheduled, NoSchool } from './Body'
 
 const TodaysClasses: React.FC<TodaysClasses.Props> = ({
     isMobile,
@@ -16,20 +16,22 @@ const TodaysClasses: React.FC<TodaysClasses.Props> = ({
 }) => {
     const { openModal } = useApp()
     const { getClassById } = useClasses()
-    const { ClassListRenderer } = useScheduleComponents()
+    const { useClassIdsForDate } = useScheduleComponents()
     const { getNoSchoolStatusForDate } = useNoSchool()
 
     const today = todayString()
     const noSchool = getNoSchoolStatusForDate(today)
+    const { classIds, hasClasses } = useClassIdsForDate(today)
 
     return (
         <div
-            className="p-6 rounded-xl shadow-sm sm:shadow-md"
+            className="border p-6 rounded-xl dashboard-collapsible"
             style={{
                 backgroundColor: DASHBOARD.BACKGROUND_PRIMARY,
-                border: `1px solid ${DASHBOARD.BORDER_PRIMARY}`,
-                paddingBottom: isMobile && isCollapsed ? '0' : undefined
+                borderColor: DASHBOARD.BORDER_PRIMARY,
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
             }}
+            data-collapsed={isMobile && isCollapsed ? 'true' : 'false'}
         >
             <TodaysClassesHeader
                 isMobile={isMobile}
@@ -38,19 +40,9 @@ const TodaysClasses: React.FC<TodaysClasses.Props> = ({
             />
 
             <TodaysClassesBody isMobile={isMobile} isCollapsed={isCollapsed}>
-                {ClassListRenderer ? (
-                    <ClassListRenderer
-                        date={today}
-                        noSchoolDay={noSchool ?? undefined}
-                        getClassById={getClassById}
-                        openModal={openModal}
-                        variant="dashboard"
-                    />
-                ) : (
-                    <p className="text-center" style={{ color: DASHBOARD.TEXT_TERTIARY }}>
-                        No schedule configured.
-                    </p>
-                )}
+                {noSchool && <NoSchool noSchool={noSchool} />}
+                {!noSchool && !hasClasses && <NoClassesScheduled />}
+                {!noSchool && hasClasses && <ClassList classIds={classIds} getClassById={getClassById} openModal={openModal} />}
             </TodaysClassesBody>
         </div>
     )

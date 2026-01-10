@@ -1,10 +1,14 @@
 import React, { createContext, useContext, useMemo } from 'react'
 import { useApp } from './AppContext'
-import type { ScheduleType, Class, NoSchoolPeriod } from '@/app/types'
+import type { ScheduleType } from '@/app/types'
 
 // Import schedule-type-specific components
+// Note: Importing from pages/ here because ScheduleRenderer is very closely 
+// related to the My Schedule page. Its an Acceptable exception to app/pages rule.
 import AlternatingABRenderer from '@/pages/My Schedule/components/scheduleRenderers/AlternatingAB'
-import AlternatingABClassList from '@/app/components/ClassListRenderers/AlternatingABClassList'
+
+// Import schedule-type-specific hooks
+import { useAlternatingABClasses } from '@/app/hooks/useAlternatingABClasses'
 
 /**
  * Props for schedule editor renderer
@@ -14,35 +18,49 @@ export interface ScheduleRendererProps {
 }
 
 /**
- * Props for class list renderer
+ * Return type for class IDs hook
  */
-export interface ClassListRendererProps {
-    date: string
-    noSchoolDay?: NoSchoolPeriod
-    getClassById: (id: string) => Class
-    openModal?: (name: string, data: any) => void
-    variant: 'dashboard' | 'calendar'
+export interface ClassIdsForDateResult {
+    classIds: (string | null)[]
+    hasClasses: boolean
 }
 
 /**
- * Schedule components for a given schedule type
+ * Schedule components and hooks for a given schedule type
  */
 interface ScheduleComponents {
     ScheduleRenderer: React.FC<ScheduleRendererProps> | null
-    ClassListRenderer: React.FC<ClassListRendererProps> | null
+    useClassIdsForDate: (date: string) => ClassIdsForDateResult
 }
 
 /**
- * All components by schedule type
+ * Null implementation for useClassIdsForDate when no schedule is configured
+ */
+const useNullClassIds = (): ClassIdsForDateResult => ({
+    classIds: [],
+    hasClasses: false
+})
+
+/**
+ * Wrapper hook for alternating A/B schedule class IDs
+ */
+const useAlternatingABClassIds = (date: string): ClassIdsForDateResult => {
+    const { classIds } = useAlternatingABClasses(date)
+    const hasClasses = classIds.length > 0 && classIds.some(id => id !== null)
+    return { classIds, hasClasses }
+}
+
+/**
+ * All components/hooks by schedule type
  */
 const COMPONENTS_BY_TYPE: Record<ScheduleType, ScheduleComponents> = {
     'alternating-ab': {
         ScheduleRenderer: AlternatingABRenderer,
-        ClassListRenderer: AlternatingABClassList,
+        useClassIdsForDate: useAlternatingABClassIds,
     },
     'none': {
         ScheduleRenderer: null,
-        ClassListRenderer: null,
+        useClassIdsForDate: useNullClassIds,
     }
 }
 

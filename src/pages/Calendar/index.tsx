@@ -15,6 +15,8 @@ import CalendarHeader, { PrevButton, NextButton, MonthTitle } from './components
 import CalendarBody from './components/CalendarBody'
 import CalendarGrid, { CalendarGridDayHeader, CalendarDay, CalendarGridEmptyDay } from './components/CalendarBody/CalendarGrid'
 import CalendarSidePanel, { DayType, AssignmentList, EventList, NoSchoolInfo, DayTypeDisplay, CalendarSidePanelHeader, CalendarSidePanelBody, DateDisplay, CloseButton } from './components/CalendarBody/SidePanel'
+import ClassList from './components/CalendarBody/SidePanel/Body/ClassList'
+import NoClassesScheduled from './components/CalendarBody/SidePanel/Body/ClassList/NoClassesScheduled'
 
 import './index.css'
 
@@ -22,7 +24,7 @@ const Calendar: React.FC = () => {
     const { schedules } = useApp()
     const { getClassById } = useClasses()
     const { openEditAssignment } = useAssignments()
-    const { ClassListRenderer } = useScheduleComponents()
+    const { useClassIdsForDate } = useScheduleComponents()
     const { openEditEvent } = useEvents()
     const { openEditNoSchool } = useNoSchool()
     const { selectedDate, setSelectedDate, clearSelection } = useSelectedDate()
@@ -30,10 +32,41 @@ const Calendar: React.FC = () => {
     const calendarCells = useCalendarGrid({ month, year })
     const sidePanelData = useSidePanel({ selectedDate })
 
+    // Get class IDs for the selected date
+    const { classIds, hasClasses } = useClassIdsForDate(sidePanelData?.dateString || '')
+
     const getClassColor = useCallback((classId: string) => {
         const classInfo = getClassById(classId)
         return classInfo?.color || '#888'
     }, [getClassById])
+
+    // Determine what to render for classes section
+    const renderClassesSection = () => {
+        // No school day - show nothing (handled by DayType component)
+        if (sidePanelData?.noSchoolDay) {
+            return (
+                <div>
+                    <h4 className="text-md font-semibold mb-2" style={{ color: CALENDAR.CLASS_HEADING_TEXT }}>Classes</h4>
+                    <p className="text-sm italic" style={{ color: CALENDAR.TEXT_SECONDARY }}>
+                        No classes (no school)
+                    </p>
+                </div>
+            )
+        }
+
+        // No classes scheduled
+        if (!hasClasses) {
+            return <NoClassesScheduled />
+        }
+
+        // Render class list
+        return (
+            <ClassList
+                classes={classIds}
+                getClassById={getClassById}
+            />
+        )
+    }
 
     return (
         <div className="calendar-page flex-1 min-h-0 flex flex-col">
@@ -92,14 +125,7 @@ const Calendar: React.FC = () => {
                                     <DayTypeDisplay dayType={sidePanelData?.dayType || null} />
                                 </DayType>
                             )}
-                            {ClassListRenderer && sidePanelData?.dateString && (
-                                <ClassListRenderer
-                                    date={sidePanelData.dateString}
-                                    noSchoolDay={sidePanelData.noSchoolDay ?? undefined}
-                                    getClassById={getClassById}
-                                    variant="calendar"
-                                />
-                            )}
+                            {sidePanelData?.dateString && renderClassesSection()}
                             <AssignmentList assignments={sidePanelData?.dueAssignments || []} getClassById={getClassById} onAssignmentClick={openEditAssignment} />
                             <EventList events={sidePanelData?.dayEvents || []} onEventClick={openEditEvent} />
                         </CalendarSidePanelBody>

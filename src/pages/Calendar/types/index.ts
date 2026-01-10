@@ -136,7 +136,6 @@ export namespace CalendarBody {
             export namespace ClassList {
                 export interface Props {
                     classes: (string | null)[]
-                    noSchoolDay?: NoSchoolPeriod
                     getClassById: (id: string) => Class
                 }
                 // ======================

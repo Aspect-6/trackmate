@@ -3,20 +3,17 @@ import type { CalendarBody } from '@/pages/Calendar/types'
 import ClassItem from './ClassItem'
 import { CALENDAR } from '@/app/styles/colors'
 
-const ClassList: React.FC<CalendarBody.SidePanel.Body.ClassList.Props> = ({ classes, noSchoolDay, getClassById }) => {
+const ClassList: React.FC<CalendarBody.SidePanel.Body.ClassList.Props> = ({ classes, getClassById }) => {
     return (
         <div>
             <h4 className="text-md font-semibold mb-2" style={{ color: CALENDAR.CLASS_HEADING_TEXT }}>Classes</h4>
             <div className="space-y-2">
-                {noSchoolDay ? (
-                    <p className="text-sm italic" style={{ color: CALENDAR.TEXT_SECONDARY }}>No classes (no school)</p>
-                ) : classes.length > 0 ? (
-                    classes.map((classId, index) => (
+                {classes.map((classId, index) => {
+                    if (!classId) return null
+                    return (
                         <ClassItem key={index} classId={classId} index={index} getClassById={getClassById} />
-                    ))
-                ) : (
-                    <p className="text-sm italic" style={{ color: CALENDAR.TEXT_SECONDARY }}>No classes scheduled</p>
-                )}
+                    )
+                })}
             </div>
         </div>
     )
