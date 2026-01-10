@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useAssignments, useEvents } from '@/app/hooks/entities'
-import AssignmentCard from '@/pages/Dashboard/components/AssignmentCard'
+import { useEvents } from '@/app/hooks/entities'
+import UpcomingAssignments from '@/pages/Dashboard/components/UpcomingAssignments'
 import TodaysEvents from '@/pages/Dashboard/components/TodaysEvents'
 import TodaysClasses from '@/pages/Dashboard/components/TodaysClasses/'
-import { DASHBOARD } from '@/app/styles/colors'
 import '@/pages/Dashboard/index.css'
 
 const MOBILE_BREAKPOINT = '(max-width: 767px)'
 
 const Dashboard: React.FC = () => {
-    const { activeAssignments } = useAssignments()
     const { todaysEvents, openEditEvent } = useEvents()
 
     const [isMobile, setIsMobile] = useState<boolean>(() => {
@@ -52,9 +50,6 @@ const Dashboard: React.FC = () => {
         return () => mediaQuery.removeListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void)
     }, [])
 
-    // Get first 3 active assignments
-    const assignmentsToShow = activeAssignments.slice(0, 3)
-
     return (
         <div className="dashboard-page flex-1 min-h-0 flex flex-col gap-6 w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-shrink-0 w-full">
@@ -73,29 +68,10 @@ const Dashboard: React.FC = () => {
                 />
             </div>
 
-            {/* Assignment List */}
-            <div
-                className="border p-6 rounded-xl shadow-sm sm:shadow-md min-h-0"
-                style={{
-                    backgroundColor: DASHBOARD.BACKGROUND_PRIMARY,
-                    borderColor: DASHBOARD.BORDER_PRIMARY,
-                }}
-            >
-                <h2 className="text-xl font-bold mb-4" style={{ color: DASHBOARD.ASSIGNMENT_HEADING_TEXT }}>Upcoming Assignments</h2>
-                <div className="space-y-3 custom-scrollbar">
-                    {assignmentsToShow.length === 0 ? (
-                        <div className="text-center py-6">
-                            <p className="pt-4" style={{ color: DASHBOARD.TEXT_TERTIARY }}>No upcoming assignments to display.</p>
-                        </div>
-                    ) : (
-                        assignmentsToShow.map(assignment => (
-                            <AssignmentCard key={assignment.id} assignment={assignment} />
-                        ))
-                    )}
-                </div>
-            </div>
+            <UpcomingAssignments />
         </div>
     )
 }
 
 export default Dashboard
+

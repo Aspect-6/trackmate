@@ -1,11 +1,11 @@
 import React from 'react'
-import type { AssignmentCard } from '@/pages/Dashboard/types'
+import type { UpcomingAssignments } from '@/pages/Dashboard/types'
 import { Clock } from 'lucide-react'
 import { formatDate } from '@/app/lib/utils'
 import { DASHBOARD } from '@/app/styles/colors'
 import PriorityBadge from '@/app/components/PriorityBadge'
 
-const AssignmentCardMobileFooter: React.FC<AssignmentCard.MobileFooterProps> = ({ assignment }) => {
+const AssignmentCardMobileFooter: React.FC<UpcomingAssignments.AssignmentCard.MobileFooterProps> = ({ assignment }) => {
     return (
         <div className="flex items-center justify-between sm:hidden gap-2">
             <div className="flex items-center gap-1 text-xs" style={{ color: DASHBOARD.TEXT_SECONDARY }}>

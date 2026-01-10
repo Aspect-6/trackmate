@@ -1,38 +1,37 @@
 import { Assignment, Class, Status, Event, NoSchoolPeriod } from '@/app/types'
 
-export namespace AssignmentCard {
+export namespace TodaysEvents {
     export interface Props {
-        assignment: Assignment
+        events: Event[]
+        onEventClick: (id: string) => void
+        isMobile?: boolean
+        isCollapsed?: boolean
+        onToggleCollapse?: () => void
     }
     // ======================
 
-    export interface MobileFooterProps {
-        assignment: Assignment
+    export interface HeaderProps {
+        isMobile?: boolean
+        isCollapsed?: boolean
+        onToggleCollapse?: () => void
     }
-    export interface StatusButtonProps {
-        status: string
-        isCompleting: boolean
-        onClick: (e: React.MouseEvent) => void
-    }
-    export namespace Details {
+    export namespace Body {
         export interface Props {
+            isMobile?: boolean
+            isCollapsed?: boolean
             children: React.ReactNode
         }
         // ======================
-        export interface TitleProps {
-            status: Status
-            children: React.ReactNode
-        }
-        export namespace Body {
+        export interface NoEventsScheduledProps { }
+        export namespace EventList {
             export interface Props {
-                children: React.ReactNode
+                events: Event[]
+                onEventClick: (id: string) => void
             }
             // ======================
-            export interface AssignmentDetailsClassProps {
-                assignmentClass: Class
-            }
-            export interface AssignmentDetailsDueProps {
-                assignment: Assignment
+            export interface EventItemProps {
+                event: Event
+                onClick: () => void
             }
         }
     }
@@ -78,39 +77,44 @@ export namespace TodaysClasses {
     }
 }
 
-export namespace TodaysEvents {
-    export interface Props {
-        events: Event[]
-        onEventClick: (id: string) => void
-        isMobile?: boolean
-        isCollapsed?: boolean
-        onToggleCollapse?: () => void
-    }
-    // ======================
-
-    export interface HeaderProps {
-        isMobile?: boolean
-        isCollapsed?: boolean
-        onToggleCollapse?: () => void
-    }
-    export namespace Body {
+export namespace UpcomingAssignments {
+    export namespace AssignmentCard {
         export interface Props {
-            isMobile?: boolean
-            isCollapsed?: boolean
-            children: React.ReactNode
+            assignment: Assignment
         }
         // ======================
-        export interface NoEventsScheduledProps { }
-        export namespace EventList {
+
+        export interface MobileFooterProps {
+            assignment: Assignment
+        }
+        export interface StatusButtonProps {
+            status: string
+            isCompleting: boolean
+            onClick: (e: React.MouseEvent) => void
+        }
+        export namespace Details {
             export interface Props {
-                events: Event[]
-                onEventClick: (id: string) => void
+                children: React.ReactNode
             }
             // ======================
-            export interface EventItemProps {
-                event: Event
-                onClick: () => void
+            export interface TitleProps {
+                status: Status
+                children: React.ReactNode
+            }
+            export namespace Body {
+                export interface Props {
+                    children: React.ReactNode
+                }
+                // ======================
+                export interface AssignmentDetailsClassProps {
+                    assignmentClass: Class
+                }
+                export interface AssignmentDetailsDueProps {
+                    assignment: Assignment
+                }
             }
         }
     }
+
+    export interface NoUpcomingAssignmentsProps { }
 }

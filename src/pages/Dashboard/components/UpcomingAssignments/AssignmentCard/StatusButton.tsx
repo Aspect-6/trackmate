@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useHover } from '@/app/hooks/useHover'
-import type { AssignmentCard } from '@/pages/Dashboard/types'
+import type { UpcomingAssignments } from '@/pages/Dashboard/types'
 import { cn } from '@/app/lib/utils'
 import { CheckCircle, Circle, PlayCircle } from 'lucide-react'
 import { DASHBOARD } from '@/app/styles/colors'
@@ -29,7 +29,7 @@ const STATUS_CONFIG = {
     }
 }
 
-const StatusButton: React.FC<AssignmentCard.StatusButtonProps> = ({ status, isCompleting, onClick }) => {
+const StatusButton: React.FC<UpcomingAssignments.AssignmentCard.StatusButtonProps> = ({ status, isCompleting, onClick }) => {
     const { isHovered, hoverProps, resetHover } = useHover()
 
     useEffect(() => { resetHover() }, [status, isCompleting, resetHover])

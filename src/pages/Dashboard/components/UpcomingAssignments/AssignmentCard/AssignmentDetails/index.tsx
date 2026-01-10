@@ -1,7 +1,7 @@
 import React from 'react'
-import type { AssignmentCard } from '@/pages/Dashboard/types'
+import type { UpcomingAssignments } from '@/pages/Dashboard/types'
 
-const AssignmentDetails: React.FC<AssignmentCard.Details.Props> = ({ children }) => {
+const AssignmentDetails: React.FC<UpcomingAssignments.AssignmentCard.Details.Props> = ({ children }) => {
     return (
         <div className="min-w-0 flex-1">
             {children}

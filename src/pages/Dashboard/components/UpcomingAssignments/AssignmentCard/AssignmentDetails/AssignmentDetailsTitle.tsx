@@ -1,9 +1,9 @@
 import React from 'react'
-import type { AssignmentCard } from '@/pages/Dashboard/types'
+import type { UpcomingAssignments } from '@/pages/Dashboard/types'
 import { cn } from '@/app/lib/utils'
 import { DASHBOARD } from '@/app/styles/colors'
 
-const AssignmentDetailsTitle: React.FC<AssignmentCard.Details.TitleProps> = ({ status, children }) => {
+const AssignmentDetailsTitle: React.FC<UpcomingAssignments.AssignmentCard.Details.TitleProps> = ({ status, children }) => {
     return (
         <h3
             className={cn(

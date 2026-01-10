@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { useAssignments, useClasses } from '@/app/hooks/entities'
 import { useHover } from '@/app/hooks/useHover'
-import type { AssignmentCard } from '@/pages/Dashboard/types'
+import type { UpcomingAssignments } from '@/pages/Dashboard/types'
 import PriorityBadge from '@/app/components/PriorityBadge'
 import StatusButton from './StatusButton'
 import AssignmentDetails, { AssignmentDetailsBody, AssignmentDetailsClass, AssignmentDetailsDue, AssignmentDetailsTitle } from './AssignmentDetails'
 import AssignmentCardMobileFooter from './AssignmentCardMobileFooter'
 import { DASHBOARD } from '@/app/styles/colors'
 
-const AssignmentCard: React.FC<AssignmentCard.Props> = ({ assignment }) => {
+const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ assignment }) => {
     const { getClassById } = useClasses()
     const { updateAssignment, openEditAssignment } = useAssignments()
     const { isHovered, hoverProps } = useHover()
