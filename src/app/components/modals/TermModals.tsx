@@ -9,6 +9,10 @@ interface ModalProps {
     onClose: () => void
 }
 
+interface EditTermModalProps extends ModalProps {
+    termId: string
+}
+
 export const AddTermModal: React.FC<ModalProps> = ({ onClose }) => {
     const { addAcademicTerm, academicTerms, termMode } = useAcademicTerms()
     const { showToast } = useToast()
@@ -235,10 +239,6 @@ export const AddTermModal: React.FC<ModalProps> = ({ onClose }) => {
     )
 }
 
-interface EditTermModalProps extends ModalProps {
-    termId: string
-}
-
 export const EditTermModal: React.FC<EditTermModalProps> = ({ onClose, termId }) => {
     const { academicTerms, updateAcademicTerm } = useAcademicTerms()
     const { showToast } = useToast()
@@ -455,11 +455,7 @@ export const EditTermModal: React.FC<EditTermModalProps> = ({ onClose, termId })
     )
 }
 
-interface DeleteTermModalProps extends ModalProps {
-    termId: string
-}
-
-export const DeleteTermModal: React.FC<DeleteTermModalProps> = ({ onClose, termId }) => {
+export const DeleteTermModal: React.FC<EditTermModalProps> = ({ onClose, termId }) => {
     const { academicTerms, deleteAcademicTerm } = useAcademicTerms()
     const { showToast } = useToast()
 
