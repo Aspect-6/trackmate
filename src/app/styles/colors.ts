@@ -124,9 +124,6 @@ export const DASHBOARD = {
 export const CALENDAR = {
     ...GLOBAL,
 
-    // Day Cell
-    DAY_INACTIVE_BG: 'var(--calendar-day-inactive-bg)',
-
     // No School
     NO_SCHOOL_BG: 'var(--calendar-no-school-bg)',
     NO_SCHOOL_PATTERN: 'var(--calendar-no-school-pattern)',
