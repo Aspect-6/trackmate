@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AcademicTerm } from '@/app/types'
-import { useApp } from '@/app/contexts/AppContext'
+import { useAcademicTerms } from '@/app/hooks/entities'
 import { useToast } from '@/app/contexts/ToastContext'
 import { generateId } from '@/app/lib/utils'
 import { GLOBAL, MODALS } from '@/app/styles/colors'
@@ -10,7 +10,7 @@ interface ModalProps {
 }
 
 export const AddTermModal: React.FC<ModalProps> = ({ onClose }) => {
-    const { addAcademicTerm, academicTerms, termMode } = useApp()
+    const { addAcademicTerm, academicTerms, termMode } = useAcademicTerms()
     const { showToast } = useToast()
 
     const [name, setName] = useState('')
@@ -240,7 +240,7 @@ interface EditTermModalProps extends ModalProps {
 }
 
 export const EditTermModal: React.FC<EditTermModalProps> = ({ onClose, termId }) => {
-    const { academicTerms, updateAcademicTerm } = useApp()
+    const { academicTerms, updateAcademicTerm } = useAcademicTerms()
     const { showToast } = useToast()
 
     const term = academicTerms.find(t => t.id === termId)
@@ -460,7 +460,7 @@ interface DeleteTermModalProps extends ModalProps {
 }
 
 export const DeleteTermModal: React.FC<DeleteTermModalProps> = ({ onClose, termId }) => {
-    const { academicTerms, deleteAcademicTerm } = useApp()
+    const { academicTerms, deleteAcademicTerm } = useAcademicTerms()
     const { showToast } = useToast()
 
     const term = academicTerms.find(t => t.id === termId)

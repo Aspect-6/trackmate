@@ -1,5 +1,6 @@
 import React from 'react'
 import { useApp } from '@/app/contexts/AppContext'
+import { useAcademicTerms } from '@/app/hooks/entities'
 import { useAssignmentTypeSettings } from '@/pages/Settings/hooks/useAssignmentTypeSettings'
 // Base settings module imports
 import {
@@ -68,9 +69,10 @@ const Settings: React.FC = () => {
         getDayTypeForDate,
         theme,
         setTheme: setThemeMode,
-        filteredAcademicTerms,
         schedules
     } = useApp()
+
+    const { filteredAcademicTerms } = useAcademicTerms()
 
     const {
         assignmentTypes,

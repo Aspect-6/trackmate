@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useApp } from '@/app/contexts/AppContext'
+import { useAcademicTerms } from '@/app/hooks/entities'
 import { Class } from '@/app/types'
 import { MODALS } from '@/app/styles/colors'
 
@@ -12,7 +13,8 @@ interface ClassModalProps extends ModalProps {
 }
 
 export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
-    const { addClass, academicTerms } = useApp()
+    const { addClass } = useApp()
+    const { academicTerms } = useAcademicTerms()
     const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details')
     const [selectedColor, setSelectedColor] = useState<string>(MODALS.CLASS.COLORS[0]!)
     const [selectedTermId, setSelectedTermId] = useState<string>('')
@@ -190,7 +192,8 @@ export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
 }
 
 export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) => {
-    const { classes, updateClass, openModal, academicTerms } = useApp()
+    const { classes, updateClass, openModal } = useApp()
+    const { academicTerms } = useAcademicTerms()
     const [formData, setFormData] = useState<Class | null>(null)
     const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details')
 

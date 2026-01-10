@@ -110,17 +110,11 @@
 
 .toast-notification.toast-error {
 	background-color: hsl(0, 84%, 60%);
-	/* Red-500 */
-	border-left: 4px solid hsl(0, 70%, 39%);
-	/* Red-800 */
 }
 
 .toast-notification.toast-info,
 .toast-notification.toast-success {
-	background-color: hsl(142, 71%, 45%);
-	/* Green-500 */
-	border-left: 4px solid hsl(142, 64%, 34%);
-	/* Green-800 */
+	background-color: hsl(142, 51%, 45%);
 }
 
 .toast-notification.hide {

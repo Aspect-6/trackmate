@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useApp } from '@/app/contexts/AppContext'
+import { useAcademicTerms } from '@/app/hooks/entities'
 import { useArrowStyle } from './useArrowStyle'
 
 /**
@@ -7,7 +7,7 @@ import { useArrowStyle } from './useArrowStyle'
  * Type-specific operations live in their respective renderers.
  */
 export const useScheduleData = () => {
-    const { filteredAcademicTerms } = useApp()
+    const { filteredAcademicTerms } = useAcademicTerms()
     const arrowStyle = useArrowStyle()
 
     // Currently selected term
