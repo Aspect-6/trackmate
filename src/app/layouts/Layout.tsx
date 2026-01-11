@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { Plus, Menu } from 'lucide-react'
+import PageHeader from '@/app/components/PageHeader'
 import Sidebar from '@/app/components/Sidebar'
-import { useApp } from '@/app/contexts/AppContext'
 import { cn } from '@/app/lib/utils'
-import { GLOBAL, MY_CLASSES } from '@/app/styles/colors'
-import { getRouteByPath, DEFAULT_ROUTE, PATHS } from '@/app/config/paths'
+import { GLOBAL } from '@/app/styles/colors'
+import { PATHS } from '@/app/config/paths'
 
 const Layout: React.FC = () => {
     const location = useLocation()
-    const { openModal } = useApp()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
     const [isDesktopViewport, setIsDesktopViewport] = useState<boolean>(() => {
         if (typeof window === 'undefined') return true
@@ -36,29 +34,10 @@ const Layout: React.FC = () => {
         return () => mediaQuery.removeListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void)
     }, [])
 
-    // Get current route config for page title
-    const currentRoute = getRouteByPath(location.pathname) ?? DEFAULT_ROUTE
-
-    // Fixed viewport logic (kept in Layout since it's UI behavior)
+    // Fixed viewport logic (kept in Layout since it affects the container)
     const isCalendar = location.pathname === PATHS['calendar']
     const isAssignments = location.pathname === PATHS['my-assignments']
     const isFixedViewportPage = isCalendar || (isAssignments && isDesktopViewport)
-
-    // Add button logic (kept in Layout since it's UI behavior)
-    const getAddButtonConfig = () => {
-        if (location.pathname === PATHS['my-classes']) {
-            return { modal: 'add-class' as const, label: 'Add Class', bg: MY_CLASSES.CLASS_BUTTON_BG, bgHover: MY_CLASSES.CLASS_BUTTON_BG_HOVER }
-        }
-        if (location.pathname === PATHS['my-assignments']) {
-            return { modal: 'add-assignment' as const, label: 'Add Assignment', bg: GLOBAL.ASSIGNMENT_BUTTON_BG, bgHover: GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER }
-        }
-        if (location.pathname === PATHS['calendar']) {
-            return { modal: 'add-event' as const, label: 'Add Event', bg: GLOBAL.EVENT_BUTTON_BG, bgHover: GLOBAL.EVENT_BUTTON_BG_HOVER }
-        }
-        return { modal: 'type-selector' as const, label: 'Add Item', bg: GLOBAL.ADDITEM_BUTTON_BG, bgHover: GLOBAL.ADDITEM_BUTTON_BG_HOVER }
-    }
-
-    const addButton = getAddButtonConfig()
 
     return (
         <div className={cn(
@@ -74,33 +53,7 @@ const Layout: React.FC = () => {
                 "content-area flex-grow min-w-0 w-full p-6 lg:p-8 flex flex-col",
                 isFixedViewportPage && "h-full overflow-hidden"
             )}>
-                <header className="mb-8 pb-4 flex justify-between items-center gap-3 flex-shrink-0" style={{ borderBottom: `1px solid ${GLOBAL.HEADER_DIVIDER}` }}>
-                    <div className="flex items-center min-w-0 gap-3">
-                        <button
-                            onClick={() => setIsMobileSidebarOpen(true)}
-                            className="lg:hidden focus:outline-none transition-colors -ml-2"
-                            style={{ color: GLOBAL.HEADER_MENU_ICON }}
-                            onMouseEnter={(e) => e.currentTarget.style.color = GLOBAL.HEADER_MENU_ICON_HOVER}
-                            onMouseLeave={(e) => e.currentTarget.style.color = GLOBAL.HEADER_MENU_ICON}
-                            onTouchStart={(e) => e.currentTarget.style.color = GLOBAL.HEADER_MENU_ICON_HOVER}
-                            onTouchEnd={(e) => e.currentTarget.style.color = GLOBAL.HEADER_MENU_ICON}
-                        >
-                            <Menu className="w-7 h-7" />
-                        </button>
-                        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold truncate" style={{ color: GLOBAL.PAGE_HEADER_TEXT }}>{currentRoute.title}</h1>
-                    </div>
-                    <button
-                        onClick={() => openModal(addButton.modal)}
-                        className="flex items-center py-2 px-3 sm:px-4 border border-transparent rounded-lg shadow-sm text-xs sm:text-sm font-medium text-white transition duration-150 ease-in-out whitespace-nowrap flex-shrink-0"
-                        style={{ backgroundColor: addButton.bg }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = addButton.bgHover}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = addButton.bg}
-                    >
-                        <Plus className="w-4 h-4 sm:w-5 sm:h-5 mr-1" />
-                        <span className="hidden sm:inline">{addButton.label}</span>
-                        <span className="sm:hidden">Add</span>
-                    </button>
-                </header>
+                <PageHeader onMenuClick={() => setIsMobileSidebarOpen(true)} />
                 <Outlet />
             </main>
         </div>
