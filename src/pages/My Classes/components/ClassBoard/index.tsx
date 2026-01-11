@@ -1,5 +1,6 @@
 import React from 'react'
 import type { ClassBoard } from '@/pages/My Classes/types'
+import { useApp } from '@/app/contexts/AppContext'
 import {
     DndContext,
     closestCenter,
@@ -23,6 +24,7 @@ import ClassCardHeader, { ClassCardTitle, ClassCardButtons } from './ClassCard/H
 import ClassCardBody, { ClassCardInstructor, ClassCardRoom, ClassCardColor, ClassCardTerm } from './ClassCard/Body'
 
 const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass, openEditClass }) => {
+    const { openModal } = useApp()
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
@@ -66,7 +68,7 @@ const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass
                                         <ClassCardTitle name={classInfo.name} />
                                         <ClassCardButtons
                                             onEdit={() => openEditClass(classInfo.id)}
-                                            onDelete={() => openEditClass(classInfo.id)}
+                                            onDelete={() => openModal('delete-class', classInfo.id)}
                                         />
                                     </ClassCardHeader>
                                     <ClassCardBody>
