@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useEffect } from 'react'
+import { useMemo, useCallback } from 'react'
 import { useLocalStorage } from '@/app/hooks/data/useLocalStorage'
 import { generateId, todayString } from '@/app/lib/utils'
 import { STORAGE_KEYS } from '@/app/config/storageKeys'
@@ -11,11 +11,6 @@ import type { Event } from '@/app/types'
  */
 export const useEvents = () => {
     const [events, setEvents] = useLocalStorage<Event[]>(STORAGE_KEYS.EVENTS, [])
-
-    // Trigger localStorage sync on mount
-    useEffect(() => {
-        setEvents(prev => prev)
-    }, [setEvents])
 
     // Counts
     const totalNum = events.length

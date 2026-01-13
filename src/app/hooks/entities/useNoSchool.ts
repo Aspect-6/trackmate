@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useEffect } from 'react'
+import { useMemo, useCallback } from 'react'
 import { useLocalStorage } from '@/app/hooks/data/useLocalStorage'
 import { generateId, parseDateLocal, dateToLocalISOString } from '@/app/lib/utils'
 import { STORAGE_KEYS } from '@/app/config/storageKeys'
@@ -11,11 +11,6 @@ import type { NoSchoolPeriod } from '@/app/types'
  */
 export const useNoSchool = () => {
     const [noSchoolPeriods, setNoSchoolPeriods] = useLocalStorage<NoSchoolPeriod[]>(STORAGE_KEYS.NO_SCHOOL, [])
-
-    // Trigger localStorage sync on mount
-    useEffect(() => {
-        setNoSchoolPeriods(prev => prev)
-    }, [setNoSchoolPeriods])
 
     // Indexed by date (expands date ranges into individual dates)
     const noSchoolByDate = useMemo(() => noSchoolPeriods.reduce<Record<string, NoSchoolPeriod>>((acc, period) => {

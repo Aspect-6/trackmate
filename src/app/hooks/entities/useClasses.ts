@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useEffect } from 'react'
+import { useMemo, useCallback } from 'react'
 import { useLocalStorage } from '@/app/hooks/data/useLocalStorage'
 import { useToast } from '@/app/contexts/ToastContext'
 import { generateId } from '@/app/lib/utils'
@@ -12,16 +12,6 @@ import type { Class } from '@/app/types'
 export const useClasses = () => {
     const [classes, setClasses] = useLocalStorage<Class[]>(STORAGE_KEYS.CLASSES, [])
     const { showToast } = useToast()
-
-    // Migration/Sanitization Effect
-    useEffect(() => {
-        setClasses(prev => prev.map(c => ({
-            ...c,
-            teacherName: c.teacherName || '',
-            roomNumber: c.roomNumber || '',
-            color: c.color || '#64748b',
-        })))
-    }, [setClasses])
 
     // Counts
     const totalNum = classes.length

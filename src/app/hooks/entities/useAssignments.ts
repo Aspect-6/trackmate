@@ -1,7 +1,7 @@
 import { useMemo, useCallback } from 'react'
 import { useSettings } from '@/app/hooks/useSettings'
 import { useLocalStorage } from '@/app/hooks/data/useLocalStorage'
-import { generateId } from '@/app/lib/utils'
+import { generateId, todayString } from '@/app/lib/utils'
 import { STORAGE_KEYS } from '@/app/config/storageKeys'
 import type { Assignment, Status } from '@/app/types'
 
@@ -59,7 +59,7 @@ export const useAssignments = () => {
 
     // Actions
     const addAssignment = useCallback((assignment: Omit<Assignment, 'id' | 'createdAt'>): void => {
-        setAssignments(prev => [...prev, { ...assignment, id: generateId(), createdAt: new Date().toISOString() }])
+        setAssignments(prev => [...prev, { ...assignment, id: generateId(), createdAt: todayString() }])
     }, [setAssignments])
     const updateAssignment = useCallback((id: string, updates: Partial<Assignment>): void => {
         setAssignments(prev => prev.map(a => a.id === id ? { ...a, ...updates } : a))
