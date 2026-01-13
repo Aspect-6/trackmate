@@ -18,9 +18,9 @@ const EventItem: React.FC<TodaysEvents.Body.EventList.EventItemProps> = ({ event
             }}
             {...hoverProps}
         >
-            <div className="flex-grow">
-                <p className="text-sm font-semibold" style={{ color: DASHBOARD.TEXT_PRIMARY }}>{event.title}</p>
-                <p className="text-xs" style={{ color: DASHBOARD.TEXT_SECONDARY }}>
+            <div className="flex-1">
+                <p className="font-semibold text-sm sm:text-base" style={{ color: DASHBOARD.TEXT_PRIMARY }}>{event.title}</p>
+                <p className="text-xs mt-1" style={{ color: DASHBOARD.TEXT_SECONDARY }}>
                     {formatEventTimeRange(event.startTime, event.endTime)}
                 </p>
             </div>
