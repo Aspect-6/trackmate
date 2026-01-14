@@ -8,7 +8,7 @@ import type { ScheduleType } from '@/app/types'
 import AlternatingABRenderer from '@/pages/My Schedule/components/scheduleRenderers/AlternatingAB'
 
 // Import schedule-type-specific hooks
-import { useAlternatingABClasses } from '@/app/hooks/useAlternatingABClasses'
+import { useAlternatingABClassIds } from '@/app/hooks/useAlternatingABClassIds'
 
 export interface ScheduleRendererProps {
     selectedTermId: string | null
@@ -30,7 +30,7 @@ const useNullClassIds = (): ClassIdsForDateResult => ({
 })
 
 const useAlternatingABClassIds = (date: string): ClassIdsForDateResult => {
-    const { classIds } = useAlternatingABClasses(date)
+    const { classIds } = useAlternatingABClassIds(date)
     const hasClasses = classIds.length > 0 && classIds.some(id => id !== null)
     return { classIds, hasClasses }
 }

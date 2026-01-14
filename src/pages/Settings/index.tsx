@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useModal } from '@/app/contexts/ModalContext'
 import { useAcademicTerms, useSchedules, useNoSchool } from '@/app/hooks/entities'
 import { useSettings } from '@/app/hooks/useSettings'
@@ -73,15 +73,13 @@ const Settings: React.FC = () => {
 
     const { theme, setTheme, termMode } = useSettings()
 
-    const { filteredAcademicTerms, getActiveTermForDate, getActiveSemesterForDate } = useAcademicTerms(termMode)
-    const { getNoSchoolStatusForDate } = useNoSchool()
+    const { filteredAcademicTerms, getActiveTermForDate } = useAcademicTerms(termMode)
+    const { noSchoolPeriods } = useNoSchool()
 
-    // Create helpers for getDayTypeForDate
-    const dayTypeHelpers = useMemo(() => ({
-        getNoSchoolStatusForDate,
-        getActiveTermForDate,
-        getActiveSemesterForDate
-    }), [getNoSchoolStatusForDate, getActiveTermForDate, getActiveSemesterForDate])
+    // Day type for today calculation
+    const today = todayString()
+    const activeTermForToday = getActiveTermForDate(today)
+    const currentDayType = getDayTypeForDate(today, activeTermForToday, noSchoolPeriods)
 
     const {
         assignmentTypes,
@@ -93,9 +91,6 @@ const Settings: React.FC = () => {
         handleDragEnd,
         moveType,
     } = useAssignmentTypeSettings()
-
-    const today = todayString()
-    const currentDayType = getDayTypeForDate(today, dayTypeHelpers)
 
     return (
         <div className="w-full max-w-2xl mx-auto">
