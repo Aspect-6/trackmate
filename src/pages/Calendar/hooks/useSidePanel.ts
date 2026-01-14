@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useAssignments, useEvents, useNoSchool, useSchedules, useAcademicTerms } from '@/app/hooks/entities'
 import { dateToLocalISOString, formatDate } from '@/app/lib/utils'
+import { getActiveTerm } from '@/app/lib/schedule'
 
 interface UseSidePanelProps {
     selectedDate: Date | null
@@ -12,24 +13,17 @@ interface UseSidePanelProps {
  */
 export const useSidePanel = ({ selectedDate }: UseSidePanelProps) => {
     const { getDayTypeForDate } = useSchedules()
-    const { getActiveTermForDate, getActiveSemesterForDate } = useAcademicTerms()
+    const { academicTerms } = useAcademicTerms()
     const { getAssignmentsForDate } = useAssignments()
     const { getEventsForDate } = useEvents()
-    const { getNoSchoolStatusForDate } = useNoSchool()
-
-    // Create helpers object for getDayTypeForDate
-    const dayTypeHelpers = useMemo(() => ({
-        getNoSchoolStatusForDate,
-        getActiveTermForDate,
-        getActiveSemesterForDate
-    }), [getNoSchoolStatusForDate, getActiveTermForDate, getActiveSemesterForDate])
+    const { noSchoolPeriods, getNoSchoolStatusForDate } = useNoSchool()
 
     const sidePanelData = useMemo(() => {
         if (!selectedDate) return null
 
         const dateString = dateToLocalISOString(selectedDate)
         const noSchoolDay = getNoSchoolStatusForDate(dateString)
-        const dayType = getDayTypeForDate(dateString, dayTypeHelpers)
+        const dayType = getDayTypeForDate(dateString, getActiveTerm(dateString, academicTerms), noSchoolPeriods)
         // TODO: Classes now stored per-term - need to determine active term to show classes
         const dayClasses: (string | null)[] = []
         const dueAssignments = getAssignmentsForDate(dateString)
@@ -47,7 +41,7 @@ export const useSidePanel = ({ selectedDate }: UseSidePanelProps) => {
             dueAssignments,
             dayEvents
         }
-    }, [selectedDate, getAssignmentsForDate, getEventsForDate, getNoSchoolStatusForDate, getDayTypeForDate, dayTypeHelpers])
+    }, [selectedDate, getAssignmentsForDate, getEventsForDate, getNoSchoolStatusForDate, getDayTypeForDate, academicTerms, noSchoolPeriods])
 
     return sidePanelData
 }

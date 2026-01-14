@@ -29,16 +29,14 @@ const useNullClassIds = (): ClassIdsForDateResult => ({
     hasClasses: false
 })
 
-const useAlternatingABClassIds = (date: string): ClassIdsForDateResult => {
-    const { classIds } = useAlternatingABClassIds(date)
-    const hasClasses = classIds.length > 0 && classIds.some(id => id !== null)
-    return { classIds, hasClasses }
-}
-
 const COMPONENTS_BY_TYPE: Record<ScheduleType, ScheduleComponents> = {
     'alternating-ab': {
         ScheduleRenderer: AlternatingABRenderer,
-        useClassIdsForDate: useAlternatingABClassIds,
+        useClassIdsForDate: (date: string): ClassIdsForDateResult => {
+            const { classIds } = useAlternatingABClassIds(date)
+            const hasClasses = classIds.length > 0 && classIds.some(id => id !== null)
+            return { classIds, hasClasses }
+        },
     },
     'none': {
         ScheduleRenderer: null,
