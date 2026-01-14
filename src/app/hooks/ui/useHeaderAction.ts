@@ -28,14 +28,6 @@ export const useHeaderAction = (): HeaderActionConfig => {
             bgHover: GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER
         }
     }
-    if (location.pathname === PATHS['calendar']) {
-        return {
-            modal: 'add-event',
-            label: 'Add Event',
-            bg: GLOBAL.EVENT_BUTTON_BG,
-            bgHover: GLOBAL.EVENT_BUTTON_BG_HOVER
-        }
-    }
     return {
         modal: 'type-selector',
         label: 'Add Item',
