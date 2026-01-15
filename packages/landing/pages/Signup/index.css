@@ -1,0 +1,2 @@
+/* Signup page - imports shared auth styles from Login */
+@import '../Login/index.css';

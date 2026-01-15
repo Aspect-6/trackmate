@@ -1,9 +1,9 @@
-import { StrictMode } from 'react'
+import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { ModalProvider } from '@/app/contexts/ModalContext'
 import { ScheduleComponentsProvider } from '@/app/contexts/ScheduleComponentsContext'
-import { ToastProvider } from '@/app/contexts/ToastContext'
+import { ToastProvider } from '@shared/contexts/ToastContext'
 import App from '@/app/App'
 import { APP_FULL_NAME } from '@/app/config/brand'
 
@@ -25,7 +25,7 @@ document.documentElement.classList.remove('light', 'dark')
 document.documentElement.classList.add(initialTheme)
 
 createRoot(rootElement).render(
-	<StrictMode>
+	<React.StrictMode>
 		<BrowserRouter>
 			<ToastProvider>
 				<ModalProvider>
@@ -35,6 +35,6 @@ createRoot(rootElement).render(
 				</ModalProvider>
 			</ToastProvider>
 		</BrowserRouter>
-	</StrictMode>
+	</React.StrictMode>
 )
 

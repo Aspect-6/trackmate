@@ -1,4 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
+
+import "./index.css";
 
 function LandingPage() {
     return (
@@ -26,7 +30,7 @@ function LandingPage() {
                     borderRadius: "8px",
                     border: "none",
                     cursor: "pointer",
-                    backgroundColor: "#2978B5", // system-wide accent
+                    backgroundColor: "hsl(206, 63%, 44%)", // system-wide accent
                     color: "white",
                     fontSize: "1rem",
                 }}
@@ -44,6 +48,8 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
                 <Route path="/landing" element={<LandingPage />} />
                 {/* Temporary redirect so build doesn't 404 */}
                 <Route path="/" element={<Navigate to="/landing" replace />} />

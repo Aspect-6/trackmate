@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react'
 import { CheckCircle, AlertCircle } from 'lucide-react'
-import type { ToastContextType, ToastType } from '@/app/types'
+import type { ToastContextType, ToastType } from '../types/ToastContext'
 
 interface Toast {
     id: number

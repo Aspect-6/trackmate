@@ -1,0 +1,65 @@
+/* Login page colors and styles */
+:root {
+    /* Accent color - matching the app's primary accent */
+    --login-accent-hsl: 206, 63%, 44%;
+    --focus-color: hsl(var(--login-accent-hsl));
+    --focus-color-70: hsla(var(--login-accent-hsl), 0.7);
+    --focus-color-30: hsla(var(--login-accent-hsl), 0.3);
+
+    /* Background colors */
+    --login-bg-primary: hsl(215, 21%, 7%);
+    --login-bg-secondary: hsl(215, 21%, 10.5%);
+    --login-bg-tertiary: hsl(215, 21%, 13%);
+
+    /* Border colors */
+    --login-border-primary: hsl(212, 12%, 21%);
+
+    /* Text colors */
+    --login-text-primary: hsl(218, 0%, 83%);
+    --login-text-secondary: hsl(218, 11%, 65%);
+    --text-muted: hsl(217, 19%, 27%);
+    --login-text-white: hsl(217, 0%, 95%);
+
+    /* Button color - using the blue accent */
+    --login-button-bg: hsl(206, 63%, 44%);
+    --login-button-bg-hover: hsl(206, 63%, 38%);
+}
+
+.login-input::placeholder {
+    color: var(--text-muted);
+}
+
+.login-input:focus {
+    outline: none;
+    border-color: var(--focus-color) !important;
+    box-shadow: 0 0 0 3px var(--focus-color-30);
+}
+
+.login-button:hover {
+    filter: brightness(0.9);
+    transform: translateY(-0.65px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+.login-link:hover {
+    filter: brightness(1.2);
+    text-decoration: underline;
+}
+
+.login-checkbox:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--focus-color-30);
+}
+
+.google-button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-0.65px);
+}
+
+.google-button:active {
+    transform: translateY(0);
+}

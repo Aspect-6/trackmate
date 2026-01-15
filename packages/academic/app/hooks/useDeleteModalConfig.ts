@@ -1,4 +1,4 @@
-import { useToast } from '@/app/contexts/ToastContext'
+import { useToast } from '@shared/contexts/ToastContext'
 import { useAssignments, useClasses, useEvents, useNoSchool, useAcademicTerms } from '@/app/hooks/entities'
 import { useDangerZone } from '@/pages/Settings/hooks/useDangerZone'
 
