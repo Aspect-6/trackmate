@@ -33,7 +33,7 @@
     --text-danger: hsl(0, 100%, 68.57%);
     --text-white: hsl(217, 0%, 95%);
 
-     /* Scrollbar Colors */
+    /* Scrollbar Colors */
     --scrollbar-track: hsl(217, 19%, 27%);
     --scrollbar-thumb: hsl(218, 11%, 65%);
     --scrollbar-thumb-hover: hsl(216, 12%, 84%);

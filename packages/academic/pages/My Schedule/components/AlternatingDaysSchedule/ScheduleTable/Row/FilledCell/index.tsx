@@ -16,7 +16,7 @@ const FilledCell: React.FC<AlternatingDaysSchedule.ScheduleTable.Row.FilledCell.
             <div
                 className="relative min-h-[72px] flex items-center justify-center rounded-lg px-3 py-2"
                 style={{
-                    backgroundColor: classData.color || MY_SCHEDULE.SIDEBAR_ACTIVE_TAB_GREEN_BG,
+                    backgroundColor: classData.color || MY_SCHEDULE.SIDEBAR_ACTIVE_TAB_BG,
                 }}
             >
                 <ClassName name={classData.name} />

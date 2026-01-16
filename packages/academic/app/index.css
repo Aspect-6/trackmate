@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
-@import "@shared/styles/colors.css";
 @import "@shared/styles/modals.css";
+@import "@shared/styles/toast.css";
+@import "@shared/styles/scrollbar.css";
 @import "./styles/colors.css";
 @import "./styles/components/sidebar.css";
 @import "./styles/resources-types.css";
@@ -17,38 +18,6 @@
 
 :root {
 	--font-sans: 'Inter', sans-serif;
-}
-
-/* Custom scrollbar styles */
-.custom-scrollbar,
-.custom-scrollbar-horizontal {
-	scrollbar-width: thin;
-	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-	width: 0.5rem;
-}
-
-.custom-scrollbar-horizontal::-webkit-scrollbar {
-	height: 0.5rem;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track,
-.custom-scrollbar-horizontal::-webkit-scrollbar-track {
-	background: var(--scrollbar-track);
-	border-radius: 999px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb,
-.custom-scrollbar-horizontal::-webkit-scrollbar-thumb {
-	background: var(--scrollbar-thumb);
-	border-radius: 999px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover,
-.custom-scrollbar-horizontal::-webkit-scrollbar-thumb:hover {
-	background: var(--scrollbar-thumb-hover);
 }
 
 /* Universal Select Dropdown */
@@ -78,60 +47,4 @@
 	background-color: var(--modal-input-bg);
 	border-color: var(--modal-input-border);
 	color: var(--modal-input-text);
-}
-
-
-/* Toast notifications */
-.toast-container {
-	position: fixed;
-	top: 20px;
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 100;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	align-items: center;
-}
-
-.toast-notification {
-	min-width: 250px;
-	padding: 12px 16px;
-	border-radius: 8px;
-	color: white;
-	font-weight: 500;
-	box-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.3);
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	animation: slideIn 0.3s ease-out forwards;
-	opacity: 0;
-	transform: translateY(-20px);
-}
-
-.toast-notification.toast-error {
-	background-color: hsl(0, 84%, 60%);
-}
-
-.toast-notification.toast-info,
-.toast-notification.toast-success {
-	background-color: hsl(142, 51%, 45%);
-}
-
-.toast-notification.hide {
-	animation: slideOut 0.3s ease-in forwards;
-}
-
-@keyframes slideIn {
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes slideOut {
-	to {
-		opacity: 0;
-		transform: translateY(-20px);
-	}
 }

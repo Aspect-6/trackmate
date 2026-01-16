@@ -1,0 +1,27 @@
+:root.light {
+    /* Common buttons */
+    --cancel-button-bg: hsl(215, 20%, 83%);
+    --cancel-button-bg-hover: hsl(215, 20%, 76%);
+    --cancel-button-border: hsl(215, 20%, 78%);
+
+    --delete-button-bg: hsl(0, 72%, 51%);
+    --delete-button-bg-hover: hsl(0, 72%, 43%);
+    --delete-button-text: hsl(0, 0%, 100%);
+
+    --hover-zone-button-border: hsl(215, 20%, 70%);
+    --hover-zone-button-border-hover: hsl(215, 20%, 46%);
+}
+
+:root.dark {
+    /* Common buttons */
+    --cancel-button-bg: hsl(217, 20%, 27%);
+    --cancel-button-bg-hover: hsl(217, 20%, 19%);
+    --cancel-button-border: hsl(215, 20%, 34%);
+
+    --delete-button-bg: hsl(0, 62%, 45%);
+    --delete-button-bg-hover: hsl(0, 62%, 35%);
+    --delete-button-text: hsl(0, 0%, 100%);
+
+    --hover-zone-button-border: hsl(215, 20%, 36%);
+    --hover-zone-button-border-hover: hsl(215, 20%, 50%);
+}

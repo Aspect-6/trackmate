@@ -1,5 +1,5 @@
 import React from 'react'
-import { MODALS } from '@/app/styles/colors'
+import { TRACKMATE_MODALS } from '../../styles/colors'
 
 export interface ModalContainerProps {
     children: React.ReactNode
@@ -9,7 +9,7 @@ export interface ModalContainerProps {
 
 export const ModalContainer: React.FC<ModalContainerProps> = ({
     children,
-    bgColor = MODALS.BASE.BG,
+    bgColor = TRACKMATE_MODALS.BASE.BG,
     className = '',
 }) => {
     return (

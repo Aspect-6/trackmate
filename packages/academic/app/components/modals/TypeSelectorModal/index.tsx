@@ -5,7 +5,7 @@ import {
     ModalHeader,
     ModalFooter,
     ModalCancelButton,
-} from '@/app/components/modals/fields'
+} from '@shared/components/modal'
 import OptionButton from './TypeSelectorModalOption'
 import { GLOBAL } from '@/app/styles/colors'
 

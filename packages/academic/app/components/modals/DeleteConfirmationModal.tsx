@@ -7,7 +7,7 @@ import {
     ModalBodyText,
     ModalCancelButton,
     ModalDeleteButton,
-} from '@/app/components/modals/fields'
+} from '@shared/components/modal'
 
 interface DeleteConfirmationModalProps {
     onClose: () => void

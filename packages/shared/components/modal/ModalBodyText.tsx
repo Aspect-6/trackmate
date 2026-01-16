@@ -1,5 +1,5 @@
 import React from 'react'
-import { MODALS } from '@/app/styles/colors'
+import { TRACKMATE_MODALS } from '../../styles/colors'
 
 export interface ModalBodyTextProps {
     children: React.ReactNode
@@ -15,7 +15,7 @@ export const ModalBodyText: React.FC<ModalBodyTextProps> = ({
     return (
         <p
             className={`text-gray-300 mb-4 ${className}`.trim()}
-            style={{ color: color ?? MODALS.BASE.DELETE_BODY }}
+            style={{ color: color ?? TRACKMATE_MODALS.BASE.DELETE_BODY }}
         >
             {children}
         </p>

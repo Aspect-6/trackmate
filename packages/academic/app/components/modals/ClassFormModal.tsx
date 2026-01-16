@@ -17,7 +17,7 @@ import {
     ModalTab,
     ModalTabPanelsContainer,
     ModalTabPanel,
-} from '@/app/components/modals/fields'
+} from '@shared/components/modal'
 
 interface ClassFormModalProps {
     onClose: () => void

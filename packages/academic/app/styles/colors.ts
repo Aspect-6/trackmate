@@ -1,51 +1,21 @@
+import { TRACKMATE, TRACKMATE_MODALS } from "@shared/styles/colors"
+
 // Global Colors
 export const GLOBAL = {
+    ...TRACKMATE,
     // General
-    WEBPAGE_BACKGROUND: 'var(--webpage-background-color)',
-    BACKGROUND_PRIMARY: 'var(--background-primary)',
-    BACKGROUND_SECONDARY: 'var(--background-secondary)',
-    BACKGROUND_TERTIARY: 'var(--background-tertiary)',
-    BACKGROUND_QUATERNARY: 'var(--background-quaternary)',
-    BACKGROUND_BLACK_50: 'var(--background-black-50)',
-    BACKGROUND_BLACK_30: 'var(--background-black-30)',
-    MODAL_BACKDROP: 'var(--modal-underlay-dark)',
     PAGE_HEADER_TEXT: 'var(--page-header-text)',
     FOCUS_COLOR: 'var(--focus-color)',
     FOCUS_COLOR_70: 'var(--focus-color-70)',
     FOCUS_COLOR_30: 'var(--focus-color-30)',
 
     // Text Colors
-    TEXT_PRIMARY: 'var(--text-primary)',
-    TEXT_SECONDARY: 'var(--text-secondary)',
-    TEXT_TERTIARY: 'var(--text-tertiary)',
-    TEXT_MUTED: 'var(--text-muted)',
-    TEXT_DANGER: 'var(--text-danger)',
-    TEXT_WHITE: 'var(--text-white)',
     TEXT_A_DAY: 'var(--text-a-day)',
     TEXT_A_DAY_CONTRAST: 'var(--text-a-day-contrast)',
     TEXT_B_DAY: 'var(--text-b-day)',
     TEXT_B_DAY_CONTRAST: 'var(--text-b-day-contrast)',
-    MODAL_DELETE_BODY: 'var(--modal-delete-body-text)',
 
-    // Border Colors
-    BORDER_PRIMARY: 'var(--border-primary)',
-    BORDER_SECONDARY: 'var(--border-secondary)',
-    HEADER_DIVIDER: 'var(--page-header-divider)',
-    HEADER_MENU_ICON: 'var(--header-menu-icon)',
-    HEADER_MENU_ICON_HOVER: 'var(--header-menu-icon-hover)',
-
-    // Sidebar
-    SIDEBAR_BG: 'var(--sidebar-bg)',
-    SIDEBAR_BORDER: 'var(--sidebar-border)',
-    SIDEBAR_TEXT_INACTIVE: 'var(--sidebar-text-inactive)',
-    SIDEBAR_TEXT_ACTIVE: 'var(--sidebar-text-active)',
-    SIDEBAR_ACTIVE_TAB_GREEN_BG: 'var(--sidebar-tab-active-bg)',
-    SIDEBAR_INACTIVE_TAB_BLANK_BG: 'var(--sidebar-tab-inactive-bg)',
-    SIDEBAR_INACTIVE_TAB_BLANK_BG_HOVER: 'var(--sidebar-tab-inactive-contrast)',
-    SIDEBAR_CLOSE_ICON: 'var(--sidebar-icon-close)',
-    SIDEBAR_CLOSE_ICON_HOVER: 'var(--sidebar-icon-close-tap)',
-
-    // Themed text colors
+    // Themed Text Colors
     ADDITEM_HEADER_TEXT: 'var(--additem-text)',
     ASSIGNMENT_HEADING_TEXT: 'var(--assignment-text-color)',
     EVENT_HEADING_TEXT: 'var(--event-text-color)',
@@ -71,18 +41,6 @@ export const GLOBAL = {
     CLASS_BUTTON_BG: 'var(--class-theme)',
     CLASS_BUTTON_BG_HOVER: 'var(--class-theme-hover)',
     CLASS_BUTTON_TEXT: 'var(--class-text-color)',
-
-    CANCEL_BUTTON_BG: 'var(--cancel-button-bg)',
-    CANCEL_BUTTON_BG_HOVER: 'var(--cancel-button-bg-hover)',
-    CANCEL_BUTTON_TEXT: 'var(--cancel-text)',
-    CANCEL_BUTTON_BORDER: 'var(--cancel-button-border)',
-
-    DELETE_BUTTON_BG: 'var(--delete-button-bg)',
-    DELETE_BUTTON_BG_HOVER: 'var(--delete-button-bg-hover)',
-    DELETE_BUTTON_TEXT: 'var(--delete-button-text)',
-
-    HOVER_ZONE_BUTTON_BORDER: 'var(--hover-zone-button-border)',
-    HOVER_ZONE_BUTTON_BORDER_HOVER: 'var(--hover-zone-button-border-hover)',
 
     // Priority Colors
     PRIORITY_HIGH_BG: 'var(--priority-high-bg)',
@@ -158,21 +116,7 @@ export const SETTINGS = {
 
 // All modals
 export const MODALS = {
-    BASE: {
-        BG: GLOBAL.BACKGROUND_SECONDARY,
-        BACKDROP: GLOBAL.MODAL_BACKDROP,
-        BORDER: GLOBAL.BORDER_PRIMARY,
-        TEXT: GLOBAL.TEXT_PRIMARY,
-        DELETE_BODY: GLOBAL.MODAL_DELETE_BODY,
-        DELETE_HEADING: GLOBAL.DELETE_BUTTON_BG,
-        CANCEL_BG: GLOBAL.CANCEL_BUTTON_BG,
-        CANCEL_BG_HOVER: GLOBAL.CANCEL_BUTTON_BG_HOVER,
-        CANCEL_TEXT: GLOBAL.CANCEL_BUTTON_TEXT,
-        CANCEL_BORDER: GLOBAL.CANCEL_BUTTON_BORDER,
-        DELETE_BG: GLOBAL.DELETE_BUTTON_BG,
-        DELETE_BG_HOVER: GLOBAL.DELETE_BUTTON_BG_HOVER,
-        DELETE_TEXT: GLOBAL.DELETE_BUTTON_TEXT
-    },
+    ...TRACKMATE_MODALS,
     ASSIGNMENT: {
         HEADING: GLOBAL.ASSIGNMENT_HEADING_TEXT,
         PRIMARY_BG: GLOBAL.ASSIGNMENT_BUTTON_BG,

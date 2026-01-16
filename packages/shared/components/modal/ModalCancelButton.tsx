@@ -1,5 +1,5 @@
 import React from 'react'
-import { MODALS } from '@/app/styles/colors'
+import { TRACKMATE_MODALS } from '../../styles/colors'
 
 export interface ModalCancelButtonProps {
     onClick: () => void
@@ -18,10 +18,10 @@ export const ModalCancelButton: React.FC<ModalCancelButtonProps> = ({
             onClick={onClick}
             className={`modal-btn modal-btn-cancel modal-btn-inline ${className}`.trim()}
             style={{
-                '--modal-btn-bg': MODALS.BASE.CANCEL_BG,
-                '--modal-btn-bg-hover': MODALS.BASE.CANCEL_BG_HOVER,
-                '--modal-btn-text': MODALS.BASE.CANCEL_TEXT,
-                '--modal-btn-border': MODALS.BASE.CANCEL_BORDER,
+                '--modal-btn-bg': TRACKMATE_MODALS.BASE.CANCEL_BG,
+                '--modal-btn-bg-hover': TRACKMATE_MODALS.BASE.CANCEL_BG_HOVER,
+                '--modal-btn-text': TRACKMATE_MODALS.BASE.CANCEL_TEXT,
+                '--modal-btn-border': TRACKMATE_MODALS.BASE.CANCEL_BORDER,
             } as React.CSSProperties}
         >
             {children}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { MODALS } from '@/app/styles/colors'
+import { TRACKMATE_MODALS } from '../../styles/colors'
 
 export interface ModalDeleteButtonProps {
     onClick: () => void
@@ -22,9 +22,9 @@ export const ModalDeleteButton: React.FC<ModalDeleteButtonProps> = ({
             onClick={onClick}
             className={`modal-btn ${inlineClass} ${className}`.trim()}
             style={{
-                '--modal-btn-bg': MODALS.BASE.DELETE_BG,
-                '--modal-btn-bg-hover': MODALS.BASE.DELETE_BG_HOVER,
-                '--modal-btn-text': MODALS.BASE.DELETE_TEXT,
+                '--modal-btn-bg': TRACKMATE_MODALS.BASE.DELETE_BG,
+                '--modal-btn-bg-hover': TRACKMATE_MODALS.BASE.DELETE_BG_HOVER,
+                '--modal-btn-text': TRACKMATE_MODALS.BASE.DELETE_TEXT,
             } as React.CSSProperties}
         >
             {children}

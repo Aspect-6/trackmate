@@ -1,13 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react'
 import { CheckCircle, AlertCircle } from 'lucide-react'
-import type { ToastContextType, ToastType } from '../types/ToastContext'
-
-interface Toast {
-    id: number
-    message: string
-    type: ToastType
-    isHiding?: boolean
-}
+import type { ToastType, Toast, ToastContextType } from '../types/ToastContext'
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined)
 
@@ -18,7 +11,7 @@ interface ToastProviderProps {
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     const [toasts, setToasts] = useState<Toast[]>([])
 
-    const showToast = useCallback((message: string, type: ToastType = 'success') => {
+    const showToast = useCallback((message: string, type: ToastType) => {
         const id = Date.now()
         setToasts(prev => [...prev, { id, message, type }])
 

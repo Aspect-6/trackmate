@@ -14,7 +14,7 @@ import {
     ModalDateInput,
     ModalCancelButton,
     ModalSubmitButton,
-} from '@/app/components/modals/fields'
+} from '@shared/components/modal'
 
 interface TermFormModalProps {
     onClose: () => void

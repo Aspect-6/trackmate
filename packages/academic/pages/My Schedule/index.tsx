@@ -37,8 +37,8 @@ const MySchedule: React.FC = () => {
                             className="bg-right max-w-full text-ellipsis appearance-none outline-none bg-no-repeat cursor-pointer"
                             style={{
                                 ...arrowStyle,
-                                color: MY_SCHEDULE.SIDEBAR_ACTIVE_TAB_GREEN_BG,
-                                borderBottom: `2px ${(isHovered || isFocused) ? 'solid' : 'dashed'} ${isFocused ? MY_SCHEDULE.SIDEBAR_ACTIVE_TAB_GREEN_BG : MY_SCHEDULE.BORDER_PRIMARY}`,
+                                color: MY_SCHEDULE.SIDEBAR_ACTIVE_TAB_BG,
+                                borderBottom: `2px ${(isHovered || isFocused) ? 'solid' : 'dashed'} ${isFocused ? MY_SCHEDULE.SIDEBAR_ACTIVE_TAB_BG : MY_SCHEDULE.BORDER_PRIMARY}`,
                                 backgroundSize: '1em 1em',
                                 padding: '0 1.25rem 0.125rem 0',
                             }}

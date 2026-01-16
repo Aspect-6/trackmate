@@ -13,7 +13,7 @@ import {
     ModalCancelButton,
     ModalDeleteButton,
     ModalSubmitButton,
-} from '@/app/components/modals/fields'
+} from '@shared/components/modal'
 
 interface NoSchoolFormModalProps {
     onClose: () => void

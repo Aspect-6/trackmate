@@ -28,9 +28,9 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ onLinkClick, className }) => {
                         key={item.to}
                         to={item.to}
                         onClick={onLinkClick}
-                        style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.SIDEBAR_ACTIVE_TAB_GREEN_BG, color: GLOBAL.SIDEBAR_TEXT_ACTIVE } : { color: GLOBAL.SIDEBAR_TEXT_INACTIVE, backgroundColor: GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG }}
-                        onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG_HOVER }}
-                        onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG }}
+                        style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.SIDEBAR_ACTIVE_TAB_BG, color: GLOBAL.SIDEBAR_TEXT_ACTIVE } : { color: GLOBAL.SIDEBAR_TEXT_INACTIVE, backgroundColor: GLOBAL.SIDEBAR_INACTIVE_TAB_BG }}
+                        onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BG_HOVER }}
+                        onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BG }}
                         className={({ isActive }) => cn(
                             "flex items-center p-3 rounded-lg font-medium transition duration-150",
                             isActive && "active"
@@ -47,9 +47,9 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ onLinkClick, className }) => {
                 <NavLink
                     to={PATHS['settings']}
                     onClick={onLinkClick}
-                    style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.SIDEBAR_ACTIVE_TAB_GREEN_BG, color: GLOBAL.SIDEBAR_TEXT_ACTIVE } : { color: GLOBAL.SIDEBAR_TEXT_INACTIVE, backgroundColor: GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG }}
-                    onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG_HOVER }}
-                    onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BLANK_BG }}
+                    style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.SIDEBAR_ACTIVE_TAB_BG, color: GLOBAL.SIDEBAR_TEXT_ACTIVE } : { color: GLOBAL.SIDEBAR_TEXT_INACTIVE, backgroundColor: GLOBAL.SIDEBAR_INACTIVE_TAB_BG }}
+                    onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BG_HOVER }}
+                    onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BG }}
                     className={({ isActive }) => cn(
                         "flex items-center p-3 rounded-lg font-medium transition duration-150",
                         isActive && "active"
