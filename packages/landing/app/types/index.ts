@@ -1,12 +1,12 @@
 import type { User } from "firebase/auth"
 
 /**
- * Types of toast notifications available.
+ * Types of toast notifications available
  */
 export type ToastType = 'success' | 'error'
 
 /**
- * Context interface for managing toast notifications.
+ * Context interface for managing toast notifications
  */
 export interface ToastContextType {
     /** Displays a toast message with a specific type */
@@ -14,7 +14,7 @@ export interface ToastContextType {
 }
 
 /**
- * Firebase auth error structure.
+ * Firebase auth error structure
  */
 export interface AuthError {
     code: string
@@ -22,7 +22,7 @@ export interface AuthError {
 }
 
 /**
- * Result of an auth operation (sign in or sign up).
+ * Result of an auth operation (sign in or sign up)
  */
 export interface AuthResult {
     user: User | null
