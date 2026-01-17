@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, SubmitButton, GoogleButton } from '@/app/components/AuthForm'
 import { useForm } from 'react-hook-form'
-import { useSignUp } from '@/app/hooks/useSignup'
+import { useSignUp } from '@/app/hooks/useSignUp'
 import { BRAND_NAME } from '@shared/config/brand'
 import './index.css'
 
