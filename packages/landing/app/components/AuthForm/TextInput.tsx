@@ -1,6 +1,5 @@
 import React from 'react'
 
-// Local color constants (matching auth page)
 const COLORS = {
     BACKGROUND_TERTIARY: 'var(--auth-bg-tertiary)',
     BORDER_PRIMARY: 'var(--auth-border-primary)',

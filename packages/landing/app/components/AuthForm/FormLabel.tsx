@@ -1,6 +1,5 @@
 import React from 'react'
 
-// Local color constants (matching auth page)
 const COLORS = {
     TEXT_PRIMARY: 'var(--auth-text-primary)',
 }
