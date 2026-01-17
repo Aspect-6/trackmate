@@ -20,12 +20,12 @@ interface SignUpFormData {
 }
 
 const SignUp: React.FC = () => {
-    const { register, handleSubmit, watch, trigger, setError, formState: { errors, touchedFields } } = useForm<SignUpFormData>()
-    const { signUpEmailAndPassword, signUpGoogle, loading } = useSignUp()
+    const { register, handleSubmit, watch, trigger, setError, clearErrors, formState: { errors, touchedFields } } = useForm<SignUpFormData>()
+    const { signUpWithEmailAndPassword, signUpWithGoogle, loading } = useSignUp()
     const [showPassword, setShowPassword] = useState(false)
 
     const onSubmit = async (data: SignUpFormData) => {
-        const { user, error } = await signUpEmailAndPassword(data.email, data.password)
+        const { user, error } = await signUpWithEmailAndPassword(data.email, data.password)
         if (user) {
             console.log("User created:", user.uid)
             return
@@ -37,15 +37,15 @@ const SignUp: React.FC = () => {
                     setError('email', { message: 'This email is already registered. Please sign in.' })
                     break
                 default:
-                    setError('root', { message: error.message || 'Failed to create account. Please try again' })
+                    setError('root', { message: 'Failed to create account. Please try again' })
             }
         }
     }
 
     const handleGoogleSignUp = async () => {
-        const { user, error } = await signUpGoogle()
+        clearErrors()
+        const { user, error } = await signUpWithGoogle()
         if (user) {
-            console.log("User created:", user.uid)
             return
         }
 
@@ -56,6 +56,9 @@ const SignUp: React.FC = () => {
                     break
                 case 'auth/popup-closed-by-user':
                     setError('root', { message: 'Google sign-up window was closed' })
+                    break
+                case 'auth/popup-blocked':
+                    setError('root', { message: 'Google sign-up window was blocked' })
                     break
                 default:
                     setError('root', { message: 'Failed to sign up with Google. Please try again.' })

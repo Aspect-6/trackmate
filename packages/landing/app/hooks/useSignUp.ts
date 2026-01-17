@@ -1,43 +1,14 @@
-import { useState } from "react";
-import { signupUser, signUpWithGoogle } from "@/app/lib/auth";
-import { User } from "firebase/auth";
-
-interface AuthError {
-    code: string
-    message: string
-}
-
-interface SignUpResult {
-    user: User | null
-    error: AuthError | null
-}
+import { signUpEmailAndPassword, signUpGoogle } from "@/app/lib/auth"
+import { useAuthLoader } from "./useAuthLoader"
 
 export const useSignUp = () => {
-    const [loading, setLoading] = useState(false)
+    const { loading, attempt } = useAuthLoader()
 
-    const signUpEmailAndPassword = async (email: string, password: string): Promise<SignUpResult> => {
-        setLoading(true)
-        try {
-            const user = await signupUser(email, password);
-            return { user, error: null }
-        } catch (error: any) {
-            return { user: null, error }
-        } finally {
-            setLoading(false)
-        }
-    }
+    const signUpWithEmailAndPassword = (email: string, password: string) =>
+        attempt(() => signUpEmailAndPassword(email, password))
 
-    const signUpGoogle = async (): Promise<SignUpResult> => {
-        setLoading(true)
-        try {
-            const user = await signUpWithGoogle()
-            return { user, error: null }
-        } catch (error: any) {
-            return { user: null, error }
-        } finally {
-            setLoading(false)
-        }
-    }
+    const signUpWithGoogle = () =>
+        attempt(() => signUpGoogle())
 
-    return { signUpEmailAndPassword, signUpGoogle, loading }
+    return { signUpWithEmailAndPassword, signUpWithGoogle, loading }
 }
