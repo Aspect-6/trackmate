@@ -49,10 +49,10 @@ const Landing: React.FC = () => {
                     fontSize: "1rem",
                 }}
                 onClick={() => {
-                    window.location.pathname = "/login";
+                    window.location.pathname = "/sign-in";
                 }}
             >
-                Login
+                Sign In
             </button>
             <button
                 style={{
@@ -66,7 +66,7 @@ const Landing: React.FC = () => {
                     fontSize: "1rem",
                 }}
                 onClick={() => {
-                    window.location.pathname = "/signup";
+                    window.location.pathname = "/sign-up";
                 }}
             >
                 Sign Up

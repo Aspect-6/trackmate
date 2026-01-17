@@ -8,7 +8,11 @@ const COLORS = {
     TEXT_PRIMARY: 'var(--auth-text-primary)',
 }
 
-const GoogleButton: React.FC = () => {
+interface GoogleButtonProps {
+    children: React.ReactNode
+}
+
+const GoogleButton: React.FC<GoogleButtonProps> = ({ children }) => {
     return (
         <button
             type="button"
@@ -22,7 +26,7 @@ const GoogleButton: React.FC = () => {
         >
             {/* Google Icon */}
             <GoogleIcon className="w-5 h-5" />
-            Sign in with Google
+            {children}
         </button>
     )
 }

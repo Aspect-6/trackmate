@@ -13,11 +13,11 @@
 			},
 
 			{
-				"source": "/login",
+				"source": "/sign-in",
 				"destination": "/index.html"
 			},
 			{
-				"source": "/signup",
+				"source": "/sign-up",
 				"destination": "/index.html"
 			},
 			{

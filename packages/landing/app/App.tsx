@@ -10,8 +10,8 @@ const App: React.FC = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
+                <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/sign-up" element={<SignUp />} />
                 <Route path="/landing" element={<Landing />} />
                 {/* Temporary redirect so build doesn't 404 */}
                 <Route path="/" element={<Navigate to="/landing" replace />} />

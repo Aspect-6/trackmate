@@ -71,7 +71,7 @@ const SignUp: React.FC = () => {
 
                 <FormDivider />
 
-                <GoogleButton />
+                <GoogleButton>Sign up with Google</GoogleButton>
 
                 <p
                     className="mt-6 text-center text-sm"
@@ -79,7 +79,7 @@ const SignUp: React.FC = () => {
                 >
                     Already have an account?{' '}
                     <a
-                        href="/login"
+                        href="/sign-in"
                         className="auth-link font-medium transition-colors duration-200"
                         style={{ color: COLORS.FOCUS_COLOR }}
                     >
