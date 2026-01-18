@@ -34,9 +34,9 @@ const Landing: React.FC = () => {
             <main className="flex-1 flex flex-col items-center justify-center text-center max-w-6xl">
                 <HeroTitle>{BRAND_NAME}</HeroTitle>
                 <HeroMessage>
-                    Unified trackers for every aspect of your life.
+                    Unified tracking for every aspect of your life.
                     <br />
-                    Stay organized, stay ahead.
+                    Built to keep you efficient.
                 </HeroMessage>
 
                 <div className="flex flex-wrap gap-6 justify-center mb-12">
