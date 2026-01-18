@@ -66,6 +66,7 @@ const SignUp: React.FC = () => {
                 style={{
                     backgroundColor: AUTH.BACKGROUND_SECONDARY,
                     border: `1px solid ${AUTH.BORDER_PRIMARY}`,
+                    boxShadow: '0 0 60px rgba(59, 130, 246, 0.15), 0 0 20px rgba(59, 130, 246, 0.04)',
                 }}
             >
                 <Title>Create your {BRAND_NAME} account</Title>
