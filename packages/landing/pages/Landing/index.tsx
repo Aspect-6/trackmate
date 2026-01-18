@@ -14,7 +14,7 @@ const Landing: React.FC = () => {
     const navigate = useNavigate()
 
     return (
-        <div className="landing min-h-dvh flex flex-col items-center p-8">
+        <div className="radial-background min-h-dvh flex flex-col items-center p-8">
             <Header>
                 <Button variant="secondary" onClick={() => navigate('/sign-in')}>
                     Sign In

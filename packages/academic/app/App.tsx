@@ -8,8 +8,9 @@ import MyClasses from '@/pages/My Classes'
 import MySchedule from '@/pages/My Schedule'
 import Calendar from '@/pages/Calendar'
 import Settings from '@/pages/Settings'
-import NotFound from '@/pages/NotFound'
+import NotFound from '@shared/pages/NotFound'
 import { ROUTES, DEFAULT_ROUTE, BASE_PATH } from '@/app/config/paths'
+import { GLOBAL } from '@/app/styles/colors'
 
 const App: React.FC = () => {
     return (
@@ -25,7 +26,14 @@ const App: React.FC = () => {
                     <Route path={ROUTES['my-schedule'].path} element={<MySchedule />} />
                     <Route path={ROUTES['settings'].path} element={<Settings />} />
                 </Route>
-                <Route path="*" element={<NotFound />} />
+                <Route path="*" element={
+                    <NotFound
+                        text="Go To Dashboard"
+                        path={ROUTES['dashboard'].fullPath}
+                        buttonBg={GLOBAL.ADDITEM_BUTTON_BG}
+                        buttonBgHover={GLOBAL.ADDITEM_BUTTON_BG_HOVER}
+                    />
+                } />
             </Routes>
         </>
     )

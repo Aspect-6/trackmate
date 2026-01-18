@@ -7,6 +7,9 @@ export const GLOBAL = {
     FOCUS_COLOR: 'var(--focus-color)',
     FOCUS_COLOR_70: 'var(--focus-color-70)',
     FOCUS_COLOR_30: 'var(--focus-color-30)',
+
+    PRIMARY_BUTTON_BG: 'var(--submit-button-bg)',
+    PRIMARY_BUTTON_BG_HOVER: 'var(--submit-button-bg-hover)',
 }
 
 // Auth Page Colors
@@ -21,9 +24,5 @@ export const AUTH = {
 // Landing Page Colors
 export const LANDING = {
     ...GLOBAL,
-
-    // Primary CTA Button (same as submit button)
-    PRIMARY_BUTTON_BG: 'var(--submit-button-bg)',
-    PRIMARY_BUTTON_BG_HOVER: 'var(--submit-button-bg-hover)',
 }
 

@@ -59,7 +59,7 @@ const SignUp: React.FC = () => {
     }
 
     return (
-        <div className="landing min-h-dvh flex items-center justify-center p-4">
+        <div className="radial-background min-h-dvh flex items-center justify-center p-4">
             <div
                 className="relative z-10 w-full max-w-md p-8 rounded-2xl shadow-2xl"
                 style={{

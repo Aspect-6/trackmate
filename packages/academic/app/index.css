@@ -4,6 +4,7 @@
 @import "@shared/styles/modals.css";
 @import "@shared/styles/toast.css";
 @import "@shared/styles/scrollbar.css";
+@import "@shared/styles/utils.css";
 @import "./styles/colors.css";
 @import "./styles/components/sidebar.css";
 @import "./styles/resources-types.css";
@@ -16,7 +17,7 @@
 @import "@/pages/My Schedule/index.css";
 @import "@/pages/Settings/index.css";
 
-:root {
+:root:not(:has(.not-found-page)) {
 	--font-sans: 'Inter', sans-serif;
 }
 
