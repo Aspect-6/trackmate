@@ -1,32 +1,25 @@
 import React from 'react'
-import { LANDING } from '@/app/styles/colors'
-import { BRAND_NAME } from '@shared/config/brand'
+import { useNavigate } from 'react-router-dom'
 import Header from '@/pages/Landing/components/Header'
 import Footer from '@/pages/Landing/components/Footer'
 import HeroTitle from '@/pages/Landing/components/Hero/HeroTitle'
 import HeroMessage from '@/pages/Landing/components/Hero/HeroMessage'
 import ProductCard from '@/pages/Landing/components/ProductCard'
 import Button from '@/pages/Landing/components/Button'
+import { BRAND_NAME } from '@shared/config/brand'
+import { LANDING } from '@/app/styles/colors'
 import { PRODUCTS } from '@/pages/Landing/data/products'
 
 const Landing: React.FC = () => {
+    const navigate = useNavigate()
+
     return (
-        <div
-            className="min-h-dvh flex flex-col items-center p-8"
-            style={{
-                background: `radial-gradient(ellipse at top, 
-                    hsl(215, 30%, 16%) 0%, 
-                    hsl(215, 28%, 14%) 15%, 
-                    hsl(215, 25%, 12%) 30%, 
-                    hsl(215, 22%, 10%) 45%, 
-                    ${LANDING.WEBPAGE_BACKGROUND} 70%)`,
-            }}
-        >
+        <div className="landing min-h-dvh flex flex-col items-center p-8">
             <Header>
-                <Button variant="secondary" onClick={() => window.location.pathname = '/sign-in'}>
+                <Button variant="secondary" onClick={() => navigate('/sign-in')}>
                     Sign In
                 </Button>
-                <Button variant="primary" onClick={() => window.location.pathname = '/sign-up'}>
+                <Button variant="primary" onClick={() => navigate('/sign-up')}>
                     Sign Up
                 </Button>
             </Header>

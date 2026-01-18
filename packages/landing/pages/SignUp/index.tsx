@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import { useSignUp } from '@/app/hooks/useSignUp'
 import { BRAND_NAME } from '@shared/config/brand'
 import { AUTH } from '@/app/styles/colors'
-import './index.css'
 
 interface SignUpFormData {
     email: string;
@@ -60,7 +59,7 @@ const SignUp: React.FC = () => {
     }
 
     return (
-        <div className="auth-page min-h-[100dvh] flex items-center justify-center p-4">
+        <div className="landing min-h-dvh flex items-center justify-center p-4">
             <div
                 className="relative z-10 w-full max-w-md p-8 rounded-2xl shadow-2xl"
                 style={{
