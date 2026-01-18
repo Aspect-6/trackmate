@@ -17,6 +17,8 @@
 @import "@/pages/My Schedule/index.css";
 @import "@/pages/Settings/index.css";
 
+@source "../../shared/pages";
+
 :root:not(:has(.not-found-page)) {
 	--font-sans: 'Inter', sans-serif;
 }

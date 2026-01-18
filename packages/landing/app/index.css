@@ -2,5 +2,6 @@
 @import "./styles/colors.css";
 @import "@shared/styles/toast.css";
 @import "@shared/styles/utils.css";
-
 @import "./styles/auth.css";
+
+@source "../../shared/pages";
