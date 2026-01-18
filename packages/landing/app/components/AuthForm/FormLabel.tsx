@@ -1,8 +1,5 @@
 import React from 'react'
-
-const COLORS = {
-    TEXT_PRIMARY: 'var(--auth-text-primary)',
-}
+import { AUTH } from '@/app/styles/colors'
 
 interface FormFieldLabelProps {
     htmlFor: string
@@ -14,7 +11,7 @@ const FormFieldLabel: React.FC<FormFieldLabelProps> = ({ htmlFor, children }) =>
         <label
             htmlFor={htmlFor}
             className="block text-sm font-medium"
-            style={{ color: COLORS.TEXT_PRIMARY }}
+            style={{ color: AUTH.TEXT_PRIMARY }}
         >
             {children}
         </label>

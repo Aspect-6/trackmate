@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@shared/styles/colors.css";
+@import "./styles/colors.css";
 @import "@shared/styles/toast.css";
 
 @import "./styles/auth.css";

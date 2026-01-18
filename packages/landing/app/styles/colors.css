@@ -1,0 +1,15 @@
+@import "@shared/styles/colors.css";
+
+:root {
+    --landing-accent-hue: 206;
+    --landing-accent-hsl: var(--landing-accent-hue), 63%, 44%;
+
+    --focus-color: hsl(var(--landing-accent-hsl));
+    --focus-color-70: hsla(var(--landing-accent-hsl), 0.7);
+    --focus-color-30: hsla(var(--landing-accent-hsl), 0.3);
+}
+
+:root.dark {
+    --submit-button-bg: hsl(var(--landing-accent-hsl));
+    --submit-button-bg-hover: hsl(var(--landing-accent-hue), 63%, 38%);
+}

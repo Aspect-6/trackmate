@@ -1,11 +1,7 @@
 import React from 'react'
 import GoogleIcon from '@/app/assets/google-icon.svg?react'
-
-const COLORS = {
-    BACKGROUND_TERTIARY: 'var(--auth-bg-tertiary)',
-    BORDER_PRIMARY: 'var(--auth-border-primary)',
-    TEXT_PRIMARY: 'var(--auth-text-primary)',
-}
+import { useHover } from '@shared/hooks/ui/useHover'
+import { AUTH } from '@/app/styles/colors'
 
 interface GoogleButtonProps {
     onClick: () => void
@@ -13,18 +9,22 @@ interface GoogleButtonProps {
 }
 
 const GoogleButton: React.FC<GoogleButtonProps> = ({ onClick, children }) => {
+    const { isHovered, hoverProps } = useHover()
+
     return (
         <button
             type="button"
-            className="google-button w-full py-3 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-3"
+            className="w-full py-3 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-3"
             style={{
-                backgroundColor: COLORS.BACKGROUND_TERTIARY,
-                border: `1px solid ${COLORS.BORDER_PRIMARY}`,
-                color: COLORS.TEXT_PRIMARY,
+                backgroundColor: AUTH.BACKGROUND_TERTIARY,
+                border: `1px solid ${AUTH.BORDER_PRIMARY}`,
+                color: AUTH.TEXT_PRIMARY,
+                filter: isHovered ? 'brightness(1.1)' : 'none',
+                transform: isHovered ? 'translateY(-0.65px)' : 'none',
             }}
             onClick={onClick}
+            {...hoverProps}
         >
-            {/* Google Icon */}
             <GoogleIcon className="w-5 h-5" />
             {children}
         </button>

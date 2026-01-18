@@ -1,31 +1,35 @@
 import React from 'react'
-
-const COLORS = {
-    BACKGROUND_TERTIARY: 'var(--auth-bg-tertiary)',
-    BORDER_PRIMARY: 'var(--auth-border-primary)',
-    TEXT_PRIMARY: 'var(--auth-text-primary)',
-    ERROR_BORDER: 'var(--auth-error-border)',
-}
+import { useFocus } from '@shared/hooks/ui/useFocus'
+import { AUTH } from '@/app/styles/colors'
 
 interface FormFieldTextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     hasError?: boolean
 }
 
-const FormFieldTextInput: React.FC<FormFieldTextInputProps> = ({
-    hasError,
-    ...props
-}) => {
+const FormFieldTextInput: React.FC<FormFieldTextInputProps> = ({ hasError, ...props }) => {
+    const { isFocused, focusProps } = useFocus()
+
+    const getBorderColor = () => {
+        if (isFocused) return AUTH.FOCUS_COLOR
+        if (hasError) return AUTH.TEXT_DANGER
+        return AUTH.BORDER_PRIMARY
+    }
+
     return (
         <input
             {...props}
-            className="auth-input w-full px-4 py-3 rounded-lg text-sm transition-all duration-200"
+            {...focusProps}
+            className="authform-input w-full px-4 py-3 rounded-lg text-sm transition-all duration-200"
             style={{
-                backgroundColor: COLORS.BACKGROUND_TERTIARY,
-                border: `1px solid ${hasError ? COLORS.ERROR_BORDER : COLORS.BORDER_PRIMARY}`,
-                color: COLORS.TEXT_PRIMARY,
+                backgroundColor: AUTH.BACKGROUND_TERTIARY,
+                border: `1px solid ${getBorderColor()}`,
+                color: AUTH.TEXT_PRIMARY,
+                outline: 'none',
+                boxShadow: isFocused ? `0 0 0 2px ${AUTH.FOCUS_COLOR_30}` : 'none',
             }}
         />
     )
 }
 
 export default FormFieldTextInput
+

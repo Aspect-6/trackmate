@@ -1,17 +1,10 @@
 import { useState } from 'react'
-import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, SubmitButton, GoogleButton } from '@/app/components/AuthForm'
+import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, GoogleButton, FormLink } from '@/app/components/AuthForm'
 import { useForm } from 'react-hook-form'
 import { useSignUp } from '@/app/hooks/useSignUp'
 import { BRAND_NAME } from '@shared/config/brand'
+import { AUTH } from '@/app/styles/colors'
 import './index.css'
-
-const COLORS = {
-    BACKGROUND_SECONDARY: 'var(--auth-bg-secondary)',
-    BORDER_PRIMARY: 'var(--auth-border-primary)',
-    TEXT_SECONDARY: 'var(--auth-text-secondary)',
-    FOCUS_COLOR: 'var(--focus-color)',
-    ERROR_TEXT: 'var(--auth-error-text, #ef4444)',
-}
 
 interface SignUpFormData {
     email: string;
@@ -71,8 +64,8 @@ const SignUp: React.FC = () => {
             <div
                 className="relative z-10 w-full max-w-md p-8 rounded-2xl shadow-2xl"
                 style={{
-                    backgroundColor: COLORS.BACKGROUND_SECONDARY,
-                    border: `1px solid ${COLORS.BORDER_PRIMARY}`,
+                    backgroundColor: AUTH.BACKGROUND_SECONDARY,
+                    border: `1px solid ${AUTH.BORDER_PRIMARY}`,
                 }}
             >
                 <Title>Create your {BRAND_NAME} account</Title>
@@ -95,7 +88,7 @@ const SignUp: React.FC = () => {
                             })}
                         />
                         {errors.email && (
-                            <span className="text-xs" style={{ color: COLORS.ERROR_TEXT }}>
+                            <span className="text-xs" style={{ color: AUTH.TEXT_DANGER }}>
                                 {errors.email.message}
                             </span>
                         )}
@@ -127,7 +120,7 @@ const SignUp: React.FC = () => {
                             })}
                         />
                         {errors.password && (
-                            <span className="text-xs" style={{ color: COLORS.ERROR_TEXT }}>
+                            <span className="text-xs" style={{ color: AUTH.TEXT_DANGER }}>
                                 {errors.password.message}
                             </span>
                         )}
@@ -148,25 +141,18 @@ const SignUp: React.FC = () => {
                             })}
                         />
                         {errors.confirmPassword && (
-                            <span className="text-xs" style={{ color: COLORS.ERROR_TEXT }}>
+                            <span className="text-xs" style={{ color: AUTH.TEXT_DANGER }}>
                                 {errors.confirmPassword.message}
                             </span>
                         )}
                     </FormField>
 
-                    <label className="flex items-center gap-2 text-sm cursor-pointer" style={{ color: COLORS.TEXT_SECONDARY }}>
-                        <input
-                            type="checkbox"
-                            checked={showPassword}
-                            onChange={(e) => setShowPassword(e.target.checked)}
-                            className="w-4 h-4 rounded"
-                            style={{ accentColor: 'var(--auth-button-bg)' }}
-                        />
+                    <FormCheckbox checked={showPassword} onChange={setShowPassword}>
                         Show password
-                    </label>
+                    </FormCheckbox>
 
                     {errors.root && (
-                        <div className="text-sm text-center" style={{ color: COLORS.ERROR_TEXT }}>
+                        <div className="text-sm text-center" style={{ color: AUTH.TEXT_DANGER }}>
                             {errors.root.message}
                         </div>
                     )}
@@ -182,16 +168,10 @@ const SignUp: React.FC = () => {
 
                 <p
                     className="mt-6 text-center text-sm"
-                    style={{ color: COLORS.TEXT_SECONDARY }}
+                    style={{ color: AUTH.TEXT_SECONDARY }}
                 >
                     Already have an account?{' '}
-                    <a
-                        href="/sign-in"
-                        className="auth-link font-medium transition-colors duration-200"
-                        style={{ color: COLORS.FOCUS_COLOR }}
-                    >
-                        Sign in
-                    </a>
+                    <FormLink href="/sign-in">Sign in</FormLink>
                 </p>
             </div>
         </div>

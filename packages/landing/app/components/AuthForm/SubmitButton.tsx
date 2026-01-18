@@ -1,11 +1,6 @@
 import { useHover } from '@shared/hooks/ui/useHover'
 import React from 'react'
-
-const COLORS = {
-    TEXT_WHITE: 'var(--auth-text-white)',
-    BUTTON_BG: 'var(--auth-button-bg)',
-    BUTTON_BG_HOVER: 'var(--auth-button-bg-hover)',
-}
+import { AUTH } from '@/app/styles/colors'
 
 interface SubmitButtonProps {
     disabled: boolean
@@ -19,8 +14,9 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ disabled, children }) => {
             type="submit"
             className="auth-button w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
             style={{
-                backgroundColor: isHovered ? COLORS.BUTTON_BG_HOVER : COLORS.BUTTON_BG,
-                color: COLORS.TEXT_WHITE,
+                backgroundColor: isHovered ? AUTH.SUBMIT_BUTTON_BG_HOVER : AUTH.SUBMIT_BUTTON_BG,
+                color: AUTH.TEXT_WHITE,
+                transform: isHovered ? 'translateY(-0.65px)' : 'none',
             }}
             {...hoverProps}
             disabled={disabled}

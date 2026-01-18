@@ -1,17 +1,10 @@
 import { useState } from 'react'
-import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, SubmitButton, GoogleButton } from '@/app/components/AuthForm'
+import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, GoogleButton, FormLink } from '@/app/components/AuthForm'
 import { useForm } from 'react-hook-form'
 import { useSignIn } from '@/app/hooks/useSignIn'
 import { BRAND_NAME } from '@shared/config/brand'
+import { AUTH } from '@/app/styles/colors'
 import './index.css'
-
-const COLORS = {
-    BACKGROUND_SECONDARY: 'var(--auth-bg-secondary)',
-    BORDER_PRIMARY: 'var(--auth-border-primary)',
-    TEXT_SECONDARY: 'var(--auth-text-secondary)',
-    FOCUS_COLOR: 'var(--focus-color)',
-    ERROR_TEXT: 'var(--auth-error-text, #ef4444)',
-}
 
 interface SignInFormData {
     email: string
@@ -76,8 +69,8 @@ const SignIn: React.FC = () => {
             <div
                 className="relative z-10 w-full max-w-md p-8 rounded-2xl shadow-2xl"
                 style={{
-                    backgroundColor: COLORS.BACKGROUND_SECONDARY,
-                    border: `1px solid ${COLORS.BORDER_PRIMARY}`,
+                    backgroundColor: AUTH.BACKGROUND_SECONDARY,
+                    border: `1px solid ${AUTH.BORDER_PRIMARY}`,
                 }}
             >
                 <Title>Sign in to {BRAND_NAME}</Title>
@@ -100,7 +93,7 @@ const SignIn: React.FC = () => {
                             })}
                         />
                         {errors.email && (
-                            <span className="text-xs" style={{ color: COLORS.ERROR_TEXT }}>
+                            <span className="text-xs" style={{ color: AUTH.TEXT_DANGER }}>
                                 {errors.email.message}
                             </span>
                         )}
@@ -119,25 +112,18 @@ const SignIn: React.FC = () => {
                             })}
                         />
                         {errors.password && (
-                            <span className="text-xs" style={{ color: COLORS.ERROR_TEXT }}>
+                            <span className="text-xs" style={{ color: AUTH.TEXT_DANGER }}>
                                 {errors.password.message}
                             </span>
                         )}
                     </FormField>
 
-                    <label className="flex items-center gap-2 text-sm cursor-pointer" style={{ color: COLORS.TEXT_SECONDARY }}>
-                        <input
-                            type="checkbox"
-                            checked={showPassword}
-                            onChange={(e) => setShowPassword(e.target.checked)}
-                            className="w-4 h-4 rounded"
-                            style={{ accentColor: 'var(--auth-button-bg)' }}
-                        />
+                    <FormCheckbox checked={showPassword} onChange={setShowPassword}>
                         Show password
-                    </label>
+                    </FormCheckbox>
 
                     {errors.root && (
-                        <div className="text-sm text-center" style={{ color: COLORS.ERROR_TEXT }}>
+                        <div className="text-sm text-center" style={{ color: AUTH.TEXT_DANGER }}>
                             {errors.root.message}
                         </div>
                     )}
@@ -153,16 +139,10 @@ const SignIn: React.FC = () => {
 
                 <p
                     className="mt-6 text-center text-sm"
-                    style={{ color: COLORS.TEXT_SECONDARY }}
+                    style={{ color: AUTH.TEXT_SECONDARY }}
                 >
                     Don't have an account?{' '}
-                    <a
-                        href="/sign-up"
-                        className="auth-link font-medium transition-colors duration-200"
-                        style={{ color: COLORS.FOCUS_COLOR }}
-                    >
-                        Sign up
-                    </a>
+                    <FormLink href="/sign-up">Sign up</FormLink>
                 </p>
             </div>
         </div>
