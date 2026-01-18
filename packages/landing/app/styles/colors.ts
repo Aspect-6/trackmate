@@ -17,3 +17,13 @@ export const AUTH = {
     SUBMIT_BUTTON_BG: 'var(--submit-button-bg)',
     SUBMIT_BUTTON_BG_HOVER: 'var(--submit-button-bg-hover)',
 }
+
+// Landing Page Colors
+export const LANDING = {
+    ...GLOBAL,
+
+    // Primary CTA Button (same as submit button)
+    PRIMARY_BUTTON_BG: 'var(--submit-button-bg)',
+    PRIMARY_BUTTON_BG_HOVER: 'var(--submit-button-bg-hover)',
+}
+
