@@ -1,11 +1,32 @@
 @import "tailwindcss";
 @import "./styles/colors.css";
 @import "@shared/styles/toast.css";
-@import "@shared/styles/utils.css";
 @import "./styles/auth.css";
 
 @source "../../shared/pages";
 
 :root {
     background: var(--webpage-background-color);
+}
+
+body {
+    position: relative;
+    min-height: 100dvh;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(ellipse at top,
+            hsl(215, 30%, 16%) 0%,
+            hsl(215, 28%, 14%) 15%,
+            hsl(215, 25%, 12%) 30%,
+            hsl(215, 22%, 10%) 45%,
+            var(--webpage-background-color) 70%);
+    filter: blur(10px);
 }
