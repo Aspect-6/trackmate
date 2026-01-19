@@ -5,3 +5,7 @@
 @import "./styles/auth.css";
 
 @source "../../shared/pages";
+
+:root {
+    background: var(--webpage-background-color);
+}

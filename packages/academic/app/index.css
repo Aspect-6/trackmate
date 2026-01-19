@@ -23,6 +23,10 @@
 	--font-sans: 'Inter', sans-serif;
 }
 
+:root {
+	background: var(--webpage-background-color);
+}
+
 /* Universal Select Dropdown */
 .app-select-dropdown {
 	width: 100%;
