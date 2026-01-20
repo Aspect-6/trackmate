@@ -18,9 +18,9 @@ const ThemeButton: React.FC<ThemeSettings.Content.ThemeButtonProps> = ({
             className="flex items-center py-3.5 px-4 rounded-xl transition-all duration-300"
             style={{
                 color: active ? SETTINGS.TEXT_WHITE : SETTINGS.TEXT_PRIMARY,
-                border: `1px solid ${(isHovered || active) ? SETTINGS.SIDEBAR_ACTIVE_TAB_BG : SETTINGS.BORDER_PRIMARY}`,
+                border: `1px solid ${(isHovered || active) ? SETTINGS.GLOBAL_ACCENT : SETTINGS.BORDER_PRIMARY}`,
                 backgroundColor: active
-                    ? SETTINGS.SIDEBAR_ACTIVE_TAB_BG
+                    ? SETTINGS.GLOBAL_ACCENT
                     : isHovered
                         ? SETTINGS.BACKGROUND_QUATERNARY
                         : SETTINGS.BACKGROUND_SECONDARY
@@ -30,7 +30,7 @@ const ThemeButton: React.FC<ThemeSettings.Content.ThemeButtonProps> = ({
         >
             <Icon
                 className="w-5 h-5 mr-3 transition-colors duration-300"
-                style={{ color: active ? SETTINGS.TEXT_WHITE : SETTINGS.SIDEBAR_ACTIVE_TAB_BG }}
+                style={{ color: active ? SETTINGS.TEXT_WHITE : SETTINGS.GLOBAL_ACCENT }}
             />
             <div className="text-left">
                 <div className="font-semibold leading-tight">{label}</div>

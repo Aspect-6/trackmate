@@ -13,12 +13,12 @@ const SidebarContainer: React.FC<SidebarContainerProps> = ({ isMobile, children 
             className={cn(
                 "flex flex-col",
                 isMobile
-                    ? "fixed inset-0 z-50 bg-[#0d1117]"
+                    ? "fixed inset-0 z-50"
                     : "sidebar w-64 flex-shrink-0 border-r sticky top-0 h-screen py-8 hidden lg:flex"
             )}
             style={{
-                backgroundColor: GLOBAL.SIDEBAR_BG,
-                ...(isMobile ? {} : { borderColor: GLOBAL.SIDEBAR_BORDER })
+                backgroundColor: GLOBAL.BACKGROUND_PRIMARY,
+                ...(isMobile ? {} : { borderColor: GLOBAL.BORDER_PRIMARY })
             }}
         >
             {children}

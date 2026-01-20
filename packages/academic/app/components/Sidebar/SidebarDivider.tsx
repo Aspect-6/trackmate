@@ -10,7 +10,7 @@ const SidebarDivider: React.FC<SidebarDividerProps> = ({ isMobile }) => {
 
     return (
         <div className="px-4 flex-shrink-0">
-            <div className="border-t mb-3" style={{ borderColor: GLOBAL.SIDEBAR_BORDER }}></div>
+            <div className="border-t mb-3" style={{ borderColor: GLOBAL.BORDER_PRIMARY }}></div>
         </div>
     )
 }

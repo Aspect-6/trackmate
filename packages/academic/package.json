@@ -1,6 +1,6 @@
 {
 	"name": "trackmate-academic-planner",
-	"version": "0.9.8",
+	"version": "0.9.9",
 	"private": true,
 	"scripts": {
 		"dev": "vite --host",

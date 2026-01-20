@@ -14,7 +14,7 @@ const CalendarDayContainer: React.FC<CalendarBody.Grid.Day.ContainerProps> = ({ 
                 borderColor: CALENDAR.BORDER_PRIMARY,
                 backgroundColor: isHovered ? CALENDAR.BACKGROUND_TERTIARY : (noSchool ? CALENDAR.NO_SCHOOL_BG : undefined),
                 backgroundImage: noSchool ? CALENDAR.NO_SCHOOL_PATTERN : undefined,
-                boxShadow: isToday ? `inset 0 0 0 2px ${CALENDAR.SIDEBAR_ACTIVE_TAB_BG}` : undefined
+                boxShadow: isToday ? `inset 0 0 0 2px ${CALENDAR.GLOBAL_ACCENT}` : undefined
             }}
             {...hoverProps}
         >

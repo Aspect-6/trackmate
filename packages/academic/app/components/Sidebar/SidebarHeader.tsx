@@ -15,24 +15,20 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ isMobile, onClose }) => {
             className={cn(
                 "flex flex-shrink-0 items-center",
                 isMobile
-                    ? "justify-between p-6 border-b"
+                    ? "justify-between p-6"
                     : "px-6 mb-6"
             )}
-            style={{
-                borderBottomColor: GLOBAL.SIDEBAR_BORDER,
-                borderBottomStyle: 'solid',
-                borderBottomWidth: isMobile ? '1px' : '0px'
-            }}
+            style={{ borderBottom: `${isMobile ? '1px' : '0px'} solid ${GLOBAL.BORDER_PRIMARY}` }}
         >
-            <h1 className="text-2xl font-black" style={{ color: GLOBAL.PAGE_HEADER_TEXT }}>{BRAND_NAME}</h1>
+            <h1 className="text-2xl font-black" style={{ color: GLOBAL.GLOBAL_ACCENT }}>{BRAND_NAME}</h1>
 
             {isMobile && onClose && (
                 <button
                     onClick={onClose}
                     className="text-gray-400 hover:text-white"
-                    style={{ color: GLOBAL.SIDEBAR_CLOSE_ICON }}
-                    onTouchStart={(e) => e.currentTarget.style.color = GLOBAL.SIDEBAR_CLOSE_ICON_HOVER}
-                    onTouchEnd={(e) => e.currentTarget.style.color = GLOBAL.SIDEBAR_CLOSE_ICON}
+                    style={{ color: GLOBAL.TEXT_SECONDARY }}
+                    onTouchStart={(e) => e.currentTarget.style.color = GLOBAL.TEXT_PRIMARY}
+                    onTouchEnd={(e) => e.currentTarget.style.color = GLOBAL.TEXT_SECONDARY}
                 >
                     <X className="w-8 h-8" />
                 </button>

@@ -1,5 +1,6 @@
 export const TRACKMATE = {
     // General
+    GLOBAL_ACCENT: 'var(--global-accent)',
     WEBPAGE_BACKGROUND: 'var(--webpage-background-color)',
     BACKGROUND_PRIMARY: 'var(--background-primary)',
     BACKGROUND_SECONDARY: 'var(--background-secondary)',
@@ -22,19 +23,6 @@ export const TRACKMATE = {
     BORDER_PRIMARY: 'var(--border-primary)',
     BORDER_SECONDARY: 'var(--border-secondary)',
     HEADER_DIVIDER: 'var(--page-header-divider)',
-    
-    // Sidebar
-    HEADER_MENU_ICON: 'var(--header-menu-icon)',
-    HEADER_MENU_ICON_HOVER: 'var(--header-menu-icon-hover)',
-    SIDEBAR_BG: 'var(--sidebar-bg)',
-    SIDEBAR_BORDER: 'var(--sidebar-border)',
-    SIDEBAR_TEXT_INACTIVE: 'var(--sidebar-text-inactive)',
-    SIDEBAR_TEXT_ACTIVE: 'var(--sidebar-text-active)',
-    SIDEBAR_ACTIVE_TAB_BG: 'var(--sidebar-tab-active-bg)',
-    SIDEBAR_INACTIVE_TAB_BG: 'var(--sidebar-tab-inactive-bg)',
-    SIDEBAR_INACTIVE_TAB_BG_HOVER: 'var(--sidebar-tab-inactive-contrast)',
-    SIDEBAR_CLOSE_ICON: 'var(--sidebar-icon-close)',
-    SIDEBAR_CLOSE_ICON_HOVER: 'var(--sidebar-icon-close-tap)',
 
     // Buttons
     CANCEL_BUTTON_BG: 'var(--cancel-button-bg)',

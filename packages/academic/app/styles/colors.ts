@@ -3,8 +3,8 @@ import { TRACKMATE, TRACKMATE_MODALS } from "@shared/styles/colors"
 // Global Colors
 export const GLOBAL = {
     ...TRACKMATE,
+
     // General
-    PAGE_HEADER_TEXT: 'var(--page-header-text)',
     FOCUS_COLOR: 'var(--focus-color)',
     FOCUS_COLOR_70: 'var(--focus-color-70)',
     FOCUS_COLOR_30: 'var(--focus-color-30)',

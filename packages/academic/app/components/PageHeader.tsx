@@ -15,14 +15,11 @@ const PageHeader: React.FC<PageHeaderProps> = ({ onMenuClick }) => {
     const location = useLocation()
     const { openModal } = useModal()
 
-    // Get current route config for page title
     const currentRoute = getRouteByPath(location.pathname) ?? DEFAULT_ROUTE
 
     // Get button config/action
     const addButton = useHeaderAction()
 
-    // Hover states
-    const { isHovered: isMenuHovered, hoverProps: menuHoverProps } = useHover()
     const { isHovered: isAddHovered, hoverProps: addHoverProps } = useHover()
 
     return (
@@ -31,12 +28,12 @@ const PageHeader: React.FC<PageHeaderProps> = ({ onMenuClick }) => {
                 <button
                     onClick={onMenuClick}
                     className="lg:hidden focus:outline-none transition-colors -ml-2"
-                    style={{ color: isMenuHovered ? GLOBAL.HEADER_MENU_ICON_HOVER : GLOBAL.HEADER_MENU_ICON }}
-                    {...menuHoverProps}
+                    onTouchStart={(e) => e.currentTarget.style.color = GLOBAL.TEXT_PRIMARY}
+                    onTouchEnd={(e) => e.currentTarget.style.color = GLOBAL.TEXT_SECONDARY}
                 >
                     <Menu className="w-7 h-7" />
                 </button>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold truncate" style={{ color: GLOBAL.PAGE_HEADER_TEXT }}>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold truncate" style={{ color: GLOBAL.GLOBAL_ACCENT }}>
                     {currentRoute.title}
                 </h1>
             </div>

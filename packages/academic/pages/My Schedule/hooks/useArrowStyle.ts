@@ -17,7 +17,7 @@ export const useArrowStyle = () => {
     useEffect(() => {
         const updateColor = () => {
             const color = getComputedStyle(document.documentElement)
-                .getPropertyValue(GLOBAL.SIDEBAR_ACTIVE_TAB_BG.slice(4, -1))
+                .getPropertyValue(GLOBAL.GLOBAL_ACCENT.slice(4, -1))
                 .trim()
             if (color) setArrowColor(color)
         }

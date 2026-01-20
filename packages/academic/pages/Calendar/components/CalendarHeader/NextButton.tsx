@@ -14,7 +14,7 @@ const NextButton: React.FC<CalendarHeader.CalendarHeaderButtonProps> = ({ onClic
             aria-label="Next Month"
             {...hoverProps}
         >
-            <ChevronRight className="w-7 h-7 md:w-6 md:h-6" style={{ color: CALENDAR.FOCUS_COLOR }} />
+            <ChevronRight className="w-7 h-7 md:w-6 md:h-6" style={{ color: CALENDAR.GLOBAL_ACCENT }} />
         </button>
     )
 }

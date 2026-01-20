@@ -16,7 +16,6 @@
     --focus-color-30: hsla(var(--focus-color-hsl), 0.3);
 
     /* Text Colors */
-    --page-header-text: hsl(var(--global-accent-hue), 50%, 48%);
     --text-a-day: hsl(260, 60%, 50%);
     --text-a-day-contrast: hsl(260, 60%, 42%);
     --text-b-day: hsl(215, 90%, 50%);
@@ -24,6 +23,9 @@
 }
 
 :root.dark {
+    /* General */
+    --global-accent: hsl(var(--global-accent-hue), 60%, 36%);
+
     /* Add Item Button Colors */
     --additem-bg: hsl(var(--global-accent-hue), 70%, 28%);
     --additem-bg-hover: hsl(var(--global-accent-hue), 70%, 23.5%);
@@ -49,6 +51,9 @@
 }
 
 :root.light {
+    /* General */
+    --global-accent: hsl(var(--global-accent-hue), 60%, 55%);
+
     /* Add Item Button Colors */
     --additem-bg: hsl(var(--global-accent-hue), 50%, 55%);
     --additem-bg-hover: hsl(var(--global-accent-hue), 70%, 40%);

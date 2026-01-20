@@ -28,12 +28,12 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ onLinkClick, className }) => {
                         key={item.to}
                         to={item.to}
                         onClick={onLinkClick}
-                        style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.SIDEBAR_ACTIVE_TAB_BG, color: GLOBAL.SIDEBAR_TEXT_ACTIVE } : { color: GLOBAL.SIDEBAR_TEXT_INACTIVE, backgroundColor: GLOBAL.SIDEBAR_INACTIVE_TAB_BG }}
-                        onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BG_HOVER }}
-                        onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BG }}
+                        style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.GLOBAL_ACCENT } : { color: GLOBAL.TEXT_PRIMARY }}
+                        onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.BACKGROUND_QUATERNARY }}
+                        onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = 'transparent' }}
                         className={({ isActive }) => cn(
                             "flex items-center p-3 rounded-lg font-medium transition duration-150",
-                            isActive && "active"
+                            isActive && "active text-white"
                         )}
                     >
                         <item.icon className="w-5 h-5 mr-3" />
@@ -43,16 +43,16 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ onLinkClick, className }) => {
             </div>
 
             <div className="flex-shrink-0 px-4">
-                <div className="border-t mb-2" style={{ borderColor: GLOBAL.SIDEBAR_BORDER }}></div>
+                <div className="mb-2" style={{ borderBottom: `1px solid ${GLOBAL.BORDER_PRIMARY}` }}></div>
                 <NavLink
                     to={PATHS['settings']}
                     onClick={onLinkClick}
-                    style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.SIDEBAR_ACTIVE_TAB_BG, color: GLOBAL.SIDEBAR_TEXT_ACTIVE } : { color: GLOBAL.SIDEBAR_TEXT_INACTIVE, backgroundColor: GLOBAL.SIDEBAR_INACTIVE_TAB_BG }}
-                    onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BG_HOVER }}
-                    onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.SIDEBAR_INACTIVE_TAB_BG }}
+                    style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.GLOBAL_ACCENT } : { color: GLOBAL.TEXT_PRIMARY }}
+                    onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.BACKGROUND_QUATERNARY }}
+                    onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = 'transparent' }}
                     className={({ isActive }) => cn(
                         "flex items-center p-3 rounded-lg font-medium transition duration-150",
-                        isActive && "active"
+                        isActive && "active text-white"
                     )}
                 >
                     <Settings className="w-5 h-5 mr-3" />
