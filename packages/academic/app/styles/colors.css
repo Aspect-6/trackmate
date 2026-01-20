@@ -37,9 +37,9 @@
     --priority-high-border: hsla(0, 91%, 71%, 0.4);
     --priority-high-text: hsl(0, 94%, 82%);
 
-    --priority-medium-bg: hsla(48, 96%, 53%, 0.15);
-    --priority-medium-border: hsla(48, 96%, 53%, 0.4);
-    --priority-medium-text: hsl(50, 98%, 64%);
+    --priority-medium-bg: hsla(48, 76%, 53%, 0.15);
+    --priority-medium-border: hsla(48, 76%, 53%, 0.4);
+    --priority-medium-text: hsl(50, 78%, 64%);
 
     --priority-low-bg: hsla(213, 94%, 68%, 0.15);
     --priority-low-border: hsla(213, 94%, 68%, 0.4);
@@ -62,17 +62,17 @@
     --additem-text: hsl(var(--global-accent-hue), 40%, 52%);
 
     /* Global Priority Colors */
-    --priority-high-bg: hsl(0, 70%, 95%);
-    --priority-high-border: hsl(0, 70%, 65%);
-    --priority-high-text: hsl(0, 70%, 40%);
+    --priority-high-bg: hsl(0, 60%, 95%);
+    --priority-high-border: hsl(0, 60%, 65%);
+    --priority-high-text: hsl(0, 60%, 40%);
 
-    --priority-medium-bg: hsl(45, 90%, 95%);
-    --priority-medium-border: hsl(45, 90%, 65%);
-    --priority-medium-text: hsl(45, 90%, 35%);
+    --priority-medium-bg: hsl(45, 60%, 92%);
+    --priority-medium-border: hsl(45, 60%, 65%);
+    --priority-medium-text: hsl(45, 70%, 35%);
 
-    --priority-low-bg: hsl(215, 80%, 95%);
-    --priority-low-border: hsl(215, 80%, 70%);
-    --priority-low-text: hsl(215, 80%, 45%);
+    --priority-low-bg: hsl(215, 60%, 95%);
+    --priority-low-border: hsl(215, 60%, 70%);
+    --priority-low-text: hsl(215, 60%, 45%);
 
     /* Global Status Colors (e.g. Done) */
     --status-done-bg: hsl(142, 70%, 95%);
