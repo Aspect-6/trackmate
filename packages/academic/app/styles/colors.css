@@ -24,11 +24,12 @@
 
 :root.dark {
     /* General */
-    --global-accent: hsl(var(--global-accent-hue), 60%, 36%);
+    --global-accent-hsl: var(--global-accent-hue), 60%, 31%;
+    --global-accent: hsl(var(--global-accent-hsl));
 
     /* Add Item Button Colors */
-    --additem-bg: hsl(var(--global-accent-hue), 70%, 28%);
-    --additem-bg-hover: hsl(var(--global-accent-hue), 70%, 23.5%);
+    --additem-bg: hsl(var(--global-accent-hsl));
+    --additem-bg-hover: hsla(var(--global-accent-hsl), 0.8);
     --additem-text: hsl(var(--global-accent-hue), 70%, 37%);
 
     /* Global Priority Colors */
@@ -52,11 +53,12 @@
 
 :root.light {
     /* General */
-    --global-accent: hsl(var(--global-accent-hue), 60%, 55%);
+    --global-accent-hsl: var(--global-accent-hue), 60%, 51%;
+    --global-accent: hsl(var(--global-accent-hsl));
 
     /* Add Item Button Colors */
-    --additem-bg: hsl(var(--global-accent-hue), 50%, 55%);
-    --additem-bg-hover: hsl(var(--global-accent-hue), 70%, 40%);
+    --additem-bg: hsl(var(--global-accent-hsl));
+    --additem-bg-hover: hsl(var(--global-accent-hue), 60%, 43%);
     --additem-text: hsl(var(--global-accent-hue), 40%, 52%);
 
     /* Global Priority Colors */

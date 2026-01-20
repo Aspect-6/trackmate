@@ -8,9 +8,9 @@
 
 :root.light {
     --dashboard-icon-play-default: hsl(215, 15%, 40%);
-    --dashboard-icon-play-hover: var(--page-header-text);
+    --dashboard-icon-play-hover: var(--focus-color);
     --dashboard-icon-in-progress: hsl(215, 15%, 40%);
-    --dashboard-icon-in-progress-hover: var(--page-header-text);
+    --dashboard-icon-in-progress-hover: var(--focus-color);
     --dashboard-icon-complete: hsl(142, 60%, 45%);
 }
 
