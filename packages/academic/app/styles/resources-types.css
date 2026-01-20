@@ -2,19 +2,19 @@
 
 :root.light {
     --assignment-theme: hsl(280, 38%, 62%);
-    --assignment-theme-hover: hsl(280, 38%, 54%);
+    --assignment-theme-hover: hsl(280, 38%, 56%);
     --assignment-text-color: hsl(280, 38%, 47%);
 
     --class-theme: hsl(235, 50%, 69%);
-    --class-theme-hover: hsl(235, 50%, 61%);
+    --class-theme-hover: hsl(235, 50%, 65%);
     --class-text-color: hsl(235, 50%, 54%);
 
     --event-theme: hsl(119, 20%, 57%);
-    --event-theme-hover: hsl(119, 20%, 49%);
+    --event-theme-hover: hsl(119, 20%, 52%);
     --event-text-color: hsl(119, 20%, 42%);
 
     --schedule-theme: hsl(203, 40%, 59%);
-    --schedule-theme-hover: hsl(203, 40%, 51%);
+    --schedule-theme-hover: hsl(203, 40%, 54.5%);
     --schedule-text-color: hsl(203, 40%, 44%);
 }
 

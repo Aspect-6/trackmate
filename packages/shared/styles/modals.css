@@ -90,7 +90,6 @@
     background-color: var(--modal-btn-bg-hover, var(--modal-btn-bg));
     color: var(--modal-btn-text-hover, var(--modal-btn-text));
     border-color: var(--modal-btn-border-hover, var(--modal-btn-border, transparent));
-    box-shadow: 0 6px 14px hsla(0, 0%, 0%, 0.122);
 }
 
 .modal-btn-inline {

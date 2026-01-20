@@ -58,7 +58,7 @@
 
     /* Add Item Button Colors */
     --additem-bg: hsl(var(--global-accent-hsl));
-    --additem-bg-hover: hsl(var(--global-accent-hue), 60%, 43%);
+    --additem-bg-hover: hsl(var(--global-accent-hue), 60%, 46%);
     --additem-text: hsl(var(--global-accent-hue), 40%, 52%);
 
     /* Global Priority Colors */
