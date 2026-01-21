@@ -6,22 +6,34 @@ import HeroTitle from '@/pages/Landing/components/Hero/HeroTitle'
 import HeroMessage from '@/pages/Landing/components/Hero/HeroMessage'
 import ProductCard from '@/pages/Landing/components/ProductCard'
 import Button from '@/pages/Landing/components/Button'
+import { useCurrentUser } from '@/app/hooks/useCurrentUser'
 import { BRAND_NAME } from '@shared/config/brand'
 import { LANDING } from '@/app/styles/colors'
 import { PRODUCTS } from '@/pages/Landing/data/products'
 
 const Landing: React.FC = () => {
     const navigate = useNavigate()
+    const { user, loading } = useCurrentUser()
 
     return (
         <div className="min-h-dvh flex flex-col items-center p-8">
             <Header>
-                <Button variant="secondary" onClick={() => navigate('/sign-in')}>
-                    Sign In
-                </Button>
-                <Button variant="primary" onClick={() => navigate('/sign-up')}>
-                    Sign Up
-                </Button>
+                {!loading && (
+                    user ? (
+                        <Button variant="primary" onClick={() => navigate('/account')}>
+                            Account
+                        </Button>
+                    ) : (
+                        <>
+                            <Button variant="secondary" onClick={() => navigate('/sign-in')}>
+                                Sign In
+                            </Button>
+                            <Button variant="primary" onClick={() => navigate('/sign-up')}>
+                                Sign Up
+                            </Button>
+                        </>
+                    )
+                )}
             </Header>
 
             <main className="flex-1 flex flex-col items-center justify-center text-center max-w-6xl">
