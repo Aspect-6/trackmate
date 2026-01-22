@@ -25,6 +25,7 @@ const Account: React.FC = () => {
     // Form state
     const [newEmail, setNewEmail] = useState('')
     const [newDisplayName, setNewDisplayName] = useState('')
+    const [currentPassword, setCurrentPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -109,24 +110,46 @@ const Account: React.FC = () => {
     const handlePasswordSave = async () => {
         setPasswordError('')
         setPasswordSuccess('')
-        if (newPassword !== confirmPassword) {
-            setPasswordError('Passwords do not match')
+        if (!currentPassword) {
+            setPasswordError('Please enter your current password')
             return
         }
         if (newPassword.length < 8) {
-            setPasswordError('Minimum 8 characters')
+            setPasswordError('New password must be at least 8 characters')
             return
         }
-        const result = await changePassword(newPassword)
+        if (!/[A-Z]/.test(newPassword)) {
+            setPasswordError('New password must contain at least 1 uppercase letter')
+            return
+        }
+        if (!/[0-9]/.test(newPassword)) {
+            setPasswordError('New password must contain at least 1 number')
+            return
+        }
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(newPassword)) {
+            setPasswordError('New password must contain at least 1 special character')
+            return
+        }
+        if (newPassword !== confirmPassword) {
+            setPasswordError('New passwords do not match')
+            return
+        }
+        const result = await changePassword(currentPassword, newPassword)
         if (result.success) {
             setPasswordSuccess('Password updated')
             setIsEditingPassword(false)
+            setCurrentPassword('')
             setNewPassword('')
             setConfirmPassword('')
         } else {
-            setPasswordError(result.error?.code === 'auth/requires-recent-login'
-                ? 'Please sign in again'
-                : 'Failed to update')
+            const errorCode = result.error?.code
+            if (errorCode === 'auth/wrong-password' || errorCode === 'auth/invalid-credential') {
+                setPasswordError('Current password is incorrect')
+            } else if (errorCode === 'auth/requires-recent-login') {
+                setPasswordError('Please sign in again')
+            } else {
+                setPasswordError('Failed to update password')
+            }
         }
     }
 
@@ -249,12 +272,12 @@ const Account: React.FC = () => {
                                 <img
                                     src={user.photoURL}
                                     alt="Profile"
-                                    className="w-24 h-24 rounded-full object-cover"
+                                    className="w-24 h-24 rounded-full object-cover flex-shrink-0"
                                     referrerPolicy="no-referrer"
                                 />
                             ) : (
                                 <div
-                                    className="w-24 h-24 rounded-full flex items-center justify-center text-3xl font-bold"
+                                    className="w-24 h-24 rounded-full flex items-center justify-center text-3xl font-bold flex-shrink-0"
                                     style={{
                                         background: `linear-gradient(135deg, ${AUTH.FOCUS_COLOR}, ${AUTH.FOCUS_COLOR_70})`,
                                         color: '#fff',
@@ -274,8 +297,8 @@ const Account: React.FC = () => {
                                                 setNewDisplayName(user.displayName || '')
                                                 setIsEditingDisplayName(true)
                                             }}
-                                            className="p-1.5 rounded-md transition-opacity hover:opacity-70"
-                                            style={{ color: AUTH.TEXT_SECONDARY }}
+                                            className="p-1.5 rounded-md hover:opacity-70 transition-opacity"
+                                            style={{ color: AUTH.TEXT_SECONDARY, willChange: 'opacity' }}
                                             title="Edit display name"
                                         >
                                             <Pencil size={14} />
@@ -742,16 +765,33 @@ const Account: React.FC = () => {
                                 <div className="flex items-start gap-4">
                                     <div
                                         className="w-10 h-10 rounded-lg flex items-center justify-center"
-                                        style={{ backgroundColor: AUTH.FOCUS_COLOR_30 }}
+                                        style={{ backgroundColor: hasPassword ? AUTH.FOCUS_COLOR_30 : AUTH.BACKGROUND_TERTIARY }}
                                     >
-                                        <Lock size={20} style={{ color: AUTH.FOCUS_COLOR }} />
+                                        <Lock size={20} style={{ color: hasPassword ? AUTH.FOCUS_COLOR : AUTH.TEXT_SECONDARY }} />
                                     </div>
                                     <div>
                                         <p className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>Password</p>
-                                        {!isEditingPassword ? (
+                                        {!hasPassword ? (
+                                            <p className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>
+                                                Not available — Must sign up with email and password to use this feature
+                                            </p>
+                                        ) : !isEditingPassword ? (
                                             <p className="font-medium" style={{ color: AUTH.TEXT_PRIMARY }}>••••••••</p>
                                         ) : (
                                             <div className="space-y-3 mt-2">
+                                                <input
+                                                    type="password"
+                                                    value={currentPassword}
+                                                    onChange={(e) => setCurrentPassword(e.target.value)}
+                                                    placeholder="Current password"
+                                                    className="px-3 py-2 rounded-lg text-sm outline-none w-64 block"
+                                                    style={{
+                                                        backgroundColor: AUTH.BACKGROUND_TERTIARY,
+                                                        border: `1px solid ${AUTH.BORDER_PRIMARY}`,
+                                                        color: AUTH.TEXT_PRIMARY,
+                                                    }}
+                                                    autoFocus
+                                                />
                                                 <input
                                                     type="password"
                                                     value={newPassword}
@@ -763,13 +803,12 @@ const Account: React.FC = () => {
                                                         border: `1px solid ${AUTH.BORDER_PRIMARY}`,
                                                         color: AUTH.TEXT_PRIMARY,
                                                     }}
-                                                    autoFocus
                                                 />
                                                 <input
                                                     type="password"
                                                     value={confirmPassword}
                                                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                                    placeholder="Confirm password"
+                                                    placeholder="Confirm new password"
                                                     className="px-3 py-2 rounded-lg text-sm outline-none w-64 block"
                                                     style={{
                                                         backgroundColor: AUTH.BACKGROUND_TERTIARY,
@@ -781,35 +820,37 @@ const Account: React.FC = () => {
                                         )}
                                     </div>
                                 </div>
-                                {!isEditingPassword ? (
-                                    <button
-                                        onClick={() => setIsEditingPassword(true)}
-                                        className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
-                                        style={{
-                                            backgroundColor: AUTH.BACKGROUND_TERTIARY,
-                                            color: AUTH.TEXT_PRIMARY,
-                                        }}
-                                    >
-                                        Change
-                                    </button>
-                                ) : (
-                                    <div className="flex gap-2">
+                                {hasPassword && (
+                                    !isEditingPassword ? (
                                         <button
-                                            onClick={handlePasswordSave}
-                                            disabled={accountLoading}
-                                            className="p-2 rounded-lg transition-opacity hover:opacity-80"
-                                            style={{ backgroundColor: '#22c55e', color: '#fff' }}
+                                            onClick={() => setIsEditingPassword(true)}
+                                            className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
+                                            style={{
+                                                backgroundColor: AUTH.BACKGROUND_TERTIARY,
+                                                color: AUTH.TEXT_PRIMARY,
+                                            }}
                                         >
-                                            <Check size={18} />
+                                            Change
                                         </button>
-                                        <button
-                                            onClick={() => { setIsEditingPassword(false); setNewPassword(''); setConfirmPassword(''); setPasswordError('') }}
-                                            className="p-2 rounded-lg transition-opacity hover:opacity-80"
-                                            style={{ backgroundColor: AUTH.BACKGROUND_TERTIARY, color: AUTH.TEXT_PRIMARY }}
-                                        >
-                                            <X size={18} />
-                                        </button>
-                                    </div>
+                                    ) : (
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={handlePasswordSave}
+                                                disabled={accountLoading}
+                                                className="p-2 rounded-lg transition-opacity hover:opacity-80"
+                                                style={{ backgroundColor: '#22c55e', color: '#fff' }}
+                                            >
+                                                <Check size={18} />
+                                            </button>
+                                            <button
+                                                onClick={() => { setIsEditingPassword(false); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); setPasswordError('') }}
+                                                className="p-2 rounded-lg transition-opacity hover:opacity-80"
+                                                style={{ backgroundColor: AUTH.BACKGROUND_TERTIARY, color: AUTH.TEXT_PRIMARY }}
+                                            >
+                                                <X size={18} />
+                                            </button>
+                                        </div>
+                                    )
                                 )}
                             </div>
                             {passwordError && <p className="text-sm mt-3" style={{ color: AUTH.TEXT_DANGER }}>{passwordError}</p>}

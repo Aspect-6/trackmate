@@ -33,8 +33,8 @@ export const useAccount = () => {
         }
     }
 
-    const changePassword = (newPassword: string) =>
-        attempt(() => updateUserPassword(newPassword))
+    const changePassword = (currentPassword: string, newPassword: string) =>
+        attempt(() => updateUserPassword(currentPassword, newPassword))
 
     const changeEmail = (newEmail: string) =>
         attempt(() => updateUserEmail(newEmail))

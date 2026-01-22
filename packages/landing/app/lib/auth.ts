@@ -12,6 +12,8 @@ import {
     unlink,
     getAdditionalUserInfo,
     sendEmailVerification,
+    reauthenticateWithCredential,
+    EmailAuthProvider,
     User
 } from "firebase/auth"
 
@@ -53,8 +55,16 @@ export const signOutUser = async (): Promise<void> => {
 }
 
 // Account Management Functions
-export const updateUserPassword = async (newPassword: string): Promise<void> => {
+export const reauthenticateUser = async (currentPassword: string): Promise<void> => {
     if (!auth.currentUser) throw new Error("No user signed in")
+    if (!auth.currentUser.email) throw new Error("No email associated with account")
+    const credential = EmailAuthProvider.credential(auth.currentUser.email, currentPassword)
+    await reauthenticateWithCredential(auth.currentUser, credential)
+}
+
+export const updateUserPassword = async (currentPassword: string, newPassword: string): Promise<void> => {
+    if (!auth.currentUser) throw new Error("No user signed in")
+    await reauthenticateUser(currentPassword)
     await updatePassword(auth.currentUser, newPassword)
 }
 
