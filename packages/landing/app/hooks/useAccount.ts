@@ -2,12 +2,15 @@ import { useState } from "react"
 import {
     updateUserPassword,
     updateUserEmail,
-    deleteUserAccount
+    deleteUserAccount,
+    linkGoogleAccount,
+    unlinkGoogleAccount
 } from "@/app/lib/auth"
+import type { AuthError } from "@/app/types"
 
 interface AccountOperationResult {
     success: boolean
-    error: Error | null
+    error: AuthError | null
 }
 
 /**
@@ -22,8 +25,8 @@ export const useAccount = () => {
         try {
             await operation()
             return { success: true, error: null }
-        } catch (error: any) {
-            return { success: false, error }
+        } catch (error) {
+            return { success: false, error: error as AuthError }
         } finally {
             setLoading(false)
         }
@@ -38,11 +41,18 @@ export const useAccount = () => {
     const deleteAccount = () =>
         attempt(() => deleteUserAccount())
 
+    const linkGoogle = () =>
+        attempt(() => linkGoogleAccount())
+
+    const unlinkGoogle = () =>
+        attempt(() => unlinkGoogleAccount())
+
     return {
         changePassword,
         changeEmail,
         deleteAccount,
+        linkGoogle,
+        unlinkGoogle,
         loading
     }
 }
-

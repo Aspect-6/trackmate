@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, GoogleButton, FormLink, HomeLink } from '@/app/components/AuthForm'
 import { useForm } from 'react-hook-form'
 import { useSignIn } from '@/app/hooks/useSignIn'
@@ -15,9 +16,12 @@ const SignIn: React.FC = () => {
     const { signInWithEmailAndPassword, signInWithGoogle, loading } = useSignIn()
     const [showPassword, setShowPassword] = useState(false)
 
+    const navigate = useNavigate()
+
     const onSubmit = async (data: SignInFormData) => {
         const { user, error } = await signInWithEmailAndPassword(data.email, data.password)
         if (user) {
+            navigate('/account')
             return
         }
 
@@ -42,7 +46,7 @@ const SignIn: React.FC = () => {
         clearErrors()
         const { user, error } = await signInWithGoogle()
         if (user) {
-            console.log("User signed in:", user.uid)
+            navigate('/account')
             return
         }
 

@@ -7,6 +7,8 @@ import {
     updatePassword,
     updateEmail,
     deleteUser,
+    linkWithPopup,
+    unlink,
     User
 } from "firebase/auth"
 
@@ -50,3 +52,13 @@ export const deleteUserAccount = async (): Promise<void> => {
     await deleteUser(auth.currentUser)
 }
 
+// Linked Account Functions
+export const linkGoogleAccount = async (): Promise<void> => {
+    if (!auth.currentUser) throw new Error("No user signed in")
+    await linkWithPopup(auth.currentUser, googleAuthProvider)
+}
+
+export const unlinkGoogleAccount = async (): Promise<void> => {
+    if (!auth.currentUser) throw new Error("No user signed in")
+    await unlink(auth.currentUser, "google.com")
+}
