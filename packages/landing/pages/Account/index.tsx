@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useCurrentUser } from '@/app/hooks/useCurrentUser'
 import { useAccount } from '@/app/hooks/useAccount'
 import { signOutUser, sendUserEmailVerification } from '@/app/lib/auth'
-import { ArrowLeft, User, Mail, Lock, Trash2, LogOut, Check, X, Link2, Copy, Hash, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, User, Mail, Lock, Trash2, LogOut, Check, X, Link2, Copy, Hash, ShieldCheck, Pencil } from 'lucide-react'
 import { AUTH } from '@/app/styles/colors'
 import MicrosoftIcon from '@/app/assets/microsoft-icon.svg?react'
 import FacebookIcon from '@/app/assets/facebook-icon.svg?react'
@@ -12,7 +12,7 @@ type ActiveSection = 'profile' | 'linked' | 'security' | 'danger'
 
 const Account: React.FC = () => {
     const { user, loading: userLoading } = useCurrentUser()
-    const { changePassword, changeEmail, deleteAccount, linkGoogle, unlinkGoogle, loading: accountLoading } = useAccount()
+    const { changePassword, changeEmail, changeDisplayName, deleteAccount, linkGoogle, unlinkGoogle, loading: accountLoading } = useAccount()
     const navigate = useNavigate()
 
     const [activeSection, setActiveSection] = useState<ActiveSection>('profile')
@@ -20,9 +20,11 @@ const Account: React.FC = () => {
     // Edit modes
     const [isEditingEmail, setIsEditingEmail] = useState(false)
     const [isEditingPassword, setIsEditingPassword] = useState(false)
+    const [isEditingDisplayName, setIsEditingDisplayName] = useState(false)
 
     // Form state
     const [newEmail, setNewEmail] = useState('')
+    const [newDisplayName, setNewDisplayName] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -35,6 +37,8 @@ const Account: React.FC = () => {
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
     const [linkError, setLinkError] = useState('')
     const [linkSuccess, setLinkSuccess] = useState('')
+    const [displayNameError, setDisplayNameError] = useState('')
+    const [displayNameSuccess, setDisplayNameSuccess] = useState('')
     const [copied, setCopied] = useState(false)
     const [verificationSent, setVerificationSent] = useState(false)
     const [verificationError, setVerificationError] = useState('')
@@ -77,6 +81,28 @@ const Account: React.FC = () => {
             setEmailError(result.error?.code === 'auth/requires-recent-login'
                 ? 'Please sign in again to change email'
                 : 'Failed to update email')
+        }
+    }
+
+    const handleDisplayNameSave = async () => {
+        setDisplayNameError('')
+        setDisplayNameSuccess('')
+        const trimmedName = newDisplayName.trim()
+        if (!trimmedName) {
+            setDisplayNameError('Please enter a display name')
+            return
+        }
+        if (trimmedName.length > 50) {
+            setDisplayNameError('Display name must be 50 characters or less')
+            return
+        }
+        const result = await changeDisplayName(trimmedName)
+        if (result.success) {
+            setDisplayNameSuccess('Display name updated')
+            setIsEditingDisplayName(false)
+            setNewDisplayName('')
+        } else {
+            setDisplayNameError('Failed to update display name')
         }
     }
 
@@ -238,9 +264,69 @@ const Account: React.FC = () => {
                                 </div>
                             )}
                             <div>
-                                <p className="text-lg font-semibold" style={{ color: AUTH.TEXT_PRIMARY }}>
-                                    {user.displayName || user.email?.split('@')[0]}
-                                </p>
+                                {!isEditingDisplayName ? (
+                                    <div className="flex items-center gap-2">
+                                        <p className="text-lg font-semibold" style={{ color: AUTH.TEXT_PRIMARY }}>
+                                            {user.displayName || user.email?.split('@')[0]}
+                                        </p>
+                                        <button
+                                            onClick={() => {
+                                                setNewDisplayName(user.displayName || '')
+                                                setIsEditingDisplayName(true)
+                                            }}
+                                            className="p-1.5 rounded-md transition-opacity hover:opacity-70"
+                                            style={{ color: AUTH.TEXT_SECONDARY }}
+                                            title="Edit display name"
+                                        >
+                                            <Pencil size={14} />
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex items-center gap-2">
+                                            <input
+                                                type="text"
+                                                value={newDisplayName}
+                                                onChange={(e) => setNewDisplayName(e.target.value)}
+                                                placeholder="Enter display name"
+                                                className="px-3 py-1.5 rounded-lg text-sm outline-none"
+                                                style={{
+                                                    backgroundColor: AUTH.BACKGROUND_TERTIARY,
+                                                    border: `1px solid ${AUTH.BORDER_PRIMARY}`,
+                                                    color: AUTH.TEXT_PRIMARY,
+                                                }}
+                                                autoFocus
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') handleDisplayNameSave()
+                                                    if (e.key === 'Escape') {
+                                                        setIsEditingDisplayName(false)
+                                                        setNewDisplayName('')
+                                                        setDisplayNameError('')
+                                                    }
+                                                }}
+                                            />
+                                            <button
+                                                onClick={handleDisplayNameSave}
+                                                disabled={accountLoading}
+                                                className="p-1.5 rounded-md transition-opacity hover:opacity-80"
+                                                style={{ backgroundColor: '#22c55e', color: '#fff' }}
+                                                title="Save"
+                                            >
+                                                <Check size={14} />
+                                            </button>
+                                            <button
+                                                onClick={() => { setIsEditingDisplayName(false); setNewDisplayName(''); setDisplayNameError('') }}
+                                                className="p-1.5 rounded-md transition-opacity hover:opacity-80"
+                                                style={{ backgroundColor: AUTH.BACKGROUND_TERTIARY, color: AUTH.TEXT_PRIMARY }}
+                                                title="Cancel"
+                                            >
+                                                <X size={14} />
+                                            </button>
+                                        </div>
+                                        {displayNameError && <p className="text-xs" style={{ color: AUTH.TEXT_DANGER }}>{displayNameError}</p>}
+                                        {displayNameSuccess && <p className="text-xs" style={{ color: '#22c55e' }}>{displayNameSuccess}</p>}
+                                    </div>
+                                )}
                                 <p className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>
                                     Member since {user.metadata.creationTime
                                         ? new Date(user.metadata.creationTime).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })

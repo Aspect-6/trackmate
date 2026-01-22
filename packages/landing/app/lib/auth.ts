@@ -6,6 +6,7 @@ import {
     signOut,
     updatePassword,
     updateEmail,
+    updateProfile,
     deleteUser,
     linkWithPopup,
     unlink,
@@ -60,6 +61,11 @@ export const updateUserPassword = async (newPassword: string): Promise<void> => 
 export const updateUserEmail = async (newEmail: string): Promise<void> => {
     if (!auth.currentUser) throw new Error("No user signed in")
     await updateEmail(auth.currentUser, newEmail)
+}
+
+export const updateUserDisplayName = async (displayName: string): Promise<void> => {
+    if (!auth.currentUser) throw new Error("No user signed in")
+    await updateProfile(auth.currentUser, { displayName })
 }
 
 export const deleteUserAccount = async (): Promise<void> => {

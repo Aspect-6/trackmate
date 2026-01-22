@@ -2,6 +2,7 @@ import { useState } from "react"
 import {
     updateUserPassword,
     updateUserEmail,
+    updateUserDisplayName,
     deleteUserAccount,
     linkGoogleAccount,
     unlinkGoogleAccount
@@ -38,6 +39,9 @@ export const useAccount = () => {
     const changeEmail = (newEmail: string) =>
         attempt(() => updateUserEmail(newEmail))
 
+    const changeDisplayName = (displayName: string) =>
+        attempt(() => updateUserDisplayName(displayName))
+
     const deleteAccount = () =>
         attempt(() => deleteUserAccount())
 
@@ -50,6 +54,7 @@ export const useAccount = () => {
     return {
         changePassword,
         changeEmail,
+        changeDisplayName,
         deleteAccount,
         linkGoogle,
         unlinkGoogle,

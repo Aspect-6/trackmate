@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, SocialButtons, FormLink, HomeLink } from '@/app/components/AuthForm'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { useSignUp } from '@/app/hooks/useSignUp'
+import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, SocialButtons, FormLink, HomeLink } from '@/app/components/AuthForm'
 import { BRAND_NAME } from '@shared/config/brand'
 import { AUTH } from '@/app/styles/colors'
 
@@ -15,11 +16,12 @@ const SignUp: React.FC = () => {
     const { register, handleSubmit, watch, trigger, setError, clearErrors, formState: { errors, touchedFields } } = useForm<SignUpFormData>()
     const { signUpWithEmailAndPassword, signUpWithGoogle, loading } = useSignUp()
     const [showPassword, setShowPassword] = useState(false)
+    const navigate = useNavigate()
 
     const onSubmit = async (data: SignUpFormData) => {
         const { user, error } = await signUpWithEmailAndPassword(data.email, data.password)
         if (user) {
-            console.log("User created:", user.uid)
+            navigate('/account')
             return
         }
 
@@ -38,6 +40,7 @@ const SignUp: React.FC = () => {
         clearErrors()
         const { user, error } = await signUpWithGoogle()
         if (user) {
+            navigate('/account')
             return
         }
 
