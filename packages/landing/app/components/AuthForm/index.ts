@@ -6,5 +6,6 @@ export { default as FormDivider } from "./FormDivider";
 export { default as FormCheckbox } from "./FormCheckbox";
 export { default as SubmitButton } from "./SubmitButton";
 export { default as GoogleButton } from "./GoogleButton";
+export { default as SocialButtons } from "./SocialButtons";
 export { default as FormLink } from "./FormLink";
 export { default as HomeLink } from "./HomeLink";

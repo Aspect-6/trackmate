@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, GoogleButton, FormLink, HomeLink } from '@/app/components/AuthForm'
+import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, SocialButtons, FormLink, HomeLink } from '@/app/components/AuthForm'
 import { useForm } from 'react-hook-form'
 import { useSignUp } from '@/app/hooks/useSignUp'
 import { BRAND_NAME } from '@shared/config/brand'
@@ -165,7 +165,7 @@ const SignUp: React.FC = () => {
 
                 <FormDivider />
 
-                <GoogleButton onClick={handleGoogleSignUp}>Sign up with Google</GoogleButton>
+                <SocialButtons onGoogleClick={handleGoogleSignUp} />
 
                 <p
                     className="mt-6 text-center text-sm"

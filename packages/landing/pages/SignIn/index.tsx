@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, GoogleButton, FormLink, HomeLink } from '@/app/components/AuthForm'
+import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, SocialButtons, FormLink, HomeLink } from '@/app/components/AuthForm'
 import { useForm } from 'react-hook-form'
 import { useSignIn } from '@/app/hooks/useSignIn'
 import { BRAND_NAME } from '@shared/config/brand'
@@ -143,7 +143,7 @@ const SignIn: React.FC = () => {
 
                 <FormDivider />
 
-                <GoogleButton onClick={handleGoogleSignIn}>Sign in with Google</GoogleButton>
+                <SocialButtons onGoogleClick={handleGoogleSignIn} />
 
                 <p
                     className="mt-6 text-center text-sm"
