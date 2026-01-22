@@ -50,6 +50,21 @@ const Account: React.FC = () => {
         }
     }, [user, userLoading, navigate])
 
+    // Clear all feedback messages when switching tabs
+    useEffect(() => {
+        setEmailError('')
+        setEmailSuccess('')
+        setPasswordError('')
+        setPasswordSuccess('')
+        setDisplayNameError('')
+        setDisplayNameSuccess('')
+        setLinkError('')
+        setLinkSuccess('')
+        setDeleteError('')
+        setVerificationSent(false)
+        setVerificationError('')
+    }, [activeSection])
+
     if (userLoading) {
         return (
             <div className="min-h-dvh flex items-center justify-center" style={{ backgroundColor: AUTH.BACKGROUND_PRIMARY }}>
