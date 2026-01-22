@@ -52,14 +52,17 @@ const SignIn: React.FC = () => {
 
         if (error) {
             switch (error.code) {
+                case 'auth/account-not-found':
+                    setError('root', { message: 'No account found. Please sign up first.' })
+                    break
                 case 'auth/user-cancelled':
-                    setError('root', { message: 'Google sign-up was cancelled' })
+                    setError('root', { message: 'Google sign-in was cancelled' })
                     break
                 case 'auth/popup-closed-by-user':
-                    setError('root', { message: 'Google sign-up window was closed' })
+                    setError('root', { message: 'Google sign-in window was closed' })
                     break
                 case 'auth/popup-blocked':
-                    setError('root', { message: 'Google sign-up window was blocked' })
+                    setError('root', { message: 'Google sign-in window was blocked' })
                     break
                 default:
                     setError('root', { message: 'Failed to sign in with Google. Please try again.' })
