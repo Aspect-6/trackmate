@@ -5,10 +5,14 @@
 		"packages/*"
 	],
 	"scripts": {
-		"dev": "vite --host",
-		"build": "npx tsc --noEmit && vite build",
-		"lint": "eslint .",
-		"preview": "vite preview"
+		"dev:academic": "cd packages/academic && vite --host",
+		"dev:landing": "cd packages/landing && vite --host",
+		"build:academic": "cd packages/academic && npx tsc --noEmit && vite build",
+		"build:landing": "cd packages/landing && npx tsc --noEmit && vite build",
+		"lint:academic": "cd packages/academic && eslint .",
+		"lint:landing": "cd packages/landing && eslint .",
+		"preview:academic": "cd packages/academic && vite preview",
+		"preview:landing": "cd packages/landing && vite preview"
 	},
 	"type": "module",
 	"homepage": "https://trackmate.co",
