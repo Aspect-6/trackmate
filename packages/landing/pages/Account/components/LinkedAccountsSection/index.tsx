@@ -59,6 +59,12 @@ const LinkedAccountsSection: React.FC = () => {
             <p className="mb-8" style={{ color: AUTH.TEXT_SECONDARY }}>
                 Manage your connected sign-in methods
             </p>
+            {hasPassword && (
+                <EmailPasswordRow
+                    isActive={hasPassword}
+                    email={user.email}
+                />
+            )}
             <GoogleProviderRow
                 isLinked={hasGoogle}
                 canUnlink={canUnlinkGoogle}
@@ -66,12 +72,14 @@ const LinkedAccountsSection: React.FC = () => {
                 onLink={handleLinkGoogle}
                 onUnlink={handleUnlinkGoogle}
             />
-            <EmailPasswordRow
-                isActive={hasPassword}
-                email={user.email}
-            />
             <ComingSoonRow providerName="Microsoft" Icon={MicrosoftIcon} />
             <ComingSoonRow providerName="Facebook" Icon={FacebookIcon} />
+            {!hasPassword && (
+                <EmailPasswordRow
+                    isActive={hasPassword}
+                    email={user.email}
+                />
+            )}
             {linkError && (
                 <p className="text-sm mt-4" style={{ color: AUTH.TEXT_DANGER }}>{linkError}</p>
             )}
