@@ -8,7 +8,7 @@ const EmailPasswordRow: React.FC<LinkedAccountsSection.Content.EmailPasswordRowP
         <div
             className="p-5 rounded-xl mb-4"
             style={{
-                backgroundColor: AUTH.BACKGROUND_SECONDARY,
+                backgroundColor: AUTH.BACKGROUND_TERTIARY,
                 border: `1px solid ${AUTH.BORDER_PRIMARY}`,
             }}
         >
@@ -16,9 +16,9 @@ const EmailPasswordRow: React.FC<LinkedAccountsSection.Content.EmailPasswordRowP
                 <div className="flex items-center gap-4">
                     <div
                         className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: isActive ? AUTH.FOCUS_COLOR_30 : AUTH.BACKGROUND_TERTIARY }}
+                        style={{ backgroundColor: isActive ? AUTH.BACKGROUND_QUATERNARY : AUTH.BACKGROUND_QUATERNARY }}
                     >
-                        <Mail size={20} style={{ color: isActive ? AUTH.FOCUS_COLOR : AUTH.TEXT_SECONDARY }} />
+                        <Mail size={20} style={{ color: isActive ? AUTH.GLOBAL_ACCENT : AUTH.TEXT_SECONDARY }} />
                     </div>
                     <div>
                         <p className="font-medium" style={{ color: AUTH.TEXT_PRIMARY }}>Email & Password</p>

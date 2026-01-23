@@ -23,7 +23,7 @@ const PasswordRow: React.FC<SecuritySection.Content.PasswordRowProps> = ({
         <div
             className="p-5 rounded-xl"
             style={{
-                backgroundColor: AUTH.BACKGROUND_SECONDARY,
+                backgroundColor: AUTH.BACKGROUND_TERTIARY,
                 border: `1px solid ${AUTH.BORDER_PRIMARY}`,
             }}
         >
@@ -31,9 +31,9 @@ const PasswordRow: React.FC<SecuritySection.Content.PasswordRowProps> = ({
                 <div className="flex items-start gap-4">
                     <div
                         className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: hasPassword ? AUTH.FOCUS_COLOR_30 : AUTH.BACKGROUND_TERTIARY }}
+                        style={{ backgroundColor: hasPassword ? AUTH.BACKGROUND_QUATERNARY : AUTH.BACKGROUND_QUATERNARY }}
                     >
-                        <Lock size={20} style={{ color: hasPassword ? AUTH.FOCUS_COLOR : AUTH.TEXT_SECONDARY }} />
+                        <Lock size={20} style={{ color: hasPassword ? AUTH.GLOBAL_ACCENT : AUTH.TEXT_SECONDARY }} />
                     </div>
                     <div>
                         <p className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>Password</p>

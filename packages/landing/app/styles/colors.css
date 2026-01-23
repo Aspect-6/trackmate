@@ -10,6 +10,9 @@
 }
 
 :root.dark {
+    --global-accent-hsl: var(--landing-accent-hue), 60%, 40%;
+    --global-accent: hsl(var(--global-accent-hsl));
+
     --submit-button-bg: hsl(var(--landing-accent-hsl));
     --submit-button-bg-hover: hsl(var(--landing-accent-hue), 63%, 38%);
 }

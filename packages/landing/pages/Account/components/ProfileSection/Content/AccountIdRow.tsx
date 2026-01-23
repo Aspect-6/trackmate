@@ -12,7 +12,7 @@ const AccountIdRow: React.FC<ProfileSection.Content.AccountIdRowProps> = ({
         <div
             className="p-5 rounded-xl"
             style={{
-                backgroundColor: AUTH.BACKGROUND_SECONDARY,
+                backgroundColor: AUTH.BACKGROUND_TERTIARY,
                 border: `1px solid ${AUTH.BORDER_PRIMARY}`,
             }}
         >
@@ -20,9 +20,9 @@ const AccountIdRow: React.FC<ProfileSection.Content.AccountIdRowProps> = ({
                 <div className="flex items-center gap-4">
                     <div
                         className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: AUTH.FOCUS_COLOR_30 }}
+                        style={{ backgroundColor: AUTH.BACKGROUND_QUATERNARY }}
                     >
-                        <Hash size={20} style={{ color: AUTH.FOCUS_COLOR }} />
+                        <Hash size={20} style={{ color: AUTH.GLOBAL_ACCENT }} />
                     </div>
                     <div>
                         <p className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>Account ID</p>

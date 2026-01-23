@@ -2,10 +2,12 @@
 @import "./styles/colors.css";
 @import "@shared/styles/toast.css";
 @import "./styles/auth.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
 
 @source "../../shared/pages";
 
 :root {
+    --font-sans: 'Inter', sans-serif;
     background: var(--webpage-background-color);
 }
 

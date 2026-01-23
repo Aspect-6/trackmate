@@ -13,7 +13,7 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
         <div
             className="p-5 rounded-xl mb-4"
             style={{
-                backgroundColor: AUTH.BACKGROUND_SECONDARY,
+                backgroundColor: AUTH.BACKGROUND_TERTIARY,
                 border: `1px solid ${AUTH.BORDER_PRIMARY}`,
             }}
         >
@@ -21,9 +21,9 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
                 <div className="flex items-center gap-4">
                     <div
                         className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: isVerified ? 'rgba(34, 197, 94, 0.15)' : AUTH.FOCUS_COLOR_30 }}
+                        style={{ backgroundColor: isVerified ? 'rgba(34, 197, 94, 0.15)' : AUTH.BACKGROUND_QUATERNARY }}
                     >
-                        <ShieldCheck size={20} style={{ color: isVerified ? '#22c55e' : AUTH.FOCUS_COLOR }} />
+                        <ShieldCheck size={20} style={{ color: isVerified ? '#22c55e' : AUTH.GLOBAL_ACCENT }} />
                     </div>
                     <div>
                         <p className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>Email Verification</p>
@@ -37,7 +37,7 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
                         onClick={onResend}
                         className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
                         style={{
-                            backgroundColor: AUTH.FOCUS_COLOR,
+                            backgroundColor: AUTH.GLOBAL_ACCENT,
                             color: '#fff',
                         }}
                     >

@@ -27,7 +27,7 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({
                 <div
                     className="w-24 h-24 rounded-full flex items-center justify-center text-3xl font-bold flex-shrink-0"
                     style={{
-                        background: `linear-gradient(135deg, ${AUTH.FOCUS_COLOR}, ${AUTH.FOCUS_COLOR_70})`,
+                        backgroundColor: AUTH.GLOBAL_ACCENT,
                         color: '#fff',
                     }}
                 >

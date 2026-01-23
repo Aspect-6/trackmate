@@ -10,7 +10,7 @@ const ComingSoonRow: React.FC<LinkedAccountsSection.Content.ComingSoonRowProps> 
         <div
             className="p-5 rounded-xl opacity-60 mb-4"
             style={{
-                backgroundColor: AUTH.BACKGROUND_SECONDARY,
+                backgroundColor: AUTH.BACKGROUND_TERTIARY,
                 border: `1px solid ${AUTH.BORDER_PRIMARY}`,
             }}
         >
@@ -18,7 +18,7 @@ const ComingSoonRow: React.FC<LinkedAccountsSection.Content.ComingSoonRowProps> 
                 <div className="flex items-center gap-4">
                     <div
                         className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: AUTH.BACKGROUND_TERTIARY }}
+                        style={{ backgroundColor: AUTH.BACKGROUND_QUATERNARY }}
                     >
                         <Icon className="w-5 h-5" />
                     </div>

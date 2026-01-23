@@ -8,6 +8,9 @@ export const GLOBAL = {
     FOCUS_COLOR_70: 'var(--focus-color-70)',
     FOCUS_COLOR_30: 'var(--focus-color-30)',
 
+    // Accent Color (for active states like Academic)
+    GLOBAL_ACCENT: 'var(--global-accent)',
+
     PRIMARY_BUTTON_BG: 'var(--submit-button-bg)',
     PRIMARY_BUTTON_BG_HOVER: 'var(--submit-button-bg-hover)',
 }

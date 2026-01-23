@@ -15,7 +15,7 @@ const GoogleProviderRow: React.FC<LinkedAccountsSection.Content.GoogleProviderRo
         <div
             className="p-5 rounded-xl mb-4"
             style={{
-                backgroundColor: AUTH.BACKGROUND_SECONDARY,
+                backgroundColor: AUTH.BACKGROUND_TERTIARY,
                 border: `1px solid ${AUTH.BORDER_PRIMARY}`,
             }}
         >
@@ -23,7 +23,7 @@ const GoogleProviderRow: React.FC<LinkedAccountsSection.Content.GoogleProviderRo
                 <div className="flex items-center gap-4">
                     <div
                         className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: isLinked ? 'rgba(66, 133, 244, 0.15)' : AUTH.BACKGROUND_TERTIARY }}
+                        style={{ backgroundColor: isLinked ? 'rgba(66, 133, 244, 0.15)' : AUTH.BACKGROUND_QUATERNARY }}
                     >
                         {isLinked ? (
                             <GoogleIconColored className="w-5 h-5" />
@@ -58,7 +58,7 @@ const GoogleProviderRow: React.FC<LinkedAccountsSection.Content.GoogleProviderRo
                         disabled={loading}
                         className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
                         style={{
-                            backgroundColor: AUTH.FOCUS_COLOR,
+                            backgroundColor: AUTH.GLOBAL_ACCENT,
                             color: '#fff',
                         }}
                     >
