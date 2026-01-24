@@ -1,7 +1,7 @@
-import React from 'react'
 import { ArrowLeft, User, Link2, Lock, Database, LogOut } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { AUTH } from '@/app/styles/colors'
+import { SidebarTab } from '@shared/components/Sidebar'
 import type { ActiveSection } from '@/pages/Account/types'
 
 interface SidebarNavProps {
@@ -34,59 +34,46 @@ const SidebarNav: React.FC<SidebarNavProps> = ({
                 {navItems.map(({ id, label, icon: Icon }) => {
                     const isActive = activeSection === id
                     return (
-                        <button
+                        <SidebarTab
                             key={id}
+                            label={label}
+                            icon={Icon}
                             onClick={() => {
                                 onSectionChange(id)
                                 onLinkClick?.()
                             }}
-                            className={`w-full flex items-center p-3 rounded-lg font-medium transition duration-150 ${isActive ? "text-white" : ""}`}
-                            style={{
-                                backgroundColor: isActive ? AUTH.GLOBAL_ACCENT : 'transparent',
-                                color: isActive ? '#fff' : AUTH.TEXT_PRIMARY,
-                            }}
-                            onMouseEnter={(e) => {
-                                if (!isActive) e.currentTarget.style.backgroundColor = AUTH.BACKGROUND_QUATERNARY
-                            }}
-                            onMouseLeave={(e) => {
-                                if (!isActive) e.currentTarget.style.backgroundColor = 'transparent'
-                            }}
-                        >
-                            <Icon className="w-5 h-5 mr-3" />
-                            {label}
-                        </button>
+                            isActive={isActive}
+                            accentColor={AUTH.GLOBAL_ACCENT}
+                            hoverColor={AUTH.BACKGROUND_QUATERNARY}
+                        />
                     )
                 })}
             </div>
 
             <div className="flex-shrink-0 px-4">
                 <div className="mb-2" style={{ borderBottom: `1px solid ${AUTH.BORDER_PRIMARY}` }}></div>
-                <button
+                <SidebarTab
+                    label="Back to Home"
+                    icon={ArrowLeft}
                     onClick={() => {
                         navigate('/landing')
                         onLinkClick?.()
                     }}
-                    className="w-full flex items-center p-3 rounded-lg font-medium transition duration-150"
-                    style={{ color: AUTH.TEXT_PRIMARY }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = AUTH.BACKGROUND_QUATERNARY}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                >
-                    <ArrowLeft className="w-5 h-5 mr-3" />
-                    Back to Home
-                </button>
-                <button
+                    isActive={false}
+                    accentColor={AUTH.GLOBAL_ACCENT}
+                    hoverColor={AUTH.BACKGROUND_QUATERNARY}
+                />
+                <SidebarTab
+                    label="Sign Out"
+                    icon={LogOut}
                     onClick={() => {
                         onSignOut()
                         onLinkClick?.()
                     }}
-                    className="w-full flex items-center p-3 rounded-lg font-medium transition duration-150"
-                    style={{ color: AUTH.TEXT_PRIMARY }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = AUTH.BACKGROUND_QUATERNARY}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                >
-                    <LogOut className="w-5 h-5 mr-3" />
-                    Sign Out
-                </button>
+                    isActive={false}
+                    accentColor={AUTH.GLOBAL_ACCENT}
+                    hoverColor={AUTH.BACKGROUND_QUATERNARY}
+                />
             </div>
         </div>
     )

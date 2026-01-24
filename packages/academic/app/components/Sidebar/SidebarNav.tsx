@@ -1,7 +1,6 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import { LayoutDashboard, Calendar, FileText, BookOpen, Clock, Settings } from 'lucide-react'
-import { cn } from '@/app/lib/utils'
+import { SidebarTab } from '@shared/components/Sidebar'
 import { GLOBAL } from '@/app/styles/colors'
 import { PATHS, ROUTES } from '@/app/config/paths'
 
@@ -21,43 +20,33 @@ interface SidebarNavProps {
 
 const SidebarNav: React.FC<SidebarNavProps> = ({ onLinkClick, className }) => {
     return (
-        <div className={cn("flex flex-col h-full", className)}>
+        <div className={`flex flex-col h-full ${className || ''}`}>
             <div className="flex-grow space-y-2 px-4 py-2">
                 {NAV_ITEMS.map((item) => (
-                    <NavLink
+                    <SidebarTab
                         key={item.to}
+                        label={item.label}
+                        icon={item.icon}
                         to={item.to}
                         onClick={onLinkClick}
-                        style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.GLOBAL_ACCENT } : { color: GLOBAL.TEXT_PRIMARY }}
-                        onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.BACKGROUND_QUATERNARY }}
-                        onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = 'transparent' }}
-                        className={({ isActive }) => cn(
-                            "flex items-center p-3 rounded-lg font-medium transition duration-150",
-                            isActive && "active text-white"
-                        )}
-                    >
-                        <item.icon className="w-5 h-5 mr-3" />
-                        {item.label}
-                    </NavLink>
+                        isActive={false} // Handled by NavLink internally
+                        accentColor={GLOBAL.GLOBAL_ACCENT}
+                        hoverColor={GLOBAL.BACKGROUND_QUATERNARY}
+                    />
                 ))}
             </div>
 
             <div className="flex-shrink-0 px-4">
                 <div className="mb-2" style={{ borderBottom: `1px solid ${GLOBAL.BORDER_PRIMARY}` }}></div>
-                <NavLink
+                <SidebarTab
                     to={PATHS['settings']}
+                    label={ROUTES['settings'].title}
+                    icon={Settings}
                     onClick={onLinkClick}
-                    style={({ isActive }) => isActive ? { backgroundColor: GLOBAL.GLOBAL_ACCENT } : { color: GLOBAL.TEXT_PRIMARY }}
-                    onMouseEnter={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = GLOBAL.BACKGROUND_QUATERNARY }}
-                    onMouseLeave={(e) => { if (!e.currentTarget.classList.contains('active')) e.currentTarget.style.backgroundColor = 'transparent' }}
-                    className={({ isActive }) => cn(
-                        "flex items-center p-3 rounded-lg font-medium transition duration-150",
-                        isActive && "active text-white"
-                    )}
-                >
-                    <Settings className="w-5 h-5 mr-3" />
-                    {ROUTES['settings'].title}
-                </NavLink>
+                    isActive={false} // Handled by NavLink internally
+                    accentColor={GLOBAL.GLOBAL_ACCENT}
+                    hoverColor={GLOBAL.BACKGROUND_QUATERNARY}
+                />
             </div>
         </div>
     )

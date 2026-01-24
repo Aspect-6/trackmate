@@ -26,7 +26,7 @@ const AccountIdRow: React.FC<ProfileSection.Content.AccountIdRowProps> = ({
                     </div>
                     <div>
                         <p className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>Account ID</p>
-                        <p className="font-mono text-sm" style={{ color: AUTH.TEXT_PRIMARY }}>{userId}</p>
+                        <p className="font-mono text-sm break-all pr-2" style={{ color: AUTH.TEXT_PRIMARY }}>{userId}</p>
                     </div>
                 </div>
                 <button

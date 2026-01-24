@@ -1,33 +1,54 @@
 import React from 'react'
+import { AUTH } from '@/app/styles/colors'
+import { BRAND_NAME } from '@shared/config/brand'
 import type { AccountSidebar as AccountSidebarTypes } from '@/pages/Account/types'
+import {
+    SidebarContainer,
+    SidebarHeader,
+    SidebarDivider,
+    SidebarContent
+} from '@shared/components/Sidebar'
 
-import SidebarHeader from './SidebarHeader'
 import SidebarNav from './SidebarNav'
-import SidebarDivider from './SidebarDivider'
-import SidebarContainer from './SidebarContainer'
 
-const AccountSidebar: React.FC<AccountSidebarTypes.Props> = ({
+const AccountSidebar: React.FC<AccountSidebarTypes.Props & { isMobile?: boolean; isOpen?: boolean; onClose?: () => void }> = ({
     activeSection,
     onSectionChange,
     onSignOut,
+    isMobile = false,
+    isOpen,
+    onClose
 }) => {
-    // For now, we assume desktop only behavior or implicit isMobile=false as per current usage
-    // If mobile responsiveness is needed later, we can add state or props
-    const isMobile = false
+    if (isMobile && !isOpen) return null
 
     return (
-        <SidebarContainer isMobile={isMobile}>
-            <SidebarHeader isMobile={isMobile} />
+        <SidebarContainer
+            isMobile={isMobile}
+            backgroundColor={AUTH.BACKGROUND_PRIMARY}
+            borderColor={AUTH.BORDER_PRIMARY}
+        >
+            <SidebarHeader
+                isMobile={isMobile}
+                onClose={onClose}
+                brandName={BRAND_NAME}
+                accentColor={AUTH.GLOBAL_ACCENT}
+                textColor={AUTH.TEXT_SECONDARY}
+                borderColor={AUTH.BORDER_PRIMARY}
+            />
 
-            <SidebarDivider isMobile={isMobile} />
+            <SidebarDivider
+                isMobile={isMobile}
+                borderColor={AUTH.BORDER_PRIMARY}
+            />
 
-            <div className="flex-grow min-h-0 flex flex-col">
+            <SidebarContent>
                 <SidebarNav
                     activeSection={activeSection}
                     onSectionChange={onSectionChange}
                     onSignOut={onSignOut}
+                    onLinkClick={isMobile ? onClose : undefined}
                 />
-            </div>
+            </SidebarContent>
         </SidebarContainer>
     )
 }
