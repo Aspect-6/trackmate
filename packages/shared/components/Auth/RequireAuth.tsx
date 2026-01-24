@@ -23,28 +23,16 @@ const RequireAuth: React.FC<RequireAuthProps> = ({ redirectTo = '/sign-in' }) =>
     }
 
     if (!user) {
-        // If redirectTo is a full URL (cross-origin/cross-port), we must use window.location
-        if (redirectTo.startsWith('http')) {
-            // Render nothing or a loading state while we redirect
-            // Application code should handle the redirect effect
-            // We can't use Navigate for external links
-            // We use a small inline component to trigger the window location change
-            return <ExternalRedirect to={redirectTo} />
+        const isCrossSpaRedirect = location.pathname.startsWith('/academic') && !redirectTo.startsWith('/academic')
+        
+        if (redirectTo.startsWith('http') || isCrossSpaRedirect) {
+            window.location.replace(redirectTo)
+            return null
         }
-
-        // Redirect to login page, but save the current location they were trying to go to
-        // so we can redirect them back after they login
         return <Navigate to={redirectTo} state={{ from: location }} replace />
     }
 
     return <Outlet />
-}
-
-const ExternalRedirect: React.FC<{ to: string }> = ({ to }) => {
-    React.useEffect(() => {
-        window.location.replace(to)
-    }, [to])
-    return null
 }
 
 export default RequireAuth

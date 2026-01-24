@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import RequireAuth from '@shared/components/Auth/RequireAuth'
 import ModalManager from '@/app/components/ModalManager'
 import Layout from '@/app/layouts/Layout'
 import Dashboard from '@/pages/Dashboard'
@@ -11,13 +12,10 @@ import Settings from '@/pages/Settings'
 import NotFound from '@shared/pages/NotFound'
 import { ROUTES, DEFAULT_ROUTE, BASE_PATH } from '@/app/config/paths'
 import { GLOBAL } from '@/app/styles/colors'
-import RequireAuth from '@shared/components/Auth/RequireAuth'
 
 import DevLogin from '@/app/pages/DevLogin'
 
 const App: React.FC = () => {
-    // In development, redirect to the local dev-login page
-    // In production, they are served together so relative path works
     const SIGN_IN_URL = import.meta.env.DEV ? '/academic/dev-login' : '/sign-in'
 
     return (
