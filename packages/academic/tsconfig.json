@@ -8,7 +8,9 @@
         },
     },
     "include": [
+        "vite-env.d.ts",
         "app",
-        "pages"
+        "pages",
+        "../shared"
     ],
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useCurrentUser } from '@/app/hooks/useCurrentUser'
+import { useCurrentUser } from '@shared/hooks/useCurrentUser'
 import { useAccount } from '@/app/hooks/useAccount'
 import { sendUserEmailVerification } from '@/app/lib/auth'
 import { AUTH } from '@/app/styles/colors'

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { User, onAuthStateChanged } from "firebase/auth"
-import { auth } from "@shared/lib/firebase"
+import { auth } from "../lib/firebase"
 
 /**
  * Hook that tracks the current Firebase authenticated user.

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Menu } from 'lucide-react'
-import { useCurrentUser } from '@/app/hooks/useCurrentUser'
+import { useCurrentUser } from '@shared/hooks/useCurrentUser'
 import { signOutUser } from '@/app/lib/auth'
 import { AUTH } from '@/app/styles/colors'
 

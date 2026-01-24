@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useCurrentUser } from '@/app/hooks/useCurrentUser'
+import { useCurrentUser } from '@shared/hooks/useCurrentUser'
 import { useAccount } from '@/app/hooks/useAccount'
 import { AUTH } from '@/app/styles/colors'
 import MicrosoftIcon from '@/app/assets/microsoft-icon.svg?react'
