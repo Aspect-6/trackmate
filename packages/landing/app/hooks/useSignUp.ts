@@ -1,4 +1,4 @@
-import { signUpEmailAndPassword, signUpGoogle } from "@/app/lib/auth"
+import { signUpEmailAndPassword, signUpGoogle, sendUserEmailVerification } from "@/app/lib/auth"
 import { useAuthLoader } from "./useAuthLoader"
 
 export const useSignUp = () => {
@@ -10,5 +10,14 @@ export const useSignUp = () => {
     const signUpWithGoogle = () =>
         attempt(() => signUpGoogle())
 
-    return { signUpWithEmailAndPassword, signUpWithGoogle, loading }
+    const sendVerificationEmail = async () => {
+        try {
+            await sendUserEmailVerification()
+            return { error: null }
+        } catch (error: any) {
+            return { error }
+        }
+    }
+
+    return { signUpWithEmailAndPassword, signUpWithGoogle, sendVerificationEmail, loading }
 }

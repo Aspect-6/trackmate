@@ -5,7 +5,7 @@ import {
     signInWithPopup,
     signOut,
     updatePassword,
-    updateEmail,
+    verifyBeforeUpdateEmail,
     updateProfile,
     deleteUser,
     linkWithPopup,
@@ -70,7 +70,7 @@ export const updateUserPassword = async (currentPassword: string, newPassword: s
 
 export const updateUserEmail = async (newEmail: string): Promise<void> => {
     if (!auth.currentUser) throw new Error("No user signed in")
-    await updateEmail(auth.currentUser, newEmail)
+    await verifyBeforeUpdateEmail(auth.currentUser, newEmail)
 }
 
 export const updateUserDisplayName = async (displayName: string): Promise<void> => {

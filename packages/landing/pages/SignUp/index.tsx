@@ -14,14 +14,15 @@ interface SignUpFormData {
 
 const SignUp: React.FC = () => {
     const { register, handleSubmit, watch, trigger, setError, clearErrors, formState: { errors, touchedFields } } = useForm<SignUpFormData>()
-    const { signUpWithEmailAndPassword, signUpWithGoogle, loading } = useSignUp()
+    const { signUpWithEmailAndPassword, signUpWithGoogle, sendVerificationEmail, loading } = useSignUp()
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
 
     const onSubmit = async (data: SignUpFormData) => {
         const { user, error } = await signUpWithEmailAndPassword(data.email, data.password)
         if (user) {
-            navigate('/account')
+            await sendVerificationEmail()
+            navigate('/verify-email')
             return
         }
 

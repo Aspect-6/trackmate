@@ -24,7 +24,7 @@ const App: React.FC = () => {
             <Routes>
                 {import.meta.env.DEV && <Route path="/academic/dev-login" element={<DevLogin />} />}
                 <Route path={BASE_PATH} element={<Layout />}>
-                    <Route element={<RequireAuth redirectTo={SIGN_IN_URL} />}>
+                    <Route element={<RequireAuth redirectTo={SIGN_IN_URL} requireEmailVerification={true} />}>
                         <Route index element={<Navigate to={DEFAULT_ROUTE.fullPath} replace />} />
                         <Route path={ROUTES['dashboard'].path} element={<Dashboard />} />
                         <Route path={ROUTES['calendar'].path} element={<Calendar />} />

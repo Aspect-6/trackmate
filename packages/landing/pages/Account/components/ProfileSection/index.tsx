@@ -60,7 +60,7 @@ const ProfileSection: React.FC = () => {
         }
         const result = await changeEmail(newEmail)
         if (result.success) {
-            setEmailSuccess('Email updated successfully')
+            setEmailSuccess('Verification email sent to new address')
             setIsEditingEmail(false)
             setNewEmail('')
         } else {
