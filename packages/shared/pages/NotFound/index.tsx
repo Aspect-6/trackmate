@@ -1,8 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useHover } from '../../hooks/ui/useHover'
-import { BRAND_NAME } from '../../config/brand'
-import { TRACKMATE } from '../../styles/colors'
+import { useHover } from '@shared/hooks/ui/useHover'
+import { BRAND_NAME } from '@shared/config/brand'
+import { TRACKMATE } from '@shared/styles/colors'
 
 interface NotFoundProps {
     text: string

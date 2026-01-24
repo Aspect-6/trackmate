@@ -1,4 +1,4 @@
-import { auth, googleAuthProvider } from "@shared/lib/firebase"
+import { auth, googleAuthProvider } from "@shared/lib"
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,

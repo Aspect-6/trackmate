@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import type { LucideIcon } from 'lucide-react'
-import { TRACKMATE } from '../../styles/colors'
-import { useHover } from '../../hooks/ui/useHover'
+import { TRACKMATE } from '@shared/styles/colors'
+import { useHover } from '@shared/hooks/ui/useHover'
 
 interface SidebarTabProps {
     label: string

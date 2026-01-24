@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signInWithPopup } from 'firebase/auth'
-import { auth, googleAuthProvider } from '@shared/lib/firebase'
+import { auth, googleAuthProvider } from '@shared/lib'
 import { GLOBAL } from '@/app/styles/colors'
 
 const DevLogin: React.FC = () => {

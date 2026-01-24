@@ -1,5 +1,5 @@
 import React from 'react'
-import { TRACKMATE_MODALS } from '../../styles/colors'
+import { TRACKMATE_MODALS } from '@shared/styles/colors'
 
 export interface ModalBodyTextProps {
     children: React.ReactNode

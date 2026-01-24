@@ -1,11 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import { User, onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../lib/firebase'
-
-interface AuthContextType {
-    user: User | null
-    loading: boolean
-}
+import { auth } from '@shared/lib'
+import type { AuthContextType } from '@shared/types/AuthContext'
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 

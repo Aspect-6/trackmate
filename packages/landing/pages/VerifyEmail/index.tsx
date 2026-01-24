@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { auth } from '@shared/lib/firebase'
+import { auth } from '@shared/lib'
 import { sendUserEmailVerification } from '@/app/lib/auth'
 import { Title, FormDivider, HomeLink } from '@/app/components/AuthForm'
 import { AUTH } from '@/app/styles/colors'
