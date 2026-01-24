@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore"
 
 export const app = initializeApp({
     apiKey: "AIzaSyBJOCTTREW16d0xFHrCXUCDfqIcBCWYgv4",
-    authDomain: "trackmate-fb7cd.firebaseapp.com",
+    authDomain: "trackmate.co",
     projectId: "trackmate-fb7cd",
     storageBucket: "trackmate-fb7cd.firebasestorage.app",
     messagingSenderId: "308955083111",
