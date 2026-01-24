@@ -38,6 +38,7 @@ const DeleteAccountCard: React.FC<DataSection.Content.DeleteAccountCardProps> = 
                         <p className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>
                             Once you delete your account, all your data will be permanently removed.
                             This includes your profile, settings, and any associated information.
+                            You will no longer have access to any of TrackMate.
                         </p>
                     </div>
                 </div>
