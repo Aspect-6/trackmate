@@ -13,6 +13,10 @@
 			},
 
 			{
+				"source": "/action/*",
+				"destination": "/index.html"
+			},
+			{
 				"source": "/sign-in",
 				"destination": "/index.html"
 			},
@@ -25,7 +29,7 @@
 				"destination": "/index.html"
 			},
 			{
-				"source": "/*",
+				"source": "/**",
 				"destination": "/index.html"
 			}
 		]
