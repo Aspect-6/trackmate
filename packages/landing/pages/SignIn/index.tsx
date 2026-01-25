@@ -126,9 +126,12 @@ const SignIn: React.FC = () => {
                         )}
                     </FormField>
 
-                    <FormCheckbox checked={showPassword} onChange={setShowPassword}>
-                        Show password
-                    </FormCheckbox>
+                    <div className="flex items-center justify-between">
+                        <FormCheckbox checked={showPassword} onChange={setShowPassword}>
+                            Show password
+                        </FormCheckbox>
+                        <FormLink href="/forgot-password">Forgot password?</FormLink>
+                    </div>
 
                     {errors.root && (
                         <div className="text-sm text-center" style={{ color: AUTH.TEXT_DANGER }}>

@@ -15,7 +15,7 @@ const FormLink: React.FC<FormLinkProps> = ({ href, children }) => {
     return (
         <button
             onClick={() => navigate(href)}
-            className="font-medium transition-all duration-200"
+            className="font-medium text-sm transition-all duration-200"
             style={{
                 color: AUTH.FOCUS_COLOR,
                 filter: isHovered ? 'brightness(1.2)' : 'none',
