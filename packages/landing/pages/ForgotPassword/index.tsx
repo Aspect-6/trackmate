@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { sendPasswordResetEmail, fetchSignInMethodsForEmail } from 'firebase/auth'
+import { sendPasswordResetEmail } from 'firebase/auth'
 import { auth } from '@shared/lib'
 import { Title, FormField, FormFieldLabel, FormFieldTextInput, HomeLink, FormLink } from '@/app/components/AuthForm'
 import { useForm } from 'react-hook-form'
@@ -23,14 +23,7 @@ const ForgotPassword: React.FC = () => {
     const onSubmit = async (data: ForgotPasswordFormData) => {
         setLoading(true)
         try {
-            const signInMethods = await fetchSignInMethodsForEmail(auth, data.email)
-            
-            if (!signInMethods.includes('password')) {
-                setSentEmail(data.email)
-                setEmailSent(true)
-                setLoading(false)
-                return
-            }
+
 
             await sendPasswordResetEmail(auth, data.email)
             setSentEmail(data.email)
@@ -71,8 +64,8 @@ const ForgotPassword: React.FC = () => {
 
                 {!emailSent ? (
                     <>
-                        <p 
-                            className="mt-10 text-sm text-center mb-6 max-w-xs mx-auto" 
+                        <p
+                            className="mt-10 text-sm text-center mb-6 max-w-xs mx-auto"
                             style={{ color: AUTH.TEXT_SECONDARY }}
                         >
                             Enter your email address here and we'll send you a link to reset your password.
