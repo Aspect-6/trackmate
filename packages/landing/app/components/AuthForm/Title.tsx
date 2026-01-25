@@ -8,7 +8,7 @@ interface TitleProps {
 
 const Title: React.FC<TitleProps> = ({ children }) => {
     return (
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
             <h1
                 className="text-3xl font-bold tracking-tight"
                 style={{ color: AUTH.TEXT_PRIMARY }}
