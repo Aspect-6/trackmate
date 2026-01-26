@@ -14,12 +14,12 @@
 		"lint:academic": "npm run lint --workspace packages/academic",
 		"lint:all": "npm run lint --workspace packages/landing && npm run lint --workspace packages/academic",
 		"preview:landing": "npm run preview --workspace packages/landing",
-		"preview:academic": "npm run preview --workspace packages/academic"
+		"preview:academic": "npm run preview --workspace packages/academic",
+		"deploy": "npm run build:all && firebase deploy"
 	},
 	"type": "module",
 	"homepage": "https://trackmate.co",
 	"devDependencies": {
-		"@eslint/js": "^9.39.1",
 		"@types/node": "^24.10.1",
 		"@types/react": "^19.2.5",
 		"@types/react-dom": "^19.2.3",
@@ -27,8 +27,8 @@
 		"eslint": "^9.39.1",
 		"eslint-plugin-react-hooks": "^7.0.1",
 		"eslint-plugin-react-refresh": "^0.4.24",
-		"globals": "^16.5.0",
 		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.53.1",
 		"vite": "^7.2.4"
 	},
 	"dependencies": {
