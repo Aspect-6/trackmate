@@ -54,7 +54,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
                 })
             }
         }
-    }, [])
+    }, [eventId, events, isEditMode])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

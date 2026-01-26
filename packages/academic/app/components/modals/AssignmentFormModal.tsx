@@ -80,7 +80,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
                 })
             }
         }
-    }, [])
+    }, [assignmentId, assignments, isEditMode])
 
     // Select a class for an assignment if not set (only for Add Assignment)
     useEffect(() => {

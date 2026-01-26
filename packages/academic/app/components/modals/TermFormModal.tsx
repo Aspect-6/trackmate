@@ -70,7 +70,7 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                 q4Start: springSemester?.quarters?.find(q => q.name === 'Q4')?.startDate || '',
             })
         }
-    }, [])
+    }, [existingTerm, fallSemester, springSemester, isEditMode])
 
     if (isEditMode && !existingTerm) return null
 

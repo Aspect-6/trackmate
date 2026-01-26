@@ -44,7 +44,7 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
                 })
             }
         }
-    }, [])
+    }, [isEditMode, noSchoolId, noSchoolPeriods])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
