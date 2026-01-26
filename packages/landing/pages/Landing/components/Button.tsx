@@ -6,15 +6,16 @@ interface ButtonProps {
     onClick: () => void
     children: React.ReactNode
     variant?: 'primary' | 'secondary'
+    className?: string
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, children, variant = 'primary' }) => {
+const Button: React.FC<ButtonProps> = ({ onClick, children, variant = 'primary', className }) => {
     const { isHovered, hoverProps } = useHover()
     const isPrimary = variant === 'primary'
 
     return (
         <button
-            className="py-2.5 px-5 md:py-3.5 md:px-8 rounded-xl cursor-pointer text-sm font-semibold transition-all duration-200"
+            className={`py-2.5 px-5 md:py-3.5 md:px-8 rounded-xl cursor-pointer text-sm font-semibold transition-all duration-200 ${className}`}
             style={{
                 border: isPrimary ? '1px solid transparent' : `1px solid ${LANDING.BORDER_SECONDARY}`,
                 backgroundColor: isPrimary
