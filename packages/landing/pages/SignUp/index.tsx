@@ -29,7 +29,7 @@ const SignUp: React.FC = () => {
         if (error) {
             switch (error.code) {
                 case 'auth/email-already-in-use':
-                    setError('email', { message: 'This email is already registered. Please sign in.' })
+                    setError('root', { message: 'Failed to create account. Please try again' })
                     break
                 default:
                     setError('root', { message: 'Failed to create account. Please try again' })
