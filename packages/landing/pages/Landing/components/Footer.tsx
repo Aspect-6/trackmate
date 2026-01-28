@@ -1,11 +1,8 @@
 import React from 'react'
+import type { Landing } from '@/pages/Landing/types'
 import { LANDING } from '@/app/styles/colors'
 
-interface FooterProps {
-    children: React.ReactNode
-}
-
-const Footer: React.FC<FooterProps> = ({ children }) => {
+const Footer: React.FC<Landing.Footer.Props> = ({ children }) => {
     return (
         <footer
             className='lg:mx-15 self-stretch'

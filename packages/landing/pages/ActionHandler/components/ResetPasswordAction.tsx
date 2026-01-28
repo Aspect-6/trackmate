@@ -1,25 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { verifyPasswordResetCode, confirmPasswordReset } from 'firebase/auth'
-import { auth } from '@shared/lib'
-import { Title, HomeLink, FormField, FormFieldLabel, FormFieldTextInput, FormCheckbox } from '@/app/components/AuthForm'
-import { AUTH } from '@/app/styles/colors'
-import { CheckCircle, XCircle, Loader2 } from 'lucide-react'
 import { useHover } from '@shared/hooks/ui/useHover'
 import { useForm } from 'react-hook-form'
+import type { ActionHandler } from '@/pages/ActionHandler/types'
+import { auth } from '@shared/lib'
+import { Title, HomeLink, FormField, FormFieldLabel, FormFieldTextInput, FormCheckbox } from '@/app/components/AuthForm'
+import { CheckCircle, XCircle, Loader2 } from 'lucide-react'
+import { AUTH } from '@/app/styles/colors'
 
 type ResetState = 'loading' | 'form' | 'success' | 'error'
 
-interface ResetPasswordActionProps {
-    oobCode: string
-}
-
-interface ResetPasswordFormData {
-    password: string
-    confirmPassword: string
-}
-
-const ResetPasswordAction: React.FC<ResetPasswordActionProps> = ({ oobCode }) => {
+const ResetPasswordAction: React.FC<ActionHandler.ResetPasswordAction.Props> = ({ oobCode }) => {
     const navigate = useNavigate()
     const [state, setState] = useState<ResetState>('loading')
     const [errorMessage, setErrorMessage] = useState<string>('')
@@ -28,7 +20,7 @@ const ResetPasswordAction: React.FC<ResetPasswordActionProps> = ({ oobCode }) =>
     const [submitting, setSubmitting] = useState(false)
     const { isHovered, hoverProps } = useHover()
     
-    const { register, handleSubmit, formState: { errors }, setError } = useForm<ResetPasswordFormData>()
+    const { register, handleSubmit, formState: { errors }, setError } = useForm<ActionHandler.ResetPasswordAction.FormData>()
 
     useEffect(() => {
         let isMounted = true
@@ -69,7 +61,7 @@ const ResetPasswordAction: React.FC<ResetPasswordActionProps> = ({ oobCode }) =>
         return () => { isMounted = false }
     }, [oobCode])
 
-    const onSubmit = async (data: ResetPasswordFormData) => {
+    const onSubmit = async (data: ActionHandler.ResetPasswordAction.FormData) => {
         if (data.password !== data.confirmPassword) {
             setError('confirmPassword', { message: 'Passwords do not match' })
             return

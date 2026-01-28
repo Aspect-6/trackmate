@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { applyActionCode } from 'firebase/auth'
+import { useHover } from '@shared/hooks/ui/useHover'
+import type { ActionHandler } from '@/pages/ActionHandler/types'
 import { auth } from '@shared/lib'
 import { Title, HomeLink } from '@/app/components/AuthForm'
-import { AUTH } from '@/app/styles/colors'
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react'
-import { useHover } from '@shared/hooks/ui/useHover'
+import { AUTH } from '@/app/styles/colors'
 
 type VerificationState = 'loading' | 'success' | 'error'
 
-interface VerifyEmailActionProps {
-    oobCode: string
-}
-
-const VerifyEmailAction: React.FC<VerifyEmailActionProps> = ({ oobCode }) => {
+const VerifyEmailAction: React.FC<ActionHandler.VerifyEmailAction.Props> = ({ oobCode }) => {
     const navigate = useNavigate()
     const [state, setState] = useState<VerificationState>('loading')
     const [errorMessage, setErrorMessage] = useState<string>('')

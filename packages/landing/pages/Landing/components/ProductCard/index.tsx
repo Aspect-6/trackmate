@@ -1,4 +1,5 @@
 import React from 'react'
+import type { Landing } from '@/pages/Landing/types'
 import { LANDING } from '@/app/styles/colors'
 import ProductCardIcon from './ProductCardIcon'
 import ProductCardTitle from './ProductCardTitle'
@@ -6,16 +7,7 @@ import ProductCardDescription from './ProductCardDescription'
 import ProductCardLaunchButton from './ProductCardLaunchButton'
 import ComingSoonBadge from './ComingSoonBadge'
 
-interface ProductCardProps {
-    title: string
-    description: string
-    icon: React.ReactNode
-    href: string
-    accentColor: string
-    comingSoon?: boolean
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({ title, description, icon, href, accentColor, comingSoon = false }) => {
+const ProductCard: React.FC<Landing.ProductCard.Props> = ({ title, description, icon, href, accentColor, comingSoon = false }) => {
     return (
         <div
             className="py-10 px-8 rounded-2xl shadow-md flex flex-col items-center text-center relative"

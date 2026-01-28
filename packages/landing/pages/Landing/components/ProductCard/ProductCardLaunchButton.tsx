@@ -1,13 +1,10 @@
 import React from 'react'
 import { useHover } from '@shared/hooks/ui/useHover'
+import type { Landing } from '@/pages/Landing/types'
 import { LANDING } from '@/app/styles/colors'
 import ArrowRight from '@/pages/Landing/assets/arrow-right.svg?react'
 
-interface ProductCardLaunchButtonProps {
-    href: string
-}
-
-const ProductCardLaunchButton: React.FC<ProductCardLaunchButtonProps> = ({ href }) => {
+const ProductCardLaunchButton: React.FC<Landing.ProductCard.ProductCardLaunchButton.Props> = ({ href }) => {
     const { isHovered, hoverProps } = useHover()
 
     return (

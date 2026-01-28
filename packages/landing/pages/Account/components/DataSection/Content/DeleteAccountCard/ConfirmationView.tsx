@@ -1,16 +1,10 @@
 import React from 'react'
 import { Trash2, AlertTriangle, X } from 'lucide-react'
-import { AUTH } from '@/app/styles/colors'
 import { useHover } from '@shared/hooks/ui/useHover'
+import type { Account } from '@/pages/Account/types'
+import { AUTH } from '@/app/styles/colors'
 
-interface ConfirmationViewProps {
-    error?: string
-    loading: boolean
-    onConfirmDelete: () => void
-    onCancelDelete: () => void
-}
-
-export const ConfirmationView: React.FC<ConfirmationViewProps> = ({
+export const ConfirmationView: React.FC<Account.DataSection.Content.DeleteAccountCard.ConfirmationView.Props> = ({
     error,
     loading,
     onConfirmDelete,

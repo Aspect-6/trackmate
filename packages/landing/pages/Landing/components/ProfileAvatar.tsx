@@ -1,14 +1,9 @@
 import React from 'react'
 import { User } from 'firebase/auth'
+import type { Landing } from '@/pages/Landing/types'
 import { AUTH } from '@/app/styles/colors'
 
-interface ProfileAvatarProps {
-    user: User
-    onClick?: () => void
-    className?: string
-}
-
-const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ user, onClick, className = '' }) => {
+const ProfileAvatar: React.FC<Landing.ProfileAvatar.Props> = ({ user, onClick, className = '' }) => {
     if (user.photoURL) return (
         <img
             src={user.photoURL}

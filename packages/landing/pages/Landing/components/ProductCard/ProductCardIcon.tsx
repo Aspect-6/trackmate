@@ -1,12 +1,8 @@
 import React from 'react'
+import type { Landing } from '@/pages/Landing/types'
 import { LANDING } from '@/app/styles/colors'
 
-interface ProductCardIconProps {
-    icon: React.ReactNode
-    accentColor: string
-}
-
-const ProductCardIcon: React.FC<ProductCardIconProps> = ({ icon, accentColor }) => {
+const ProductCardIcon: React.FC<Landing.ProductCard.ProductCardIcon.Props> = ({ icon, accentColor }) => {
     return (
         <div
             className="w-20 h-20 rounded-full flex items-center justify-center mb-6"
