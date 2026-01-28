@@ -1,4 +1,4 @@
-import { auth, googleAuthProvider } from "@shared/lib"
+import { auth, googleAuthProvider, facebookAuthProvider } from "@shared/lib"
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -15,6 +15,7 @@ import {
     reauthenticateWithCredential,
     EmailAuthProvider,
     GoogleAuthProvider,
+    FacebookAuthProvider,
     User
 } from "firebase/auth"
 
@@ -32,6 +33,31 @@ export const signUpGoogle = async (): Promise<User | null> => {
         if (userCredential.user.providerData.length > 1) {
             try {
                 await unlink(userCredential.user, GoogleAuthProvider.PROVIDER_ID)
+            } catch (unlinkError) {
+                if (import.meta.env.DEV) {
+                    console.error("Failed to unlink provider during rollback", unlinkError)
+                }
+            }
+        }
+
+        await signOut(auth)
+        throw {
+            code: "auth/email-already-in-use",
+            message: "Account already exists. Please sign in."
+        }
+    }
+
+    return userCredential.user
+}
+
+export const signUpFacebook = async (): Promise<User | null> => {
+    const userCredential = await signInWithPopup(auth, facebookAuthProvider)
+    const additionalInfo = getAdditionalUserInfo(userCredential)
+
+    if (!additionalInfo?.isNewUser) {
+        if (userCredential.user.providerData.length > 1) {
+            try {
+                await unlink(userCredential.user, FacebookAuthProvider.PROVIDER_ID)
             } catch (unlinkError) {
                 if (import.meta.env.DEV) {
                     console.error("Failed to unlink provider during rollback", unlinkError)
@@ -71,6 +97,35 @@ export const signInGoogle = async (): Promise<User | null> => {
         const googleProvider = user.providerData.find(p => p.providerId === GoogleAuthProvider.PROVIDER_ID)
 
         if (hasEmailPassword && googleProvider && user.photoURL === googleProvider.photoURL) {
+            try {
+                await updateProfile(user, { photoURL: null })
+            } catch (error) {
+                if (import.meta.env.DEV) {
+                    console.error("Failed to revert profile picture", error)
+                }
+            }
+        }
+    }
+
+    return userCredential.user
+}
+
+export const signInFacebook = async (): Promise<User | null> => {
+    const userCredential = await signInWithPopup(auth, facebookAuthProvider)
+    const additionalInfo = getAdditionalUserInfo(userCredential)
+
+    if (additionalInfo?.isNewUser) {
+        await deleteUser(userCredential.user)
+        throw {
+            code: "auth/account-not-found",
+            message: "No account exists with this Facebook account. Please sign up first."
+        }
+    } else {
+        const user = userCredential.user
+        const hasEmailPassword = user.providerData.some(p => p.providerId === EmailAuthProvider.PROVIDER_ID)
+        const facebookProvider = user.providerData.find(p => p.providerId === FacebookAuthProvider.PROVIDER_ID)
+
+        if (hasEmailPassword && facebookProvider && user.photoURL === facebookProvider.photoURL) {
             try {
                 await updateProfile(user, { photoURL: null })
             } catch (error) {
@@ -126,6 +181,16 @@ export const linkGoogleAccount = async (): Promise<void> => {
 export const unlinkGoogleAccount = async (): Promise<void> => {
     if (!auth.currentUser) throw new Error("No user signed in")
     await unlink(auth.currentUser, "google.com")
+}
+
+export const linkFacebookAccount = async (): Promise<void> => {
+    if (!auth.currentUser) throw new Error("No user signed in")
+    await linkWithPopup(auth.currentUser, facebookAuthProvider)
+}
+
+export const unlinkFacebookAccount = async (): Promise<void> => {
+    if (!auth.currentUser) throw new Error("No user signed in")
+    await unlink(auth.currentUser, "facebook.com")
 }
 
 // Email Verification

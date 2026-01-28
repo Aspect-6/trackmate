@@ -14,7 +14,7 @@ interface SignUpFormData {
 
 const SignUp: React.FC = () => {
     const { register, handleSubmit, watch, trigger, setError, clearErrors, formState: { errors, touchedFields } } = useForm<SignUpFormData>()
-    const { signUpWithEmailAndPassword, signUpWithGoogle, sendVerificationEmail, loading } = useSignUp()
+    const { signUpWithEmailAndPassword, signUpWithGoogle, signUpWithFacebook, sendVerificationEmail, loading } = useSignUp()
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
 
@@ -58,6 +58,31 @@ const SignUp: React.FC = () => {
                     break
                 default:
                     setError('root', { message: 'Failed to sign up with Google. Please try again.' })
+            }
+        }
+    }
+
+    const handleFacebookSignUp = async () => {
+        clearErrors()
+        const { user, error } = await signUpWithFacebook()
+        if (user) {
+            navigate('/account')
+            return
+        }
+
+        if (error) {
+            switch (error.code) {
+                case 'auth/user-cancelled':
+                    setError('root', { message: 'Facebook sign-up was cancelled' })
+                    break
+                case 'auth/popup-closed-by-user':
+                    setError('root', { message: 'Facebook sign-up window was closed' })
+                    break
+                case 'auth/popup-blocked':
+                    setError('root', { message: 'Facebook sign-up window was blocked' })
+                    break
+                default:
+                    setError('root', { message: 'Failed to sign up with Facebook. Please try again.' })
             }
         }
     }
@@ -169,7 +194,7 @@ const SignUp: React.FC = () => {
 
                 <FormDivider />
 
-                <SocialButtons onGoogleClick={handleGoogleSignUp} />
+                <SocialButtons onGoogleClick={handleGoogleSignUp} onFacebookClick={handleFacebookSignUp} />
 
                 <p
                     className="mt-6 text-center text-sm"

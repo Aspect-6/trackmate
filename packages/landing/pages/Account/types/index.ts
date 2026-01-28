@@ -31,17 +31,12 @@ export namespace ProfileSection {
 // LinkedAccountsSection props
 export namespace LinkedAccountsSection {
     export namespace Content {
-        export interface GoogleProviderRowProps {
-            isLinked: boolean
-            canUnlink: boolean
-            loading: boolean
-            onLink: () => void
-            onUnlink: () => void
-        }
-
-        export interface EmailPasswordRowProps {
-            isActive: boolean
-            email: string | null
+        export interface ProviderRowProps {
+            title: string
+            description: React.ReactNode
+            icon: React.ReactNode
+            iconBackgroundColor?: string
+            action: React.ReactNode
         }
 
         export interface ComingSoonRowProps {

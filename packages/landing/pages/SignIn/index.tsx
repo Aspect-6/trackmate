@@ -13,7 +13,7 @@ interface SignInFormData {
 
 const SignIn: React.FC = () => {
     const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm<SignInFormData>()
-    const { signInWithEmailAndPassword, signInWithGoogle, loading } = useSignIn()
+    const { signInWithEmailAndPassword, signInWithGoogle, signInWithFacebook, loading } = useSignIn()
     const [showPassword, setShowPassword] = useState(false)
 
     const navigate = useNavigate()
@@ -66,6 +66,34 @@ const SignIn: React.FC = () => {
                     break
                 default:
                     setError('root', { message: 'Failed to sign in with Google. Please try again.' })
+            }
+        }
+    }
+
+    const handleFacebookSignIn = async () => {
+        clearErrors()
+        const { user, error } = await signInWithFacebook()
+        if (user) {
+            navigate('/account')
+            return
+        }
+
+        if (error) {
+            switch (error.code) {
+                case 'auth/account-not-found':
+                    setError('root', { message: 'No account found. Please sign up first.' })
+                    break
+                case 'auth/user-cancelled':
+                    setError('root', { message: 'Facebook sign-in was cancelled' })
+                    break
+                case 'auth/popup-closed-by-user':
+                    setError('root', { message: 'Facebook sign-in window was closed' })
+                    break
+                case 'auth/popup-blocked':
+                    setError('root', { message: 'Facebook sign-in window was blocked' })
+                    break
+                default:
+                    setError('root', { message: 'Failed to sign in with Facebook. Please try again.' })
             }
         }
     }
@@ -146,7 +174,7 @@ const SignIn: React.FC = () => {
 
                 <FormDivider />
 
-                <SocialButtons onGoogleClick={handleGoogleSignIn} />
+                <SocialButtons onGoogleClick={handleGoogleSignIn} onFacebookClick={handleFacebookSignIn} />
 
                 <p
                     className="mt-6 text-center text-sm"

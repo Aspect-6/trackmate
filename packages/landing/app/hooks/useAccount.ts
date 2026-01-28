@@ -5,7 +5,9 @@ import {
     updateUserDisplayName,
     deleteUserAccount,
     linkGoogleAccount,
-    unlinkGoogleAccount
+    unlinkGoogleAccount,
+    linkFacebookAccount,
+    unlinkFacebookAccount
 } from "@/app/lib/auth"
 import type { AuthError } from "@/app/types"
 
@@ -50,6 +52,12 @@ export const useAccount = () => {
     const unlinkGoogle = () =>
         attempt(() => unlinkGoogleAccount())
 
+    const linkFacebook = () =>
+        attempt(() => linkFacebookAccount())
+
+    const unlinkFacebook = () =>
+        attempt(() => unlinkFacebookAccount())
+
     return {
         changePassword,
         changeEmail,
@@ -57,6 +65,8 @@ export const useAccount = () => {
         deleteAccount,
         linkGoogle,
         unlinkGoogle,
+        linkFacebook,
+        unlinkFacebook,
         loading
     }
 }

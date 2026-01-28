@@ -1,4 +1,4 @@
-import { signInEmailAndPassword, signInGoogle } from "@/app/lib/auth"
+import { signInEmailAndPassword, signInGoogle, signInFacebook } from "@/app/lib/auth"
 import { useAuthLoader } from "./useAuthLoader"
 
 export const useSignIn = () => {
@@ -10,5 +10,8 @@ export const useSignIn = () => {
     const signInWithGoogle = () =>
         attempt(() => signInGoogle())
 
-    return { signInWithEmailAndPassword, signInWithGoogle, loading }
+    const signInWithFacebook = () =>
+        attempt(() => signInFacebook())
+
+    return { signInWithEmailAndPassword, signInWithGoogle, signInWithFacebook, loading }
 }
