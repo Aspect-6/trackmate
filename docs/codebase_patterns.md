@@ -185,8 +185,11 @@ Imports must follow this strict order:
 
 1. React imports and third-party hooks first
 2. Context imports second
-3. `import type { ... }` for types third
-4. Other imports (colors, CSS, components)
+3. `import type { ... }` for types
+4. General function imports like from utilities or auth functions
+5. Component imports — Components from `@shared` are imported first and then others from the current package
+6. Second to last, or last if the final one is not present, is color imports
+7. CSS file imports
 
 **Example:**
 
@@ -199,15 +202,18 @@ import { DASHBOARD } from '@/app/styles/colors'
 
 ### Component Typing Pattern
 
-Props are defined using **TypeScript namespaces** in `types/index.ts`. Namespaces mirror the component hierarchy exactly.
+Props are defined using **TypeScript namespaces** in `types/index.ts`. Namespaces mirror the component hierarchy exactly, and follow the comment and spacing convention shown in the example below:
 
-```typescript
+```ts
 export namespace TodaysClasses {
     export interface Props { ... }
     // ======================
+
     export interface HeaderProps { ... }
+    
     export namespace Body {
         export interface Props { ... }
+
         // ======================
         export namespace ClassList {
             export interface Props { ... }
@@ -217,6 +223,8 @@ export namespace TodaysClasses {
     }
 }
 ```
+**Note:** The spacing and comments are important for code readability and maintainability.
+Top level namespaces always have one blank line between each item within it. Items nested one level still follow that same rule. Items nested two levels deep or more should have no blank lines between them.
 
 Components reference their props like:
 
