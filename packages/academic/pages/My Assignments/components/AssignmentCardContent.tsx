@@ -34,7 +34,7 @@ const AssignmentCardContent: React.FC<AssignmentCardContentProps> = ({
 						className="text-xs font-medium"
 						style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY }}
 					>
-						Due: {formatDate('short', assignment.dueDate)}
+						{assignment.type === 'Test' ? 'On' : 'Due'}: {formatDate('short', assignment.dueDate)}
 					</span>
 					<PriorityBadge
 						priority={assignment.priority}
