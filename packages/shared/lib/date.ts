@@ -43,6 +43,24 @@ export const formatDate = (format: DateFormat, dateString: string): string => {
 }
 
 /**
+ * Formats a date string with relative terms for Today/Tomorrow.
+ * @param format - The date format to use if not Today/Tomorrow.
+ * @param dateString - The date string in 'YYYY-MM-DD' format.
+ * @returns "Today", "Tomorrow", or the formatted date string.
+ */
+export const formatDateRelative = (format: DateFormat, dateString: string): string => {
+    if (!dateString) return ''
+
+    const today = todayString()
+    const tomorrow = dateToLocalISOString(new Date(Date.now() + 86400000))
+
+    if (dateString === today) return 'Today'
+    if (dateString === tomorrow) return 'Tomorrow'
+
+    return formatDate(format, dateString)
+}
+
+/**
  * Formats a 24-hour time string to 12-hour format with AM/PM.
  * @param time - The time string in 'HH:MM' format (e.g., '14:30').
  * @returns The formatted time string (e.g., '2:30 PM'), or empty string if invalid.
