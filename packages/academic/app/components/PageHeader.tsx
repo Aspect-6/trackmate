@@ -1,17 +1,13 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { Plus, Menu } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { useModal } from '@/app/contexts/ModalContext'
 import { getRouteByPath, DEFAULT_ROUTE } from '@/app/config/paths'
 import { GLOBAL } from '@/app/styles/colors'
 import { useHeaderAction } from '@/app/hooks/ui/useHeaderAction'
 import { useHover } from '@shared/hooks/ui/useHover'
 
-interface PageHeaderProps {
-    onMenuClick: () => void
-}
-
-const PageHeader: React.FC<PageHeaderProps> = ({ onMenuClick }) => {
+const PageHeader: React.FC = () => {
     const location = useLocation()
     const { openModal } = useModal()
 
@@ -24,19 +20,9 @@ const PageHeader: React.FC<PageHeaderProps> = ({ onMenuClick }) => {
 
     return (
         <header className="mb-8 pb-4 flex justify-between items-center gap-3 flex-shrink-0" style={{ borderBottom: `1px solid ${GLOBAL.HEADER_DIVIDER}` }}>
-            <div className="flex items-center min-w-0 gap-3">
-                <button
-                    onClick={onMenuClick}
-                    className="lg:hidden focus:outline-none transition-colors -ml-2"
-                    onTouchStart={(e) => e.currentTarget.style.color = GLOBAL.TEXT_PRIMARY}
-                    onTouchEnd={(e) => e.currentTarget.style.color = GLOBAL.TEXT_SECONDARY}
-                >
-                    <Menu className="w-7 h-7" />
-                </button>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold truncate" style={{ color: GLOBAL.GLOBAL_ACCENT }}>
-                    {currentRoute.title}
-                </h1>
-            </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold truncate" style={{ color: GLOBAL.GLOBAL_ACCENT }}>
+                {currentRoute.title}
+            </h1>
             <button
                 onClick={() => openModal(addButton.modal)}
                 className="flex items-center py-2 px-3 sm:px-4 border border-transparent rounded-lg shadow-sm text-xs sm:text-sm font-medium text-white transition duration-150 ease-in-out whitespace-nowrap flex-shrink-0"

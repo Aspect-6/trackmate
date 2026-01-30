@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import PageHeader from '@/app/components/PageHeader'
 import Sidebar from '@/app/components/Sidebar'
+import FloatingMenuButton from '@/app/components/FloatingMenuButton'
 import { GLOBAL } from '@/app/styles/colors'
 import { PATHS } from '@/app/config/paths'
 
@@ -45,9 +46,14 @@ const Layout: React.FC = () => {
             <Sidebar variant="mobile" isOpen={isMobileSidebarOpen} onClose={() => setIsMobileSidebarOpen(false)} />
 
             <main className={`content-area flex-grow min-w-0 w-full p-6 lg:p-8 flex flex-col ${isFixedViewportPage && "h-full overflow-hidden"}`}>
-                <PageHeader onMenuClick={() => setIsMobileSidebarOpen(true)} />
+                <PageHeader />
                 <Outlet />
             </main>
+
+            <FloatingMenuButton
+                onClick={() => setIsMobileSidebarOpen(prev => !prev)}
+                isOpen={isMobileSidebarOpen}
+            />
         </div>
     )
 }

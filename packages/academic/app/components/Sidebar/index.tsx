@@ -29,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ variant, isOpen, onClose }) => {
         >
             <SidebarHeader
                 isMobile={isMobile}
-                onClose={onClose}
+                // onClose is intentionally omitted to hide the default close button
                 brandName={BRAND_NAME}
                 subtitle="Academic"
                 accentColor={GLOBAL.GLOBAL_ACCENT}
