@@ -43,6 +43,23 @@ export const formatDate = (format: DateFormat, dateString: string): string => {
 }
 
 /**
+ * Formats a 24-hour time string to 12-hour format with AM/PM.
+ * @param time - The time string in 'HH:MM' format (e.g., '14:30').
+ * @returns The formatted time string (e.g., '2:30 PM'), or empty string if invalid.
+ */
+export const formatTime = (time: string): string => {
+    if (!time) return ''
+    const [hoursStr, minutesStr] = time.split(':')
+    const hours = parseInt(hoursStr ?? '', 10)
+    const minutes = parseInt(minutesStr ?? '', 10)
+    if (isNaN(hours) || isNaN(minutes)) return ''
+
+    const period = hours >= 12 ? 'PM' : 'AM'
+    const hours12 = hours % 12 || 12
+    return `${hours12}:${String(minutes).padStart(2, '0')} ${period}`
+}
+
+/**
  * Parses a 'YYYY-MM-DD' string into a Date object in local time.
  * @param dateString - The date string to parse.
  * @returns The parsed Date object. Returns current date if parsing fails.

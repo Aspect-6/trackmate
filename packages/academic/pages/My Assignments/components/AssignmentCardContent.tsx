@@ -1,7 +1,7 @@
 import React from "react"
 import type { AssignmentCardContentProps } from "@/pages/My Assignments/types"
 import { GripVertical } from "lucide-react"
-import { formatDate } from "@shared/lib"
+import { formatDate, formatTime } from "@shared/lib"
 import { MY_ASSIGNMENTS } from "@/app/styles/colors"
 import PriorityBadge from "@/app/components/PriorityBadge"
 
@@ -11,6 +11,9 @@ const AssignmentCardContent: React.FC<AssignmentCardContentProps> = ({
 	className,
 	showGrip = false,
 }) => {
+	const dateLabel = assignment.type === 'Test' ? 'On' : 'Due'
+	const showTime = assignment.dueTime && assignment.dueTime !== '23:59'
+
 	return (
 		<>
 			{showGrip && (
@@ -34,7 +37,7 @@ const AssignmentCardContent: React.FC<AssignmentCardContentProps> = ({
 						className="text-xs font-medium"
 						style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY }}
 					>
-						{assignment.type === 'Test' ? 'On' : 'Due'}: {formatDate('short', assignment.dueDate)}
+						{dateLabel}: {formatDate('short', assignment.dueDate)}{showTime && ` at ${formatTime(assignment.dueTime)}`}
 					</span>
 					<PriorityBadge
 						priority={assignment.priority}
