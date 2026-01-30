@@ -1,19 +1,22 @@
 import React from 'react'
 import { Menu, X } from 'lucide-react'
-import { GLOBAL } from '@/app/styles/colors'
-import { useHover } from '@shared/hooks/ui/useHover'
+import { useHover } from '../hooks/ui/useHover'
 
 interface FloatingMenuButtonProps {
     onClick: () => void
     isOpen?: boolean
+    backgroundColor: string
+    hoverColor: string
+    iconColor?: string
 }
 
-/**
- * A floating action button (FAB) for opening the mobile sidebar.
- * Positioned at the bottom-left corner of the screen, only visible on mobile.
- * Hides when the sidebar is open to avoid overlapping sidebar content.
- */
-const FloatingMenuButton: React.FC<FloatingMenuButtonProps> = ({ onClick, isOpen = false }) => {
+const FloatingMenuButton: React.FC<FloatingMenuButtonProps> = ({
+    onClick,
+    isOpen = false,
+    backgroundColor,
+    hoverColor,
+    iconColor = '#fff'
+}) => {
     const { isHovered, hoverProps } = useHover()
 
     // Animate position: Left (closed) -> Right (open)
@@ -24,8 +27,8 @@ const FloatingMenuButton: React.FC<FloatingMenuButtonProps> = ({ onClick, isOpen
             onClick={onClick}
             className={`lg:hidden fixed bottom-6 z-40 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out active:scale-95 ${isOpen ? 'z-[60]' : 'z-40'}`}
             style={{
-                backgroundColor: isHovered ? GLOBAL.ADDITEM_BUTTON_BG_HOVER : GLOBAL.ADDITEM_BUTTON_BG,
-                color: '#fff',
+                backgroundColor: isHovered ? hoverColor : backgroundColor,
+                color: iconColor,
                 left: leftPosition
             }}
             aria-label={isOpen ? "Close menu" : "Open menu"}

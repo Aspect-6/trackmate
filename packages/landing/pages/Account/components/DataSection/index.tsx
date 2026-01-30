@@ -5,12 +5,14 @@ import DeleteAccountCard from './Content/DeleteAccountCard'
 const DataSection: React.FC = () => {
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-2" style={{ color: AUTH.TEXT_PRIMARY }}>
-                Your Data
-            </h2>
-            <p className="mb-8" style={{ color: AUTH.TEXT_SECONDARY }}>
-                Manage your account data
-            </p>
+            <div className="mb-8 pb-4" style={{ borderBottom: `1px solid ${AUTH.BORDER_PRIMARY}` }}>
+                <h2 className="text-2xl font-bold mb-1" style={{ color: AUTH.TEXT_PRIMARY }}>
+                    Your Data
+                </h2>
+                <p style={{ color: AUTH.TEXT_SECONDARY }}>
+                    Manage your account data
+                </p>
+            </div>
             <DeleteAccountCard />
         </div>
     )

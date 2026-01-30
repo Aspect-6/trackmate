@@ -85,12 +85,14 @@ const LinkedAccountsSection: React.FC = () => {
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-2" style={{ color: AUTH.TEXT_PRIMARY }}>
-                Linked Accounts
-            </h2>
-            <p className="mb-8" style={{ color: AUTH.TEXT_SECONDARY }}>
-                Manage your connected sign-in methods
-            </p>
+            <div className="mb-8 pb-4" style={{ borderBottom: `1px solid ${AUTH.BORDER_PRIMARY}` }}>
+                <h2 className="text-2xl font-bold mb-1" style={{ color: AUTH.TEXT_PRIMARY }}>
+                    Linked Accounts
+                </h2>
+                <p style={{ color: AUTH.TEXT_SECONDARY }}>
+                    Manage your connected sign-in methods
+                </p>
+            </div>
             {hasPassword && (
                 <ProviderRow
                     title="Email & Password"

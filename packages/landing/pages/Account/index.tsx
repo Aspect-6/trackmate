@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Menu } from 'lucide-react'
 import { useAuth } from '@shared/contexts/AuthContext'
 import { useToast } from '@shared/contexts/ToastContext'
 import { signOutUser } from '@/app/lib/auth'
@@ -13,6 +12,7 @@ import LinkedAccountsSection from './components/LinkedAccountsSection'
 import SecuritySection from './components/SecuritySection'
 import DataSection from './components/DataSection'
 import { BRAND_NAME } from '@shared/config/brand'
+import FloatingMenuButton from '@shared/components/FloatingMenuButton'
 
 const Account: React.FC = () => {
     const { user, loading: userLoading } = useAuth()
@@ -78,15 +78,7 @@ const Account: React.FC = () => {
 
     return (
         <div className="min-h-dvh flex flex-col lg:flex-row" style={{ backgroundColor: AUTH.BACKGROUND_PRIMARY }}>
-            <div className="lg:hidden p-4 flex items-center border-b" style={{ borderColor: AUTH.BORDER_PRIMARY }}>
-                <button
-                    onClick={() => setIsMobileMenuOpen(true)}
-                    className="p-2 -ml-2 rounded-md hover:bg-gray-800 transition-colors"
-                    style={{ color: AUTH.TEXT_PRIMARY }}
-                >
-                    <Menu className="w-6 h-6" />
-                </button>
-            </div>
+
 
             <AccountSidebar
                 activeSection={activeSection}
@@ -104,6 +96,13 @@ const Account: React.FC = () => {
                     setIsMobileMenuOpen(false)
                 }}
                 onSignOut={handleSignOut}
+            />
+
+            <FloatingMenuButton
+                onClick={() => setIsMobileMenuOpen(prev => !prev)}
+                isOpen={isMobileMenuOpen}
+                backgroundColor={AUTH.GLOBAL_ACCENT}
+                hoverColor={AUTH.GLOBAL_ACCENT}
             />
 
             <main className="flex-1 px-6 py-8 lg:p-10">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import PageHeader from '@/app/components/PageHeader'
 import Sidebar from '@/app/components/Sidebar'
-import FloatingMenuButton from '@/app/components/FloatingMenuButton'
+import FloatingMenuButton from '@shared/components/FloatingMenuButton'
 import { GLOBAL } from '@/app/styles/colors'
 import { PATHS } from '@/app/config/paths'
 
@@ -53,6 +53,8 @@ const Layout: React.FC = () => {
             <FloatingMenuButton
                 onClick={() => setIsMobileSidebarOpen(prev => !prev)}
                 isOpen={isMobileSidebarOpen}
+                backgroundColor={GLOBAL.ADDITEM_BUTTON_BG}
+                hoverColor={GLOBAL.ADDITEM_BUTTON_BG_HOVER}
             />
         </div>
     )

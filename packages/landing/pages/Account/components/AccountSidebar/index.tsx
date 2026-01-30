@@ -29,7 +29,7 @@ const AccountSidebar: React.FC<AccountSidebarTypes.Props> = ({
         >
             <SidebarHeader
                 isMobile={isMobile}
-                onClose={onClose}
+                // onClose omitted to hide default close button
                 brandName={BRAND_NAME}
                 subtitle="Account"
                 accentColor={AUTH.GLOBAL_ACCENT}

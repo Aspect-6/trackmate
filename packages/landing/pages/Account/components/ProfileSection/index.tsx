@@ -12,12 +12,14 @@ const ProfileSection: React.FC = () => {
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-2" style={{ color: AUTH.TEXT_PRIMARY }}>
-                Profile
-            </h2>
-            <p className="mb-8" style={{ color: AUTH.TEXT_SECONDARY }}>
-                Your personal information
-            </p>
+            <div className="mb-8 pb-4" style={{ borderBottom: `1px solid ${AUTH.BORDER_PRIMARY}` }}>
+                <h2 className="text-2xl font-bold mb-1" style={{ color: AUTH.TEXT_PRIMARY }}>
+                    Profile
+                </h2>
+                <p style={{ color: AUTH.TEXT_SECONDARY }}>
+                    Your personal information
+                </p>
+            </div>
             <AvatarDisplay user={user} />
             <EmailRow user={user} />
             <AccountIdRow userId={user.uid} />
