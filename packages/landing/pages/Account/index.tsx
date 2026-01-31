@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom'
 import { useAuth } from '@shared/contexts/AuthContext'
 import { useToast } from '@shared/contexts/ToastContext'
+import { useRedirect } from '@shared/hooks/useRedirect'
 import { signOutUser } from '@/app/lib/auth'
 import { AUTH } from '@/app/styles/colors'
 import TrackMateLogo from '@shared/components/TrackMateLogo'
@@ -18,6 +19,8 @@ const Account: React.FC = () => {
     const { user, loading: userLoading } = useAuth()
     const { showToast } = useToast()
     const navigate = useNavigate()
+    const redirect = useRedirect()
+    const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()
 
     // Initialize active section from URL or default to 'profile'
@@ -31,17 +34,18 @@ const Account: React.FC = () => {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+    // Redirect to sign-in with return URL if not authenticated
     useEffect(() => {
         if (!userLoading && !user) {
-            navigate('/sign-in', { replace: true })
+            const currentPath = `${location.pathname}${location.search}${location.hash}`
+            redirect(`/sign-in?redirect=${encodeURIComponent(currentPath)}`)
         }
-    }, [user, userLoading, navigate])
+    }, [user, userLoading, redirect, location])
 
     // Check for verification requirement redirect
     useEffect(() => {
         if (searchParams.get('verificationRequired') === 'true') {
             showToast('Please verify your email before accessing the application', 'error')
-            // Remove the param to avoid showing toast again on refresh/nav
             setSearchParams(params => {
                 params.delete('verificationRequired')
                 return params

@@ -29,13 +29,19 @@ const RequireAuth: React.FC<RequireAuthProps> = ({
     }
 
     if (!user) {
+        // Build the current URL path to redirect back to after login
+        const currentPath = `${location.pathname}${location.search}${location.hash}`
+        const redirectParam = encodeURIComponent(currentPath)
+        const separator = redirectTo.includes('?') ? '&' : '?'
+        const redirectUrl = `${redirectTo}${separator}redirect=${redirectParam}`
+
         const isCrossSpaRedirect = location.pathname.startsWith('/academic') && !redirectTo.startsWith('/academic')
 
         if (redirectTo.startsWith('http') || isCrossSpaRedirect) {
-            window.location.replace(redirectTo)
+            window.location.replace(redirectUrl)
             return null
         }
-        return <Navigate to={redirectTo} state={{ from: location }} replace />
+        return <Navigate to={redirectUrl} replace />
     }
 
     if (requireEmailVerification && !user.emailVerified) {

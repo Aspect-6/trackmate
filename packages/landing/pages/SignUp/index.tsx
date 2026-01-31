@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useSignUp } from '@/app/hooks/useSignUp'
+import { useRedirect } from '@shared/hooks/useRedirect'
 import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, ProviderButtons, FormLink, HomeLink } from '@/app/components/AuthForm'
 import { BRAND_NAME } from '@shared/config/brand'
 import { AUTH } from '@/app/styles/colors'
@@ -16,13 +17,18 @@ const SignUp: React.FC = () => {
     const { register, handleSubmit, watch, trigger, setError, clearErrors, formState: { errors, touchedFields } } = useForm<SignUpFormData>()
     const { signUpWithEmailAndPassword, signUpWithGoogle, signUpWithFacebook, sendVerificationEmail, loading } = useSignUp()
     const [showPassword, setShowPassword] = useState(false)
-    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+    const redirectTo = searchParams.get('redirect') || '/account'
+    const redirect = useRedirect({ allowCrossApp: true })
 
     const onSubmit = async (data: SignUpFormData) => {
         const { user, error } = await signUpWithEmailAndPassword(data.email, data.password)
         if (user) {
             await sendVerificationEmail()
-            navigate('/verify-email')
+            const verifyUrl = redirectTo !== '/account'
+                ? `/verify-email?redirect=${encodeURIComponent(redirectTo)}`
+                : '/verify-email'
+            redirect(verifyUrl)
             return
         }
 
@@ -41,7 +47,7 @@ const SignUp: React.FC = () => {
         clearErrors()
         const { user, error } = await signUpWithGoogle()
         if (user) {
-            navigate('/account')
+            redirect(redirectTo)
             return
         }
 
@@ -66,7 +72,7 @@ const SignUp: React.FC = () => {
         clearErrors()
         const { user, error } = await signUpWithFacebook()
         if (user) {
-            navigate('/account')
+            redirect(redirectTo)
             return
         }
 
@@ -201,7 +207,7 @@ const SignUp: React.FC = () => {
                     style={{ color: AUTH.TEXT_SECONDARY }}
                 >
                     Already have an account?{' '}
-                    <FormLink href="/sign-in">Sign in</FormLink>
+                    <FormLink href={redirectTo !== '/account' ? `/sign-in?redirect=${encodeURIComponent(redirectTo)}` : '/sign-in'}>Sign in</FormLink>
                 </p>
             </div>
         </div>

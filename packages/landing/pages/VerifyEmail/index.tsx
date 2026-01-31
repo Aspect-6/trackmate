@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { auth } from '@shared/lib'
 import { sendUserEmailVerification } from '@/app/lib/auth'
 import { Title, FormDivider, HomeLink } from '@/app/components/AuthForm'
 import { AUTH } from '@/app/styles/colors'
+import { useRedirect } from '@shared/hooks/useRedirect'
 
 const VerifyEmail: React.FC = () => {
-    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+    const redirectTo = searchParams.get('redirect') || '/account'
+    const redirect = useRedirect({ allowCrossApp: true })
     const [sending, setSending] = useState(false)
     const [message, setMessage] = useState<string | null>(null)
 
     useEffect(() => {
         const checkVerification = async () => {
             if (!auth.currentUser) {
-                navigate('/sign-in')
+                redirect('/sign-in')
                 return
             }
             await auth.currentUser.reload()
             if (auth.currentUser.emailVerified) {
-                navigate('/account')
+                redirect(redirectTo)
             }
         }
 
@@ -26,7 +29,7 @@ const VerifyEmail: React.FC = () => {
         const intervalId = setInterval(checkVerification, 3000)
 
         return () => clearInterval(intervalId)
-    }, [navigate])
+    }, [redirect, redirectTo])
 
     const handleResendEmail = async () => {
         setSending(true)
