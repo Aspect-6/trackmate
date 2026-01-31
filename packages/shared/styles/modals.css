@@ -1,8 +1,8 @@
 /* Modal CSS Variables */
 :root.dark {
     --modal-label-color: hsl(218, 11%, 65%);
-    --modal-input-bg: hsl(217, 19%, 27%);
-    --modal-input-border: hsl(215, 14%, 34%);
+    --modal-input-bg: hsl(217, 19%, 21.5%);
+    --modal-input-border: hsl(215, 14%, 28%);
     --modal-input-text: hsl(0, 0%, 100%);
     --modal-body-text: hsl(216, 12%, 84%);
     --modal-delete-body-text: hsl(215, 15%, 78%);
@@ -79,27 +79,8 @@
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.25rem;
-    border: 1px solid var(--modal-btn-border, transparent);
-    background-color: var(--modal-btn-bg, transparent);
-    color: var(--modal-btn-text);
     transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     white-space: nowrap;
-}
-
-.modal-btn:hover {
-    background-color: var(--modal-btn-bg-hover, var(--modal-btn-bg));
-    color: var(--modal-btn-text-hover, var(--modal-btn-text));
-    border-color: var(--modal-btn-border-hover, var(--modal-btn-border, transparent));
-}
-
-.modal-btn-inline {
-    width: auto;
-}
-
-.modal-btn-cancel {
-    font-weight: 500;
-    width: auto;
-    padding: 0.625rem 1rem;
 }
 
 .modal-tabs {
@@ -155,10 +136,6 @@
         padding: 0.65rem 0.85rem;
         font-size: 0.95rem;
         gap: 0.6rem;
-    }
-
-    .modal-btn-inline {
-        width: auto;
     }
 
     .modal-date-input {

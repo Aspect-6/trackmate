@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHover } from '@shared/hooks/ui/useHover'
 import { TRACKMATE_MODALS } from '@shared/styles/colors'
 
 export interface ModalDeleteButtonProps {
@@ -14,18 +15,19 @@ export const ModalDeleteButton: React.FC<ModalDeleteButtonProps> = ({
     inline = true,
     className = '',
 }) => {
-    const inlineClass = inline ? 'modal-btn-inline' : ''
+    const { isHovered, hoverProps } = useHover()
 
     return (
         <button
             type="button"
             onClick={onClick}
-            className={`modal-btn ${inlineClass} ${className}`.trim()}
+            className={`modal-btn ${className}`.trim()}
             style={{
-                '--modal-btn-bg': TRACKMATE_MODALS.BASE.DELETE_BG,
-                '--modal-btn-bg-hover': TRACKMATE_MODALS.BASE.DELETE_BG_HOVER,
-                '--modal-btn-text': TRACKMATE_MODALS.BASE.DELETE_TEXT,
-            } as React.CSSProperties}
+                backgroundColor: isHovered ? TRACKMATE_MODALS.BASE.DELETE_BG_HOVER : TRACKMATE_MODALS.BASE.DELETE_BG,
+                color: TRACKMATE_MODALS.BASE.DELETE_TEXT,
+                width: inline ? 'auto' : undefined,
+            }}
+            {...hoverProps}
         >
             {children}
         </button>

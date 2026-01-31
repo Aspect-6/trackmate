@@ -416,18 +416,25 @@ Colors are applied via inline styles accessing these constants:
 
 ### 7.2 Modal Styling Pattern
 
-Modals use CSS custom properties passed via inline styles:
+Modal buttons use the `.modal-btn` class for base layout (flex, padding, border-radius, transitions) and inline styles for all visual properties:
 
 ```tsx
+const { isHovered, hoverProps } = useHover()
+
 <button
-    className="modal-btn modal-btn-cancel"
+    className="modal-btn"
     style={{
-        '--modal-btn-bg': MODALS.BASE.CANCEL_BG,
-        '--modal-btn-bg-hover': MODALS.BASE.CANCEL_BG_HOVER,
-        '--modal-btn-text': MODALS.BASE.CANCEL_TEXT,
-    } as React.CSSProperties}
+        backgroundColor: isHovered ? MODALS.BASE.CANCEL_BG_HOVER : MODALS.BASE.CANCEL_BG,
+        color: MODALS.BASE.CANCEL_TEXT,
+        border: `1px solid ${MODALS.BASE.CANCEL_BORDER}`,
+        width: inline ? 'auto' : undefined,  // Control via inline prop
+        fontWeight: '500'
+    }}
+    {...hoverProps}
 >
 ```
+
+Shared modal button components (`ModalCancelButton`, `ModalDeleteButton`, `ModalSubmitButton`) encapsulate this pattern with an `inline` prop to control width.
 
 ---
 

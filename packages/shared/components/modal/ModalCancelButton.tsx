@@ -1,28 +1,35 @@
 import React from 'react'
+import { useHover } from '@shared/hooks/ui/useHover'
 import { TRACKMATE_MODALS } from '@shared/styles/colors'
 
 export interface ModalCancelButtonProps {
     onClick: () => void
     children?: React.ReactNode
+    inline?: boolean
     className?: string
 }
 
 export const ModalCancelButton: React.FC<ModalCancelButtonProps> = ({
     onClick,
     children = 'Cancel',
+    inline = true,
     className = '',
 }) => {
+    const { isHovered, hoverProps } = useHover()
+
     return (
         <button
             type="button"
             onClick={onClick}
-            className={`modal-btn modal-btn-cancel modal-btn-inline ${className}`.trim()}
+            className={`modal-btn ${className}`.trim()}
             style={{
-                '--modal-btn-bg': TRACKMATE_MODALS.BASE.CANCEL_BG,
-                '--modal-btn-bg-hover': TRACKMATE_MODALS.BASE.CANCEL_BG_HOVER,
-                '--modal-btn-text': TRACKMATE_MODALS.BASE.CANCEL_TEXT,
-                '--modal-btn-border': TRACKMATE_MODALS.BASE.CANCEL_BORDER,
-            } as React.CSSProperties}
+                backgroundColor: isHovered ? TRACKMATE_MODALS.BASE.CANCEL_BG_HOVER : TRACKMATE_MODALS.BASE.CANCEL_BG,
+                color: TRACKMATE_MODALS.BASE.CANCEL_TEXT,
+                border: `1px solid ${TRACKMATE_MODALS.BASE.CANCEL_BORDER}`,
+                width: inline ? 'auto' : undefined,
+                fontWeight: '500'
+            }}
+            {...hoverProps}
         >
             {children}
         </button>

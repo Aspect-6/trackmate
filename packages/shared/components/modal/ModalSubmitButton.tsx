@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHover } from '@shared/hooks/ui/useHover'
 
 export interface ModalSubmitButtonProps {
     type?: 'button' | 'submit' | 'reset'
@@ -21,18 +22,19 @@ export const ModalSubmitButton: React.FC<ModalSubmitButtonProps> = ({
     className = '',
     children,
 }) => {
-    const inlineClass = inline ? 'modal-btn-inline' : ''
+    const { isHovered, hoverProps } = useHover()
 
     return (
         <button
             type={type}
             onClick={onClick}
-            className={`modal-btn ${inlineClass} ${className}`.trim()}
+            className={`modal-btn ${className}`.trim()}
             style={{
-                '--modal-btn-bg': bgColor,
-                '--modal-btn-bg-hover': bgColorHover,
-                '--modal-btn-text': textColor,
-            } as React.CSSProperties}
+                backgroundColor: isHovered ? bgColorHover : bgColor,
+                color: textColor,
+                width: inline ? 'auto' : undefined,
+            }}
+            {...hoverProps}
         >
             {children}
         </button>

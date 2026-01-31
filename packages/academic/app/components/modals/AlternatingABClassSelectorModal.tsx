@@ -1,8 +1,9 @@
 import React from 'react'
 import { useClasses } from '@/app/hooks/entities'
-import { GLOBAL, MODALS } from '@/app/styles/colors'
 import type { SemesterScheduleData } from '@/app/types'
 import type { SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
+import { ModalCancelButton } from '@shared/components/modal/ModalCancelButton'
+import { GLOBAL, MODALS } from '@/app/styles/colors'
 import { BookOpen, Calendar } from 'lucide-react'
 
 interface AlternatingABClassSelectorModalProps {
@@ -21,6 +22,7 @@ export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelecto
     const { classes } = useClasses()
     const { semester, dayType, periodIndex, termId, onSelect, otherSemesterSchedule } = data
 
+
     const handleSelect = (classId: string, isSemesterClass: boolean) => {
         onSelect(classId, isSemesterClass)
         onClose()
@@ -33,15 +35,11 @@ export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelecto
         )
     )
 
-    // Filter classes:
-    // 1. Must belong to the selected term
-    // 2. Only SEMESTER classes should be filtered from appearing in the other semester
+    // Filter classes
     const availableClasses = classes.filter(classData => {
-        // Must have a termId and it must match the selected term
         if (!classData.termId || classData.termId !== termId) {
             return false
         }
-        // If it's a semester class and used in the other semester, filter it out
         if (classData.semesterId && otherSemesterClassIds.has(classData.id)) {
             return false
         }
@@ -144,20 +142,7 @@ export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelecto
             </div>
 
             <div className="flex-shrink-0 pt-6 mt-2 flex justify-end">
-                <button
-                    onClick={onClose}
-                    className="modal-btn modal-btn-cancel"
-                    style={{
-                        '--modal-btn-bg': MODALS.BASE.CANCEL_BG,
-                        '--modal-btn-bg-hover': MODALS.BASE.CANCEL_BG_HOVER,
-                        '--modal-btn-text': MODALS.BASE.CANCEL_TEXT,
-                        '--modal-btn-border': MODALS.BASE.CANCEL_BORDER,
-                        width: '100%',
-                        justifyContent: 'center'
-                    } as React.CSSProperties}
-                >
-                    Cancel
-                </button>
+                <ModalCancelButton onClick={onClose} inline={false} className="justify-center" />
             </div>
         </div>
     )
