@@ -7,6 +7,17 @@ export default defineConfig({
     root: path.resolve(__dirname),
     cacheDir: path.resolve(__dirname, '../../node_modules/.vite/landing'),
     base: '/',
+    server: {
+        port: 5173,
+        strictPort: true,
+        proxy: {
+            '/academic': {
+                target: 'http://localhost:5174',
+                changeOrigin: true,
+                ws: true
+            }
+        }
+    },
     build: {
         outDir: path.resolve(__dirname, '../../dist'),
         emptyOutDir: false,
@@ -28,3 +39,4 @@ export default defineConfig({
     },
     plugins: [react(), svgr()],
 })
+

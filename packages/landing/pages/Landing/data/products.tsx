@@ -15,7 +15,7 @@ export const PRODUCTS: Product[] = [
         title: 'TrackMate Academic',
         description: 'Manage your classes, assignments, schedules, and academic life all in one place.',
         icon: <GraduationCap className="w-10 h-10" />,
-        href: '/academic',
+        href: '/academic/',
         accentColor: 'hsl(158, 60%, 36%)',
     },
     {
