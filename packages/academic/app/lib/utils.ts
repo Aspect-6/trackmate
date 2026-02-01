@@ -14,7 +14,7 @@ export function cn(...inputs: ClassValue[]): string {
 /**
  * Determines the appropriate text color (black or white) for a given background color.
  * Uses luminance calculation to ensure readability.
- * @param hexColor - The background color in hex format (e.g., "#FFFFFF").
+ * @param hexColor - The background color in hex format.
  * @returns 'black' or 'white'.
  */
 export const getTextColorForBackground = (hexColor: string): string => {

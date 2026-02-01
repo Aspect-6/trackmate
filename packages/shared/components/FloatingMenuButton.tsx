@@ -1,13 +1,13 @@
 import React from 'react'
 import { Menu, X } from 'lucide-react'
-import { useHover } from '../hooks/ui/useHover'
+import { useHover } from '@shared/hooks/ui/useHover'
+import { TRACKMATE } from '@shared/styles/colors'
 
 interface FloatingMenuButtonProps {
     onClick: () => void
     isOpen?: boolean
     backgroundColor: string
     hoverColor: string
-    iconColor?: string
 }
 
 const FloatingMenuButton: React.FC<FloatingMenuButtonProps> = ({
@@ -15,7 +15,6 @@ const FloatingMenuButton: React.FC<FloatingMenuButtonProps> = ({
     isOpen = false,
     backgroundColor,
     hoverColor,
-    iconColor = '#fff'
 }) => {
     const { isHovered, hoverProps } = useHover()
 
@@ -28,7 +27,7 @@ const FloatingMenuButton: React.FC<FloatingMenuButtonProps> = ({
             className={`lg:hidden fixed bottom-6 z-40 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out active:scale-95 ${isOpen ? 'z-[60]' : 'z-40'}`}
             style={{
                 backgroundColor: isHovered ? hoverColor : backgroundColor,
-                color: iconColor,
+                color: TRACKMATE.TEXT_PRIMARY,
                 left: leftPosition
             }}
             aria-label={isOpen ? "Close menu" : "Open menu"}

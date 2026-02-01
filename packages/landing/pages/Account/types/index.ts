@@ -36,8 +36,33 @@ export namespace ProfileSection {
         export interface AvatarDisplayProps {
             user: User
         }
-        export interface EmailRowProps {
-            user: User
+        export namespace EmailRow {
+            export interface Props {
+                user: User
+            }
+            // ======================
+            export interface DisplayProps {
+                user: User
+                hasPassword: boolean
+                onEditStart: () => void
+            }
+            export interface FormProps {
+                newEmail: string
+                hasPassword: boolean
+                error: string
+                onEmailChange: (value: string) => void
+                onSave: () => void
+                onCancel: () => void
+            }
+            export interface InputProps {
+                value: string
+                onChange: (value: string) => void
+            }
+            export interface ActionsProps {
+                onSave: () => void
+                onCancel: () => void
+                variant: 'desktop' | 'mobile'
+            }
         }
         export interface AccountIdRowProps {
             userId: string
