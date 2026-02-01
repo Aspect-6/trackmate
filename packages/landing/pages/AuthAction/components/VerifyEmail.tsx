@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { applyActionCode } from 'firebase/auth'
 import { useHover } from '@shared/hooks/ui/useHover'
-import type { ActionHandler } from '@/pages/ActionHandler/types'
+import type { ActionHandler } from '@/pages/AuthAction/types'
 import { auth } from '@shared/lib'
 import { Title, HomeLink } from '@/app/components/AuthForm'
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react'
@@ -30,7 +30,7 @@ const VerifyEmailAction: React.FC<ActionHandler.VerifyEmailActionProps> = ({ oob
                 }
             } catch (error: any) {
                 console.error('Error verifying email:', error)
-                
+
                 if (!isMounted) return
                 switch (error.code) {
                     case 'auth/expired-action-code':

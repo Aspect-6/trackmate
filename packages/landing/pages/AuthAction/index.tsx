@@ -4,17 +4,16 @@ import VerifyEmailAction from './components/VerifyEmail'
 import ResetPasswordAction from './components/ResetPasswordAction'
 import { useEffect } from 'react'
 
-type ActionMode = 'verifyEmail' | 'resetPassword' | 'recoverEmail'
+type AuthAction = 'verifyEmail' | 'resetPassword' | 'verifyAndChangeEmail'
 
-const ActionHandler: React.FC = () => {
+const AuthAction: React.FC = () => {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
-    
-    const mode = searchParams.get('mode') as ActionMode | null
+
+    const mode = searchParams.get('mode') as AuthAction | null
     const oobCode = searchParams.get('oobCode')
 
     useEffect(() => {
-        // Redirect if missing required parameters or unsupported mode
         if (!mode || !oobCode) {
             navigate('/sign-in')
         }
@@ -27,13 +26,13 @@ const ActionHandler: React.FC = () => {
     switch (mode) {
         case 'verifyEmail':
             return <VerifyEmailAction oobCode={oobCode} />
+        case 'verifyAndChangeEmail':
+            return null
         case 'resetPassword':
             return <ResetPasswordAction oobCode={oobCode} />
-        case 'recoverEmail':
-            return null
         default:
             return null
     }
 }
 
-export default ActionHandler
+export default AuthAction

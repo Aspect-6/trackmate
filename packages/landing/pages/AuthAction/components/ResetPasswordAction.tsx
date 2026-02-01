@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { verifyPasswordResetCode, confirmPasswordReset } from 'firebase/auth'
 import { useHover } from '@shared/hooks/ui/useHover'
 import { useForm } from 'react-hook-form'
-import type { ActionHandler } from '@/pages/ActionHandler/types'
+import type { ActionHandler } from '@/pages/AuthAction/types'
 import { auth } from '@shared/lib'
 import { Title, HomeLink, FormField, FormFieldLabel, FormFieldTextInput, FormCheckbox } from '@/app/components/AuthForm'
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react'
@@ -19,7 +19,7 @@ const ResetPasswordAction: React.FC<ActionHandler.ResetPasswordAction.Props> = (
     const [showPassword, setShowPassword] = useState(false)
     const [submitting, setSubmitting] = useState(false)
     const { isHovered, hoverProps } = useHover()
-    
+
     const { register, handleSubmit, formState: { errors }, setError } = useForm<ActionHandler.ResetPasswordAction.FormData>()
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const ResetPasswordAction: React.FC<ActionHandler.ResetPasswordAction.Props> = (
                 }
             } catch (error: any) {
                 console.error('Error verifying reset code:', error)
-                
+
                 if (!isMounted) return
                 switch (error.code) {
                     case 'auth/expired-action-code':
