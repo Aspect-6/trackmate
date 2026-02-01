@@ -6,7 +6,7 @@ const DragPlaceholder: React.FC = () => (
 		className="h-16 rounded-xl"
 		style={{
 			border: `2px dashed ${MY_ASSIGNMENTS.BORDER_PRIMARY}`,
-			backgroundColor: "rgba(0, 0, 0, 0.035)",
+			backgroundColor: MY_ASSIGNMENTS.BACKGROUND_BLACK_05,
 		}}
 		aria-hidden="true"
 	/>

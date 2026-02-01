@@ -17,7 +17,7 @@ const Button: React.FC<Landing.ButtonProps> = ({ onClick, children, variant = 'p
                     : (isHovered ? LANDING.BACKGROUND_TERTIARY : 'transparent'),
                 color: isPrimary ? LANDING.TEXT_WHITE : LANDING.TEXT_PRIMARY,
                 transform: isHovered ? 'translateY(-0.65px)' : 'none',
-                boxShadow: isHovered && isPrimary ? '0 8px 20px rgba(0, 0, 0, 0.3)' : 'none',
+                boxShadow: isHovered && isPrimary ? `0 8px 20px ${LANDING.BACKGROUND_BLACK_30}` : 'none',
             }}
             onClick={onClick}
             {...hoverProps}

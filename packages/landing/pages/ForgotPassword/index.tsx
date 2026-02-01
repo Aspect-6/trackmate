@@ -52,11 +52,10 @@ const ForgotPassword: React.FC = () => {
     return (
         <div className="min-h-dvh flex items-center justify-center p-4">
             <div
-                className="relative z-10 w-full max-w-md p-8 rounded-2xl shadow-2xl"
+                className="relative z-10 w-full max-w-md p-8 rounded-2xl shadow-2xl auth-card"
                 style={{
                     backgroundColor: AUTH.BACKGROUND_SECONDARY,
                     border: `1px solid ${AUTH.BORDER_PRIMARY}`,
-                    boxShadow: '0 0 60px rgba(59, 130, 246, 0.15), 0 0 20px rgba(59, 130, 246, 0.04)',
                 }}
             >
                 <HomeLink />

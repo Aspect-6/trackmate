@@ -1,20 +1,21 @@
 import React from 'react'
 import type { DataSection } from '@/pages/Account/types'
-import { AUTH } from '@/app/styles/colors'
+import { ACCOUNT } from '@/app/styles/colors'
 
 export const Container: React.FC<DataSection.Content.DeleteAccountCard.ContainerProps> = ({ children }) => (
     <div
-        className="relative overflow-hidden rounded-xl border transition-all duration-300 ease-in-out"
+        className="relative rounded-xl"
         style={{
-            backgroundColor: 'rgba(239, 68, 68, 0.03)',
-            borderColor: 'rgba(239, 68, 68, 0.2)',
+            backgroundColor: ACCOUNT.DANGER_ZONE_BG,
+            border: `1px solid ${ACCOUNT.DANGER_ZONE_BORDER}`,
         }}
     >
         <div
-            className="absolute inset-0 opacity-[0.03] pointer-events-none"
+            className="absolute inset-0"
             style={{
-                backgroundImage: `repeating-linear-gradient(45deg, ${AUTH.TEXT_DANGER} 0, ${AUTH.TEXT_DANGER} 1px, transparent 0, transparent 50%)`,
+                background: ACCOUNT.DANGER_ZONE_BG_PATTERN,
                 backgroundSize: '10px 10px',
+                opacity: 0.04,
             }}
         />
         <div className="relative p-6 sm:p-8">

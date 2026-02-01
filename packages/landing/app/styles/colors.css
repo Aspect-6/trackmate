@@ -12,6 +12,13 @@
 :root.dark {
     --global-accent-hsl: var(--landing-accent-hue), 60%, 40%;
     --global-accent: hsl(var(--global-accent-hsl));
+    --global-accent-15: hsla(var(--global-accent-hsl), 0.15);
+    --global-accent-25: hsla(var(--global-accent-hsl), 0.25);
+
+    --danger-zone-bg-pattern: repeating-linear-gradient(45deg, var(--text-danger) 0, var(--text-danger) 1.5px, transparent 0, transparent 50%);
+    --danger-zone-bg: hsla(0, 100%, 60%, 0.04);
+    --danger-zone-border: hsla(0, 100%, 60%, 0.2);
+    --danger-zone-confirm-delete-shadow: 0 6px 6px -1px hsl(0 100% 60% / 0.15);
 
     --submit-button-bg: hsl(var(--landing-accent-hsl));
     --submit-button-bg-hover: hsl(var(--landing-accent-hue), 63%, 38%);

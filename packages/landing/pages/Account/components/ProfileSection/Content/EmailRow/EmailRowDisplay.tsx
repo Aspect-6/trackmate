@@ -36,9 +36,9 @@ export const EmailRowDisplay: React.FC<ProfileSection.Content.EmailRow.DisplayPr
 
             {!hasPassword && (
                 <span
-                    className="absolute top-5 right-5 sm:static inline-block px-2.5 py-0.5 text-[10px] sm:text-xs font-medium whitespace-nowrap rounded-full"
+                    className="px-2.5 py-1 text-[10px] sm:text-xs rounded-full"
                     style={{
-                        backgroundColor: 'rgba(66, 133, 244, 0.15)',
+                        backgroundColor: AUTH.GLOBAL_ACCENT_15,
                         color: AUTH.GLOBAL_ACCENT,
                     }}
                 >

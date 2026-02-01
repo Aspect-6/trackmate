@@ -8,6 +8,7 @@ export const TRACKMATE = {
     BACKGROUND_QUATERNARY: 'var(--background-quaternary)',
     BACKGROUND_BLACK_50: 'var(--background-black-50)',
     BACKGROUND_BLACK_30: 'var(--background-black-30)',
+    BACKGROUND_BLACK_05: 'var(--background-black-05)',
     MODAL_BACKDROP: 'var(--modal-underlay-dark)',
 
     // Text Colors
@@ -17,6 +18,7 @@ export const TRACKMATE = {
     TEXT_MUTED: 'var(--text-muted)',
     TEXT_DANGER: 'var(--text-danger)',
     TEXT_SUCCESS: 'var(--text-success)',
+    TEXT_SUCCESS_15: 'var(--text-success-15)',
     TEXT_WHITE: 'var(--text-white)',
     MODAL_DELETE_BODY: 'var(--modal-delete-body-text)',
 

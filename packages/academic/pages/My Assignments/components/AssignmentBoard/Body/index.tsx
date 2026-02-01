@@ -1,6 +1,7 @@
 import React from "react"
 import type { AssignmentBoard } from "@/pages/My Assignments/types"
 import { useCollapseAnimation } from "@/pages/My Assignments/hooks/useCollapseAnimation"
+import { MY_ASSIGNMENTS } from "@/app/styles/colors"
 
 const EMPTY_STATE_MIN_HEIGHT = 60
 const LIST_BOTTOM_PADDING = 12
@@ -44,7 +45,7 @@ const AssignmentBoardBody: React.FC<AssignmentBoard.Body.Props> = ({
 				style={{
 					minHeight: itemsInView.length === 0 ? `${EMPTY_STATE_MIN_HEIGHT}px` : undefined,
 					paddingBottom: isMobile && itemsInView.length > 0 ? `${LIST_BOTTOM_PADDING}px` : undefined,
-					backgroundColor: isOver ? "rgba(0, 0, 0, 0.04)" : undefined,
+					backgroundColor: isOver ? MY_ASSIGNMENTS.BACKGROUND_BLACK_05 : undefined,
 				}}
 			>
 				{children}

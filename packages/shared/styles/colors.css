@@ -4,6 +4,7 @@
 
     --background-black-50: hsla(0, 0%, 0%, 0.5);
     --background-black-30: hsla(0, 0%, 0%, 0.3);
+    --background-black-05: hsla(0, 0%, 0%, 0.05);
 }
 
 :root.dark {
@@ -32,6 +33,7 @@
     --text-muted: hsl(217, 19%, 27%);
     --text-danger: hsl(0, 100%, 68.57%);
     --text-success: hsl(142, 71%, 45%);
+    --text-success-15: hsla(142, 71%, 45%, 0.15);
     --text-white: hsl(217, 0%, 95%);
 
     /* Scrollbar Colors */

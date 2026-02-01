@@ -397,12 +397,15 @@ export const CALENDAR = {
 Colors are applied via inline styles accessing these constants:
 
 ```tsx
+```tsx
 <div style={{
     backgroundColor: CALENDAR.BACKGROUND_PRIMARY,
     borderColor: CALENDAR.BORDER_PRIMARY,
     color: CALENDAR.TEXT_PRIMARY
 }}>
 ```
+
+**Rule:** Never use hardcoded colors (e.g., `#ffffff`, `rgb(0, 0, 0)`) in components. Always use the constants from the color system.
 
 ---
 
@@ -521,7 +524,7 @@ interface Assignment {
 interface Class {
     id: string
     name: string
-    color: string            // Hex color
+    color: string            // Storage string for color preference
     teacherName: string
     roomNumber: string
     termId?: string
@@ -716,7 +719,7 @@ Feature-specific hooks live in `pages/<Page>/hooks/`:
 | Function | Description |
 |----------|-------------|
 | `cn()` | Tailwind class merging (clsx + twMerge) |
-| `getTextColorForBackground()` | Contrast calculation (black/white) for hex colors |
+| `getTextColorForBackground()` | Contrast calculation (black/white) for color strings |
 | `parse12HourTime()` | Convert "2:30 PM" to "14:30" (24-hour format) |
 | `addDaysToDateString()` | Add/subtract days from YYYY-MM-DD string |
 | `formatEventTimeRange()` | Format time range for display (e.g., "2:30 PM - 4:00 PM") |

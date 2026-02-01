@@ -3,8 +3,8 @@ import { useClasses } from '@/app/hooks/entities'
 import type { SemesterScheduleData } from '@/app/types'
 import type { SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
 import { ModalCancelButton } from '@shared/components/modal/ModalCancelButton'
-import { GLOBAL, MODALS } from '@/app/styles/colors'
 import { BookOpen, Calendar } from 'lucide-react'
+import { GLOBAL, MODALS } from '@/app/styles/colors'
 
 interface AlternatingABClassSelectorModalProps {
     onClose: () => void
@@ -54,10 +54,9 @@ export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelecto
             style={{
                 backgroundColor: MODALS.BASE.BG,
                 border: `1px solid ${MODALS.BASE.BORDER}`,
-                boxShadow: '0 12px 30px rgba(0,0,0,0.25)'
             }}
         >
-            <div className="flex-shrink-0 pb-4 mb-3 border-b" style={{ borderColor: 'rgba(128,128,128,0.3)' }}>
+            <div className="flex-shrink-0 pb-4 mb-3 border-b" style={{ borderColor: GLOBAL.BORDER_SECONDARY }}>
                 <h2 className="text-2xl font-bold mb-4" style={{ color: MODALS.CLASS.HEADING }}>
                     Select Class
                 </h2>

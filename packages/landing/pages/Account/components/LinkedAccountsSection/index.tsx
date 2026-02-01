@@ -120,7 +120,7 @@ const LinkedAccountsSection: React.FC = () => {
                 title="Google"
                 description={hasGoogle ? 'Connected' : 'Not connected'}
                 icon={hasGoogle ? <GoogleIconColored className="w-5 h-5" /> : <GoogleIconMono className="w-5 h-5" style={{ color: AUTH.TEXT_SECONDARY }} />}
-                iconBackgroundColor={hasGoogle ? 'rgba(66, 133, 244, 0.15)' : AUTH.BACKGROUND_QUATERNARY}
+                iconBackgroundColor={hasGoogle ? AUTH.GLOBAL_ACCENT_25 : AUTH.BACKGROUND_QUATERNARY}
                 action={
                     hasGoogle ? (
                         <button
@@ -155,7 +155,7 @@ const LinkedAccountsSection: React.FC = () => {
                 title="Facebook"
                 description={hasFacebook ? 'Connected' : 'Not connected'}
                 icon={hasFacebook ? <FacebookIconColored className="w-5 h-5" /> : <FacebookIconMono className="w-5 h-5" style={{ color: AUTH.TEXT_SECONDARY }} />}
-                iconBackgroundColor={hasFacebook ? 'rgba(24, 119, 242, 0.15)' : AUTH.BACKGROUND_QUATERNARY}
+                iconBackgroundColor={hasFacebook ? AUTH.GLOBAL_ACCENT_25 : AUTH.BACKGROUND_QUATERNARY}
                 action={
                     hasFacebook ? (
                         <button
