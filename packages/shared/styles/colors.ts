@@ -16,6 +16,7 @@ export const TRACKMATE = {
     TEXT_TERTIARY: 'var(--text-tertiary)',
     TEXT_MUTED: 'var(--text-muted)',
     TEXT_DANGER: 'var(--text-danger)',
+    TEXT_SUCCESS: 'var(--text-success)',
     TEXT_WHITE: 'var(--text-white)',
     MODAL_DELETE_BODY: 'var(--modal-delete-body-text)',
 

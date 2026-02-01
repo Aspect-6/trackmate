@@ -95,7 +95,7 @@ const EmailRow: React.FC<ProfileSection.Content.EmailRow.Props> = ({
                     hasPassword={hasPassword}
                 />
             )}
-            {success && <p className="text-sm mt-3" style={{ color: AUTH.GLOBAL_ACCENT }}>{success}</p>}
+            {success && <p className="text-sm mt-3" style={{ color: AUTH.TEXT_SUCCESS }}>{success}</p>}
         </div>
     )
 }

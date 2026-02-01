@@ -23,11 +23,11 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
                         className="w-10 h-10 rounded-lg flex items-center justify-center"
                         style={{ backgroundColor: isVerified ? 'rgba(34, 197, 94, 0.15)' : AUTH.BACKGROUND_QUATERNARY }}
                     >
-                        <ShieldCheck size={20} style={{ color: isVerified ? '#22c55e' : AUTH.GLOBAL_ACCENT }} />
+                        <ShieldCheck size={20} style={{ color: isVerified ? AUTH.TEXT_SUCCESS : AUTH.GLOBAL_ACCENT }} />
                     </div>
                     <div>
                         <p className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>Email Verification</p>
-                        <p className="font-medium" style={{ color: isVerified ? '#22c55e' : AUTH.TEXT_PRIMARY }}>
+                        <p className="font-medium" style={{ color: isVerified ? AUTH.TEXT_SUCCESS : AUTH.TEXT_PRIMARY }}>
                             {isVerified ? 'Verified' : 'Not verified'}
                         </p>
                     </div>
@@ -38,7 +38,7 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
                         className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
                         style={{
                             backgroundColor: AUTH.GLOBAL_ACCENT,
-                            color: '#fff',
+                            color: AUTH.TEXT_PRIMARY,
                         }}
                     >
                         Resend Email
@@ -49,7 +49,7 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
                         className="px-3 py-1 rounded-full text-xs font-medium"
                         style={{
                             backgroundColor: 'rgba(34, 197, 94, 0.15)',
-                            color: '#22c55e',
+                            color: AUTH.TEXT_SUCCESS,
                         }}
                     >
                         Secured
@@ -57,7 +57,7 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
                 )}
             </div>
             {verificationSent && (
-                <p className="text-sm mt-3" style={{ color: '#22c55e' }}>Verification email sent! Check your inbox.</p>
+                <p className="text-sm mt-3" style={{ color: AUTH.TEXT_SUCCESS }}>Verification email sent! Check your inbox.</p>
             )}
             {verificationError && (
                 <p className="text-sm mt-3" style={{ color: AUTH.TEXT_DANGER }}>{verificationError}</p>

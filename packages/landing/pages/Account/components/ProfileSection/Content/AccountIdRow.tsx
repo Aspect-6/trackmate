@@ -40,7 +40,7 @@ const AccountIdRow: React.FC<ProfileSection.Content.AccountIdRowProps> = ({
                     className="p-2 rounded-lg transition-all hover:opacity-80"
                     style={{
                         backgroundColor: copied ? 'rgba(34, 197, 94, 0.15)' : undefined,
-                        color: copied ? '#22c55e' : AUTH.TEXT_PRIMARY,
+                        color: copied ? AUTH.TEXT_SUCCESS : AUTH.TEXT_PRIMARY,
                     }}
                     title={copied ? 'Copied!' : 'Copy to clipboard'}
                 >

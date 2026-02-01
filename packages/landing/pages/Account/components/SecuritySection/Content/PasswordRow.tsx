@@ -104,7 +104,7 @@ const PasswordRow: React.FC<SecuritySection.Content.PasswordRowProps> = ({
                                 onClick={onSave}
                                 disabled={loading}
                                 className="p-2 rounded-lg transition-opacity hover:opacity-80"
-                                style={{ backgroundColor: '#22c55e', color: '#fff' }}
+                                style={{ backgroundColor: AUTH.TEXT_SUCCESS, color: AUTH.TEXT_PRIMARY }}
                             >
                                 <Check size={18} />
                             </button>
@@ -120,7 +120,7 @@ const PasswordRow: React.FC<SecuritySection.Content.PasswordRowProps> = ({
                 )}
             </div>
             {error && <p className="text-sm mt-3" style={{ color: AUTH.TEXT_DANGER }}>{error}</p>}
-            {success && <p className="text-sm mt-3" style={{ color: '#22c55e' }}>{success}</p>}
+            {success && <p className="text-sm mt-3" style={{ color: AUTH.TEXT_SUCCESS }}>{success}</p>}
         </div>
     )
 }

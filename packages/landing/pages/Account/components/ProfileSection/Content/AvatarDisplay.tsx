@@ -4,9 +4,7 @@ import { Pencil, Check, X } from 'lucide-react'
 import { AUTH } from '@/app/styles/colors'
 import type { ProfileSection } from '@/pages/Account/types'
 
-const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({
-    user,
-}) => {
+const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ user }) => {
     const { changeDisplayName } = useAccount()
     const [isEditing, setIsEditing] = useState(false)
     const [newDisplayName, setNewDisplayName] = useState('')
@@ -60,7 +58,7 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({
                     className="w-24 h-24 rounded-full flex items-center justify-center text-3xl font-bold flex-shrink-0"
                     style={{
                         backgroundColor: AUTH.GLOBAL_ACCENT,
-                        color: '#fff',
+                        color: AUTH.TEXT_PRIMARY,
                     }}
                 >
                     {user.email?.charAt(0).toUpperCase()}
@@ -105,7 +103,7 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({
                                 <button
                                     onClick={handleSave}
                                     className="p-1 rounded hover:bg-white/10 transition-colors"
-                                    style={{ color: '#22c55e' }}
+                                    style={{ color: AUTH.TEXT_SUCCESS }}
                                     title="Save"
                                 >
                                     <Check size={14} />
@@ -121,7 +119,7 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({
                             </div>
                         </div>
                         {error && <p className="text-xs" style={{ color: AUTH.TEXT_DANGER }}>{error}</p>}
-                        {success && <p className="text-xs" style={{ color: '#22c55e' }}>{success}</p>}
+                        {success && <p className="text-xs" style={{ color: AUTH.TEXT_SUCCESS }}>{success}</p>}
                     </div>
                 )}
                 <p className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>

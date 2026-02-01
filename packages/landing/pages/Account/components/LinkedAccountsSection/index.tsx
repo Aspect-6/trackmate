@@ -143,7 +143,7 @@ const LinkedAccountsSection: React.FC = () => {
                             className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
                             style={{
                                 backgroundColor: AUTH.GLOBAL_ACCENT,
-                                color: '#fff',
+                                color: AUTH.TEXT_PRIMARY,
                             }}
                         >
                             Connect
@@ -178,7 +178,7 @@ const LinkedAccountsSection: React.FC = () => {
                             className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
                             style={{
                                 backgroundColor: AUTH.GLOBAL_ACCENT,
-                                color: '#fff',
+                                color: AUTH.TEXT_PRIMARY,
                             }}
                         >
                             Connect
@@ -192,7 +192,7 @@ const LinkedAccountsSection: React.FC = () => {
                 <p className="text-sm mt-4" style={{ color: AUTH.TEXT_DANGER }}>{linkError}</p>
             )}
             {linkSuccess && (
-                <p className="text-sm mt-4" style={{ color: '#22c55e' }}>{linkSuccess}</p>
+                <p className="text-sm mt-4" style={{ color: AUTH.TEXT_SUCCESS }}>{linkSuccess}</p>
             )}
         </div>
     )
