@@ -1,20 +1,20 @@
 import React from 'react'
 import type { LinkedAccountsSection } from '@/pages/Account/types'
-import { AUTH } from '@/app/styles/colors'
+import { ACCOUNT } from '@/app/styles/colors'
 
 const ProviderRow: React.FC<LinkedAccountsSection.Content.ProviderRowProps> = ({
     title,
     description,
     icon,
-    iconBackgroundColor = AUTH.BACKGROUND_QUATERNARY,
+    iconBackgroundColor = ACCOUNT.BACKGROUND_QUATERNARY,
     action,
 }) => {
     return (
         <div
             className="p-5 rounded-xl mb-4"
             style={{
-                backgroundColor: AUTH.BACKGROUND_TERTIARY,
-                border: `1px solid ${AUTH.BORDER_PRIMARY}`,
+                backgroundColor: ACCOUNT.BACKGROUND_TERTIARY,
+                border: `1px solid ${ACCOUNT.BORDER_PRIMARY}`,
             }}
         >
             <div className="flex items-center justify-between">
@@ -26,8 +26,8 @@ const ProviderRow: React.FC<LinkedAccountsSection.Content.ProviderRowProps> = ({
                         {icon}
                     </div>
                     <div>
-                        <p className="font-medium" style={{ color: AUTH.TEXT_PRIMARY }}>{title}</p>
-                        <div className="text-sm" style={{ color: AUTH.TEXT_SECONDARY }}>
+                        <p className="font-medium" style={{ color: ACCOUNT.TEXT_PRIMARY }}>{title}</p>
+                        <div className="text-sm" style={{ color: ACCOUNT.TEXT_SECONDARY }}>
                             {description}
                         </div>
                     </div>

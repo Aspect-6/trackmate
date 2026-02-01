@@ -3,17 +3,17 @@ import { useNavigate, useSearchParams, useLocation } from 'react-router-dom'
 import { useAuth } from '@shared/contexts/AuthContext'
 import { useToast } from '@shared/contexts/ToastContext'
 import { useRedirect } from '@shared/hooks/useRedirect'
+import type { ActiveSection } from '@/pages/Account/types'
 import { signOutUser } from '@/app/lib/auth'
-import { AUTH } from '@/app/styles/colors'
 import TrackMateLogo from '@shared/components/TrackMateLogo'
-import type { ActiveSection } from './types'
+import FloatingMenuButton from '@shared/components/FloatingMenuButton'
 import AccountSidebar from './components/AccountSidebar'
 import ProfileSection from './components/ProfileSection'
 import LinkedAccountsSection from './components/LinkedAccountsSection'
 import SecuritySection from './components/SecuritySection'
 import DataSection from './components/DataSection'
 import { BRAND_NAME } from '@shared/config/brand'
-import FloatingMenuButton from '@shared/components/FloatingMenuButton'
+import { ACCOUNT } from '@/app/styles/colors'
 
 const Account: React.FC = () => {
     const { user, loading: userLoading } = useAuth()
@@ -64,9 +64,9 @@ const Account: React.FC = () => {
 
     if (userLoading) {
         return (
-            <div className="min-h-dvh flex flex-col items-center justify-center" style={{ backgroundColor: AUTH.BACKGROUND_PRIMARY }}>
+            <div className="min-h-dvh flex flex-col items-center justify-center" style={{ backgroundColor: ACCOUNT.BACKGROUND_PRIMARY }}>
                 <TrackMateLogo size={100} showBackground={false} crop className='mr-2 mb-4' />
-                <h1 className="text-3xl font-bold" style={{ color: AUTH.TEXT_SECONDARY }}>
+                <h1 className="text-3xl font-bold" style={{ color: ACCOUNT.TEXT_SECONDARY }}>
                     {BRAND_NAME}
                 </h1>
             </div>
@@ -81,7 +81,7 @@ const Account: React.FC = () => {
     }
 
     return (
-        <div className="min-h-dvh flex flex-col lg:flex-row" style={{ backgroundColor: AUTH.BACKGROUND_PRIMARY }}>
+        <div className="min-h-dvh flex flex-col lg:flex-row" style={{ backgroundColor: ACCOUNT.BACKGROUND_PRIMARY }}>
 
 
             <AccountSidebar
@@ -105,8 +105,8 @@ const Account: React.FC = () => {
             <FloatingMenuButton
                 onClick={() => setIsMobileMenuOpen(prev => !prev)}
                 isOpen={isMobileMenuOpen}
-                backgroundColor={AUTH.GLOBAL_ACCENT}
-                hoverColor={AUTH.GLOBAL_ACCENT}
+                backgroundColor={ACCOUNT.GLOBAL_ACCENT}
+                hoverColor={ACCOUNT.GLOBAL_ACCENT}
             />
 
             <main className="flex-1 px-6 py-8 lg:p-10">

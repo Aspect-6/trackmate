@@ -1,7 +1,7 @@
 import React from 'react'
-import { Trash2 } from 'lucide-react'
 import { useHover } from '@shared/hooks/ui/useHover'
 import type { DataSection } from '@/pages/Account/types'
+import { Trash2 } from 'lucide-react'
 import { ACCOUNT } from '@/app/styles/colors'
 
 export const InitialView: React.FC<DataSection.Content.DeleteAccountCard.InitialViewProps> = ({ onInitiateDelete }) => {

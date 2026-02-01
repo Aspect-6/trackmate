@@ -1,8 +1,8 @@
 import React from 'react'
-import { AUTH } from '@/app/styles/colors'
 import type { ProfileSection } from '@/pages/Account/types'
 import { EmailRowInput } from './EmailRowInput'
 import { EmailRowActions } from './EmailRowActions'
+import { ACCOUNT } from '@/app/styles/colors'
 
 export const EmailRowForm: React.FC<ProfileSection.Content.EmailRow.FormProps> = ({
     newEmail,
@@ -22,7 +22,7 @@ export const EmailRowForm: React.FC<ProfileSection.Content.EmailRow.FormProps> =
                 )}
             </div>
 
-            {error && <p className="text-sm mt-3" style={{ color: AUTH.TEXT_DANGER }}>{error}</p>}
+            {error && <p className="text-sm mt-3" style={{ color: ACCOUNT.TEXT_DANGER }}>{error}</p>}
 
             {hasPassword && (
                 <EmailRowActions onSave={onSave} onCancel={onCancel} variant="mobile" />

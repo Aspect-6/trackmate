@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useAccount } from '@/app/hooks/useAccount'
-import { AUTH } from '@/app/styles/colors'
-import type { ProfileSection } from '@/pages/Account/types'
 import type { UserInfo } from 'firebase/auth'
+import type { ProfileSection } from '@/pages/Account/types'
 import { EmailRowDisplay } from './EmailRowDisplay'
 import { EmailRowForm } from './EmailRowForm'
+import { ACCOUNT } from '@/app/styles/colors'
 
 const EmailRow: React.FC<ProfileSection.Content.EmailRow.Props> = ({
     user,
@@ -75,8 +75,8 @@ const EmailRow: React.FC<ProfileSection.Content.EmailRow.Props> = ({
         <div
             className="p-5 rounded-xl mb-4 relative"
             style={{
-                backgroundColor: AUTH.BACKGROUND_TERTIARY,
-                border: `1px solid ${AUTH.BORDER_PRIMARY}`,
+                backgroundColor: ACCOUNT.BACKGROUND_TERTIARY,
+                border: `1px solid ${ACCOUNT.BORDER_PRIMARY}`,
             }}
         >
             {!isEditing ? (
@@ -95,7 +95,7 @@ const EmailRow: React.FC<ProfileSection.Content.EmailRow.Props> = ({
                     hasPassword={hasPassword}
                 />
             )}
-            {success && <p className="text-sm mt-3" style={{ color: AUTH.TEXT_SUCCESS }}>{success}</p>}
+            {success && <p className="text-sm mt-3" style={{ color: ACCOUNT.TEXT_SUCCESS }}>{success}</p>}
         </div>
     )
 }

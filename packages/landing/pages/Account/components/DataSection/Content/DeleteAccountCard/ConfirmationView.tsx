@@ -1,7 +1,7 @@
 import React from 'react'
-import { Trash2, AlertTriangle, X } from 'lucide-react'
 import { useHover } from '@shared/hooks/ui/useHover'
 import type { DataSection } from '@/pages/Account/types'
+import { Trash2, AlertTriangle, X } from 'lucide-react'
 import { ACCOUNT } from '@/app/styles/colors'
 
 export const ConfirmationView: React.FC<DataSection.Content.DeleteAccountCard.ConfirmationViewProps> = ({

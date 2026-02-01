@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useAuth } from '@shared/contexts/AuthContext'
 import { useAccount } from '@/app/hooks/useAccount'
 import { sendUserEmailVerification } from '@/app/lib/auth'
-import { AUTH } from '@/app/styles/colors'
 import EmailVerificationRow from './Content/EmailVerificationRow'
 import PasswordRow from './Content/PasswordRow'
+import { ACCOUNT } from '@/app/styles/colors'
 
 const SecuritySection: React.FC = () => {
     const { user } = useAuth()
@@ -89,11 +89,11 @@ const SecuritySection: React.FC = () => {
 
     return (
         <div>
-            <div className="mb-8 pb-4" style={{ borderBottom: `1px solid ${AUTH.BORDER_PRIMARY}` }}>
-                <h2 className="text-2xl font-bold mb-1" style={{ color: AUTH.TEXT_PRIMARY }}>
+            <div className="mb-8 pb-4" style={{ borderBottom: `1px solid ${ACCOUNT.BORDER_PRIMARY}` }}>
+                <h2 className="text-2xl font-bold mb-1" style={{ color: ACCOUNT.TEXT_PRIMARY }}>
                     Security
                 </h2>
-                <p style={{ color: AUTH.TEXT_SECONDARY }}>
+                <p style={{ color: ACCOUNT.TEXT_SECONDARY }}>
                     Manage your password and security settings
                 </p>
             </div>

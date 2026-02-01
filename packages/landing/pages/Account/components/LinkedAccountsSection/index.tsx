@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '@shared/contexts/AuthContext'
 import { useAccount } from '@/app/hooks/useAccount'
-import { AUTH } from '@/app/styles/colors'
 import { Mail, Lock } from 'lucide-react'
 import GoogleIconColored from '@/app/assets/google-icon.svg?react'
 import GoogleIconMono from '@/app/assets/google-icon-mono.svg?react'
@@ -10,6 +9,7 @@ import FacebookIconMono from '@/app/assets/facebook-icon-mono.svg?react'
 import MicrosoftIcon from '@/app/assets/microsoft-icon.svg?react'
 import ProviderRow from './Content/ProviderRow'
 import ComingSoonRow from './Content/ComingSoonRow'
+import { ACCOUNT } from '@/app/styles/colors'
 
 const LinkedAccountsSection: React.FC = () => {
     const { user } = useAuth()
@@ -85,11 +85,11 @@ const LinkedAccountsSection: React.FC = () => {
 
     return (
         <div>
-            <div className="mb-8 pb-4" style={{ borderBottom: `1px solid ${AUTH.BORDER_PRIMARY}` }}>
-                <h2 className="text-2xl font-bold mb-1" style={{ color: AUTH.TEXT_PRIMARY }}>
+            <div className="mb-8 pb-4" style={{ borderBottom: `1px solid ${ACCOUNT.BORDER_PRIMARY}` }}>
+                <h2 className="text-2xl font-bold mb-1" style={{ color: ACCOUNT.TEXT_PRIMARY }}>
                     Linked Accounts
                 </h2>
-                <p style={{ color: AUTH.TEXT_SECONDARY }}>
+                <p style={{ color: ACCOUNT.TEXT_SECONDARY }}>
                     Manage your connected sign-in methods
                 </p>
             </div>
@@ -97,15 +97,15 @@ const LinkedAccountsSection: React.FC = () => {
                 <ProviderRow
                     title="Email & Password"
                     description={hasPassword ? 'Connected' : 'Not set up'}
-                    icon={<Mail size={20} style={{ color: hasPassword ? AUTH.GLOBAL_ACCENT : AUTH.TEXT_SECONDARY }} />}
-                    iconBackgroundColor={AUTH.BACKGROUND_QUATERNARY}
+                    icon={<Mail size={20} style={{ color: hasPassword ? ACCOUNT.GLOBAL_ACCENT : ACCOUNT.TEXT_SECONDARY }} />}
+                    iconBackgroundColor={ACCOUNT.BACKGROUND_QUATERNARY}
                     action={
                         <div
                             className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-not-allowed select-none"
                             style={{
                                 backgroundColor: 'transparent',
-                                border: `1px solid ${AUTH.BORDER_PRIMARY}`,
-                                color: AUTH.TEXT_PRIMARY,
+                                border: `1px solid ${ACCOUNT.BORDER_PRIMARY}`,
+                                color: ACCOUNT.TEXT_PRIMARY,
                                 opacity: 0.7
                             }}
                             title="Primary authentication method cannot be removed"
@@ -119,8 +119,8 @@ const LinkedAccountsSection: React.FC = () => {
             <ProviderRow
                 title="Google"
                 description={hasGoogle ? 'Connected' : 'Not connected'}
-                icon={hasGoogle ? <GoogleIconColored className="w-5 h-5" /> : <GoogleIconMono className="w-5 h-5" style={{ color: AUTH.TEXT_SECONDARY }} />}
-                iconBackgroundColor={hasGoogle ? AUTH.GLOBAL_ACCENT_25 : AUTH.BACKGROUND_QUATERNARY}
+                icon={hasGoogle ? <GoogleIconColored className="w-5 h-5" /> : <GoogleIconMono className="w-5 h-5" style={{ color: ACCOUNT.TEXT_SECONDARY }} />}
+                iconBackgroundColor={hasGoogle ? ACCOUNT.GLOBAL_ACCENT_25 : ACCOUNT.BACKGROUND_QUATERNARY}
                 action={
                     hasGoogle ? (
                         <button
@@ -129,8 +129,8 @@ const LinkedAccountsSection: React.FC = () => {
                             className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80 disabled:opacity-50"
                             style={{
                                 backgroundColor: 'transparent',
-                                border: `1px solid ${AUTH.BORDER_PRIMARY}`,
-                                color: AUTH.TEXT_PRIMARY,
+                                border: `1px solid ${ACCOUNT.BORDER_PRIMARY}`,
+                                color: ACCOUNT.TEXT_PRIMARY,
                             }}
                             title={!canUnlinkGoogle ? 'You need at least one sign-in method' : undefined}
                         >
@@ -142,8 +142,8 @@ const LinkedAccountsSection: React.FC = () => {
                             disabled={loading}
                             className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
                             style={{
-                                backgroundColor: AUTH.GLOBAL_ACCENT,
-                                color: AUTH.TEXT_PRIMARY,
+                                backgroundColor: ACCOUNT.GLOBAL_ACCENT,
+                                color: ACCOUNT.TEXT_PRIMARY,
                             }}
                         >
                             Connect
@@ -154,8 +154,8 @@ const LinkedAccountsSection: React.FC = () => {
             <ProviderRow
                 title="Facebook"
                 description={hasFacebook ? 'Connected' : 'Not connected'}
-                icon={hasFacebook ? <FacebookIconColored className="w-5 h-5" /> : <FacebookIconMono className="w-5 h-5" style={{ color: AUTH.TEXT_SECONDARY }} />}
-                iconBackgroundColor={hasFacebook ? AUTH.GLOBAL_ACCENT_25 : AUTH.BACKGROUND_QUATERNARY}
+                icon={hasFacebook ? <FacebookIconColored className="w-5 h-5" /> : <FacebookIconMono className="w-5 h-5" style={{ color: ACCOUNT.TEXT_SECONDARY }} />}
+                iconBackgroundColor={hasFacebook ? ACCOUNT.GLOBAL_ACCENT_25 : ACCOUNT.BACKGROUND_QUATERNARY}
                 action={
                     hasFacebook ? (
                         <button
@@ -164,8 +164,8 @@ const LinkedAccountsSection: React.FC = () => {
                             className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80 disabled:opacity-50"
                             style={{
                                 backgroundColor: 'transparent',
-                                border: `1px solid ${AUTH.BORDER_PRIMARY}`,
-                                color: AUTH.TEXT_PRIMARY,
+                                border: `1px solid ${ACCOUNT.BORDER_PRIMARY}`,
+                                color: ACCOUNT.TEXT_PRIMARY,
                             }}
                             title={!canUnlinkFacebook ? 'You need at least one sign-in method' : undefined}
                         >
@@ -177,8 +177,8 @@ const LinkedAccountsSection: React.FC = () => {
                             disabled={loading}
                             className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
                             style={{
-                                backgroundColor: AUTH.GLOBAL_ACCENT,
-                                color: AUTH.TEXT_PRIMARY,
+                                backgroundColor: ACCOUNT.GLOBAL_ACCENT,
+                                color: ACCOUNT.TEXT_PRIMARY,
                             }}
                         >
                             Connect
@@ -189,10 +189,10 @@ const LinkedAccountsSection: React.FC = () => {
             <ComingSoonRow providerName="Microsoft" Icon={MicrosoftIcon} />
 
             {linkError && (
-                <p className="text-sm mt-4" style={{ color: AUTH.TEXT_DANGER }}>{linkError}</p>
+                <p className="text-sm mt-4" style={{ color: ACCOUNT.TEXT_DANGER }}>{linkError}</p>
             )}
             {linkSuccess && (
-                <p className="text-sm mt-4" style={{ color: AUTH.TEXT_SUCCESS }}>{linkSuccess}</p>
+                <p className="text-sm mt-4" style={{ color: ACCOUNT.TEXT_SUCCESS }}>{linkSuccess}</p>
             )}
         </div>
     )

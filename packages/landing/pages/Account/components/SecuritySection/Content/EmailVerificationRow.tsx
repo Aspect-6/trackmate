@@ -1,7 +1,7 @@
 import React from 'react'
 import { ShieldCheck } from 'lucide-react'
-import { ACCOUNT } from '@/app/styles/colors'
 import type { SecuritySection } from '@/pages/Account/types'
+import { ACCOUNT } from '@/app/styles/colors'
 
 const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRowProps> = ({
     isVerified,

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Mail } from 'lucide-react'
-import { AUTH } from '@/app/styles/colors'
 import type { ProfileSection } from '@/pages/Account/types'
+import { Mail } from 'lucide-react'
+import { ACCOUNT } from '@/app/styles/colors'
 
 export const EmailRowInput: React.FC<ProfileSection.Content.EmailRow.InputProps> = ({
     value,
@@ -11,12 +11,12 @@ export const EmailRowInput: React.FC<ProfileSection.Content.EmailRow.InputProps>
         <div className="flex items-center gap-4 flex-1 min-w-0">
             <div
                 className="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center"
-                style={{ backgroundColor: AUTH.BACKGROUND_QUATERNARY }}
+                style={{ backgroundColor: ACCOUNT.BACKGROUND_QUATERNARY }}
             >
-                <Mail size={20} style={{ color: AUTH.GLOBAL_ACCENT }} />
+                <Mail size={20} style={{ color: ACCOUNT.GLOBAL_ACCENT }} />
             </div>
             <div className="flex-1 min-w-0">
-                <p className="text-sm pb-1" style={{ color: AUTH.TEXT_SECONDARY }}>Email</p>
+                <p className="text-sm pb-1" style={{ color: ACCOUNT.TEXT_SECONDARY }}>Email</p>
                 <input
                     type="email"
                     value={value}
@@ -24,9 +24,9 @@ export const EmailRowInput: React.FC<ProfileSection.Content.EmailRow.InputProps>
                     placeholder="New email"
                     className="px-3 py-2 rounded-lg text-sm outline-none w-full sm:max-w-xs"
                     style={{
-                        backgroundColor: AUTH.BACKGROUND_TERTIARY,
-                        border: `1px solid ${AUTH.BORDER_PRIMARY}`,
-                        color: AUTH.TEXT_PRIMARY,
+                        backgroundColor: ACCOUNT.BACKGROUND_TERTIARY,
+                        border: `1px solid ${ACCOUNT.BORDER_PRIMARY}`,
+                        color: ACCOUNT.TEXT_PRIMARY,
                     }}
                     autoFocus
                 />

@@ -1,8 +1,8 @@
-import { ArrowLeft, User, Link2, Lock, Database, LogOut } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import type { AccountSidebar, ActiveSection } from '@/pages/Account/types'
-import { AUTH } from '@/app/styles/colors'
+import { ArrowLeft, User, Link2, Lock, Database, LogOut } from 'lucide-react'
 import { SidebarTab } from '@shared/components/Sidebar'
+import { ACCOUNT } from '@/app/styles/colors'
 
 const navItems: Array<{ id: ActiveSection; label: string; icon: typeof User }> = [
     { id: 'profile', label: 'Profile', icon: User },
@@ -35,15 +35,15 @@ const SidebarNav: React.FC<AccountSidebar.SidebarNavProps> = ({
                                 onLinkClick?.()
                             }}
                             isActive={isActive}
-                            accentColor={AUTH.GLOBAL_ACCENT}
-                            hoverColor={AUTH.BACKGROUND_QUATERNARY}
+                            accentColor={ACCOUNT.GLOBAL_ACCENT}
+                            hoverColor={ACCOUNT.BACKGROUND_QUATERNARY}
                         />
                     )
                 })}
             </div>
 
             <div className={`flex-shrink-0 px-4 space-y-2 ${onLinkClick ? 'pb-6' : ''}`}>
-                <div className="mb-2" style={{ borderBottom: `1px solid ${AUTH.BORDER_PRIMARY}` }}></div>
+                <div className="mb-2" style={{ borderBottom: `1px solid ${ACCOUNT.BORDER_PRIMARY}` }}></div>
                 <SidebarTab
                     label="Back to Home"
                     icon={ArrowLeft}
@@ -52,8 +52,8 @@ const SidebarNav: React.FC<AccountSidebar.SidebarNavProps> = ({
                         onLinkClick?.()
                     }}
                     isActive={false}
-                    accentColor={AUTH.GLOBAL_ACCENT}
-                    hoverColor={AUTH.BACKGROUND_QUATERNARY}
+                    accentColor={ACCOUNT.GLOBAL_ACCENT}
+                    hoverColor={ACCOUNT.BACKGROUND_QUATERNARY}
                 />
                 <SidebarTab
                     label="Sign Out"
@@ -63,8 +63,8 @@ const SidebarNav: React.FC<AccountSidebar.SidebarNavProps> = ({
                         onLinkClick?.()
                     }}
                     isActive={false}
-                    accentColor={AUTH.GLOBAL_ACCENT}
-                    hoverColor={AUTH.BACKGROUND_QUATERNARY}
+                    accentColor={ACCOUNT.GLOBAL_ACCENT}
+                    hoverColor={ACCOUNT.BACKGROUND_QUATERNARY}
                 />
             </div>
         </div>

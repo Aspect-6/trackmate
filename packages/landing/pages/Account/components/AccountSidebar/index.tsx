@@ -1,17 +1,11 @@
 import React from 'react'
-import { AUTH } from '@/app/styles/colors'
-import { BRAND_NAME } from '@shared/config/brand'
-import type { AccountSidebar as AccountSidebarTypes } from '@/pages/Account/types'
-import {
-    SidebarContainer,
-    SidebarHeader,
-    SidebarDivider,
-    SidebarContent
-} from '@shared/components/Sidebar'
-
+import type { AccountSidebar } from '@/pages/Account/types'
+import { SidebarContainer, SidebarHeader, SidebarDivider, SidebarContent } from '@shared/components/Sidebar'
 import SidebarNav from './SidebarNav'
+import { BRAND_NAME } from '@shared/config/brand'
+import { ACCOUNT } from '@/app/styles/colors'
 
-const AccountSidebar: React.FC<AccountSidebarTypes.Props> = ({
+const AccountSidebar: React.FC<AccountSidebar.Props> = ({
     activeSection,
     onSectionChange,
     onSignOut,
@@ -24,22 +18,21 @@ const AccountSidebar: React.FC<AccountSidebarTypes.Props> = ({
     return (
         <SidebarContainer
             isMobile={isMobile}
-            backgroundColor={AUTH.BACKGROUND_PRIMARY}
-            borderColor={AUTH.BORDER_PRIMARY}
+            backgroundColor={ACCOUNT.BACKGROUND_PRIMARY}
+            borderColor={ACCOUNT.BORDER_PRIMARY}
         >
             <SidebarHeader
                 isMobile={isMobile}
-                // onClose omitted to hide default close button
                 brandName={BRAND_NAME}
                 subtitle="Account"
-                accentColor={AUTH.GLOBAL_ACCENT}
-                textColor={AUTH.TEXT_SECONDARY}
-                borderColor={AUTH.BORDER_PRIMARY}
+                accentColor={ACCOUNT.GLOBAL_ACCENT}
+                textColor={ACCOUNT.TEXT_SECONDARY}
+                borderColor={ACCOUNT.BORDER_PRIMARY}
             />
 
             <SidebarDivider
                 isMobile={isMobile}
-                borderColor={AUTH.BORDER_PRIMARY}
+                borderColor={ACCOUNT.BORDER_PRIMARY}
             />
 
             <SidebarContent>
