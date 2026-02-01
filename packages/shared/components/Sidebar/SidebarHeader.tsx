@@ -1,9 +1,7 @@
 import React from 'react'
-import { X } from 'lucide-react'
 
 interface SidebarHeaderProps {
     isMobile?: boolean
-    onClose?: () => void
     brandName: string
     subtitle?: string
     accentColor?: string
@@ -13,7 +11,6 @@ interface SidebarHeaderProps {
 
 const SidebarHeader: React.FC<SidebarHeaderProps> = ({
     isMobile = false,
-    onClose,
     brandName,
     subtitle,
     accentColor,
@@ -38,17 +35,6 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({
                     </p>
                 )}
             </div>
-
-            {isMobile && onClose && (
-                <button
-                    onClick={onClose}
-                    className="text-gray-400 hover:text-white"
-                    style={{ color: textColor }}
-                    onTouchStart={(e) => { if (textColor) e.currentTarget.style.color = textColor }}
-                >
-                    <X className="w-8 h-8" />
-                </button>
-            )}
         </div>
     )
 }
