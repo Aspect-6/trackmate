@@ -26,11 +26,11 @@ export const EmailRowDisplay: React.FC<ProfileSection.Content.EmailRow.DisplayPr
             {hasPassword && (
                 <button
                     onClick={onEditStart}
-                    className="p-1.5 rounded-md hover:opacity-70 transition-opacity flex-shrink-0"
-                    style={{ color: AUTH.TEXT_SECONDARY, willChange: 'opacity' }}
+                    className="p-2 rounded-lg hover:opacity-80 transition-opacity"
+                    style={{ color: AUTH.TEXT_PRIMARY }}
                     title="Edit email"
                 >
-                    <Pencil size={14} />
+                    <Pencil size={18} />
                 </button>
             )}
 

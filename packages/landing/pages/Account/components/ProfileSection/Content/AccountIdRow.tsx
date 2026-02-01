@@ -37,9 +37,9 @@ const AccountIdRow: React.FC<ProfileSection.Content.AccountIdRowProps> = ({
                 </div>
                 <button
                     onClick={handleCopy}
-                    className="p-2 rounded-lg transition-all duration-200 hover:opacity-80"
+                    className="p-2 rounded-lg transition-all hover:opacity-80"
                     style={{
-                        backgroundColor: copied ? 'rgba(34, 197, 94, 0.15)' : AUTH.BACKGROUND_TERTIARY,
+                        backgroundColor: copied ? 'rgba(34, 197, 94, 0.15)' : undefined,
                         color: copied ? '#22c55e' : AUTH.TEXT_PRIMARY,
                     }}
                     title={copied ? 'Copied!' : 'Copy to clipboard'}
