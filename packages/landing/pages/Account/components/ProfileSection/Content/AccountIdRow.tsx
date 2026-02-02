@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import type { ProfileSection } from '@/pages/Account/types'
-import { Hash, Copy, Check } from 'lucide-react'
-import { Button } from '@/app/components/Button'
-import { ACCOUNT } from '@/app/styles/colors'
+import React, { useState } from "react"
+import type { ProfileSection } from "@/pages/Account/types"
+import { Hash, Copy, Check } from "lucide-react"
+import { Button } from "@/app/components/Button"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const AccountIdRow: React.FC<ProfileSection.Content.AccountIdRowProps> = ({
     userId,
@@ -40,7 +40,7 @@ const AccountIdRow: React.FC<ProfileSection.Content.AccountIdRowProps> = ({
                     variant="icon"
                     onClick={handleCopy}
                     className="p-2"
-                    title={copied ? 'Copied!' : 'Copy to clipboard'}
+                    title={copied ? "Copied!" : "Copy to clipboard"}
                     style={{
                         backgroundColor: copied ? ACCOUNT.TEXT_SUCCESS_15 : undefined,
                         color: copied ? ACCOUNT.TEXT_SUCCESS : ACCOUNT.TEXT_PRIMARY,

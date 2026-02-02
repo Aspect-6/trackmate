@@ -1,6 +1,6 @@
-import React from 'react'
-import { APP_FULL_NAME, CURRENT_APP_VERSION } from '@/app/config/brand'
-import { DEVELOPER_NAME } from '@shared/config/brand'
+import React from "react"
+import { APP_FULL_NAME, CURRENT_APP_VERSION } from "@/app/config/brand"
+import { DEVELOPER_NAME } from "@shared/config/brand"
 
 const AppInfoFooter: React.FC = () => {
     return (

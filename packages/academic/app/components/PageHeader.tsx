@@ -1,11 +1,11 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
-import { Plus } from 'lucide-react'
-import { useModal } from '@/app/contexts/ModalContext'
-import { getRouteByPath, DEFAULT_ROUTE } from '@/app/config/paths'
-import { GLOBAL } from '@/app/styles/colors'
-import { useHeaderAction } from '@/app/hooks/ui/useHeaderAction'
-import { useHover } from '@shared/hooks/ui/useHover'
+import React from "react"
+import { useLocation } from "react-router-dom"
+import { Plus } from "lucide-react"
+import { useModal } from "@/app/contexts/ModalContext"
+import { getRouteByPath, DEFAULT_ROUTE } from "@/app/config/paths"
+import { GLOBAL } from "@/app/styles/colors"
+import { useHeaderAction } from "@/app/hooks/ui/useHeaderAction"
+import { useHover } from "@shared/hooks/ui/useHover"
 
 const PageHeader: React.FC = () => {
     const location = useLocation()

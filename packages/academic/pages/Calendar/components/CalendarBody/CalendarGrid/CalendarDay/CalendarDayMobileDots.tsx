@@ -1,5 +1,5 @@
-import React from 'react'
-import type { CalendarBody } from '@/pages/Calendar/types'
+import React from "react"
+import type { CalendarBody } from "@/pages/Calendar/types"
 
 const CalendarDayMobileDots: React.FC<CalendarBody.Grid.Day.MobileDotsProps> = ({ dots }) => {
     if (!dots || dots.length === 0) return null

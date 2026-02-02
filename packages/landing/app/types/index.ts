@@ -3,7 +3,7 @@ import type { User } from "firebase/auth"
 /**
  * Types of toast notifications available
  */
-export type ToastType = 'success' | 'error'
+export type ToastType = "success" | "error"
 
 /**
  * Context interface for managing toast notifications

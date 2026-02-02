@@ -1,16 +1,16 @@
-import tseslint from 'typescript-eslint'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import tseslint from "typescript-eslint"
+import globals from "globals"
+import reactHooks from "eslint-plugin-react-hooks"
+import reactRefresh from "eslint-plugin-react-refresh"
+import { defineConfig, globalIgnores } from "eslint/config"
 
 export default defineConfig([
-	globalIgnores(['dist']),
+	globalIgnores(["dist"]),
 
 	...tseslint.configs.recommended,
 
 	{
-		files: ['packages/**/*.{ts,tsx}'],
+		files: ["packages/**/*.{ts,tsx}"],
 		extends: [
 			reactHooks.configs.flat.recommended,
 			reactRefresh.configs.vite,
@@ -19,14 +19,14 @@ export default defineConfig([
 			globals: globals.browser,
 		},
 		rules: {
-			'no-unused-vars': 'off',
-			'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-			'@typescript-eslint/no-explicit-any': 'off',
-			'@typescript-eslint/no-namespace': 'off',
-			'react-hooks/set-state-in-effect': 'off',
-			'react-hooks/incompatible-library': 'off',
-			'react-refresh/only-export-components': 'off',
-			'@typescript-eslint/no-empty-object-type': 'off',
+			"no-unused-vars": "off",
+			"@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+			"@typescript-eslint/no-explicit-any": "off",
+			"@typescript-eslint/no-namespace": "off",
+			"react-hooks/set-state-in-effect": "off",
+			"react-hooks/incompatible-library": "off",
+			"react-refresh/only-export-components": "off",
+			"@typescript-eslint/no-empty-object-type": "off",
 		},
 	},
 ])

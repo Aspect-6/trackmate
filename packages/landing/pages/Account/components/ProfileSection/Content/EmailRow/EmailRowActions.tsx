@@ -1,7 +1,7 @@
-import React from 'react'
-import type { ProfileSection } from '@/pages/Account/types'
-import { Check, X } from 'lucide-react'
-import { Button } from '@/app/components/Button'
+import React from "react"
+import type { ProfileSection } from "@/pages/Account/types"
+import { Check, X } from "lucide-react"
+import { Button } from "@/app/components/Button"
 
 export const EmailRowActions: React.FC<ProfileSection.Content.EmailRow.ActionsProps> = ({ onSave, onCancel }) => {
     return (

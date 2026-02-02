@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 export interface ModalFooterProps {
     children: React.ReactNode
@@ -7,7 +7,7 @@ export interface ModalFooterProps {
 
 export const ModalFooter: React.FC<ModalFooterProps> = ({
     children,
-    className = '',
+    className = "",
 }) => {
     return (
         <div className={`flex justify-end gap-2 mt-6 ${className}`.trim()}>

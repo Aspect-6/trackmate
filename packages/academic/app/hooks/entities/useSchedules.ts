@@ -1,15 +1,15 @@
-import { useCallback } from 'react'
-import { useLocalStorage } from '@/app/hooks/data/useLocalStorage'
-import { todayString } from '@shared/lib'
-import { calculateDayType } from '@/app/lib/schedule'
-import { STORAGE_KEYS } from '@/app/config/storageKeys'
-import type { Schedules, ScheduleType, TermSchedule, DayType, AcademicTerm, NoSchoolPeriod } from '@/app/types'
+import { useCallback } from "react"
+import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { todayString } from "@shared/lib"
+import { calculateDayType } from "@/app/lib/schedule"
+import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import type { Schedules, ScheduleType, TermSchedule, DayType, AcademicTerm, NoSchoolPeriod } from "@/app/types"
 
 const DEFAULT_SCHEDULES: Schedules = {
-    type: 'alternating-ab',
-    'alternating-ab': {
-        startDate: '2025-09-02',
-        startDayType: 'A',
+    type: "alternating-ab",
+    "alternating-ab": {
+        startDate: "2025-09-02",
+        startDayType: "A",
         dayTypeOverrides: {},
         terms: {}
     }
@@ -25,11 +25,11 @@ export const useSchedules = () => {
     // Actions
     const updateTermSchedule = useCallback((termId: string, newSchedule: TermSchedule): void => {
         setSchedules(prev => {
-            const abData = prev['alternating-ab']
+            const abData = prev["alternating-ab"]
             if (!abData) return prev
             return {
                 ...prev,
-                'alternating-ab': {
+                "alternating-ab": {
                     ...abData,
                     terms: {
                         ...abData.terms,
@@ -47,11 +47,11 @@ export const useSchedules = () => {
     const setReferenceDayType = useCallback((type: NonNullable<DayType>): void => {
         const today = todayString()
         setSchedules(prev => {
-            const abData = prev['alternating-ab']
+            const abData = prev["alternating-ab"]
             if (!abData) return prev
             return {
                 ...prev,
-                'alternating-ab': {
+                "alternating-ab": {
                     ...abData,
                     dayTypeOverrides: {
                         ...abData.dayTypeOverrides,
@@ -64,7 +64,7 @@ export const useSchedules = () => {
 
     // Getters for schedule data
     const getTermSchedule = useCallback((termId: string): TermSchedule | undefined => {
-        return schedules['alternating-ab']?.terms[termId]
+        return schedules["alternating-ab"]?.terms[termId]
     }, [schedules])
 
     /**

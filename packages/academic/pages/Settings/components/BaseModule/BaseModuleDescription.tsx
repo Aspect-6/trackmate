@@ -1,6 +1,6 @@
-import React from 'react'
-import type { BaseSettingsModule } from '@/pages/Settings/types'
-import { SETTINGS } from '@/app/styles/colors'
+import React from "react"
+import type { BaseSettingsModule } from "@/pages/Settings/types"
+import { SETTINGS } from "@/app/styles/colors"
 
 const SettingsModuleDescription: React.FC<BaseSettingsModule.DescriptionProps> = ({ className, children }) => {
     return (

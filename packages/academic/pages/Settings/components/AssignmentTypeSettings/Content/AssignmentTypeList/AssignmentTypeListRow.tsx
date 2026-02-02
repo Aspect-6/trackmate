@@ -1,9 +1,9 @@
-import React from 'react'
-import type { AssignmentTypeSettings } from '@/pages/Settings/types'
-import { useSortable } from '@dnd-kit/sortable'
-import { CSS } from '@dnd-kit/utilities'
-import { GripVertical, ChevronUp, ChevronDown, Trash2 } from 'lucide-react'
-import { SETTINGS, GLOBAL } from '@/app/styles/colors'
+import React from "react"
+import type { AssignmentTypeSettings } from "@/pages/Settings/types"
+import { useSortable } from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
+import { GripVertical, ChevronUp, ChevronDown, Trash2 } from "lucide-react"
+import { SETTINGS, GLOBAL } from "@/app/styles/colors"
 
 const AssignmentTypeListRow: React.FC<AssignmentTypeSettings.Content.AssignmentTypeList.AssignmentTypeListRowProps> = ({
     type,
@@ -33,7 +33,7 @@ const AssignmentTypeListRow: React.FC<AssignmentTypeSettings.Content.AssignmentT
                 <button
                     type="button"
                     className="p-1 rounded hover:bg-white/5 cursor-grab touch-none"
-                    style={{ touchAction: 'none' }}
+                    style={{ touchAction: "none" }}
                     {...attributes}
                     {...listeners}
                     aria-label={`Drag ${type}`}

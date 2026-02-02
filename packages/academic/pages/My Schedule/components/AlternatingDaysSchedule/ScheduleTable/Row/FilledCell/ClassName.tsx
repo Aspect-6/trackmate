@@ -1,5 +1,5 @@
-import React from 'react'
-import type { AlternatingDaysSchedule } from '@/pages/My Schedule/types'
+import React from "react"
+import type { AlternatingDaysSchedule } from "@/pages/My Schedule/types"
 
 const ClassName: React.FC<AlternatingDaysSchedule.ScheduleTable.Row.FilledCell.ClassNameProps> = ({ name }) => {
     return (

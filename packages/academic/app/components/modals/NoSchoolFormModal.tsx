@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { useModal } from '@/app/contexts/ModalContext'
-import { useNoSchool } from '@/app/hooks/entities'
-import { todayString } from '@shared/lib'
-import { MODALS } from '@/app/styles/colors'
+import React, { useEffect, useState } from "react"
+import { useModal } from "@/app/contexts/ModalContext"
+import { useNoSchool } from "@/app/hooks/entities"
+import { todayString } from "@shared/lib"
+import { MODALS } from "@/app/styles/colors"
 import {
     ModalContainer,
     ModalHeader,
@@ -13,7 +13,7 @@ import {
     ModalCancelButton,
     ModalDeleteButton,
     ModalSubmitButton,
-} from '@shared/components/modal'
+} from "@shared/components/modal"
 
 interface NoSchoolFormModalProps {
     onClose: () => void
@@ -24,7 +24,7 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
     const { noSchoolPeriods, addNoSchool, updateNoSchool } = useNoSchool()
     const { openModal } = useModal()
     const [formData, setFormData] = useState({
-        name: '',
+        name: "",
         startDate: todayString(),
         endDate: todayString()
     })
@@ -67,13 +67,13 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
 
     const handleDelete = () => {
         onClose()
-        openModal('delete-no-school', noSchoolId)
+        openModal("delete-no-school", noSchoolId)
     }
 
     return (
         <ModalContainer>
             <ModalHeader color={MODALS.SCHEDULE.HEADING}>
-                {isEditMode ? 'Edit No School Period' : 'Add No School Period'}
+                {isEditMode ? "Edit No School Period" : "Add No School Period"}
             </ModalHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -119,7 +119,7 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
                         bgColorHover={MODALS.SCHEDULE.PRIMARY_BG_HOVER}
                         textColor={MODALS.SCHEDULE.PRIMARY_TEXT}
                     >
-                        {isEditMode ? 'Save Changes' : 'Add Period'}
+                        {isEditMode ? "Save Changes" : "Add Period"}
                     </ModalSubmitButton>
                 </ModalFooter>
             </form>

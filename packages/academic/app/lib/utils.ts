@@ -15,15 +15,15 @@ export function cn(...inputs: ClassValue[]): string {
  * Determines the appropriate text color (black or white) for a given background color.
  * Uses luminance calculation to ensure readability.
  * @param hexColor - The background color in hex format.
- * @returns 'black' or 'white'.
+ * @returns "black" or "white".
  */
 export const getTextColorForBackground = (hexColor: string): string => {
-    if (!hexColor) return 'white'
+    if (!hexColor) return "white"
     const r = parseInt(hexColor.substring(1, 3), 16)
     const g = parseInt(hexColor.substring(3, 5), 16)
     const b = parseInt(hexColor.substring(5, 7), 16)
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
-    return luminance > 0.5 ? 'black' : 'white'
+    return luminance > 0.5 ? "black" : "white"
 }
 
 /**
@@ -34,9 +34,9 @@ export const getTextColorForBackground = (hexColor: string): string => {
  */
 export const formatEventTimeRange = (start: string | null, end: string | null): string => {
     const formatTime = (time: string) =>
-        new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+        new Date(`2000-01-01T${time}`).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true })
 
-    if (!start && !end) return 'All Day'
+    if (!start && !end) return "All Day"
     if (start && !end) return formatTime(start)
     if (!start && end) return `Until ${formatTime(end)}`
     return `${formatTime(start!)} - ${formatTime(end!)}`

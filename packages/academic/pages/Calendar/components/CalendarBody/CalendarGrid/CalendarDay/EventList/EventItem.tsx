@@ -1,6 +1,6 @@
-import React from 'react'
-import type { CalendarBody } from '@/pages/Calendar/types'
-import { getTextColorForBackground } from '@/app/lib/utils'
+import React from "react"
+import type { CalendarBody } from "@/pages/Calendar/types"
+import { getTextColorForBackground } from "@/app/lib/utils"
 
 const EventItem: React.FC<CalendarBody.Grid.Day.EventList.EventItemProps> = ({ event, onClick }) => {
     const textColor = getTextColorForBackground(event.color)

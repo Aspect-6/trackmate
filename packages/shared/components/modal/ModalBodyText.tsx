@@ -1,5 +1,5 @@
-import React from 'react'
-import { TRACKMATE_MODALS } from '@shared/styles/colors'
+import React from "react"
+import { TRACKMATE_MODALS } from "@shared/styles/colors"
 
 export interface ModalBodyTextProps {
     children: React.ReactNode
@@ -9,7 +9,7 @@ export interface ModalBodyTextProps {
 
 export const ModalBodyText: React.FC<ModalBodyTextProps> = ({
     children,
-    className = '',
+    className = "",
     color,
 }) => {
     return (

@@ -1,6 +1,6 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import { TRACKMATE_MODALS } from '@shared/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { TRACKMATE_MODALS } from "@shared/styles/colors"
 
 export interface ModalDeleteButtonProps {
     onClick: () => void
@@ -11,9 +11,9 @@ export interface ModalDeleteButtonProps {
 
 export const ModalDeleteButton: React.FC<ModalDeleteButtonProps> = ({
     onClick,
-    children = 'Delete',
+    children = "Delete",
     inline = true,
-    className = '',
+    className = "",
 }) => {
     const { isHovered, hoverProps } = useHover()
 
@@ -25,7 +25,7 @@ export const ModalDeleteButton: React.FC<ModalDeleteButtonProps> = ({
             style={{
                 backgroundColor: isHovered ? TRACKMATE_MODALS.BASE.DELETE_BG_HOVER : TRACKMATE_MODALS.BASE.DELETE_BG,
                 color: TRACKMATE_MODALS.BASE.DELETE_TEXT,
-                width: inline ? 'auto' : undefined,
+                width: inline ? "auto" : undefined,
             }}
             {...hoverProps}
         >

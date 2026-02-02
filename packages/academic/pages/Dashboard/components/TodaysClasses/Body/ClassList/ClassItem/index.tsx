@@ -1,7 +1,7 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { TodaysClasses } from '@/pages/Dashboard/types'
-import { DASHBOARD } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { TodaysClasses } from "@/pages/Dashboard/types"
+import { DASHBOARD } from "@/app/styles/colors"
 
 const ClassItem: React.FC<TodaysClasses.Body.ClassList.ClassItemProps> = ({ classInfo, period, openModal }) => {
     const { isHovered, hoverProps } = useHover()
@@ -15,7 +15,7 @@ const ClassItem: React.FC<TodaysClasses.Body.ClassList.ClassItemProps> = ({ clas
                 borderLeft: `4px solid ${classInfo.color}`,
                 backgroundColor: isHovered ? DASHBOARD.BACKGROUND_SECONDARY : DASHBOARD.BACKGROUND_PRIMARY
             }}
-            onClick={() => openModal('edit-class', classInfo.id)}
+            onClick={() => openModal("edit-class", classInfo.id)}
             {...hoverProps}
         >
             <div className="flex-1">

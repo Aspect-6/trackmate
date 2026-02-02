@@ -1,8 +1,8 @@
-import { useMemo, useCallback } from 'react'
-import { useLocalStorage } from '@/app/hooks/data/useLocalStorage'
-import { generateId, parseDateLocal, dateToLocalISOString } from '@shared/lib'
-import { STORAGE_KEYS } from '@/app/config/storageKeys'
-import type { NoSchoolPeriod } from '@/app/types'
+import { useMemo, useCallback } from "react"
+import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { generateId, parseDateLocal, dateToLocalISOString } from "@shared/lib"
+import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import type { NoSchoolPeriod } from "@/app/types"
 
 const DEFAULT_NO_SCHOOL: NoSchoolPeriod[] = []
 
@@ -34,7 +34,7 @@ export const useNoSchool = () => {
     }, [noSchoolByDate])
 
     // CRUD Actions
-    const addNoSchool = useCallback((period: Omit<NoSchoolPeriod, 'id' | 'createdAt'>): void => {
+    const addNoSchool = useCallback((period: Omit<NoSchoolPeriod, "id" | "createdAt">): void => {
         setNoSchoolPeriods(prev => [...prev, { ...period, id: generateId(), createdAt: new Date().toISOString() }])
     }, [setNoSchoolPeriods])
 

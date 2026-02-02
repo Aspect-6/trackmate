@@ -1,5 +1,5 @@
-import React from 'react'
-import { MODALS } from '@/app/styles/colors'
+import React from "react"
+import { MODALS } from "@/app/styles/colors"
 import {
     ModalContainer,
     ModalHeader,
@@ -7,7 +7,7 @@ import {
     ModalBodyText,
     ModalCancelButton,
     ModalDeleteButton,
-} from '@shared/components/modal'
+} from "@shared/components/modal"
 
 interface DeleteConfirmationModalProps {
     onClose: () => void
@@ -25,7 +25,7 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
     entityName,
     description,
     message,
-    buttonText = 'Delete',
+    buttonText = "Delete",
     onDelete
 }) => {
     const handleDelete = () => {

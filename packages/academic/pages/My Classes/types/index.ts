@@ -1,4 +1,4 @@
-import { Class } from '@/app/types'
+import { Class } from "@/app/types"
 
 export namespace ClassBoard {
     export interface Props {

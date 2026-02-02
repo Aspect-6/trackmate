@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 export interface ModalTextareaInputProps {
     name?: string
@@ -21,7 +21,7 @@ export const ModalTextareaInput: React.FC<ModalTextareaInputProps> = ({
     rows = 2,
     required,
     focusColor,
-    className = '',
+    className = "",
 }) => {
     return (
         <textarea
@@ -33,7 +33,7 @@ export const ModalTextareaInput: React.FC<ModalTextareaInputProps> = ({
             rows={rows}
             required={required}
             className={`modal-textarea ${className}`.trim()}
-            style={focusColor ? { '--focus-color': focusColor } as React.CSSProperties : undefined}
+            style={focusColor ? { "--focus-color": focusColor } as React.CSSProperties : undefined}
         />
     )
 }

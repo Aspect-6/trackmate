@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 interface SidebarContainerProps {
     isMobile: boolean
@@ -22,7 +22,7 @@ const SidebarContainer: React.FC<SidebarContainerProps> = ({
             className={`flex flex-col ${isMobile
                 ? "fixed inset-0 z-50"
                 : "sidebar w-64 flex-shrink-0 border-r sticky top-0 h-screen py-8 hidden lg:flex"
-                } ${className || ''}`}
+                } ${className || ""}`}
             style={{
                 backgroundColor: backgroundColor,
                 ...(isMobile ? {} : { borderColor: borderColor }),

@@ -1,28 +1,28 @@
-import React, { useState } from 'react'
-import { useAuth } from '@shared/contexts/AuthContext'
-import { sendUserEmailVerification } from '@/app/lib/auth'
-import EmailVerificationRow from './Content/EmailVerificationRow'
-import PasswordRow from './Content/PasswordRow'
-import { ACCOUNT } from '@/app/styles/colors'
+import React, { useState } from "react"
+import { useAuth } from "@shared/contexts/AuthContext"
+import { sendUserEmailVerification } from "@/app/lib/auth"
+import EmailVerificationRow from "./Content/EmailVerificationRow"
+import PasswordRow from "./Content/PasswordRow"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const SecuritySection: React.FC = () => {
     const { user } = useAuth()
     const [verificationSent, setVerificationSent] = useState(false)
-    const [verificationError, setVerificationError] = useState('')
+    const [verificationError, setVerificationError] = useState("")
 
     if (!user) return null
 
     const handleResendVerification = async () => {
-        setVerificationError('')
+        setVerificationError("")
         setVerificationSent(false)
         try {
             await sendUserEmailVerification()
             setVerificationSent(true)
         } catch (error: any) {
-            if (error.code === 'auth/too-many-requests') {
-                setVerificationError('Too many requests. Please try again later.')
+            if (error.code === "auth/too-many-requests") {
+                setVerificationError("Too many requests. Please try again later.")
             } else {
-                setVerificationError('Failed to send verification email.')
+                setVerificationError("Failed to send verification email.")
             }
         }
     }

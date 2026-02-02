@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 interface SidebarDividerProps {
     isMobile?: boolean
@@ -17,7 +17,7 @@ const SidebarDivider: React.FC<SidebarDividerProps> = ({
 
     return (
         <div
-            className={`px-4 flex-shrink-0 ${className || ''}`}
+            className={`px-4 flex-shrink-0 ${className || ""}`}
             style={style}
         >
             <div

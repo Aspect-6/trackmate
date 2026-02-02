@@ -1,6 +1,6 @@
-import React from 'react'
-import type { CalendarBody } from '@/pages/Calendar/types'
-import EventItem from './EventItem'
+import React from "react"
+import type { CalendarBody } from "@/pages/Calendar/types"
+import EventItem from "./EventItem"
 
 const EventList: React.FC<CalendarBody.Grid.Day.EventList.Props> = ({ events, onEventClick }) => (
     <>

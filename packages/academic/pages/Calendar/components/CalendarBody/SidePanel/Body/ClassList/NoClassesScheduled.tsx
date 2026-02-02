@@ -1,5 +1,5 @@
-import React from 'react'
-import { CALENDAR } from '@/app/styles/colors'
+import React from "react"
+import { CALENDAR } from "@/app/styles/colors"
 
 const NoClassesScheduled: React.FC = () => {
     return (

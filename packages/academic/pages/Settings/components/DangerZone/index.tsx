@@ -1,6 +1,6 @@
-import React from 'react'
-import type { DangerZone } from '@/pages/Settings/types'
-import { SETTINGS } from '@/app/styles/colors'
+import React from "react"
+import type { DangerZone } from "@/pages/Settings/types"
+import { SETTINGS } from "@/app/styles/colors"
 
 const DangerZoneSettings: React.FC<DangerZone.Props> = ({ children }) => {
     return (
@@ -18,8 +18,8 @@ const DangerZoneSettings: React.FC<DangerZone.Props> = ({ children }) => {
 
 export default DangerZoneSettings
 
-export { default as DangerZoneBadge } from './DangerZoneBadge'
-export { default as DangerZoneSettingsContent } from './Content'
-export { default as DangerZoneRow } from './Content/DangerRow'
-export { default as DangerZoneRowDetails } from './Content/DangerRow/DangerRowDetails'
-export { default as DangerZoneRowButton } from './Content/DangerRow/DangerRowButton'
+export { default as DangerZoneBadge } from "./DangerZoneBadge"
+export { default as DangerZoneSettingsContent } from "./Content"
+export { default as DangerZoneRow } from "./Content/DangerRow"
+export { default as DangerZoneRowDetails } from "./Content/DangerRow/DangerRowDetails"
+export { default as DangerZoneRowButton } from "./Content/DangerRow/DangerRowButton"

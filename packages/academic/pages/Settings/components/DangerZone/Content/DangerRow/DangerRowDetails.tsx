@@ -1,6 +1,6 @@
-import React from 'react'
-import type { DangerZone } from '@/pages/Settings/types'
-import { SETTINGS } from '@/app/styles/colors'
+import React from "react"
+import type { DangerZone } from "@/pages/Settings/types"
+import { SETTINGS } from "@/app/styles/colors"
 
 const DangerZoneRowDetails: React.FC<DangerZone.Content.DangerRow.DetailsProps> = ({ title, children }) => {
     return (

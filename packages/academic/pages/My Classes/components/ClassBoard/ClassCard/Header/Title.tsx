@@ -1,9 +1,9 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import { useClassCard } from '@/pages/My Classes/hooks/useClassCard'
-import type { ClassBoard } from '@/pages/My Classes/types'
-import { GripVertical } from 'lucide-react'
-import { MY_CLASSES } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { useClassCard } from "@/pages/My Classes/hooks/useClassCard"
+import type { ClassBoard } from "@/pages/My Classes/types"
+import { GripVertical } from "lucide-react"
+import { MY_CLASSES } from "@/app/styles/colors"
 
 const ClassCardTitle: React.FC<ClassBoard.Card.Header.TitleProps> = ({ name }) => {
     const { attributes, listeners } = useClassCard()

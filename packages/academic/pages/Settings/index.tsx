@@ -1,18 +1,18 @@
-import React from 'react'
-import { useModal } from '@/app/contexts/ModalContext'
-import { useAcademicTerms, useSchedules, useNoSchool } from '@/app/hooks/entities'
-import { useSettings } from '@/app/hooks/useSettings'
-import { useAssignmentTypeSettings } from '@/pages/Settings/hooks/useAssignmentTypeSettings'
+import React from "react"
+import { useModal } from "@/app/contexts/ModalContext"
+import { useAcademicTerms, useSchedules, useNoSchool } from "@/app/hooks/entities"
+import { useSettings } from "@/app/hooks/useSettings"
+import { useAssignmentTypeSettings } from "@/pages/Settings/hooks/useAssignmentTypeSettings"
 // Base settings module imports
 import {
     BaseModuleHeader,
     BaseModuleDescription
-} from '@/pages/Settings/components/BaseModule'
+} from "@/pages/Settings/components/BaseModule"
 // Theme settings imports
 import ThemeSettings, {
     ThemeSettingsContent,
     ThemeButton
-} from '@/pages/Settings/components/ThemeSettings'
+} from "@/pages/Settings/components/ThemeSettings"
 // Assignment type settings imports
 import AssignmentTypeSettings, {
     AssignmentTypeSettingsContent,
@@ -21,7 +21,7 @@ import AssignmentTypeSettings, {
     AddTypeForm,
     AddTypeInput,
     AddTypeButton
-} from '@/pages/Settings/components/AssignmentTypeSettings'
+} from "@/pages/Settings/components/AssignmentTypeSettings"
 // Schedule settings imports
 import ScheduleSettings, {
     ScheduleSettingsContent,
@@ -29,7 +29,7 @@ import ScheduleSettings, {
     ScheduleTypeDropdownOption,
     CurrentDayCalculation,
     SetDayTypeButton
-} from '@/pages/Settings/components/ScheduleSettings'
+} from "@/pages/Settings/components/ScheduleSettings"
 // Term settings imports
 import TermSettings, {
     TermSettingsContent,
@@ -46,7 +46,7 @@ import TermSettings, {
     TermItemBodySemester,
     AddTermButton,
     NoTermsYetButton
-} from '@/pages/Settings/components/TermSettings'
+} from "@/pages/Settings/components/TermSettings"
 // Danger zone settings imports
 import DangerZoneSettings, {
     DangerZoneBadge,
@@ -54,14 +54,14 @@ import DangerZoneSettings, {
     DangerZoneRow,
     DangerZoneRowDetails,
     DangerZoneRowButton
-} from '@/pages/Settings/components/DangerZone'
+} from "@/pages/Settings/components/DangerZone"
 // App info footer import
-import AppInfoFooter from '@/pages/Settings/components/AppInfoFooter'
+import AppInfoFooter from "@/pages/Settings/components/AppInfoFooter"
 // Other imports
-import { Sun, Moon } from 'lucide-react'
-import { todayString, formatDate } from '@shared/lib'
-import { SETTINGS } from '@/app/styles/colors'
-import './index.css'
+import { Sun, Moon } from "lucide-react"
+import { todayString, formatDate } from "@shared/lib"
+import { SETTINGS } from "@/app/styles/colors"
+import "./index.css"
 
 const Settings: React.FC = () => {
     const { openModal } = useModal()
@@ -105,15 +105,15 @@ const Settings: React.FC = () => {
                         label="Light Mode"
                         description="Bright, paper-like interface"
                         Icon={Sun}
-                        active={theme === 'light'}
-                        onClick={() => setTheme('light')}
+                        active={theme === "light"}
+                        onClick={() => setTheme("light")}
                     />
                     <ThemeButton
                         label="Dark Mode"
                         description="Soft glow for relaxed eyes."
                         Icon={Moon}
-                        active={theme === 'dark'}
-                        onClick={() => setTheme('dark')}
+                        active={theme === "dark"}
+                        onClick={() => setTheme("dark")}
                     />
                 </ThemeSettingsContent>
             </ThemeSettings>
@@ -133,8 +133,8 @@ const Settings: React.FC = () => {
                                 isFirst={index === 0}
                                 isLast={index === assignmentTypes.length - 1}
                                 isOnly={assignmentTypes.length === 1}
-                                onMoveUp={() => moveType(type, 'up')}
-                                onMoveDown={() => moveType(type, 'down')}
+                                onMoveUp={() => moveType(type, "up")}
+                                onMoveDown={() => moveType(type, "down")}
                                 onRemove={() => handleRemove(type)}
                             />
                         ))}
@@ -153,26 +153,26 @@ const Settings: React.FC = () => {
                 <BaseModuleDescription>
                     Select the kind of class schedule that your institution uses.
                 </BaseModuleDescription>
-                <ScheduleTypeDropdown className='mb-10'>
+                <ScheduleTypeDropdown className="mb-10">
                     <ScheduleTypeDropdownOption value="alternating-ab">Alternating A/B Days</ScheduleTypeDropdownOption>
                 </ScheduleTypeDropdown>
 
                 <BaseModuleDescription>
-                    {schedules.type === 'alternating-ab' &&
+                    {schedules.type === "alternating-ab" &&
                         `Manually set the current day type to correct the A/B day rotation.
                         Future days will alternate based on this setting.`
                     }
                 </BaseModuleDescription>
                 <ScheduleSettingsContent>
-                    {schedules.type === 'alternating-ab' && (
+                    {schedules.type === "alternating-ab" && (
                         <>
-                            <CurrentDayCalculation currentDayType={currentDayType || ''} />
+                            <CurrentDayCalculation currentDayType={currentDayType || ""} />
 
                             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
-                                <SetDayTypeButton dayType="A" onClick={() => setReferenceDayType('A')}>
+                                <SetDayTypeButton dayType="A" onClick={() => setReferenceDayType("A")}>
                                     Set Today as A-Day
                                 </SetDayTypeButton>
-                                <SetDayTypeButton dayType="B" onClick={() => setReferenceDayType('B')}>
+                                <SetDayTypeButton dayType="B" onClick={() => setReferenceDayType("B")}>
                                     Set Today as B-Day
                                 </SetDayTypeButton>
                             </div>
@@ -185,7 +185,7 @@ const Settings: React.FC = () => {
                 <div className="flex items-center justify-between mb-4">
                     <BaseModuleHeader title="Academic Terms" />
                 </div>
-                {/* <BaseModuleDescription className=' mb-7'>
+                {/* <BaseModuleDescription className=" mb-7">
                     Define your school years and semesters to organize your schedule.
                 </BaseModuleDescription> */}
 
@@ -196,8 +196,8 @@ const Settings: React.FC = () => {
                     </BaseModuleDescription>
                     <TermModeDropdown
                         messages={{
-                            'Semesters Only': 'Fall and Spring semesters',
-                            'Semesters With Quarters': 'Four quarters (Q1-Q4) split into Fall and Spring semesters'
+                            "Semesters Only": "Fall and Spring semesters",
+                            "Semesters With Quarters": "Four quarters (Q1-Q4) split into Fall and Spring semesters"
                         }}
                     >
                         <TermModeDropdownOption value="Semesters Only">Semesters Only</TermModeDropdownOption>
@@ -218,7 +218,7 @@ const Settings: React.FC = () => {
                                         <TermItemHeader>
                                             <div className="flex flex-col gap-1">
                                                 <TermItemHeaderName>{term.name}</TermItemHeaderName>
-                                                <TermItemHeaderDates>{formatDate('medium', term.startDate)} — {formatDate('medium', term.endDate)}</TermItemHeaderDates>
+                                                <TermItemHeaderDates>{formatDate("medium", term.startDate)} — {formatDate("medium", term.endDate)}</TermItemHeaderDates>
                                             </div>
                                             <div className="flex items-center gap-1 -mr-2 -mt-2">
                                                 <TermItemHeaderEditButton term={term} />
@@ -229,19 +229,19 @@ const Settings: React.FC = () => {
                                         <TermItemBody>
                                             <TermItemBodySemester
                                                 name="Fall"
-                                                startDate={term.semesters.find(sem => sem.name === 'Fall')!.startDate}
-                                                endDate={term.semesters.find(sem => sem.name === 'Fall')!.endDate}
-                                                quarters={term.termType === 'Semesters With Quarters'
-                                                    ? term.semesters.find(sem => sem.name === 'Fall')!.quarters
+                                                startDate={term.semesters.find(sem => sem.name === "Fall")!.startDate}
+                                                endDate={term.semesters.find(sem => sem.name === "Fall")!.endDate}
+                                                quarters={term.termType === "Semesters With Quarters"
+                                                    ? term.semesters.find(sem => sem.name === "Fall")!.quarters
                                                     : undefined
                                                 }
                                             />
                                             <TermItemBodySemester
                                                 name="Spring"
-                                                startDate={term.semesters.find(sem => sem.name === 'Spring')!.startDate}
-                                                endDate={term.semesters.find(sem => sem.name === 'Spring')!.endDate}
-                                                quarters={term.termType === 'Semesters With Quarters'
-                                                    ? term.semesters.find(sem => sem.name === 'Spring')!.quarters
+                                                startDate={term.semesters.find(sem => sem.name === "Spring")!.startDate}
+                                                endDate={term.semesters.find(sem => sem.name === "Spring")!.endDate}
+                                                quarters={term.termType === "Semesters With Quarters"
+                                                    ? term.semesters.find(sem => sem.name === "Spring")!.quarters
                                                     : undefined
                                                 }
                                             />
@@ -269,7 +269,7 @@ const Settings: React.FC = () => {
                         <DangerZoneRowDetails title="Delete All Assignments">
                             Delete every assignment from your account.
                         </DangerZoneRowDetails>
-                        <DangerZoneRowButton onClick={() => openModal('delete-assignments')}>
+                        <DangerZoneRowButton onClick={() => openModal("delete-assignments")}>
                             Delete All
                         </DangerZoneRowButton>
                     </DangerZoneRow>
@@ -277,7 +277,7 @@ const Settings: React.FC = () => {
                         <DangerZoneRowDetails title="Delete All Events">
                             Delete every calendar event from your account.
                         </DangerZoneRowDetails>
-                        <DangerZoneRowButton onClick={() => openModal('delete-events')}>
+                        <DangerZoneRowButton onClick={() => openModal("delete-events")}>
                             Delete All
                         </DangerZoneRowButton>
                     </DangerZoneRow>
@@ -285,7 +285,7 @@ const Settings: React.FC = () => {
                         <DangerZoneRowDetails title="Clear All Data">
                             Clear all data from your account. There is no going back.
                         </DangerZoneRowDetails>
-                        <DangerZoneRowButton onClick={() => openModal('clear-all-data')}>
+                        <DangerZoneRowButton onClick={() => openModal("clear-all-data")}>
                             Clear All
                         </DangerZoneRowButton>
                     </DangerZoneRow>

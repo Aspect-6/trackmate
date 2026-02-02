@@ -1,6 +1,6 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import { AUTH } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { AUTH } from "@/app/styles/colors"
 
 interface ProviderButtonProps {
     onClick: () => void
@@ -20,9 +20,9 @@ const ProviderButton: React.FC<ProviderButtonProps> = ({ onClick, disabled, chil
             style={{
                 backgroundColor: AUTH.BACKGROUND_TERTIARY,
                 border: `1px solid ${AUTH.BORDER_PRIMARY}`,
-                filter: isHovered && !disabled ? 'brightness(1.1)' : 'none',
-                transform: isHovered && !disabled ? 'translateY(-0.65px)' : 'none',
-                willChange: 'transform',
+                filter: isHovered && !disabled ? "brightness(1.1)" : "none",
+                transform: isHovered && !disabled ? "translateY(-0.65px)" : "none",
+                willChange: "transform",
             }}
             {...hoverProps}
         >

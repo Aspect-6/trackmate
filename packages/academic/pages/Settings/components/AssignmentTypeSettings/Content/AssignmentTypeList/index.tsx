@@ -1,7 +1,7 @@
-import React from 'react'
-import type { AssignmentTypeSettings } from '@/pages/Settings/types'
-import { DndContext, closestCenter } from '@dnd-kit/core'
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import React from "react"
+import type { AssignmentTypeSettings } from "@/pages/Settings/types"
+import { DndContext, closestCenter } from "@dnd-kit/core"
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 
 const AssignmentTypeList: React.FC<AssignmentTypeSettings.Content.AssignmentTypeList.Props> = ({
     sensors,
@@ -22,4 +22,4 @@ const AssignmentTypeList: React.FC<AssignmentTypeSettings.Content.AssignmentType
 
 export default AssignmentTypeList
 
-export { default as AssignmentTypeListRow } from './AssignmentTypeListRow'
+export { default as AssignmentTypeListRow } from "./AssignmentTypeListRow"

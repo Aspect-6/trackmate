@@ -1,6 +1,6 @@
-import React from 'react'
-import type { DataSection } from '@/pages/Account/types'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { DataSection } from "@/pages/Account/types"
+import { ACCOUNT } from "@/app/styles/colors"
 
 export const Container: React.FC<DataSection.Content.DeleteAccountCard.ContainerProps> = ({ children }) => (
     <div
@@ -14,7 +14,7 @@ export const Container: React.FC<DataSection.Content.DeleteAccountCard.Container
             className="absolute inset-0"
             style={{
                 background: ACCOUNT.DANGER_ZONE_BG_PATTERN,
-                backgroundSize: '10px 10px',
+                backgroundSize: "10px 10px",
                 opacity: 0.04,
             }}
         />

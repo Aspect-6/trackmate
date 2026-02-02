@@ -1,14 +1,14 @@
-import React from 'react'
-import type { Landing } from '@/pages/Landing/types'
+import React from "react"
+import type { Landing } from "@/pages/Landing/types"
 
 const HeroTitle: React.FC<Landing.Hero.HeroTitleProps> = ({ children }) => {
     return (
         <h1 style={{
-            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+            fontSize: "clamp(2.5rem, 5vw, 4rem)",
             fontWeight: 700,
-            color: 'hsl(0, 0%, 95%)',
-            marginBottom: '1rem',
-            letterSpacing: '-0.02em',
+            color: "hsl(0, 0%, 95%)",
+            marginBottom: "1rem",
+            letterSpacing: "-0.02em",
         }}>
             {children}
         </h1>

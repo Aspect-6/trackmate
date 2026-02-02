@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 export interface ModalHeaderProps {
     children: React.ReactNode
@@ -9,7 +9,7 @@ export interface ModalHeaderProps {
 export const ModalHeader: React.FC<ModalHeaderProps> = ({
     children,
     color,
-    className = '',
+    className = "",
 }) => {
     return (
         <h2

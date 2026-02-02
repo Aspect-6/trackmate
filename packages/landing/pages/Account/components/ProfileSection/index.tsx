@@ -1,9 +1,9 @@
-import React from 'react'
-import { useAuth } from '@shared/contexts/AuthContext'
-import AvatarDisplay from './Content/AvatarDisplay'
-import EmailRow from './Content/EmailRow'
-import AccountIdRow from './Content/AccountIdRow'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import { useAuth } from "@shared/contexts/AuthContext"
+import AvatarDisplay from "./Content/AvatarDisplay"
+import EmailRow from "./Content/EmailRow"
+import AccountIdRow from "./Content/AccountIdRow"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const ProfileSection: React.FC = () => {
     const { user } = useAuth()

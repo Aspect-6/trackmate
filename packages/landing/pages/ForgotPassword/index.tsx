@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { sendPasswordResetEmail } from 'firebase/auth'
-import { auth } from '@shared/lib'
-import { Title, FormField, FormFieldLabel, FormFieldTextInput, HomeLink, FormLink } from '@/app/components/AuthForm'
-import { useForm } from 'react-hook-form'
-import { AUTH } from '@/app/styles/colors'
-import { useHover } from '@shared/hooks/ui/useHover'
-import { CheckCircle } from 'lucide-react'
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { sendPasswordResetEmail } from "firebase/auth"
+import { auth } from "@shared/lib"
+import { Title, FormField, FormFieldLabel, FormFieldTextInput, HomeLink, FormLink } from "@/app/components/AuthForm"
+import { useForm } from "react-hook-form"
+import { AUTH } from "@/app/styles/colors"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { CheckCircle } from "lucide-react"
 
 interface ForgotPasswordFormData {
     email: string
@@ -17,7 +17,7 @@ const ForgotPassword: React.FC = () => {
     const { register, handleSubmit, formState: { errors }, setError } = useForm<ForgotPasswordFormData>()
     const [loading, setLoading] = useState(false)
     const [emailSent, setEmailSent] = useState(false)
-    const [sentEmail, setSentEmail] = useState('')
+    const [sentEmail, setSentEmail] = useState("")
     const { isHovered, hoverProps } = useHover()
 
     const onSubmit = async (data: ForgotPasswordFormData) => {
@@ -29,20 +29,20 @@ const ForgotPassword: React.FC = () => {
             setSentEmail(data.email)
             setEmailSent(true)
         } catch (error: any) {
-            console.error('Error sending password reset email:', error)
+            console.error("Error sending password reset email:", error)
             switch (error.code) {
-                case 'auth/user-not-found':
+                case "auth/user-not-found":
                     setSentEmail(data.email)
                     setEmailSent(true)
                     break
-                case 'auth/invalid-email':
-                    setError('email', { message: 'Please enter a valid email address' })
+                case "auth/invalid-email":
+                    setError("email", { message: "Please enter a valid email address" })
                     break
-                case 'auth/too-many-requests':
-                    setError('root', { message: 'Too many requests. Please try again later.' })
+                case "auth/too-many-requests":
+                    setError("root", { message: "Too many requests. Please try again later." })
                     break
                 default:
-                    setError('root', { message: 'Something went wrong. Please try again.' })
+                    setError("root", { message: "Something went wrong. Please try again." })
             }
         } finally {
             setLoading(false)
@@ -59,7 +59,7 @@ const ForgotPassword: React.FC = () => {
                 }}
             >
                 <HomeLink />
-                <Title>{emailSent ? 'Check your email' : 'Reset your password'}</Title>
+                <Title>{emailSent ? "Check your email" : "Reset your password"}</Title>
 
                 {!emailSent ? (
                     <>
@@ -79,11 +79,11 @@ const ForgotPassword: React.FC = () => {
                                     id="email"
                                     autoComplete="email"
                                     hasError={!!errors.email}
-                                    {...register('email', {
-                                        required: 'Email is required',
+                                    {...register("email", {
+                                        required: "Email is required",
                                         pattern: {
                                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                            message: 'Invalid email address'
+                                            message: "Invalid email address"
                                         }
                                     })}
                                 />
@@ -107,12 +107,12 @@ const ForgotPassword: React.FC = () => {
                                 style={{
                                     backgroundColor: isHovered ? AUTH.PRIMARY_BUTTON_BG_HOVER : AUTH.PRIMARY_BUTTON_BG,
                                     color: AUTH.TEXT_WHITE,
-                                    willChange: 'transform',
-                                    transform: isHovered ? 'translateY(-0.65px)' : 'none',
+                                    willChange: "transform",
+                                    transform: isHovered ? "translateY(-0.65px)" : "none",
                                 }}
                                 {...hoverProps}
                             >
-                                {loading ? 'Sending...' : 'Send Reset Link'}
+                                {loading ? "Sending..." : "Send Reset Link"}
                             </button>
                         </form>
 
@@ -120,7 +120,7 @@ const ForgotPassword: React.FC = () => {
                             className="mt-6 text-center text-sm"
                             style={{ color: AUTH.TEXT_SECONDARY }}
                         >
-                            Remember your password?{' '}
+                            Remember your password?{" "}
                             <FormLink href="/auth/sign-in">Sign in</FormLink>
                         </p>
                     </>
@@ -130,20 +130,20 @@ const ForgotPassword: React.FC = () => {
                             <CheckCircle size={64} style={{ color: AUTH.GLOBAL_ACCENT }} />
                         </div>
                         <p className="text-sm text-center" style={{ color: AUTH.TEXT_SECONDARY }}>
-                            We've sent a password reset link to{' '}
+                            We've sent a password reset link to{" "}
                             <span className="font-semibold" style={{ color: AUTH.TEXT_PRIMARY }}>{sentEmail}</span>
                         </p>
                         <p className="text-sm text-center" style={{ color: AUTH.TEXT_SECONDARY }}>
                             Please check your inbox and click the link to reset your password.
                         </p>
                         <button
-                            onClick={() => navigate('/auth/sign-in')}
+                            onClick={() => navigate("/auth/sign-in")}
                             className="w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
                             style={{
                                 backgroundColor: isHovered ? AUTH.PRIMARY_BUTTON_BG_HOVER : AUTH.PRIMARY_BUTTON_BG,
                                 color: AUTH.TEXT_WHITE,
-                                willChange: 'transform',
-                                transform: isHovered ? 'translateY(-0.65px)' : 'none',
+                                willChange: "transform",
+                                transform: isHovered ? "translateY(-0.65px)" : "none",
                             }}
                             {...hoverProps}
                         >

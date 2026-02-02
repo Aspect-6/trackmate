@@ -1,5 +1,5 @@
-import React from 'react'
-import { DASHBOARD } from '@/app/styles/colors'
+import React from "react"
+import { DASHBOARD } from "@/app/styles/colors"
 
 const NoUpcomingAssignments: React.FC = () => {
     return (

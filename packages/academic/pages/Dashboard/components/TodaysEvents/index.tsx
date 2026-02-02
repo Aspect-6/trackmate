@@ -1,8 +1,8 @@
-import React from 'react'
-import type { TodaysEvents } from '@/pages/Dashboard/types'
-import { DASHBOARD } from '@/app/styles/colors'
-import TodaysEventsHeader from './TodaysEventsHeader'
-import TodaysEventsBody, { EventList, NoEventsScheduled } from './Body'
+import React from "react"
+import type { TodaysEvents } from "@/pages/Dashboard/types"
+import { DASHBOARD } from "@/app/styles/colors"
+import TodaysEventsHeader from "./TodaysEventsHeader"
+import TodaysEventsBody, { EventList, NoEventsScheduled } from "./Body"
 
 const TodaysEvents: React.FC<TodaysEvents.Props> = ({
     events,
@@ -20,7 +20,7 @@ const TodaysEvents: React.FC<TodaysEvents.Props> = ({
                 backgroundColor: DASHBOARD.BACKGROUND_PRIMARY,
                 borderColor: DASHBOARD.BORDER_PRIMARY
             }}
-            data-collapsed={isMobile && isCollapsed ? 'true' : 'false'}
+            data-collapsed={isMobile && isCollapsed ? "true" : "false"}
         >
             <TodaysEventsHeader
                 isMobile={isMobile}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 export interface ModalSelectInputProps {
     name?: string
@@ -18,7 +18,7 @@ export const ModalSelectInput: React.FC<ModalSelectInputProps> = ({
     onChange,
     required,
     focusColor,
-    className = '',
+    className = "",
     children,
 }) => {
     return (
@@ -29,7 +29,7 @@ export const ModalSelectInput: React.FC<ModalSelectInputProps> = ({
             onChange={onChange}
             required={required}
             className={`app-select-dropdown ${className}`.trim()}
-            style={focusColor ? { '--focus-color': focusColor } as React.CSSProperties : undefined}
+            style={focusColor ? { "--focus-color": focusColor } as React.CSSProperties : undefined}
         >
             {children}
         </select>

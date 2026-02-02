@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { useModal } from '@/app/contexts/ModalContext'
-import { useClasses, useAcademicTerms } from '@/app/hooks/entities'
-import { DASHBOARD, MODALS } from '@/app/styles/colors'
+import React, { useEffect, useState } from "react"
+import { useModal } from "@/app/contexts/ModalContext"
+import { useClasses, useAcademicTerms } from "@/app/hooks/entities"
+import { DASHBOARD, MODALS } from "@/app/styles/colors"
 import {
     ModalContainer,
     ModalHeader,
@@ -17,7 +17,7 @@ import {
     ModalTab,
     ModalTabPanelsContainer,
     ModalTabPanel,
-} from '@shared/components/modal'
+} from "@shared/components/modal"
 
 interface ClassFormModalProps {
     onClose: () => void
@@ -28,14 +28,14 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
     const { classes, addClass, updateClass } = useClasses()
     const { academicTerms } = useAcademicTerms()
     const { openModal } = useModal()
-    const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details')
+    const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
     const [formData, setFormData] = useState({
-        name: '',
+        name: "",
         color: MODALS.CLASS.COLORS[0]!,
-        teacherName: '',
-        roomNumber: '',
-        termId: '',
-        semesterId: ''
+        teacherName: "",
+        roomNumber: "",
+        termId: "",
+        semesterId: ""
     })
 
     const isEditMode = !!classId
@@ -50,10 +50,10 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                 setFormData({
                     name: classInfo.name,
                     color: classInfo.color,
-                    teacherName: classInfo.teacherName || '',
-                    roomNumber: classInfo.roomNumber || '',
-                    termId: classInfo.termId || '',
-                    semesterId: classInfo.semesterId || ''
+                    teacherName: classInfo.teacherName || "",
+                    roomNumber: classInfo.roomNumber || "",
+                    termId: classInfo.termId || "",
+                    semesterId: classInfo.semesterId || ""
                 })
             }
         }
@@ -82,34 +82,34 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
 
     const handleDelete = () => {
         onClose()
-        openModal('delete-class', classId)
+        openModal("delete-class", classId)
     }
 
     const handleTermChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setFormData({
             ...formData,
             termId: e.target.value,
-            semesterId: '' // Reset semester when term changes
+            semesterId: "" // Reset semester when term changes
         })
     }
 
     return (
         <ModalContainer>
             <ModalHeader color={MODALS.CLASS.HEADING}>
-                {isEditMode ? 'Edit Class' : 'Add New Class'}
+                {isEditMode ? "Edit Class" : "Add New Class"}
             </ModalHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <ModalTabSwitcher ariaLabel="Class form tabs">
-                    <ModalTab value="details" isActive={activeTab === 'details'} onClick={() => setActiveTab('details')}>
+                    <ModalTab value="details" isActive={activeTab === "details"} onClick={() => setActiveTab("details")}>
                         Details
                     </ModalTab>
-                    <ModalTab value="settings" isActive={activeTab === 'settings'} onClick={() => setActiveTab('settings')}>
+                    <ModalTab value="settings" isActive={activeTab === "settings"} onClick={() => setActiveTab("settings")}>
                         Settings
                     </ModalTab>
                 </ModalTabSwitcher>
 
                 <ModalTabPanelsContainer>
-                    <ModalTabPanel isActive={activeTab === 'details'}>
+                    <ModalTabPanel isActive={activeTab === "details"}>
                         <div>
                             <ModalLabel>Class Name</ModalLabel>
                             <ModalTextInput
@@ -150,14 +150,14 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                                     <div
                                         key={color}
                                         onClick={() => setFormData({ ...formData, color })}
-                                        className={`color-tile ${formData.color === color ? 'selected' : ''}`}
+                                        className={`color-tile ${formData.color === color ? "selected" : ""}`}
                                         style={{ backgroundColor: color }}
                                     />
                                 ))}
                             </div>
                         </div>
                     </ModalTabPanel>
-                    <ModalTabPanel isActive={activeTab === 'settings'}>
+                    <ModalTabPanel isActive={activeTab === "settings"}>
                         <div>
                             <ModalLabel>Academic Term (Optional)</ModalLabel>
                             <ModalSelectInput
@@ -205,7 +205,7 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                         bgColorHover={MODALS.CLASS.PRIMARY_BG_HOVER}
                         textColor={MODALS.CLASS.PRIMARY_TEXT}
                     >
-                        {isEditMode ? 'Save Changes' : 'Create Class'}
+                        {isEditMode ? "Save Changes" : "Create Class"}
                     </ModalSubmitButton>
                 </ModalFooter>
             </form>

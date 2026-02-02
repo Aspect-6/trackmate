@@ -1,6 +1,6 @@
-import React from 'react'
-import { useFocus } from '@shared/hooks/ui/useFocus'
-import { AUTH } from '@/app/styles/colors'
+import React from "react"
+import { useFocus } from "@shared/hooks/ui/useFocus"
+import { AUTH } from "@/app/styles/colors"
 
 interface FormFieldTextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     hasError?: boolean
@@ -24,8 +24,8 @@ const FormFieldTextInput: React.FC<FormFieldTextInputProps> = ({ hasError, ...pr
                 backgroundColor: AUTH.BACKGROUND_TERTIARY,
                 border: `1px solid ${getBorderColor()}`,
                 color: AUTH.TEXT_PRIMARY,
-                outline: 'none',
-                boxShadow: isFocused ? `0 0 0 2px ${AUTH.FOCUS_COLOR_30}` : 'none',
+                outline: "none",
+                boxShadow: isFocused ? `0 0 0 2px ${AUTH.FOCUS_COLOR_30}` : "none",
             }}
         />
     )

@@ -1,4 +1,4 @@
-import { User } from 'firebase/auth'
+import { User } from "firebase/auth"
 
 export namespace Landing {
     export interface Props { }
@@ -12,7 +12,7 @@ export namespace Landing {
     export interface ButtonProps {
         onClick: () => void
         children: React.ReactNode
-        variant?: 'primary' | 'secondary'
+        variant?: "primary" | "secondary"
         className?: string
     }
     export interface ProfileAvatarProps {

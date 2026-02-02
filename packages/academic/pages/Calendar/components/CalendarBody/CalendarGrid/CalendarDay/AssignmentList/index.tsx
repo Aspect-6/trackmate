@@ -1,6 +1,6 @@
-import React from 'react'
-import type { CalendarBody } from '@/pages/Calendar/types'
-import AssignmentItem from './AssignmentItem'
+import React from "react"
+import type { CalendarBody } from "@/pages/Calendar/types"
+import AssignmentItem from "./AssignmentItem"
 
 const AssignmentList: React.FC<CalendarBody.Grid.Day.AssignmentList.Props> = ({ assignments, getClassColor, onAssignmentClick }) => (
     <>

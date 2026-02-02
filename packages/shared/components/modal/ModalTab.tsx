@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 export interface ModalTabProps {
     value: string
@@ -16,7 +16,7 @@ export const ModalTab: React.FC<ModalTabProps> = ({
     return (
         <button
             type="button"
-            className={`modal-tab ${isActive ? 'active' : ''}`}
+            className={`modal-tab ${isActive ? "active" : ""}`}
             onClick={onClick}
             aria-selected={isActive}
             role="tab"

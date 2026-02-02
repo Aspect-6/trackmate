@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
-import { useAcademicTerms } from '@/app/hooks/entities'
-import { useArrowStyle } from './useArrowStyle'
-import { getActiveTerm } from '@/app/lib/schedule'
-import { todayString } from '@shared/lib'
+import { useState, useEffect } from "react"
+import { useAcademicTerms } from "@/app/hooks/entities"
+import { useArrowStyle } from "./useArrowStyle"
+import { getActiveTerm } from "@/app/lib/schedule"
+import { todayString } from "@shared/lib"
 
 /**
  * Shared hook for schedule page — term selection and styling.

@@ -1,10 +1,10 @@
-import React from 'react'
-import type { CalendarBody } from '@/pages/Calendar/types'
+import React from "react"
+import type { CalendarBody } from "@/pages/Calendar/types"
 
 const CalendarGridDayHeader: React.FC<CalendarBody.Grid.HeaderProps> = ({ backgroundColor, textColor }) => {
 	const bg = backgroundColor
 	const txt = textColor
-	const weekdayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+	const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
 	return (
 		<>

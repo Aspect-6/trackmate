@@ -1,5 +1,5 @@
-import React from 'react'
-import type { TermSettings } from '@/pages/Settings/types'
+import React from "react"
+import type { TermSettings } from "@/pages/Settings/types"
 
 const TermList: React.FC<TermSettings.Content.TermList.Props> = ({ children }) => {
     return (

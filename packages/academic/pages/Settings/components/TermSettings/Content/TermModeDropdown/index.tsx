@@ -1,8 +1,8 @@
-import React from 'react'
-import { useSettings } from '@/app/hooks/useSettings'
-import type { TermSettings } from '@/pages/Settings/types'
-import type { TermMode } from '@/app/types'
-import { SETTINGS } from '@/app/styles/colors'
+import React from "react"
+import { useSettings } from "@/app/hooks/useSettings"
+import type { TermSettings } from "@/pages/Settings/types"
+import type { TermMode } from "@/app/types"
+import { SETTINGS } from "@/app/styles/colors"
 
 const TermModeDropdown: React.FC<TermSettings.Content.TermModeDropdown.Props> = ({
     className,

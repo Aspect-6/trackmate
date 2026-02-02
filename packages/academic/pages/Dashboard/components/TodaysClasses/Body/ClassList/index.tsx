@@ -1,6 +1,6 @@
-import React from 'react'
-import type { TodaysClasses } from '@/pages/Dashboard/types'
-import ClassItem from './ClassItem'
+import React from "react"
+import type { TodaysClasses } from "@/pages/Dashboard/types"
+import ClassItem from "./ClassItem"
 
 const ClassList: React.FC<TodaysClasses.Body.ClassList.Props> = ({ classIds, getClassById, openModal }) => {
     return (

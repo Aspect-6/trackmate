@@ -1,14 +1,14 @@
-import { useNavigate } from 'react-router-dom'
-import type { AccountSidebar, ActiveSection } from '@/pages/Account/types'
-import { ArrowLeft, User, Link2, Lock, Database, LogOut } from 'lucide-react'
-import { SidebarTab } from '@shared/components/Sidebar'
-import { ACCOUNT } from '@/app/styles/colors'
+import { useNavigate } from "react-router-dom"
+import type { AccountSidebar, ActiveSection } from "@/pages/Account/types"
+import { ArrowLeft, User, Link2, Lock, Database, LogOut } from "lucide-react"
+import { SidebarTab } from "@shared/components/Sidebar"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const navItems: Array<{ id: ActiveSection; label: string; icon: typeof User }> = [
-    { id: 'profile', label: 'Profile', icon: User },
-    { id: 'linked', label: 'Linked Accounts', icon: Link2 },
-    { id: 'security', label: 'Security', icon: Lock },
-    { id: 'data', label: 'Your Data', icon: Database },
+    { id: "profile", label: "Profile", icon: User },
+    { id: "linked", label: "Linked Accounts", icon: Link2 },
+    { id: "security", label: "Security", icon: Lock },
+    { id: "data", label: "Your Data", icon: Database },
 ]
 
 const SidebarNav: React.FC<AccountSidebar.SidebarNavProps> = ({
@@ -21,7 +21,7 @@ const SidebarNav: React.FC<AccountSidebar.SidebarNavProps> = ({
     const navigate = useNavigate()
 
     return (
-        <div className={`flex flex-col h-full ${className || ''}`}>
+        <div className={`flex flex-col h-full ${className || ""}`}>
             <div className="flex-grow space-y-2 px-4 py-2">
                 {navItems.map(({ id, label, icon: Icon }) => {
                     const isActive = activeSection === id
@@ -42,13 +42,13 @@ const SidebarNav: React.FC<AccountSidebar.SidebarNavProps> = ({
                 })}
             </div>
 
-            <div className={`flex-shrink-0 px-4 space-y-2 ${onLinkClick ? 'pb-6' : ''}`}>
+            <div className={`flex-shrink-0 px-4 space-y-2 ${onLinkClick ? "pb-6" : ""}`}>
                 <div className="mb-2" style={{ borderBottom: `1px solid ${ACCOUNT.BORDER_PRIMARY}` }}></div>
                 <SidebarTab
                     label="Back to Home"
                     icon={ArrowLeft}
                     onClick={() => {
-                        navigate('/landing')
+                        navigate("/landing")
                         onLinkClick?.()
                     }}
                     isActive={false}

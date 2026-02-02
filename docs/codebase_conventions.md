@@ -259,16 +259,16 @@ Imports must follow this strict order:
 **Example:**
 
 ```tsx
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useModal } from '@/app/contexts/ModalContext'
-import { useHover } from '@shared/hooks/ui/useHover'
-import { useCalendarGrid } from '@/pages/Calendar/useCalendarGrid'
-import type { TodaysClasses } from '@/pages/Dashboard/types'
-import { PriorityBadge } from '@/app/components/PriorityBadge'
-import { TodaysClassesHeader } from '@/pages/Dashboard/TodaysClasses/TodaysClassesHeader'
-import { CALENDAR } from '@/app/styles/colors'
-import './index.css'
+import React, { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { useModal } from "@/app/contexts/ModalContext"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { useCalendarGrid } from "@/pages/Calendar/useCalendarGrid"
+import type { TodaysClasses } from "@/pages/Dashboard/types"
+import { PriorityBadge } from "@/app/components/PriorityBadge"
+import { TodaysClassesHeader } from "@/pages/Dashboard/TodaysClasses/TodaysClassesHeader"
+import { CALENDAR } from "@/app/styles/colors"
+import "./index.css"
 ```
 
 ### 4.3 Component Typing Pattern
@@ -346,19 +346,19 @@ const ClassItem: React.FC<TodaysClasses.Body.ClassList.ClassItemProps> = ({ ... 
 
 ```typescript
 export interface RouteConfig {
-    path: string      // Relative path (e.g., 'dashboard')
-    fullPath: string  // Full path with base (e.g., '/academic/dashboard')
+    path: string      // Relative path (e.g., "dashboard")
+    fullPath: string  // Full path with base (e.g., "/academic/dashboard")
     title: string     // Page title for display
 }
 
 export const ROUTES = {
-    'dashboard': route('dashboard', 'Dashboard'),
-    'calendar': route('calendar', 'Calendar'),
+    "dashboard": route("dashboard", "Dashboard"),
+    "calendar": route("calendar", "Calendar"),
     // ...
 }
 
 export const PATHS = {
-    DASHBOARD: ROUTES['dashboard'].fullPath,
+    DASHBOARD: ROUTES["dashboard"].fullPath,
     // ...
 }
 ```
@@ -366,7 +366,7 @@ export const PATHS = {
 **Usage:**
 - **Navigation:** Use `PATHS.DASHBOARD` for `<Link to={...}>`
 - **Route matching:** Use `getRouteByPath(pathname)` to get config from URL
-- **Page titles:** Access via `ROUTES['dashboard'].title`
+- **Page titles:** Access via `ROUTES["dashboard"].title`
 
 ---
 
@@ -386,8 +386,8 @@ export const CALENDAR = {
     ...GLOBAL,
 
     // No School
-    NO_SCHOOL_BG: 'var(--calendar-no-school-bg)',
-    NO_SCHOOL_PATTERN: 'var(--calendar-no-school-pattern)',
+    NO_SCHOOL_BG: "var(--calendar-no-school-bg)",
+    NO_SCHOOL_PATTERN: "var(--calendar-no-school-pattern)",
     // ...
 }
 ```
@@ -430,8 +430,8 @@ const { isHovered, hoverProps } = useHover()
         backgroundColor: isHovered ? MODALS.BASE.CANCEL_BG_HOVER : MODALS.BASE.CANCEL_BG,
         color: MODALS.BASE.CANCEL_TEXT,
         border: `1px solid ${MODALS.BASE.CANCEL_BORDER}`,
-        width: inline ? 'auto' : undefined,  // Control via inline prop
-        fontWeight: '500'
+        width: inline ? "auto" : undefined,  // Control via inline prop
+        fontWeight: "500"
     }}
     {...hoverProps}
 >
@@ -457,13 +457,13 @@ Shared modal button components (`ModalCancelButton`, `ModalDeleteButton`, `Modal
 
 ```typescript
 STORAGE_KEYS = {
-    ASSIGNMENTS: 'trackmateAssignments',
-    CLASSES: 'trackmateClasses',
-    TERMS: 'trackmateTerms',
-    EVENTS: 'trackmateEvents',
-    NO_SCHOOL: 'trackmateNoSchool',
-    SCHEDULES: 'trackmateSchedules',
-    SETTINGS: 'trackmateSettings',
+    ASSIGNMENTS: "trackmateAssignments",
+    CLASSES: "trackmateClasses",
+    TERMS: "trackmateTerms",
+    EVENTS: "trackmateEvents",
+    NO_SCHOOL: "trackmateNoSchool",
+    SCHEDULES: "trackmateSchedules",
+    SETTINGS: "trackmateSettings",
 }
 ```
 
@@ -496,13 +496,13 @@ closeModal: () => void
 ### 9.1 Primitives
 
 ```typescript
-type Priority = 'High' | 'Medium' | 'Low'
-type Status = 'To Do' | 'In Progress' | 'Done'
+type Priority = "High" | "Medium" | "Low"
+type Status = "To Do" | "In Progress" | "Done"
 type AssignmentType = string  // User-configurable
-type DayType = 'A' | 'B' | null
-type ThemeMode = 'light' | 'dark'
-type TermMode = 'Semesters Only' | 'Semesters With Quarters'
-type ScheduleType = 'alternating-ab' | 'none'
+type DayType = "A" | "B" | null
+type ThemeMode = "light" | "dark"
+type TermMode = "Semesters Only" | "Semesters With Quarters"
+type ScheduleType = "alternating-ab" | "none"
 ```
 
 ### 9.2 Core Entities
@@ -565,7 +565,7 @@ interface AcademicTerm {
 
 interface Semester {
     id: string
-    name: 'Fall' | 'Spring'
+    name: "Fall" | "Spring"
     startDate: string
     endDate: string
     quarters?: Quarter[]
@@ -573,7 +573,7 @@ interface Semester {
 
 interface Quarter {
     id: string
-    name: 'Q1' | 'Q2' | 'Q3' | 'Q4'
+    name: "Q1" | "Q2" | "Q3" | "Q4"
     startDate: string
     endDate: string
 }
@@ -584,14 +584,14 @@ interface Quarter {
 ```typescript
 interface Schedules {
     type: ScheduleType
-    'alternating-ab'?: AlternatingABData
-    'none'?: NoScheduleData
+    "alternating-ab"?: AlternatingABData
+    "none"?: NoScheduleData
 }
 
 interface AlternatingABData {
     startDate: string
-    startDayType: 'A' | 'B'
-    dayTypeOverrides: Record<string, 'A' | 'B'>
+    startDayType: "A" | "B"
+    dayTypeOverrides: Record<string, "A" | "B">
     terms: Record<string, TermSchedule>
 }
 
@@ -754,9 +754,9 @@ Both packages use Vite with:
 
 ```typescript
 manualChunks: {
-    'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-    'firebase-vendor': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
-    'ui-vendor': ['lucide-react', '@dnd-kit/core', ...]  // academic only
+    "react-vendor": ["react", "react-dom", "react-router-dom"],
+    "firebase-vendor": ["firebase/app", "firebase/auth", "firebase/firestore"],
+    "ui-vendor": ["lucide-react", "@dnd-kit/core", ...]  // academic only
 }
 ```
 
@@ -870,7 +870,7 @@ Comprehensive modal component library:
 | Area | Convention |
 |------|------------|
 | Props Typing | Namespaced interfaces in `types/index.ts` mirroring component tree |
-| Type Imports | `import type { ... } from '@/pages/.../types'` |
+| Type Imports | `import type { ... } from "@/pages/.../types"` |
 | Import Order | React → Contexts → Types → Utils → Components (`@shared` first) → Colors → CSS |
 | Component Nesting | Deeply nested folders matching UI hierarchy |
 

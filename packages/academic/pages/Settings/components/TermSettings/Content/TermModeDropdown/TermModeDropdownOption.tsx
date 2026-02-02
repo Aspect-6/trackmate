@@ -1,5 +1,5 @@
-import React from 'react'
-import type { TermSettings } from '@/pages/Settings/types'
+import React from "react"
+import type { TermSettings } from "@/pages/Settings/types"
 
 const TermModeDropdownOption: React.FC<TermSettings.Content.TermModeDropdown.OptionProps> = ({ value, children }) => {
     return (

@@ -1,6 +1,6 @@
-import React from 'react'
-import type { ThemeSettings } from '@/pages/Settings/types'
-import { SETTINGS } from '@/app/styles/colors'
+import React from "react"
+import type { ThemeSettings } from "@/pages/Settings/types"
+import { SETTINGS } from "@/app/styles/colors"
 
 const ThemeSettingsComponent: React.FC<ThemeSettings.Props> = ({ children }) => {
     return (
@@ -18,5 +18,5 @@ const ThemeSettingsComponent: React.FC<ThemeSettings.Props> = ({ children }) => 
 
 export default ThemeSettingsComponent
 
-export { default as ThemeSettingsContent } from './Content'
-export { default as ThemeButton } from './Content/ThemeButton'
+export { default as ThemeSettingsContent } from "./Content"
+export { default as ThemeButton } from "./Content/ThemeButton"

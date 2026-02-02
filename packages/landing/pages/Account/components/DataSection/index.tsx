@@ -1,6 +1,6 @@
-import React from 'react'
-import DeleteAccountCard from './Content/DeleteAccountCard'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import DeleteAccountCard from "./Content/DeleteAccountCard"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const DataSection: React.FC = () => {
     return (

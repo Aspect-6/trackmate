@@ -1,6 +1,6 @@
-import React from 'react'
-import type { CalendarBody } from '@/pages/Calendar/types'
-import { CALENDAR } from '@/app/styles/colors'
+import React from "react"
+import type { CalendarBody } from "@/pages/Calendar/types"
+import { CALENDAR } from "@/app/styles/colors"
 
 const CalendarGridEmptyDay: React.FC<CalendarBody.Grid.EmptyDayProps> = () => (
 	<div

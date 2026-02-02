@@ -1,6 +1,6 @@
-import React from 'react'
-import type { UpcomingAssignments } from '@/pages/Dashboard/types'
-import { DASHBOARD } from '@/app/styles/colors'
+import React from "react"
+import type { UpcomingAssignments } from "@/pages/Dashboard/types"
+import { DASHBOARD } from "@/app/styles/colors"
 
 const AssignmentDetailsBody: React.FC<UpcomingAssignments.AssignmentCard.Details.Body.Props> = ({ children }) => {
     return (

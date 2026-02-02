@@ -1,5 +1,5 @@
-import React from 'react'
-import { AUTH } from '@/app/styles/colors'
+import React from "react"
+import { AUTH } from "@/app/styles/colors"
 
 interface FormCheckboxProps {
     checked: boolean
@@ -20,7 +20,7 @@ const FormCheckbox: React.FC<FormCheckboxProps> = ({ checked, onChange, children
                 className="w-4 h-4 rounded"
                 style={{
                     accentColor: AUTH.PRIMARY_BUTTON_BG,
-                    outline: 'none',
+                    outline: "none",
                 }}
             />
             {children}

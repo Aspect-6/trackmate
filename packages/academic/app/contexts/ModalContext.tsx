@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react'
+import React, { createContext, useContext, useState, useCallback, ReactNode } from "react"
 
 interface ModalContextType {
     activeModal: string | null
@@ -37,7 +37,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 export const useModal = (): ModalContextType => {
     const context = useContext(ModalContext)
     if (!context) {
-        throw new Error('useModal must be used within a ModalProvider')
+        throw new Error("useModal must be used within a ModalProvider")
     }
     return context
 }

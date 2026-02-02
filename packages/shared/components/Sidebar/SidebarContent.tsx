@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 interface SidebarContentProps {
     children: React.ReactNode
@@ -13,7 +13,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
 }) => {
     return (
         <div
-            className={`flex-grow min-h-0 flex flex-col ${className || ''}`}
+            className={`flex-grow min-h-0 flex flex-col ${className || ""}`}
             style={style}
         >
             {children}

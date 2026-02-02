@@ -1,8 +1,8 @@
-import React from 'react'
-import { useAssignments } from '@/app/hooks/entities'
-import AssignmentCard from './AssignmentCard'
-import NoUpcomingAssignments from './NoUpcomingAssignments'
-import { DASHBOARD } from '@/app/styles/colors'
+import React from "react"
+import { useAssignments } from "@/app/hooks/entities"
+import AssignmentCard from "./AssignmentCard"
+import NoUpcomingAssignments from "./NoUpcomingAssignments"
+import { DASHBOARD } from "@/app/styles/colors"
 
 const UpcomingAssignments: React.FC = () => {
     const { activeAssignments } = useAssignments()

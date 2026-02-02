@@ -1,6 +1,6 @@
-import { useToast } from '@shared/contexts/ToastContext'
-import { useAssignments, useClasses, useEvents, useNoSchool, useAcademicTerms } from '@/app/hooks/entities'
-import { useDangerZone } from '@/pages/Settings/hooks/useDangerZone'
+import { useToast } from "@shared/contexts/ToastContext"
+import { useAssignments, useClasses, useEvents, useNoSchool, useAcademicTerms } from "@/app/hooks/entities"
+import { useDangerZone } from "@/pages/Settings/hooks/useDangerZone"
 
 export interface DeleteModalConfig {
     title: string
@@ -23,7 +23,7 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
     if (!activeModal) return null
 
     // 1. Handle Bulk Deletes and Special Actions
-    if (activeModal === 'delete-assignments') {
+    if (activeModal === "delete-assignments") {
         return {
             title: "Delete All Assignments?",
             message: "This will permanently delete every assignment from your account. This action cannot be undone.",
@@ -31,7 +31,7 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
             onDelete: deleteAllAssignments
         }
     }
-    if (activeModal === 'delete-events') {
+    if (activeModal === "delete-events") {
         return {
             title: "Delete All Events?",
             message: "This will permanently delete every calendar event from your account. This action cannot be undone.",
@@ -39,7 +39,7 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
             onDelete: deleteAllEvents
         }
     }
-    if (activeModal === 'clear-all-data') {
+    if (activeModal === "clear-all-data") {
         return {
             title: "Clear All Data?",
             message: "This will permanently delete all assignments, classes, events, schedules, no-school days, and custom assignment types. This action cannot be undone.",
@@ -50,14 +50,14 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
 
     // 2. Configuration Map for Single Item Deletes
     const configMap: Record<string, { data: any[], getName: (item: any) => string, action: (id: string) => void, label: string, msg: string, desc?: string }> = {
-        'delete-assignment': {
+        "delete-assignment": {
             data: assignments,
             getName: i => i.title,
             action: deleteAssignment,
-            label: 'Assignment',
-            msg: 'Successfully deleted assignment'
+            label: "Assignment",
+            msg: "Successfully deleted assignment"
         },
-        'delete-class': {
+        "delete-class": {
             data: classes,
             getName: i => i.name,
             action: (id: string) => {
@@ -67,25 +67,25 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
                     .forEach(a => deleteAssignment(a.id))
                 deleteClass(id)
             },
-            label: 'Class',
-            msg: 'Successfully deleted class',
-            desc: 'This will delete all assignments from this class.'
+            label: "Class",
+            msg: "Successfully deleted class",
+            desc: "This will delete all assignments from this class."
         },
-        'delete-event': {
+        "delete-event": {
             data: events,
             getName: i => i.title,
             action: deleteEvent,
-            label: 'Event',
-            msg: 'Successfully deleted event'
+            label: "Event",
+            msg: "Successfully deleted event"
         },
-        'delete-no-school': {
+        "delete-no-school": {
             data: noSchool,
             getName: i => i.name,
             action: deleteNoSchool,
-            label: 'No School Period',
-            msg: 'Successfully deleted no school period'
+            label: "No School Period",
+            msg: "Successfully deleted no school period"
         },
-        'delete-term': {
+        "delete-term": {
             data: academicTerms,
             getName: i => i.name,
             action: (id: string) => {
@@ -95,9 +95,9 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
                     .forEach(c => updateClass(c.id, { termId: undefined, semesterId: undefined }))
                 deleteAcademicTerm(id)
             },
-            label: 'Academic Term',
-            msg: 'Successfully deleted academic term',
-            desc: 'Any classes in this term will be unassigned. This action cannot be undone.'
+            label: "Academic Term",
+            msg: "Successfully deleted academic term",
+            desc: "Any classes in this term will be unassigned. This action cannot be undone."
         }
     }
 
@@ -111,10 +111,10 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
         title: `Delete ${config.label}?`,
         entityName: config.getName(item),
         description: config.desc,
-        buttonText: `Delete ${config.label === 'No School Period' ? 'Period' : config.label.split(' ').pop() || config.label}`,
+        buttonText: `Delete ${config.label === "No School Period" ? "Period" : config.label.split(" ").pop() || config.label}`,
         onDelete: () => {
             config.action(modalData)
-            showToast(config.msg, 'success')
+            showToast(config.msg, "success")
         }
     }
 }

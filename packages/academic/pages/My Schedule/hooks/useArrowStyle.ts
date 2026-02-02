@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react'
-import { GLOBAL } from '@/app/styles/colors'
+import { useState, useEffect, useCallback } from "react"
+import { GLOBAL } from "@/app/styles/colors"
 
 
 /**
@@ -9,10 +9,10 @@ import { GLOBAL } from '@/app/styles/colors'
 export const useArrowStyle = () => {
     const getArrowSvg = useCallback((color: string) => {
         const encodedColor = encodeURIComponent(color)
-        return `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='${encodedColor}'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`
+        return `url("data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="${encodedColor}"%3E%3Cpath stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"%3E%3C/path%3E%3C/svg%3E")`
     }, [])
 
-    const [arrowColor, setArrowColor] = useState('')
+    const [arrowColor, setArrowColor] = useState("")
 
     useEffect(() => {
         const updateColor = () => {
@@ -24,7 +24,7 @@ export const useArrowStyle = () => {
         updateColor()
 
         const observer = new MutationObserver(updateColor)
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
         return () => observer.disconnect()
     }, [])
 

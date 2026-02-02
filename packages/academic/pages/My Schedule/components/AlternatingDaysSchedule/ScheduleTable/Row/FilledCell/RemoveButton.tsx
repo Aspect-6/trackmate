@@ -1,8 +1,8 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { AlternatingDaysSchedule } from '@/pages/My Schedule/types'
-import { X } from 'lucide-react'
-import { MY_SCHEDULE } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { AlternatingDaysSchedule } from "@/pages/My Schedule/types"
+import { X } from "lucide-react"
+import { MY_SCHEDULE } from "@/app/styles/colors"
 
 const RemoveButton: React.FC<AlternatingDaysSchedule.ScheduleTable.Row.FilledCell.RemoveButtonProps> = ({ onClick }) => {
     const { isHovered, hoverProps } = useHover()

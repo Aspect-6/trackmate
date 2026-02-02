@@ -1,5 +1,5 @@
-import React from 'react'
-import type { TermSettings } from '@/pages/Settings/types'
+import React from "react"
+import type { TermSettings } from "@/pages/Settings/types"
 
 const TermSettingsContent: React.FC<TermSettings.Content.Props> = ({ children }) => {
     return (
@@ -11,4 +11,4 @@ const TermSettingsContent: React.FC<TermSettings.Content.Props> = ({ children })
 
 export default TermSettingsContent
 
-export { default as TermItem } from './TermList/TermItem'
+export { default as TermItem } from "./TermList/TermItem"

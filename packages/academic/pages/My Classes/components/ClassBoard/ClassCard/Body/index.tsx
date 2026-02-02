@@ -1,5 +1,5 @@
-import React from 'react'
-import type { ClassBoard } from '@/pages/My Classes/types'
+import React from "react"
+import type { ClassBoard } from "@/pages/My Classes/types"
 
 const ClassCardBody: React.FC<ClassBoard.Card.Body.Props> = ({ children }) => {
     return (
@@ -11,8 +11,8 @@ const ClassCardBody: React.FC<ClassBoard.Card.Body.Props> = ({ children }) => {
 
 export default ClassCardBody
 
-export { default as ClassCardInstructor } from './Instructor'
-export { default as ClassCardRoom } from './Room'
-export { default as ClassCardColor } from './Color'
-export { default as ClassCardTerm } from './Term'
+export { default as ClassCardInstructor } from "./Instructor"
+export { default as ClassCardRoom } from "./Room"
+export { default as ClassCardColor } from "./Color"
+export { default as ClassCardTerm } from "./Term"
 

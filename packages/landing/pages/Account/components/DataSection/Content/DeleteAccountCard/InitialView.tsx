@@ -1,8 +1,8 @@
-import React from 'react'
-import type { DataSection } from '@/pages/Account/types'
-import { Trash2 } from 'lucide-react'
-import { Button } from '@/app/components/Button'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { DataSection } from "@/pages/Account/types"
+import { Trash2 } from "lucide-react"
+import { Button } from "@/app/components/Button"
+import { ACCOUNT } from "@/app/styles/colors"
 
 export const InitialView: React.FC<DataSection.Content.DeleteAccountCard.InitialViewProps> = ({ onInitiateDelete }) => {
 

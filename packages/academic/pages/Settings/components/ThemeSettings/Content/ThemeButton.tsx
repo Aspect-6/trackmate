@@ -1,7 +1,7 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { ThemeSettings } from '@/pages/Settings/types'
-import { SETTINGS } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { ThemeSettings } from "@/pages/Settings/types"
+import { SETTINGS } from "@/app/styles/colors"
 
 const ThemeButton: React.FC<ThemeSettings.Content.ThemeButtonProps> = ({
     label,

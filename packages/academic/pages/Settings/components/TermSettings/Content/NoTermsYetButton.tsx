@@ -1,8 +1,8 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import { useModal } from '@/app/contexts/ModalContext'
-import type { TermSettings } from '@/pages/Settings/types'
-import { SETTINGS } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { useModal } from "@/app/contexts/ModalContext"
+import type { TermSettings } from "@/pages/Settings/types"
+import { SETTINGS } from "@/app/styles/colors"
 
 const NoTermsYetButton: React.FC<TermSettings.Content.NoTermsYetButtonProps> = ({ children }) => {
     const { openModal } = useModal()
@@ -15,7 +15,7 @@ const NoTermsYetButton: React.FC<TermSettings.Content.NoTermsYetButtonProps> = (
                 border: `1.5px dashed ${isHovered ? SETTINGS.HOVER_ZONE_BUTTON_BORDER_HOVER : SETTINGS.HOVER_ZONE_BUTTON_BORDER}`,
                 color: SETTINGS.TEXT_TERTIARY
             }}
-            onClick={() => openModal('add-term')}
+            onClick={() => openModal("add-term")}
             {...hoverProps}
         >
             {children}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 export interface ModalTextInputProps {
     name?: string
@@ -19,7 +19,7 @@ export const ModalTextInput: React.FC<ModalTextInputProps> = ({
     placeholder,
     required,
     focusColor,
-    className = '',
+    className = "",
 }) => {
     return (
         <input
@@ -31,7 +31,7 @@ export const ModalTextInput: React.FC<ModalTextInputProps> = ({
             placeholder={placeholder}
             required={required}
             className={`modal-input ${className}`.trim()}
-            style={focusColor ? { '--focus-color': focusColor } as React.CSSProperties : undefined}
+            style={focusColor ? { "--focus-color": focusColor } as React.CSSProperties : undefined}
         />
     )
 }

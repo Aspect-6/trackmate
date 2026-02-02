@@ -1,8 +1,8 @@
-import React from 'react'
-import type { SecuritySection } from '@/pages/Account/types'
-import { ShieldCheck, Check } from 'lucide-react'
-import { Button } from '@/app/components/Button'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { SecuritySection } from "@/pages/Account/types"
+import { ShieldCheck, Check } from "lucide-react"
+import { Button } from "@/app/components/Button"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRowProps> = ({
     isVerified,
@@ -29,7 +29,7 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
                     <div>
                         <p className="text-sm" style={{ color: ACCOUNT.TEXT_SECONDARY }}>Email Verification</p>
                         <p className="font-medium" style={{ color: isVerified ? ACCOUNT.TEXT_SUCCESS : ACCOUNT.TEXT_PRIMARY }}>
-                            {isVerified ? 'Verified' : 'Not verified'}
+                            {isVerified ? "Verified" : "Not verified"}
                         </p>
                     </div>
                 </div>

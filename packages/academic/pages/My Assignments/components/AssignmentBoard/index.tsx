@@ -52,7 +52,7 @@ const AssignmentBoard: React.FC<AssignmentBoardTypes.Props> = ({
 		: -1
 	const showPlaceholder = dragEnabled && !!activeId && isOverColumn
 
-	const handleAssignmentClick = (id: string) => openModal('edit-assignment', id)
+	const handleAssignmentClick = (id: string) => openModal("edit-assignment", id)
 
 	return (
 		<div

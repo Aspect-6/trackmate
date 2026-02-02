@@ -1,6 +1,6 @@
-export { useAssignments } from './useAssignments'
-export { useClasses } from './useClasses'
-export { useEvents } from './useEvents'
-export { useNoSchool } from './useNoSchool'
-export { useAcademicTerms } from './useAcademicTerms'
-export { useSchedules } from './useSchedules'
+export { useAssignments } from "./useAssignments"
+export { useClasses } from "./useClasses"
+export { useEvents } from "./useEvents"
+export { useNoSchool } from "./useNoSchool"
+export { useAcademicTerms } from "./useAcademicTerms"
+export { useSchedules } from "./useSchedules"

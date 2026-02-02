@@ -1,5 +1,5 @@
-import React from 'react'
-import { AUTH } from '@/app/styles/colors'
+import React from "react"
+import { AUTH } from "@/app/styles/colors"
 
 interface FormFieldLabelProps {
     htmlFor: string

@@ -1,8 +1,8 @@
-import React from 'react'
-import type { SecuritySection } from '@/pages/Account/types'
-import { Lock, Pencil } from 'lucide-react'
-import { Button } from '@/app/components/Button'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { SecuritySection } from "@/pages/Account/types"
+import { Lock, Pencil } from "lucide-react"
+import { Button } from "@/app/components/Button"
+import { ACCOUNT } from "@/app/styles/colors"
 
 export const PasswordRowDisplay: React.FC<SecuritySection.Content.PasswordRow.DisplayProps> = ({
     hasPassword,

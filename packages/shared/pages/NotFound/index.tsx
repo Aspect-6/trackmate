@@ -1,8 +1,8 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useHover } from '@shared/hooks/ui/useHover'
-import { BRAND_NAME } from '@shared/config/brand'
-import { TRACKMATE } from '@shared/styles/colors'
+import React from "react"
+import { useNavigate } from "react-router-dom"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { BRAND_NAME } from "@shared/config/brand"
+import { TRACKMATE } from "@shared/styles/colors"
 
 interface NotFoundProps {
     text: string
@@ -50,7 +50,7 @@ const NotFound: React.FC<NotFoundProps> = ({ text, path, buttonBg, buttonBgHover
                     style={{
                         color: TRACKMATE.TEXT_PRIMARY,
                         border: `1px solid ${TRACKMATE.BORDER_SECONDARY}`,
-                        backgroundColor: isSecondaryHovered ? TRACKMATE.BACKGROUND_TERTIARY : 'transparent'
+                        backgroundColor: isSecondaryHovered ? TRACKMATE.BACKGROUND_TERTIARY : "transparent"
                     }}
                     onClick={() => navigate(-1)}
                     {...secondaryHoverProps}

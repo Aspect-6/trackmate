@@ -1,10 +1,10 @@
-import React from 'react'
-import { useClasses } from '@/app/hooks/entities'
-import type { SemesterScheduleData } from '@/app/types'
-import type { SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
-import { ModalCancelButton } from '@shared/components/modal/ModalCancelButton'
-import { BookOpen, Calendar } from 'lucide-react'
-import { GLOBAL, MODALS } from '@/app/styles/colors'
+import React from "react"
+import { useClasses } from "@/app/hooks/entities"
+import type { SemesterScheduleData } from "@/app/types"
+import type { SemesterName, ScheduleDayType } from "@/pages/My Schedule/types"
+import { ModalCancelButton } from "@shared/components/modal/ModalCancelButton"
+import { BookOpen, Calendar } from "lucide-react"
+import { GLOBAL, MODALS } from "@/app/styles/colors"
 
 interface AlternatingABClassSelectorModalProps {
     onClose: () => void
@@ -46,7 +46,7 @@ export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelecto
         return true
     })
 
-    const dayLabel = dayType === 'A' ? 'A-Day' : 'B-Day'
+    const dayLabel = dayType === "A" ? "A-Day" : "B-Day"
 
     return (
         <div
@@ -66,7 +66,7 @@ export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelecto
                         style={{
                             borderColor: GLOBAL.BORDER_SECONDARY,
                             color: GLOBAL.TEXT_PRIMARY,
-                            backgroundColor: 'transparent'
+                            backgroundColor: "transparent"
                         }}
                     >
                         <Calendar size={14} className="opacity-60" />
@@ -77,7 +77,7 @@ export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelecto
                         style={{
                             borderColor: GLOBAL.BORDER_SECONDARY,
                             color: GLOBAL.TEXT_SECONDARY,
-                            backgroundColor: 'transparent'
+                            backgroundColor: "transparent"
                         }}
                     >
                         <span>{dayLabel} • Period {periodIndex + 1}</span>
@@ -118,7 +118,7 @@ export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelecto
                                     </div>
                                     <div className="text-sm flex items-center gap-2 opacity-80" style={{ color: GLOBAL.TEXT_SECONDARY }}>
                                         <span className="font-medium opacity-75" style={{ color: GLOBAL.TEXT_PRIMARY }}>
-                                            {classData.semesterId ? 'Semester' : 'Year-long'}
+                                            {classData.semesterId ? "Semester" : "Year-long"}
                                         </span>
                                         {(classData.teacherName || classData.roomNumber) && (
                                             <>

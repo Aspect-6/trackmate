@@ -1,7 +1,7 @@
-import { useCallback, useMemo, useSyncExternalStore } from 'react'
+import { useCallback, useMemo, useSyncExternalStore } from "react"
 
 // Custom event for same-tab sync between hook instances
-const STORAGE_EVENT = 'app-storage-update'
+const STORAGE_EVENT = "app-storage-update"
 
 function dispatchStorageEvent(key: string) {
     window.dispatchEvent(new CustomEvent(STORAGE_EVENT, { detail: { key } }))
@@ -35,11 +35,11 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
         }
 
         window.addEventListener(STORAGE_EVENT, handleCustomEvent)
-        window.addEventListener('storage', handleStorageEvent)
+        window.addEventListener("storage", handleStorageEvent)
 
         return () => {
             window.removeEventListener(STORAGE_EVENT, handleCustomEvent)
-            window.removeEventListener('storage', handleStorageEvent)
+            window.removeEventListener("storage", handleStorageEvent)
         }
     }, [key])
 

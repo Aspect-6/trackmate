@@ -1,6 +1,6 @@
-import { AssignmentType, DayType, AcademicTerm } from '@/app/types'
-import { DragEndEvent, SensorDescriptor, SensorOptions } from '@dnd-kit/core'
-import { LucideIcon } from 'lucide-react'
+import { AssignmentType, DayType, AcademicTerm } from "@/app/types"
+import { DragEndEvent, SensorDescriptor, SensorOptions } from "@dnd-kit/core"
+import { LucideIcon } from "lucide-react"
 
 // SettingsModule namespace
 export namespace BaseSettingsModule {
@@ -155,7 +155,7 @@ export namespace TermSettings {
                 className?: string
                 children: React.ReactNode
                 /** Map of option values to their description messages */
-                messages: Record<import('@/app/types').TermMode, string>
+                messages: Record<import("@/app/types").TermMode, string>
             }
             // ======================
             export interface OptionProps {

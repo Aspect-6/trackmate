@@ -1,6 +1,6 @@
-import React from 'react'
-import type { ClassBoard } from '@/pages/My Classes/types'
-import { useModal } from '@/app/contexts/ModalContext'
+import React from "react"
+import type { ClassBoard } from "@/pages/My Classes/types"
+import { useModal } from "@/app/contexts/ModalContext"
 import {
     DndContext,
     closestCenter,
@@ -9,19 +9,19 @@ import {
     useSensor,
     useSensors,
     DragEndEvent
-} from '@dnd-kit/core'
+} from "@dnd-kit/core"
 import {
     arrayMove,
     SortableContext,
     sortableKeyboardCoordinates,
     rectSortingStrategy
-} from '@dnd-kit/sortable'
-import ClassBoardEmptyState from './ClassBoardEmptyState'
-import ClassCard from './ClassCard'
-import ClassCardColorStrip from './ClassCard/ClassCardColorStrip'
-import ClassCardContainer from './ClassCard/ClassCardContainer'
-import ClassCardHeader, { ClassCardTitle, ClassCardButtons } from './ClassCard/Header'
-import ClassCardBody, { ClassCardInstructor, ClassCardRoom, ClassCardColor, ClassCardTerm } from './ClassCard/Body'
+} from "@dnd-kit/sortable"
+import ClassBoardEmptyState from "./ClassBoardEmptyState"
+import ClassCard from "./ClassCard"
+import ClassCardColorStrip from "./ClassCard/ClassCardColorStrip"
+import ClassCardContainer from "./ClassCard/ClassCardContainer"
+import ClassCardHeader, { ClassCardTitle, ClassCardButtons } from "./ClassCard/Header"
+import ClassCardBody, { ClassCardInstructor, ClassCardRoom, ClassCardColor, ClassCardTerm } from "./ClassCard/Body"
 
 const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass, openEditClass }) => {
     const { openModal } = useModal()
@@ -68,7 +68,7 @@ const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass
                                         <ClassCardTitle name={classInfo.name} />
                                         <ClassCardButtons
                                             onEdit={() => openEditClass(classInfo.id)}
-                                            onDelete={() => openModal('delete-class', classInfo.id)}
+                                            onDelete={() => openModal("delete-class", classInfo.id)}
                                         />
                                     </ClassCardHeader>
                                     <ClassCardBody>

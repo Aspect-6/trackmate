@@ -1,48 +1,48 @@
-import React, { useState } from 'react'
-import { useAccount } from '@/app/hooks/useAccount'
-import type { ProfileSection } from '@/pages/Account/types'
-import { Pencil, Check, X } from 'lucide-react'
-import { Button } from '@/app/components/Button'
-import { ACCOUNT } from '@/app/styles/colors'
+import React, { useState } from "react"
+import { useAccount } from "@/app/hooks/useAccount"
+import type { ProfileSection } from "@/pages/Account/types"
+import { Pencil, Check, X } from "lucide-react"
+import { Button } from "@/app/components/Button"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ user }) => {
     const { changeDisplayName } = useAccount()
     const [isEditing, setIsEditing] = useState(false)
-    const [newDisplayName, setNewDisplayName] = useState('')
-    const [error, setError] = useState('')
-    const [success, setSuccess] = useState('')
+    const [newDisplayName, setNewDisplayName] = useState("")
+    const [error, setError] = useState("")
+    const [success, setSuccess] = useState("")
 
     const handleSave = async () => {
-        setError('')
-        setSuccess('')
+        setError("")
+        setSuccess("")
         if (!newDisplayName.trim()) {
-            setError('Display name cannot be empty')
+            setError("Display name cannot be empty")
             return
         }
         if (newDisplayName.length > 50) {
-            setError('Display name must be 50 characters or less')
+            setError("Display name must be 50 characters or less")
             return
         }
         const result = await changeDisplayName(newDisplayName.trim())
         if (result.success) {
             setIsEditing(false)
-            setNewDisplayName('')
+            setNewDisplayName("")
         } else {
-            setError(result.error.message || 'Failed to update display name')
+            setError(result.error.message || "Failed to update display name")
         }
     }
 
     const handleEditStart = () => {
-        setSuccess('')
-        setError('')
-        setNewDisplayName(user.displayName || '')
+        setSuccess("")
+        setError("")
+        setNewDisplayName(user.displayName || "")
         setIsEditing(true)
     }
 
     const handleEditCancel = () => {
         setIsEditing(false)
-        setNewDisplayName('')
-        setError('')
+        setNewDisplayName("")
+        setError("")
     }
 
     return (
@@ -69,7 +69,7 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ us
                 {!isEditing ? (
                     <div className="flex items-center gap-2">
                         <p className="text-lg font-semibold" style={{ color: ACCOUNT.TEXT_PRIMARY }}>
-                            {user.displayName || user.email?.split('@')[0]}
+                            {user.displayName || user.email?.split("@")[0]}
                         </p>
                         <Button
                             variant="icon"
@@ -97,8 +97,8 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ us
                                 }}
                                 autoFocus
                                 onKeyDown={(e) => {
-                                    if (e.key === 'Enter') handleSave()
-                                    if (e.key === 'Escape') handleEditCancel()
+                                    if (e.key === "Enter") handleSave()
+                                    if (e.key === "Escape") handleEditCancel()
                                 }}
                             />
                             <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -128,8 +128,8 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ us
                 )}
                 <p className="text-sm" style={{ color: ACCOUNT.TEXT_SECONDARY }}>
                     Member since {user.metadata.creationTime
-                        ? new Date(user.metadata.creationTime).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-                        : 'N/A'}
+                        ? new Date(user.metadata.creationTime).toLocaleDateString("en-US", { month: "long", year: "numeric" })
+                        : "N/A"}
                 </p>
             </div>
         </div>

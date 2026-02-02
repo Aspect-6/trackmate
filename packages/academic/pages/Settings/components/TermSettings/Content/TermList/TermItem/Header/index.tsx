@@ -1,5 +1,5 @@
-import React from 'react'
-import type { TermSettings } from '@/pages/Settings/types'
+import React from "react"
+import type { TermSettings } from "@/pages/Settings/types"
 
 const TermItemHeader: React.FC<TermSettings.Content.TermList.TermItem.Header.Props> = ({ children }) => {
     return (

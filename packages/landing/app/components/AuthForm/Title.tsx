@@ -1,6 +1,6 @@
-import React from 'react'
-import { BRAND_NAME } from '@shared/config/brand'
-import { AUTH } from '@/app/styles/colors'
+import React from "react"
+import { BRAND_NAME } from "@shared/config/brand"
+import { AUTH } from "@/app/styles/colors"
 
 interface TitleProps {
     children: React.ReactNode

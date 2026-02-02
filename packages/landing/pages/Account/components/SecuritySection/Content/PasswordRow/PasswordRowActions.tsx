@@ -1,7 +1,7 @@
-import React from 'react'
-import type { SecuritySection } from '@/pages/Account/types'
-import { Check, X } from 'lucide-react'
-import { Button } from '@/app/components/Button'
+import React from "react"
+import type { SecuritySection } from "@/pages/Account/types"
+import { Check, X } from "lucide-react"
+import { Button } from "@/app/components/Button"
 
 export const PasswordRowActions: React.FC<SecuritySection.Content.PasswordRow.ActionsProps> = ({
     onSave,

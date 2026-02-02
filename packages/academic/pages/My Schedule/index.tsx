@@ -1,11 +1,11 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import { useFocus } from '@shared/hooks/ui/useFocus'
-import { useScheduleComponents } from '@/app/contexts/ScheduleComponentsContext'
-import { useScheduleData } from './hooks/useScheduleData'
-import { MY_SCHEDULE } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { useFocus } from "@shared/hooks/ui/useFocus"
+import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
+import { useScheduleData } from "./hooks/useScheduleData"
+import { MY_SCHEDULE } from "@/app/styles/colors"
 
-import './index.css'
+import "./index.css"
 
 const MySchedule: React.FC = () => {
     const {
@@ -32,15 +32,15 @@ const MySchedule: React.FC = () => {
                     <h2 className="text-xl font-bold flex flex-wrap items-baseline gap-2" style={{ color: MY_SCHEDULE.TEXT_PRIMARY }}>
                         <span>Schedule for</span>
                         <select
-                            value={selectedTermId || ''}
+                            value={selectedTermId || ""}
                             onChange={(e) => setTermId(e.target.value || null)}
                             className="bg-right max-w-full text-ellipsis appearance-none outline-none bg-no-repeat cursor-pointer"
                             style={{
                                 ...arrowStyle,
                                 color: MY_SCHEDULE.GLOBAL_ACCENT,
-                                borderBottom: `2px ${(isHovered || isFocused) ? 'solid' : 'dashed'} ${isFocused ? MY_SCHEDULE.GLOBAL_ACCENT : MY_SCHEDULE.BORDER_PRIMARY}`,
-                                backgroundSize: '1em 1em',
-                                padding: '0 1.25rem 0.125rem 0',
+                                borderBottom: `2px ${(isHovered || isFocused) ? "solid" : "dashed"} ${isFocused ? MY_SCHEDULE.GLOBAL_ACCENT : MY_SCHEDULE.BORDER_PRIMARY}`,
+                                backgroundSize: "1em 1em",
+                                padding: "0 1.25rem 0.125rem 0",
                             }}
                             {...hoverProps}
                             {...focusProps}

@@ -1,15 +1,15 @@
-import React from 'react'
-import type { UpcomingAssignments } from '@/pages/Dashboard/types'
-import { Clock } from 'lucide-react'
-import { formatDateRelative, formatTime } from '@shared/lib'
+import React from "react"
+import type { UpcomingAssignments } from "@/pages/Dashboard/types"
+import { Clock } from "lucide-react"
+import { formatDateRelative, formatTime } from "@shared/lib"
 
 const AssignmentDetailsDue: React.FC<UpcomingAssignments.AssignmentCard.Details.Body.AssignmentDetailsDueProps> = ({ assignment }) => {
-    const showTime = assignment.dueTime && assignment.dueTime !== '23:59'
+    const showTime = assignment.dueTime && assignment.dueTime !== "23:59"
 
     return (
         <div className="hidden sm:flex items-center text-sm">
             <Clock className="w-3 h-3 mr-1" />
-            {formatDateRelative('short', assignment.dueDate)}{showTime && ` at ${formatTime(assignment.dueTime)}`}
+            {formatDateRelative("short", assignment.dueDate)}{showTime && ` at ${formatTime(assignment.dueTime)}`}
         </div>
     )
 }

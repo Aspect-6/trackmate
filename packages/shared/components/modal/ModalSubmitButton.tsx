@@ -1,8 +1,8 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
 
 export interface ModalSubmitButtonProps {
-    type?: 'button' | 'submit' | 'reset'
+    type?: "button" | "submit" | "reset"
     onClick?: () => void
     bgColor: string
     bgColorHover: string
@@ -13,13 +13,13 @@ export interface ModalSubmitButtonProps {
 }
 
 export const ModalSubmitButton: React.FC<ModalSubmitButtonProps> = ({
-    type = 'button',
+    type = "button",
     onClick,
     bgColor,
     bgColorHover,
     textColor,
     inline = true,
-    className = '',
+    className = "",
     children,
 }) => {
     const { isHovered, hoverProps } = useHover()
@@ -32,7 +32,7 @@ export const ModalSubmitButton: React.FC<ModalSubmitButtonProps> = ({
             style={{
                 backgroundColor: isHovered ? bgColorHover : bgColor,
                 color: textColor,
-                width: inline ? 'auto' : undefined,
+                width: inline ? "auto" : undefined,
             }}
             {...hoverProps}
         >

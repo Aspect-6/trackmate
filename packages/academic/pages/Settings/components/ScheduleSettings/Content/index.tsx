@@ -1,5 +1,5 @@
-import React from 'react'
-import type { ScheduleSettings } from '@/pages/Settings/types'
+import React from "react"
+import type { ScheduleSettings } from "@/pages/Settings/types"
 
 const ScheduleSettingsContent: React.FC<ScheduleSettings.Content.Props> = ({ children }) => {
     return (

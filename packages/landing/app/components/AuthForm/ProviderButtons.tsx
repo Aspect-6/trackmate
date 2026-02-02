@@ -1,8 +1,8 @@
-import React from 'react'
-import GoogleIcon from '@/app/assets/google-icon.svg?react'
-import MicrosoftIcon from '@/app/assets/microsoft-icon.svg?react'
-import FacebookIcon from '@/app/assets/facebook-icon.svg?react'
-import ProviderButton from './ProviderButton'
+import React from "react"
+import GoogleIcon from "@/app/assets/google-icon.svg?react"
+import MicrosoftIcon from "@/app/assets/microsoft-icon.svg?react"
+import FacebookIcon from "@/app/assets/facebook-icon.svg?react"
+import ProviderButton from "./ProviderButton"
 
 interface ProviderButtonsProps {
     onGoogleClick: () => void

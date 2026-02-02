@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react'
-import { CheckCircle, AlertCircle } from 'lucide-react'
-import type { ToastType, Toast, ToastContextType } from '@shared/types/ToastContext'
+import React, { createContext, useContext, useState, useCallback, ReactNode } from "react"
+import { CheckCircle, AlertCircle } from "lucide-react"
+import type { ToastType, Toast, ToastContextType } from "@shared/types/ToastContext"
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined)
 
@@ -31,10 +31,10 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
                 {toasts.map(toast => (
                     <div
                         key={toast.id}
-                        className={`toast-notification toast-${toast.type} ${toast.isHiding ? 'hide' : ''}`}
+                        className={`toast-notification toast-${toast.type} ${toast.isHiding ? "hide" : ""}`}
                     >
                         <div className="flex items-center">
-                            {toast.type === 'success' ? (
+                            {toast.type === "success" ? (
                                 <CheckCircle className="w-5 h-5 mr-2" />
                             ) : (
                                 <AlertCircle className="w-5 h-5 mr-2" />
@@ -51,7 +51,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
 export const useToast = (): ToastContextType => {
     const context = useContext(ToastContext)
     if (!context) {
-        throw new Error('useToast must be used within a ToastProvider')
+        throw new Error("useToast must be used within a ToastProvider")
     }
     return context
 }

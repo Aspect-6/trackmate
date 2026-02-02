@@ -1,12 +1,12 @@
-import React from 'react'
-import { useModal } from '@/app/contexts/ModalContext'
-import { useScheduleComponents } from '@/app/contexts/ScheduleComponentsContext'
-import { useClasses, useNoSchool } from '@/app/hooks/entities'
-import { todayString } from '@shared/lib'
-import type { TodaysClasses } from '@/pages/Dashboard/types'
-import { DASHBOARD } from '@/app/styles/colors'
-import TodaysClassesHeader from './TodaysClassesHeader'
-import TodaysClassesBody, { ClassList, NoClassesScheduled, NoSchool } from './Body'
+import React from "react"
+import { useModal } from "@/app/contexts/ModalContext"
+import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
+import { useClasses, useNoSchool } from "@/app/hooks/entities"
+import { todayString } from "@shared/lib"
+import type { TodaysClasses } from "@/pages/Dashboard/types"
+import { DASHBOARD } from "@/app/styles/colors"
+import TodaysClassesHeader from "./TodaysClassesHeader"
+import TodaysClassesBody, { ClassList, NoClassesScheduled, NoSchool } from "./Body"
 
 const TodaysClasses: React.FC<TodaysClasses.Props> = ({
     isMobile,
@@ -29,7 +29,7 @@ const TodaysClasses: React.FC<TodaysClasses.Props> = ({
                 backgroundColor: DASHBOARD.BACKGROUND_PRIMARY,
                 borderColor: DASHBOARD.BORDER_PRIMARY
             }}
-            data-collapsed={isMobile && isCollapsed ? 'true' : 'false'}
+            data-collapsed={isMobile && isCollapsed ? "true" : "false"}
         >
             <TodaysClassesHeader
                 isMobile={isMobile}

@@ -1,6 +1,6 @@
-import React from 'react'
-import type { CalendarBody } from '@/pages/Calendar/types'
-import { CALENDAR } from '@/app/styles/colors'
+import React from "react"
+import type { CalendarBody } from "@/pages/Calendar/types"
+import { CALENDAR } from "@/app/styles/colors"
 
 const CalendarGrid: React.FC<CalendarBody.Grid.Props> = ({ children }) => {
     return (
@@ -21,6 +21,6 @@ const CalendarGrid: React.FC<CalendarBody.Grid.Props> = ({ children }) => {
 
 export default CalendarGrid
 
-export { default as CalendarGridDayHeader } from './CalendarGridDayHeader'
-export { default as CalendarGridEmptyDay } from './CalendarGridEmptyDay'
-export { default as CalendarDay } from './CalendarDay'
+export { default as CalendarGridDayHeader } from "./CalendarGridDayHeader"
+export { default as CalendarGridEmptyDay } from "./CalendarGridEmptyDay"
+export { default as CalendarDay } from "./CalendarDay"

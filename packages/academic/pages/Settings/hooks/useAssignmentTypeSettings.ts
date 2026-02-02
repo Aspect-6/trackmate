@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { useAssignments } from '@/app/hooks/entities'
-import { useSettings } from '@/app/hooks/useSettings'
-import { MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
-import { arrayMove } from '@dnd-kit/sortable'
+import { useState } from "react"
+import { useAssignments } from "@/app/hooks/entities"
+import { useSettings } from "@/app/hooks/useSettings"
+import { MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core"
+import { arrayMove } from "@dnd-kit/sortable"
 
 /**
  * Hook that manages all assignment type settings logic:
@@ -22,7 +22,7 @@ export const useAssignmentTypeSettings = () => {
     const { assignments } = useAssignments()
 
     // State for the "add new type" input
-    const [newType, setNewType] = useState('')
+    const [newType, setNewType] = useState("")
 
     // Sensors for drag-and-drop functionality
     const sensors = useSensors(
@@ -33,7 +33,7 @@ export const useAssignmentTypeSettings = () => {
     // Handler for adding a new assignment type
     const handleAdd = () => {
         const success = addAssignmentType(newType)
-        if (success) setNewType('')
+        if (success) setNewType("")
     }
 
     // Handler for removing an assignment type
@@ -53,10 +53,10 @@ export const useAssignmentTypeSettings = () => {
     }
 
     // Handler for manual up/down movement via buttons
-    const moveType = (type: string, direction: 'up' | 'down') => {
+    const moveType = (type: string, direction: "up" | "down") => {
         const index = assignmentTypes.findIndex(t => t === type)
         if (index === -1) return
-        const targetIndex = direction === 'up'
+        const targetIndex = direction === "up"
             ? Math.max(0, index - 1)
             : Math.min(assignmentTypes.length - 1, index + 1)
         if (targetIndex === index) return

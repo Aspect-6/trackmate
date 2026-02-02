@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react'
-import { formatDate, dateToLocalISOString } from '@shared/lib'
+import { useState, useCallback } from "react"
+import { formatDate, dateToLocalISOString } from "@shared/lib"
 
 /**
  * Hook for managing calendar navigation state.
@@ -19,7 +19,7 @@ export const useCalendarNavigation = (onMonthChange?: () => void) => {
 
     const month = currentDate.getMonth()
     const year = currentDate.getFullYear()
-    const period = formatDate('period', dateToLocalISOString(currentDate))
+    const period = formatDate("period", dateToLocalISOString(currentDate))
 
     return {
         currentDate,

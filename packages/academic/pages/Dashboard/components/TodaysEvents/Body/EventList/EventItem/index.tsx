@@ -1,8 +1,8 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import { formatEventTimeRange } from '@/app/lib/utils'
-import type { TodaysEvents } from '@/pages/Dashboard/types'
-import { DASHBOARD } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { formatEventTimeRange } from "@/app/lib/utils"
+import type { TodaysEvents } from "@/pages/Dashboard/types"
+import { DASHBOARD } from "@/app/styles/colors"
 
 const EventItem: React.FC<TodaysEvents.Body.EventList.EventItemProps> = ({ event, onClick }) => {
     const { isHovered, hoverProps } = useHover()

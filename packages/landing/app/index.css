@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap");
 
 @import "@shared/styles/buttons.css";
 @import "@shared/styles/toast.css";
@@ -10,7 +10,7 @@
 @source "../../shared/components";
 
 :root {
-    --font-sans: 'Inter', sans-serif;
+    --font-sans: "Inter", sans-serif;
     background: var(--webpage-background-color);
 }
 

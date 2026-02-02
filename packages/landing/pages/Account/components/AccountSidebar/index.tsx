@@ -1,9 +1,9 @@
-import React from 'react'
-import type { AccountSidebar } from '@/pages/Account/types'
-import { SidebarContainer, SidebarHeader, SidebarDivider, SidebarContent } from '@shared/components/Sidebar'
-import SidebarNav from './SidebarNav'
-import { BRAND_NAME } from '@shared/config/brand'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { AccountSidebar } from "@/pages/Account/types"
+import { SidebarContainer, SidebarHeader, SidebarDivider, SidebarContent } from "@shared/components/Sidebar"
+import SidebarNav from "./SidebarNav"
+import { BRAND_NAME } from "@shared/config/brand"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const AccountSidebar: React.FC<AccountSidebar.Props> = ({
     activeSection,

@@ -1,9 +1,9 @@
-import { useMemo, useCallback } from 'react'
-import { useSettings } from '@/app/hooks/useSettings'
-import { useLocalStorage } from '@/app/hooks/data/useLocalStorage'
-import { generateId, todayString } from '@shared/lib'
-import { STORAGE_KEYS } from '@/app/config/storageKeys'
-import type { Assignment, Status } from '@/app/types'
+import { useMemo, useCallback } from "react"
+import { useSettings } from "@/app/hooks/useSettings"
+import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { generateId, todayString } from "@shared/lib"
+import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import type { Assignment, Status } from "@/app/types"
 
 const DEFAULT_ASSIGNMENTS: Assignment[] = []
 
@@ -21,14 +21,14 @@ export const useAssignments = () => {
     // Filtered views (sorted by due date)
     const activeAssignments = useMemo(() => {
         return assignments
-            .filter(assignment => assignment.status === 'To Do' || assignment.status === 'In Progress')
+            .filter(assignment => assignment.status === "To Do" || assignment.status === "In Progress")
             .toSorted((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
     }, [assignments])
     const completedAssignments = useMemo(() => {
-        return assignments.filter(assignment => assignment.status === 'Done')
+        return assignments.filter(assignment => assignment.status === "Done")
     }, [assignments])
     const overdueAssignments = useMemo(() => {
-        return assignments.filter(assignment => assignment.status !== 'Done' && new Date(assignment.dueDate) < new Date())
+        return assignments.filter(assignment => assignment.status !== "Done" && new Date(assignment.dueDate) < new Date())
     }, [assignments])
 
     // Sorted views
@@ -64,7 +64,7 @@ export const useAssignments = () => {
     }, [assignments])
 
     // Actions
-    const addAssignment = useCallback((assignment: Omit<Assignment, 'id' | 'createdAt'>): void => {
+    const addAssignment = useCallback((assignment: Omit<Assignment, "id" | "createdAt">): void => {
         setAssignments(prev => [...prev, { ...assignment, id: generateId(), createdAt: todayString() }])
     }, [setAssignments])
     const updateAssignment = useCallback((id: string, updates: Partial<Assignment>): void => {
@@ -74,7 +74,7 @@ export const useAssignments = () => {
         setAssignments(prev => prev.filter(a => a.id !== id))
     }, [setAssignments])
     const markAsDone = useCallback((id: string) => {
-        return updateAssignment(id, { status: 'Done' })
+        return updateAssignment(id, { status: "Done" })
     }, [updateAssignment])
 
     return {

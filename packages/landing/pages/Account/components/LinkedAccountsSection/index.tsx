@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { useAuth } from '@shared/contexts/AuthContext'
-import { useAccount } from '@/app/hooks/useAccount'
-import { Mail, Lock } from 'lucide-react'
-import { Button } from '@/app/components/Button'
-import GoogleIconColored from '@/app/assets/google-icon.svg?react'
-import GoogleIconMono from '@/app/assets/google-icon-mono.svg?react'
-import FacebookIconColored from '@/app/assets/facebook-icon.svg?react'
-import FacebookIconMono from '@/app/assets/facebook-icon-mono.svg?react'
-import MicrosoftIcon from '@/app/assets/microsoft-icon.svg?react'
-import ProviderRow from './Content/ProviderRow'
-import ComingSoonRow from './Content/ComingSoonRow'
-import { ACCOUNT } from '@/app/styles/colors'
+import React, { useState } from "react"
+import { useAuth } from "@shared/contexts/AuthContext"
+import { useAccount } from "@/app/hooks/useAccount"
+import { Mail, Lock } from "lucide-react"
+import { Button } from "@/app/components/Button"
+import GoogleIconColored from "@/app/assets/google-icon.svg?react"
+import GoogleIconMono from "@/app/assets/google-icon-mono.svg?react"
+import FacebookIconColored from "@/app/assets/facebook-icon.svg?react"
+import FacebookIconMono from "@/app/assets/facebook-icon-mono.svg?react"
+import MicrosoftIcon from "@/app/assets/microsoft-icon.svg?react"
+import ProviderRow from "./Content/ProviderRow"
+import ComingSoonRow from "./Content/ComingSoonRow"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const LinkedAccountsSection: React.FC = () => {
     const { user } = useAuth()
@@ -18,69 +18,69 @@ const LinkedAccountsSection: React.FC = () => {
 
     // Check linked providers
     const providers = user?.providerData.map(p => p.providerId) || []
-    const hasGoogle = providers.includes('google.com')
-    const hasFacebook = providers.includes('facebook.com')
-    const hasPassword = providers.includes('password')
+    const hasGoogle = providers.includes("google.com")
+    const hasFacebook = providers.includes("facebook.com")
+    const hasPassword = providers.includes("password")
     const canUnlinkGoogle = hasGoogle && (hasPassword || providers.length > 1)
     const canUnlinkFacebook = hasFacebook && (hasPassword || providers.length > 1)
 
     // Feedback state
-    const [linkError, setLinkError] = useState('')
-    const [linkSuccess, setLinkSuccess] = useState('')
+    const [linkError, setLinkError] = useState("")
+    const [linkSuccess, setLinkSuccess] = useState("")
 
     if (!user) return null
 
     const handleLinkGoogle = async () => {
-        setLinkError('')
-        setLinkSuccess('')
+        setLinkError("")
+        setLinkSuccess("")
         const result = await linkGoogle()
         if (result.success) {
-            setLinkSuccess('Google account linked successfully')
+            setLinkSuccess("Google account linked successfully")
         } else {
-            const code = result.error.code || ''
-            if (code === 'auth/popup-closed-by-user') {
-                setLinkError('Popup was closed')
+            const code = result.error.code || ""
+            if (code === "auth/popup-closed-by-user") {
+                setLinkError("Popup was closed")
             } else {
-                setLinkError('Failed to link Google account')
+                setLinkError("Failed to link Google account")
             }
         }
     }
 
     const handleUnlinkGoogle = async () => {
-        setLinkError('')
-        setLinkSuccess('')
+        setLinkError("")
+        setLinkSuccess("")
         const result = await unlinkGoogle()
         if (result.success) {
-            setLinkSuccess('Google account unlinked')
+            setLinkSuccess("Google account unlinked")
         } else {
-            setLinkError('Failed to unlink Google account')
+            setLinkError("Failed to unlink Google account")
         }
     }
 
     const handleLinkFacebook = async () => {
-        setLinkError('')
-        setLinkSuccess('')
+        setLinkError("")
+        setLinkSuccess("")
         const result = await linkFacebook()
         if (result.success) {
-            setLinkSuccess('Facebook account linked successfully')
+            setLinkSuccess("Facebook account linked successfully")
         } else {
-            const code = result.error.code || ''
-            if (code === 'auth/popup-closed-by-user') {
-                setLinkError('Popup was closed')
+            const code = result.error.code || ""
+            if (code === "auth/popup-closed-by-user") {
+                setLinkError("Popup was closed")
             } else {
-                setLinkError('Failed to link Facebook account')
+                setLinkError("Failed to link Facebook account")
             }
         }
     }
 
     const handleUnlinkFacebook = async () => {
-        setLinkError('')
-        setLinkSuccess('')
+        setLinkError("")
+        setLinkSuccess("")
         const result = await unlinkFacebook()
         if (result.success) {
-            setLinkSuccess('Facebook account unlinked')
+            setLinkSuccess("Facebook account unlinked")
         } else {
-            setLinkError('Failed to unlink Facebook account')
+            setLinkError("Failed to unlink Facebook account")
         }
     }
 
@@ -97,7 +97,7 @@ const LinkedAccountsSection: React.FC = () => {
             {hasPassword && (
                 <ProviderRow
                     title="Email & Password"
-                    description={hasPassword ? 'Connected' : 'Not set up'}
+                    description={hasPassword ? "Connected" : "Not set up"}
                     icon={<Mail size={20} style={{ color: hasPassword ? ACCOUNT.GLOBAL_ACCENT : ACCOUNT.TEXT_SECONDARY }} />}
                     iconBackgroundColor={ACCOUNT.BACKGROUND_QUATERNARY}
                     action={
@@ -119,7 +119,7 @@ const LinkedAccountsSection: React.FC = () => {
             )}
             <ProviderRow
                 title="Google"
-                description={hasGoogle ? 'Connected' : 'Not connected'}
+                description={hasGoogle ? "Connected" : "Not connected"}
                 icon={hasGoogle ? <GoogleIconColored className="w-5 h-5" /> : <GoogleIconMono className="w-5 h-5" style={{ color: ACCOUNT.TEXT_SECONDARY }} />}
                 iconBackgroundColor={hasGoogle ? ACCOUNT.GLOBAL_ACCENT_25 : ACCOUNT.BACKGROUND_QUATERNARY}
                 action={
@@ -130,7 +130,7 @@ const LinkedAccountsSection: React.FC = () => {
                             disabled={loading || !canUnlinkGoogle}
                             isLoading={loading}
                             className="px-4 py-2"
-                            title={!canUnlinkGoogle ? 'You need at least one sign-in method' : undefined}
+                            title={!canUnlinkGoogle ? "You need at least one sign-in method" : undefined}
                         >
                             Disconnect
                         </Button>
@@ -149,7 +149,7 @@ const LinkedAccountsSection: React.FC = () => {
             />
             <ProviderRow
                 title="Facebook"
-                description={hasFacebook ? 'Connected' : 'Not connected'}
+                description={hasFacebook ? "Connected" : "Not connected"}
                 icon={hasFacebook ? <FacebookIconColored className="w-5 h-5" /> : <FacebookIconMono className="w-5 h-5" style={{ color: ACCOUNT.TEXT_SECONDARY }} />}
                 iconBackgroundColor={hasFacebook ? ACCOUNT.GLOBAL_ACCENT_25 : ACCOUNT.BACKGROUND_QUATERNARY}
                 action={
@@ -160,7 +160,7 @@ const LinkedAccountsSection: React.FC = () => {
                             disabled={true}
                             isLoading={loading}
                             className="px-4 py-2"
-                            title={!canUnlinkFacebook ? 'You need at least one sign-in method' : undefined}
+                            title={!canUnlinkFacebook ? "You need at least one sign-in method" : undefined}
                         >
                             Disconnect
                         </Button>

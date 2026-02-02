@@ -1,8 +1,8 @@
-import { useMemo, useCallback } from 'react'
-import { useLocalStorage } from '@/app/hooks/data/useLocalStorage'
-import { generateId, todayString } from '@shared/lib'
-import { STORAGE_KEYS } from '@/app/config/storageKeys'
-import type { Event } from '@/app/types'
+import { useMemo, useCallback } from "react"
+import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { generateId, todayString } from "@shared/lib"
+import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import type { Event } from "@/app/types"
 
 const DEFAULT_EVENTS: Event[] = []
 
@@ -68,7 +68,7 @@ export const useEvents = () => {
     }, [eventsByDateSorted])
 
     // CRUD Actions
-    const addEvent = useCallback((event: Omit<Event, 'id' | 'createdAt'>): void => {
+    const addEvent = useCallback((event: Omit<Event, "id" | "createdAt">): void => {
         setEvents(prev => [...prev, { ...event, id: generateId(), createdAt: new Date().toISOString() }])
     }, [setEvents])
 

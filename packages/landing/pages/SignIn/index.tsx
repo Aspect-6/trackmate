@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, ProviderButtons, FormLink, HomeLink } from '@/app/components/AuthForm'
-import { useForm } from 'react-hook-form'
-import { useSignIn } from '@/app/hooks/useSignIn'
-import { useRedirect } from '@shared/hooks/useRedirect'
-import { BRAND_NAME } from '@shared/config/brand'
-import { AUTH } from '@/app/styles/colors'
+import { useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, ProviderButtons, FormLink, HomeLink } from "@/app/components/AuthForm"
+import { useForm } from "react-hook-form"
+import { useSignIn } from "@/app/hooks/useSignIn"
+import { useRedirect } from "@shared/hooks/useRedirect"
+import { BRAND_NAME } from "@shared/config/brand"
+import { AUTH } from "@/app/styles/colors"
 
 interface SignInFormData {
     email: string
@@ -18,7 +18,7 @@ const SignIn: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false)
 
     const [searchParams] = useSearchParams()
-    const redirectTo = searchParams.get('redirect') || '/account'
+    const redirectTo = searchParams.get("redirect") || "/account"
     const redirect = useRedirect({ allowCrossApp: true })
 
     const onSubmit = async (data: SignInFormData) => {
@@ -30,17 +30,17 @@ const SignIn: React.FC = () => {
 
         if (error) {
             switch (error.code) {
-                case 'auth/invalid-credential':
-                    setError('root', { message: 'Invalid email or password' })
+                case "auth/invalid-credential":
+                    setError("root", { message: "Invalid email or password" })
                     break
-                case 'auth/wrong-password':
-                    setError('root', { message: 'Invalid email or password' })
+                case "auth/wrong-password":
+                    setError("root", { message: "Invalid email or password" })
                     break
-                case 'auth/too-many-requests':
-                    setError('root', { message: 'Too many failed attempts. Please try again later.' })
+                case "auth/too-many-requests":
+                    setError("root", { message: "Too many failed attempts. Please try again later." })
                     break
                 default:
-                    setError('root', { message: 'Failed to sign in. Please try again.' })
+                    setError("root", { message: "Failed to sign in. Please try again." })
             }
         }
     }
@@ -55,20 +55,20 @@ const SignIn: React.FC = () => {
 
         if (error) {
             switch (error.code) {
-                case 'auth/account-not-found':
-                    setError('root', { message: 'No account found. Please sign up first.' })
+                case "auth/account-not-found":
+                    setError("root", { message: "No account found. Please sign up first." })
                     break
-                case 'auth/user-cancelled':
-                    setError('root', { message: 'Google sign-in was cancelled' })
+                case "auth/user-cancelled":
+                    setError("root", { message: "Google sign-in was cancelled" })
                     break
-                case 'auth/popup-closed-by-user':
-                    setError('root', { message: 'Google sign-in window was closed' })
+                case "auth/popup-closed-by-user":
+                    setError("root", { message: "Google sign-in window was closed" })
                     break
-                case 'auth/popup-blocked':
-                    setError('root', { message: 'Google sign-in window was blocked' })
+                case "auth/popup-blocked":
+                    setError("root", { message: "Google sign-in window was blocked" })
                     break
                 default:
-                    setError('root', { message: 'Failed to sign in with Google. Please try again.' })
+                    setError("root", { message: "Failed to sign in with Google. Please try again." })
             }
         }
     }
@@ -83,20 +83,20 @@ const SignIn: React.FC = () => {
 
         if (error) {
             switch (error.code) {
-                case 'auth/account-not-found':
-                    setError('root', { message: 'No account found. Please sign up first.' })
+                case "auth/account-not-found":
+                    setError("root", { message: "No account found. Please sign up first." })
                     break
-                case 'auth/user-cancelled':
-                    setError('root', { message: 'Facebook sign-in was cancelled' })
+                case "auth/user-cancelled":
+                    setError("root", { message: "Facebook sign-in was cancelled" })
                     break
-                case 'auth/popup-closed-by-user':
-                    setError('root', { message: 'Facebook sign-in window was closed' })
+                case "auth/popup-closed-by-user":
+                    setError("root", { message: "Facebook sign-in window was closed" })
                     break
-                case 'auth/popup-blocked':
-                    setError('root', { message: 'Facebook sign-in window was blocked' })
+                case "auth/popup-blocked":
+                    setError("root", { message: "Facebook sign-in window was blocked" })
                     break
                 default:
-                    setError('root', { message: 'Failed to sign in with Facebook. Please try again.' })
+                    setError("root", { message: "Failed to sign in with Facebook. Please try again." })
             }
         }
     }
@@ -122,11 +122,11 @@ const SignIn: React.FC = () => {
                             id="email"
                             autoComplete="email"
                             hasError={!!errors.email}
-                            {...register('email', {
-                                required: 'Email is required',
+                            {...register("email", {
+                                required: "Email is required",
                                 pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: 'Invalid email address'
+                                    message: "Invalid email address"
                                 }
                             })}
                         />
@@ -140,13 +140,13 @@ const SignIn: React.FC = () => {
                     <FormField>
                         <FormFieldLabel htmlFor="password">Password</FormFieldLabel>
                         <FormFieldTextInput
-                            type={showPassword ? 'text' : 'password'}
+                            type={showPassword ? "text" : "password"}
                             placeholder="••••••••"
                             id="password"
                             autoComplete="current-password"
                             hasError={!!errors.password}
-                            {...register('password', {
-                                required: 'Password is required'
+                            {...register("password", {
+                                required: "Password is required"
                             })}
                         />
                         {errors.password && (
@@ -170,7 +170,7 @@ const SignIn: React.FC = () => {
                     )}
 
                     <SubmitButton disabled={loading}>
-                        {loading ? 'Signing in...' : 'Sign In'}
+                        {loading ? "Signing in..." : "Sign In"}
                     </SubmitButton>
                 </form>
 
@@ -182,8 +182,8 @@ const SignIn: React.FC = () => {
                     className="mt-6 text-center text-sm"
                     style={{ color: AUTH.TEXT_SECONDARY }}
                 >
-                    Don't have an account?{' '}
-                    <FormLink href={redirectTo !== '/account' ? `/auth/sign-up?redirect=${encodeURIComponent(redirectTo)}` : '/auth/sign-up'}>Sign up</FormLink>
+                    Don't have an account?{" "}
+                    <FormLink href={redirectTo !== "/account" ? `/auth/sign-up?redirect=${encodeURIComponent(redirectTo)}` : "/auth/sign-up"}>Sign up</FormLink>
                 </p>
             </div>
         </div>

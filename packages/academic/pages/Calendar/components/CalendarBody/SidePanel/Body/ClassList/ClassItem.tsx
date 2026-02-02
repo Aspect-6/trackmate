@@ -1,7 +1,7 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { CalendarBody } from '@/pages/Calendar/types'
-import { CALENDAR } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { CalendarBody } from "@/pages/Calendar/types"
+import { CALENDAR } from "@/app/styles/colors"
 
 const ClassItem: React.FC<CalendarBody.SidePanel.Body.ClassList.ClassItemProps> = ({ classId, index, getClassById }) => {
     const { isHovered, hoverProps } = useHover()
@@ -23,7 +23,7 @@ const ClassItem: React.FC<CalendarBody.SidePanel.Body.ClassList.ClassItemProps> 
             <div className="flex-1">
                 <div className="font-semibold" style={{ color: CALENDAR.TEXT_PRIMARY }}>{classInfo.name}</div>
                 <div className="text-sm" style={{ color: CALENDAR.TEXT_SECONDARY }}>
-                    Period {index + 1} • {classInfo.teacherName || 'No instructor'}
+                    Period {index + 1} • {classInfo.teacherName || "No instructor"}
                 </div>
             </div>
         </div>

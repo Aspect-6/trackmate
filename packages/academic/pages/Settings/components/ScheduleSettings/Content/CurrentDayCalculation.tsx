@@ -1,6 +1,6 @@
-import React from 'react'
-import type { ScheduleSettings } from '@/pages/Settings/types'
-import { SETTINGS, GLOBAL } from '@/app/styles/colors'
+import React from "react"
+import type { ScheduleSettings } from "@/pages/Settings/types"
+import { SETTINGS, GLOBAL } from "@/app/styles/colors"
 
 const CurrentDayCalculation: React.FC<ScheduleSettings.Content.CurrentDayCalculationProps> = ({ currentDayType }) => {
     return (
@@ -9,8 +9,8 @@ const CurrentDayCalculation: React.FC<ScheduleSettings.Content.CurrentDayCalcula
             style={{ backgroundColor: SETTINGS.BACKGROUND_SECONDARY, borderColor: SETTINGS.BORDER_PRIMARY }}
         >
             <span style={{ color: GLOBAL.TEXT_SECONDARY }}>Current Calculation for Today:</span>
-            <span style={{ color: currentDayType === 'A' ? SETTINGS.TEXT_A_DAY : currentDayType === 'B' ? SETTINGS.TEXT_B_DAY : GLOBAL.TEXT_TERTIARY }}>
-                {currentDayType ? `${currentDayType}-Day` : 'No School / Weekend'}
+            <span style={{ color: currentDayType === "A" ? SETTINGS.TEXT_A_DAY : currentDayType === "B" ? SETTINGS.TEXT_B_DAY : GLOBAL.TEXT_TERTIARY }}>
+                {currentDayType ? `${currentDayType}-Day` : "No School / Weekend"}
             </span>
         </div>
     )

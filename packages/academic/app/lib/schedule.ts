@@ -1,5 +1,5 @@
-import { parseDateLocal, dateToLocalISOString } from '@shared/lib'
-import type { Schedules, DayType, AcademicTerm, NoSchoolPeriod } from '@/app/types'
+import { parseDateLocal, dateToLocalISOString } from "@shared/lib"
+import type { Schedules, DayType, AcademicTerm, NoSchoolPeriod } from "@/app/types"
 
 
 export const isWeekend = (dateString: string): boolean => {
@@ -44,7 +44,7 @@ export const getActiveQuarter = (dateString: string, activeTerm: AcademicTerm) =
  * @param schedules - The full schedules data object (containing type and A/B config)
  * @param activeTerm - The academic term active for this date (if any)
  * @param noSchoolPeriods - List of all no-school periods (holidays, breaks)
- * @returns 'A', 'B', or null (for weekends, no-school days, or non-alternating schedules)
+ * @returns "A", "B", or null (for weekends, no-school days, or non-alternating schedules)
  */
 export const calculateDayType = (
     dateString: string,
@@ -52,17 +52,17 @@ export const calculateDayType = (
     activeTerm: AcademicTerm | undefined,
     noSchoolPeriods: NoSchoolPeriod[]
 ): DayType => {
-    if (schedules.type !== 'alternating-ab') return null
+    if (schedules.type !== "alternating-ab") return null
     if (!activeTerm) return null
 
-    const abData = schedules['alternating-ab']
+    const abData = schedules["alternating-ab"]
     if (!abData) return null
 
     if (isWeekend(dateString)) return null
     if (getNoSchoolPeriod(dateString, noSchoolPeriods)) return null
 
     if (!getActiveSemester(dateString, activeTerm)) return null
-    if (activeTerm.termType === 'Semesters With Quarters' && !getActiveQuarter(dateString, activeTerm)) return null
+    if (activeTerm.termType === "Semesters With Quarters" && !getActiveQuarter(dateString, activeTerm)) return null
 
     // Find the most recent override ON OR BEFORE this target date to use as reference
     if (abData.dayTypeOverrides[dateString]) return abData.dayTypeOverrides[dateString]
@@ -88,5 +88,5 @@ export const calculateDayType = (
     }
 
     const isEven = count % 2 === 0
-    return isEven ? refType : (refType === 'A' ? 'B' : 'A')
+    return isEven ? refType : (refType === "A" ? "B" : "A")
 }

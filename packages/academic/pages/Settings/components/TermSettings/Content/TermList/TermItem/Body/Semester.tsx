@@ -1,7 +1,7 @@
-import React from 'react'
-import type { TermSettings } from '@/pages/Settings/types'
-import { SETTINGS, GLOBAL } from '@/app/styles/colors'
-import { formatDate } from '@shared/lib'
+import React from "react"
+import type { TermSettings } from "@/pages/Settings/types"
+import { SETTINGS, GLOBAL } from "@/app/styles/colors"
+import { formatDate } from "@shared/lib"
 
 const TermItemBodySemester: React.FC<TermSettings.Content.TermList.TermItem.Body.SemesterProps> = ({
     name,
@@ -18,12 +18,12 @@ const TermItemBodySemester: React.FC<TermSettings.Content.TermList.TermItem.Body
                 {name} Semester
             </div>
             <div className="text-sm font-medium space-y-1" style={{ color: SETTINGS.TEXT_SECONDARY }}>
-                <div>{formatDate('medium', startDate)} — {formatDate('medium', endDate)}</div>
+                <div>{formatDate("medium", startDate)} — {formatDate("medium", endDate)}</div>
                 {quarters && quarters.length > 0 && (
                     <div className="text-xs opacity-60 space-y-0.5 pt-1">
                         {quarters.map(quarter => (
                             <div key={quarter.id}>
-                                {quarter.name}: {formatDate('medium', quarter.startDate)} — {formatDate('medium', quarter.endDate)}
+                                {quarter.name}: {formatDate("medium", quarter.startDate)} — {formatDate("medium", quarter.endDate)}
                             </div>
                         ))}
                     </div>

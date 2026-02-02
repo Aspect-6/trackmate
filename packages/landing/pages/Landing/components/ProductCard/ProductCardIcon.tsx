@@ -1,6 +1,6 @@
-import React from 'react'
-import type { Landing } from '@/pages/Landing/types'
-import { LANDING } from '@/app/styles/colors'
+import React from "react"
+import type { Landing } from "@/pages/Landing/types"
+import { LANDING } from "@/app/styles/colors"
 
 const ProductCardIcon: React.FC<Landing.ProductCard.ProductCardIconProps> = ({ icon, accentColor }) => {
     return (

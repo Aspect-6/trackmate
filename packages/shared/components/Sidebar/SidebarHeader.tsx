@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 interface SidebarHeaderProps {
     isMobile?: boolean
@@ -24,7 +24,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({
                 : "px-6 mb-6"
                 }`}
             style={{
-                borderBottom: `${isMobile ? '1px' : '0px'} solid ${borderColor || 'transparent'}`,
+                borderBottom: `${isMobile ? "1px" : "0px"} solid ${borderColor || "transparent"}`,
             }}
         >
             <div>

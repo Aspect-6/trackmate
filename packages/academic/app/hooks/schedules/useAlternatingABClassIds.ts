@@ -1,6 +1,6 @@
-import { useSchedules, useAcademicTerms, useNoSchool } from '@/app/hooks/entities'
-import { getActiveTerm, getActiveSemester } from '@/app/lib/schedule'
-import type { Semester } from '@/app/types'
+import { useSchedules, useAcademicTerms, useNoSchool } from "@/app/hooks/entities"
+import { getActiveTerm, getActiveSemester } from "@/app/lib/schedule"
+import type { Semester } from "@/app/types"
 
 /**
  * Gets classes for a given date from the alternating A/B schedule.
@@ -22,12 +22,12 @@ export const useAlternatingABClassIds = (date: string) => {
 
     // Determine which semester we're in based on actual semester dates
     const activeSemester = getActiveSemester(date, activeTerm)
-    const semester = activeSemester?.name as Semester['name'] | undefined
+    const semester = activeSemester?.name as Semester["name"] | undefined
 
     if (!semester) return { classIds: [] }
 
     // Get the schedule data for this term
-    const termSchedule = schedules['alternating-ab']?.terms[activeTerm.id]
+    const termSchedule = schedules["alternating-ab"]?.terms[activeTerm.id]
     if (!termSchedule) return { classIds: [] }
 
     const semesterData = termSchedule[semester]

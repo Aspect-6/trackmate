@@ -1,9 +1,9 @@
-import React from 'react'
-import type { ProfileSection } from '@/pages/Account/types'
-import { Mail } from 'lucide-react'
-import { EmailRowInput } from './EmailRowInput'
-import { EmailRowActions } from './EmailRowActions'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { ProfileSection } from "@/pages/Account/types"
+import { Mail } from "lucide-react"
+import { EmailRowInput } from "./EmailRowInput"
+import { EmailRowActions } from "./EmailRowActions"
+import { ACCOUNT } from "@/app/styles/colors"
 
 export const EmailRowForm: React.FC<ProfileSection.Content.EmailRow.FormProps> = ({
     newEmail,

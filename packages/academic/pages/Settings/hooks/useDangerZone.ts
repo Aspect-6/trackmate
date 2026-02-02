@@ -1,5 +1,5 @@
-import { useCallback } from 'react'
-import { STORAGE_KEYS } from '@/app/config/storageKeys'
+import { useCallback } from "react"
+import { STORAGE_KEYS } from "@/app/config/storageKeys"
 
 /**
  * Hook for dangerous bulk delete operations.

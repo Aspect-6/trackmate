@@ -1,8 +1,8 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { AssignmentTypeSettings } from '@/pages/Settings/types'
-import { Plus } from 'lucide-react'
-import { GLOBAL } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { AssignmentTypeSettings } from "@/pages/Settings/types"
+import { Plus } from "lucide-react"
+import { GLOBAL } from "@/app/styles/colors"
 
 const AddTypeButton: React.FC<AssignmentTypeSettings.Content.AddTypeForm.AddTypeButtonProps> = ({ onClick, children }) => {
     const { isHovered, hoverProps } = useHover()

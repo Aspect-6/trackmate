@@ -1,23 +1,23 @@
-import React from 'react'
-import { GLOBAL } from '@/app/styles/colors'
-import { BRAND_NAME } from '@shared/config/brand'
+import React from "react"
+import { GLOBAL } from "@/app/styles/colors"
+import { BRAND_NAME } from "@shared/config/brand"
 import {
     SidebarContainer,
     SidebarHeader,
     SidebarDivider,
     SidebarContent
-} from '@shared/components/Sidebar'
+} from "@shared/components/Sidebar"
 
-import SidebarNav from './SidebarNav'
+import SidebarNav from "./SidebarNav"
 
 interface SidebarProps {
-    variant: 'desktop' | 'mobile'
+    variant: "desktop" | "mobile"
     isOpen?: boolean
     onClose?: () => void
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ variant, isOpen, onClose }) => {
-    const isMobile = variant === 'mobile'
+    const isMobile = variant === "mobile"
 
     if (isMobile && !isOpen) return null
 

@@ -1,8 +1,8 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import type { LucideIcon } from 'lucide-react'
-import { TRACKMATE } from '@shared/styles/colors'
-import { useHover } from '@shared/hooks/ui/useHover'
+import React from "react"
+import { NavLink } from "react-router-dom"
+import type { LucideIcon } from "lucide-react"
+import { TRACKMATE } from "@shared/styles/colors"
+import { useHover } from "@shared/hooks/ui/useHover"
 
 interface SidebarTabProps {
     label: string
@@ -37,7 +37,7 @@ const SidebarTab: React.FC<SidebarTabProps> = ({
                 style={({ isActive: linkActive }) => {
                     const active = isActive || linkActive
                     return {
-                        backgroundColor: active ? accentColor : (isHovered ? hoverColor : 'transparent'),
+                        backgroundColor: active ? accentColor : (isHovered ? hoverColor : "transparent"),
                         color: active ? undefined : TRACKMATE.TEXT_PRIMARY
                     }
                 }}
@@ -58,7 +58,7 @@ const SidebarTab: React.FC<SidebarTabProps> = ({
             {...hoverProps}
             className={`${baseClasses} ${isActive && "text-white"}`}
             style={{
-                backgroundColor: isActive ? accentColor : (isHovered ? hoverColor : 'transparent'),
+                backgroundColor: isActive ? accentColor : (isHovered ? hoverColor : "transparent"),
                 color: !isActive ? TRACKMATE.TEXT_PRIMARY : undefined
             }}
         >

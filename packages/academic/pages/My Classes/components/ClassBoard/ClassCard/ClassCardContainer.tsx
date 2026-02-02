@@ -1,5 +1,5 @@
-import React from 'react'
-import type { ClassBoard } from '@/pages/My Classes/types'
+import React from "react"
+import type { ClassBoard } from "@/pages/My Classes/types"
 
 const ClassCardContainer: React.FC<ClassBoard.Card.ContainerProps> = ({ children }) => {
     return (

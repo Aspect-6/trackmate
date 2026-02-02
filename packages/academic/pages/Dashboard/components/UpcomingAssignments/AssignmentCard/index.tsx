@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { useModal } from '@/app/contexts/ModalContext'
-import { useAssignments, useClasses } from '@/app/hooks/entities'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { UpcomingAssignments } from '@/pages/Dashboard/types'
-import PriorityBadge from '@/app/components/PriorityBadge'
-import StatusButton from './StatusButton'
-import AssignmentDetails, { AssignmentDetailsBody, AssignmentDetailsClass, AssignmentDetailsDue, AssignmentDetailsTitle } from './AssignmentDetails'
-import AssignmentCardMobileFooter from './AssignmentCardMobileFooter'
-import { DASHBOARD } from '@/app/styles/colors'
+import React, { useState } from "react"
+import { useModal } from "@/app/contexts/ModalContext"
+import { useAssignments, useClasses } from "@/app/hooks/entities"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { UpcomingAssignments } from "@/pages/Dashboard/types"
+import PriorityBadge from "@/app/components/PriorityBadge"
+import StatusButton from "./StatusButton"
+import AssignmentDetails, { AssignmentDetailsBody, AssignmentDetailsClass, AssignmentDetailsDue, AssignmentDetailsTitle } from "./AssignmentDetails"
+import AssignmentCardMobileFooter from "./AssignmentCardMobileFooter"
+import { DASHBOARD } from "@/app/styles/colors"
 
 const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ assignment }) => {
     const { getClassById } = useClasses()
@@ -21,24 +21,24 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
         e.stopPropagation()
 
         switch (assignment.status) {
-            case 'To Do':
-                updateAssignment(assignment.id, { status: 'In Progress' })
+            case "To Do":
+                updateAssignment(assignment.id, { status: "In Progress" })
                 break
-            case 'In Progress':
+            case "In Progress":
                 setIsCompleting(true)
                 setTimeout(() => {
-                    updateAssignment(assignment.id, { status: 'Done' })
+                    updateAssignment(assignment.id, { status: "Done" })
                 }, 600)
                 break
             default:
-                updateAssignment(assignment.id, { status: 'To Do' })
+                updateAssignment(assignment.id, { status: "To Do" })
                 break
         }
     }
 
     return (
         <div
-            onClick={() => openModal('edit-assignment', assignment.id)}
+            onClick={() => openModal("edit-assignment", assignment.id)}
             className="flex flex-col gap-3 p-3 sm:p-4 rounded-xl shadow-md cursor-pointer transition-colors"
             style={{
                 backgroundColor: isHovered ? DASHBOARD.BACKGROUND_SECONDARY : DASHBOARD.BACKGROUND_PRIMARY,

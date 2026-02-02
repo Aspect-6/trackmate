@@ -1,6 +1,6 @@
-import React from 'react'
-import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { useAuth } from '@shared/contexts/AuthContext'
+import React from "react"
+import { Navigate, Outlet, useLocation } from "react-router-dom"
+import { useAuth } from "@shared/contexts/AuthContext"
 
 interface RequireAuthProps {
     redirectTo?: string
@@ -13,9 +13,9 @@ interface RequireAuthProps {
  * Redirects to the login page (default /auth/sign-in) if no user is found.
  */
 const RequireAuth: React.FC<RequireAuthProps> = ({
-    redirectTo = '/auth/sign-in',
+    redirectTo = "/auth/sign-in",
     requireEmailVerification = false,
-    unverifiedRedirectTo = '/account?tab=security'
+    unverifiedRedirectTo = "/account?tab=security"
 }) => {
     const { user, loading } = useAuth()
     const location = useLocation()
@@ -32,12 +32,12 @@ const RequireAuth: React.FC<RequireAuthProps> = ({
         // Build the current URL path to redirect back to after login
         const currentPath = `${location.pathname}${location.search}${location.hash}`
         const redirectParam = encodeURIComponent(currentPath)
-        const separator = redirectTo.includes('?') ? '&' : '?'
+        const separator = redirectTo.includes("?") ? "&" : "?"
         const redirectUrl = `${redirectTo}${separator}redirect=${redirectParam}`
 
-        const isCrossSpaRedirect = location.pathname.startsWith('/academic') && !redirectTo.startsWith('/academic')
+        const isCrossSpaRedirect = location.pathname.startsWith("/academic") && !redirectTo.startsWith("/academic")
 
-        if (redirectTo.startsWith('http') || isCrossSpaRedirect) {
+        if (redirectTo.startsWith("http") || isCrossSpaRedirect) {
             window.location.replace(redirectUrl)
             return null
         }
@@ -46,13 +46,13 @@ const RequireAuth: React.FC<RequireAuthProps> = ({
 
     if (requireEmailVerification && !user.emailVerified) {
         // Redirect to security page if email is not verified
-        const to = `${unverifiedRedirectTo}${unverifiedRedirectTo.includes('?') ? '&' : '?'}verificationRequired=true`
+        const to = `${unverifiedRedirectTo}${unverifiedRedirectTo.includes("?") ? "&" : "?"}verificationRequired=true`
 
         // Check for cross-SPA redirect
-        const isCrossSpaRedirect = location.pathname.startsWith('/academic') && !to.startsWith('/academic')
+        const isCrossSpaRedirect = location.pathname.startsWith("/academic") && !to.startsWith("/academic")
 
         // Handle cross-app potential for unverified redirect
-        if (to.startsWith('http') || isCrossSpaRedirect) {
+        if (to.startsWith("http") || isCrossSpaRedirect) {
             window.location.replace(to)
             return null
         }

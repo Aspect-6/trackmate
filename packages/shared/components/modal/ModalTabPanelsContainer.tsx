@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useState, useCallback, useMemo } from "react"
 
 export interface ModalTabPanelsContainerProps {
     children: React.ReactNode
@@ -7,7 +7,7 @@ export interface ModalTabPanelsContainerProps {
 
 export const ModalTabPanelsContainer: React.FC<ModalTabPanelsContainerProps> = ({
     children,
-    className = '',
+    className = "",
 }) => {
     const [panelHeights, setPanelHeights] = useState<Record<number, number>>({})
 
@@ -37,7 +37,7 @@ export const ModalTabPanelsContainer: React.FC<ModalTabPanelsContainerProps> = (
         <div
             className={className}
             style={{
-                position: 'relative',
+                position: "relative",
                 minHeight: minHeight ? `${minHeight}px` : undefined,
             }}
         >

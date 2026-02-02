@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { auth } from '@shared/lib'
-import { sendUserEmailVerification } from '@/app/lib/auth'
-import { Title, FormDivider, HomeLink } from '@/app/components/AuthForm'
-import { AUTH } from '@/app/styles/colors'
-import { useRedirect } from '@shared/hooks/useRedirect'
+import React, { useEffect, useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import { auth } from "@shared/lib"
+import { sendUserEmailVerification } from "@/app/lib/auth"
+import { Title, FormDivider, HomeLink } from "@/app/components/AuthForm"
+import { AUTH } from "@/app/styles/colors"
+import { useRedirect } from "@shared/hooks/useRedirect"
 
 const VerifyEmail: React.FC = () => {
     const [searchParams] = useSearchParams()
-    const redirectTo = searchParams.get('redirect') || '/account'
+    const redirectTo = searchParams.get("redirect") || "/account"
     const redirect = useRedirect({ allowCrossApp: true })
     const [sending, setSending] = useState(false)
     const [message, setMessage] = useState<string | null>(null)
@@ -16,7 +16,7 @@ const VerifyEmail: React.FC = () => {
     useEffect(() => {
         const checkVerification = async () => {
             if (!auth.currentUser) {
-                redirect('/auth/sign-in')
+                redirect("/auth/sign-in")
                 return
             }
             await auth.currentUser.reload()
@@ -38,7 +38,7 @@ const VerifyEmail: React.FC = () => {
             await sendUserEmailVerification()
         } catch (error: any) {
             console.error("Error sending verification email:", error)
-            if (error.code === 'auth/too-many-requests') {
+            if (error.code === "auth/too-many-requests") {
                 setMessage("Please wait a moment before trying again.")
             } else {
                 setMessage("Failed to send email. Please try again.")
@@ -86,7 +86,7 @@ const VerifyEmail: React.FC = () => {
                                 className="font-medium text-sm hover:underline focus:outline-none"
                                 style={{ color: AUTH.GLOBAL_ACCENT }}
                             >
-                                {sending ? 'Sending...' : 'Resend verification email'}
+                                {sending ? "Sending..." : "Resend verification email"}
                             </button>
                         </p>
 

@@ -1,4 +1,4 @@
-import { useNavigate, NavigateOptions } from 'react-router-dom'
+import { useNavigate, NavigateOptions } from "react-router-dom"
 
 interface RedirectOptions {
     /**
@@ -16,13 +16,13 @@ interface RedirectOptions {
  * @example
  * // Basic usage (same as useNavigate)
  * const redirect = useRedirect()
- * redirect('/account')
+ * redirect("/account")
  * 
  * @example
  * // With cross-app support
  * const redirect = useRedirect({ allowCrossApp: true })
- * redirect('/academic/dashboard')  // Full page navigation
- * redirect('/account')             // Client-side navigation
+ * redirect("/academic/dashboard")  // Full page navigation
+ * redirect("/account")             // Client-side navigation
  */
 export const useRedirect = (options: RedirectOptions = {}) => {
     const { allowCrossApp = false } = options
@@ -33,7 +33,7 @@ export const useRedirect = (options: RedirectOptions = {}) => {
      * Works like useNavigate but can handle cross-SPA navigation when allowCrossApp is true.
      */
     return (path: string, navigateOptions?: NavigateOptions) => {
-        const isCrossAppPath = path.startsWith('/academic')
+        const isCrossAppPath = path.startsWith("/academic")
 
         if (allowCrossApp && isCrossAppPath) {
             window.location.href = path

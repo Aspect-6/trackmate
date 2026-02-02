@@ -1,17 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import type { ClassBoard } from '@/pages/My Classes/types'
-import { MY_CLASSES } from '@/app/styles/colors'
+import React, { useEffect, useMemo, useState } from "react"
+import type { ClassBoard } from "@/pages/My Classes/types"
+import { MY_CLASSES } from "@/app/styles/colors"
 
 const cssColorToHex = (value: string): string => {
-    if (typeof window === 'undefined') return value
-    const canvas = document.createElement('canvas')
+    if (typeof window === "undefined") return value
+    const canvas = document.createElement("canvas")
     canvas.width = canvas.height = 1
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext("2d")
     if (!ctx) return value
     ctx.fillStyle = value
     const normalized = ctx.fillStyle
 
-    if (normalized.startsWith('#')) {
+    if (normalized.startsWith("#")) {
         if (normalized.length === 4) {
             return `#${normalized[1]}${normalized[1]}${normalized[2]}${normalized[2]}${normalized[3]}${normalized[3]}`.toUpperCase()
         }
@@ -28,7 +28,7 @@ const cssColorToHex = (value: string): string => {
     if (!r || !g || !b) return normalized.toUpperCase()
 
     const toHex = (num: string) => {
-        const hex = Number(num).toString(16).padStart(2, '0')
+        const hex = Number(num).toString(16).padStart(2, "0")
         return hex
     }
 
@@ -36,13 +36,13 @@ const cssColorToHex = (value: string): string => {
 }
 
 const ClassCardColor: React.FC<ClassBoard.Card.Body.ColorProps> = ({ color }) => {
-    const [resolvedColor, setResolvedColor] = useState<string>('transparent')
-    const [colorLabel, setColorLabel] = useState<string>('N/A')
+    const [resolvedColor, setResolvedColor] = useState<string>("transparent")
+    const [colorLabel, setColorLabel] = useState<string>("N/A")
 
     const resolveColorValue = useMemo(() => {
         if (!color) return null
         const variableMatch = color.match(/var\((--[^)]+)\)/)
-        if (variableMatch && typeof window !== 'undefined') {
+        if (variableMatch && typeof window !== "undefined") {
             const varName = variableMatch[1]
             if (!varName) return null
             return getComputedStyle(document.documentElement)
@@ -54,15 +54,15 @@ const ClassCardColor: React.FC<ClassBoard.Card.Body.ColorProps> = ({ color }) =>
 
     useEffect(() => {
         if (!color) {
-            setResolvedColor('transparent')
-            setColorLabel('N/A')
+            setResolvedColor("transparent")
+            setColorLabel("N/A")
             return
         }
 
         const usableColor = resolveColorValue || color
         const hex = cssColorToHex(usableColor)
         setResolvedColor(usableColor)
-        setColorLabel(hex.startsWith('#') ? hex : usableColor.toUpperCase())
+        setColorLabel(hex.startsWith("#") ? hex : usableColor.toUpperCase())
     }, [color, resolveColorValue])
 
     return (

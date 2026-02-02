@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useModal } from '@/app/contexts/ModalContext'
-import { useToast } from '@shared/contexts/ToastContext'
-import { useEvents } from '@/app/hooks/entities'
-import { todayString } from '@shared/lib'
-import { MODALS } from '@/app/styles/colors'
+import React, { useEffect, useState } from "react"
+import { useModal } from "@/app/contexts/ModalContext"
+import { useToast } from "@shared/contexts/ToastContext"
+import { useEvents } from "@/app/hooks/entities"
+import { todayString } from "@shared/lib"
+import { MODALS } from "@/app/styles/colors"
 import {
     ModalContainer,
     ModalHeader,
@@ -16,7 +16,7 @@ import {
     ModalCancelButton,
     ModalDeleteButton,
     ModalSubmitButton,
-} from '@shared/components/modal'
+} from "@shared/components/modal"
 
 interface EventFormModalProps {
     onClose: () => void
@@ -28,11 +28,11 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
     const { openModal } = useModal()
     const { showToast } = useToast()
     const [formData, setFormData] = useState({
-        title: '',
+        title: "",
         date: todayString(),
-        startTime: '',
-        endTime: '',
-        description: '',
+        startTime: "",
+        endTime: "",
+        description: "",
         color: MODALS.EVENT.COLORS[0]!
     })
 
@@ -47,9 +47,9 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
                 setFormData({
                     title: event.title,
                     date: event.date,
-                    startTime: event.startTime || '',
-                    endTime: event.endTime || '',
-                    description: event.description || '',
+                    startTime: event.startTime || "",
+                    endTime: event.endTime || "",
+                    description: event.description || "",
                     color: event.color
                 })
             }
@@ -74,23 +74,23 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
 
         if (isEditMode) {
             updateEvent(eventId, safeData)
-            showToast('Successfully updated event', 'success')
+            showToast("Successfully updated event", "success")
         } else {
             addEvent(safeData)
-            showToast('Successfully added event', 'success')
+            showToast("Successfully added event", "success")
         }
         onClose()
     }
 
     const handleDelete = () => {
         onClose()
-        openModal('delete-event', eventId)
+        openModal("delete-event", eventId)
     }
 
     return (
         <ModalContainer>
             <ModalHeader color={MODALS.EVENT.HEADING}>
-                {isEditMode ? 'Edit Event' : 'Add New Event'}
+                {isEditMode ? "Edit Event" : "Add New Event"}
             </ModalHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -136,7 +136,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
                 </div>
                 <p className="text-xs text-gray-400">Leave blank for all-day.</p>
                 <div>
-                    <ModalLabel>{isEditMode ? 'Description' : 'Description (Optional)'}</ModalLabel>
+                    <ModalLabel>{isEditMode ? "Description" : "Description (Optional)"}</ModalLabel>
                     <ModalTextareaInput
                         name="description"
                         rows={2}
@@ -152,7 +152,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
                             <div
                                 key={color}
                                 onClick={() => setFormData({ ...formData, color })}
-                                className={`color-tile ${formData.color === color ? 'selected' : ''}`}
+                                className={`color-tile ${formData.color === color ? "selected" : ""}`}
                                 style={{ backgroundColor: color }}
                             />
                         ))}
@@ -168,7 +168,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
                         bgColorHover={MODALS.EVENT.PRIMARY_BG_HOVER}
                         textColor={MODALS.EVENT.PRIMARY_TEXT}
                     >
-                        {isEditMode ? 'Save Changes' : 'Add Event'}
+                        {isEditMode ? "Save Changes" : "Add Event"}
                     </ModalSubmitButton>
                 </ModalFooter>
             </form>

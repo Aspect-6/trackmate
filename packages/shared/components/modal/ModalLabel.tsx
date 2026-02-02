@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 export interface ModalLabelProps {
     children: React.ReactNode
@@ -8,7 +8,7 @@ export interface ModalLabelProps {
 
 export const ModalLabel: React.FC<ModalLabelProps> = ({
     children,
-    className = '',
+    className = "",
     htmlFor,
 }) => {
     return (

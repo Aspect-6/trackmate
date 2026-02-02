@@ -1,6 +1,6 @@
-import React from 'react'
-import type { ScheduleSettings } from '@/pages/Settings/types'
-import { SETTINGS } from '@/app/styles/colors'
+import React from "react"
+import type { ScheduleSettings } from "@/pages/Settings/types"
+import { SETTINGS } from "@/app/styles/colors"
 
 const ScheduleSettingsComponent: React.FC<ScheduleSettings.Props> = ({ children }) => {
     return (
@@ -17,8 +17,8 @@ const ScheduleSettingsComponent: React.FC<ScheduleSettings.Props> = ({ children 
 }
 
 export default ScheduleSettingsComponent
-export { default as ScheduleSettingsContent } from './Content'
-export { default as ScheduleTypeDropdown } from './Content/ScheduleTypeDropdown'
-export { default as ScheduleTypeDropdownOption } from './Content/ScheduleTypeDropdown/ScheduleTypeDropdownOption'
-export { default as CurrentDayCalculation } from './Content/CurrentDayCalculation'
-export { default as SetDayTypeButton } from './Content/SetDayTypeButton'
+export { default as ScheduleSettingsContent } from "./Content"
+export { default as ScheduleTypeDropdown } from "./Content/ScheduleTypeDropdown"
+export { default as ScheduleTypeDropdownOption } from "./Content/ScheduleTypeDropdown/ScheduleTypeDropdownOption"
+export { default as CurrentDayCalculation } from "./Content/CurrentDayCalculation"
+export { default as SetDayTypeButton } from "./Content/SetDayTypeButton"

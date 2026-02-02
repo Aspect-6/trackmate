@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 export interface ModalDateInputProps {
     name?: string
@@ -17,7 +17,7 @@ export const ModalDateInput: React.FC<ModalDateInputProps> = ({
     onChange,
     required,
     focusColor,
-    className = '',
+    className = "",
 }) => {
     return (
         <input
@@ -28,7 +28,7 @@ export const ModalDateInput: React.FC<ModalDateInputProps> = ({
             onChange={onChange}
             required={required}
             className={`modal-date-input ${className}`.trim()}
-            style={focusColor ? { '--focus-color': focusColor } as React.CSSProperties : undefined}
+            style={focusColor ? { "--focus-color": focusColor } as React.CSSProperties : undefined}
         />
     )
 }

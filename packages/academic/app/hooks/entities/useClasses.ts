@@ -1,9 +1,9 @@
-import { useMemo, useCallback } from 'react'
-import { useLocalStorage } from '@/app/hooks/data/useLocalStorage'
-import { useToast } from '@shared/contexts/ToastContext'
-import { generateId } from '@shared/lib'
-import { STORAGE_KEYS } from '@/app/config/storageKeys'
-import type { Class } from '@/app/types'
+import { useMemo, useCallback } from "react"
+import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { useToast } from "@shared/contexts/ToastContext"
+import { generateId } from "@shared/lib"
+import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import type { Class } from "@/app/types"
 
 const DEFAULT_CLASSES: Class[] = []
 
@@ -20,7 +20,7 @@ export const useClasses = () => {
 
     // Indexed by term
     const classesByTerm = useMemo(() => classes.reduce<Record<string, Class[]>>((acc, classItem) => {
-        const termId = classItem.termId || 'unassigned'
+        const termId = classItem.termId || "unassigned"
         if (!acc[termId]) acc[termId] = []
         acc[termId]!.push(classItem)
         return acc
@@ -36,16 +36,16 @@ export const useClasses = () => {
     }, [classesByTerm])
 
     // Actions
-    const addClass = useCallback((newClass: Omit<Class, 'id'>): boolean => {
+    const addClass = useCallback((newClass: Omit<Class, "id">): boolean => {
         if (classes.some(c => c.name.toLowerCase() === newClass.name.toLowerCase())) {
-            showToast(`A class with the name "${newClass.name}" already exists.`, 'error')
+            showToast(`A class with the name "${newClass.name}" already exists.`, "error")
             return false
         }
         setClasses(prev => [...prev, {
             ...newClass,
             id: generateId(),
         }])
-        showToast(`Successfully added class "${newClass.name}"`, 'success')
+        showToast(`Successfully added class "${newClass.name}"`, "success")
         return true
     }, [classes, setClasses, showToast])
 

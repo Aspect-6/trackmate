@@ -1,6 +1,6 @@
-import React from 'react'
-import type { TodaysClasses } from '@/pages/Dashboard/types'
-import { DASHBOARD } from '@/app/styles/colors'
+import React from "react"
+import type { TodaysClasses } from "@/pages/Dashboard/types"
+import { DASHBOARD } from "@/app/styles/colors"
 
 const NoClassesScheduled: React.FC<TodaysClasses.Body.NoClassesScheduledProps> = () => {
     return (

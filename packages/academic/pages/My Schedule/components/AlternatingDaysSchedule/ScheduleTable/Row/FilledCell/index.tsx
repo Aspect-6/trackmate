@@ -1,16 +1,16 @@
-import React from 'react'
-import type { AlternatingDaysSchedule } from '@/pages/My Schedule/types'
-import { MY_SCHEDULE } from '@/app/styles/colors'
-import ClassName from './ClassName'
-import RoomNumber from './RoomNumber'
-import RemoveButton from './RemoveButton'
+import React from "react"
+import type { AlternatingDaysSchedule } from "@/pages/My Schedule/types"
+import { MY_SCHEDULE } from "@/app/styles/colors"
+import ClassName from "./ClassName"
+import RoomNumber from "./RoomNumber"
+import RemoveButton from "./RemoveButton"
 
 const FilledCell: React.FC<AlternatingDaysSchedule.ScheduleTable.Row.FilledCell.Props> = ({ isLastRow, classData, onRemove }) => {
     return (
         <td
             className="p-3 text-center schedule-cell"
             style={{
-                borderBottom: !isLastRow ? `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` : 'none'
+                borderBottom: !isLastRow ? `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` : "none"
             }}
         >
             <div

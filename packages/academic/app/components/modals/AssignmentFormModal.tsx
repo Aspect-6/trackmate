@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useModal } from '@/app/contexts/ModalContext'
-import { useAssignments, useClasses } from '@/app/hooks/entities'
-import { useSettings } from '@/app/hooks/useSettings'
-import { useToast } from '@shared/contexts/ToastContext'
-import { DEFAULT_ASSIGNMENT_TYPES } from '@/app/hooks/useSettings'
-import { todayString } from '@shared/lib'
-import { AssignmentType, Priority, Status } from '@/app/types'
-import { MODALS } from '@/app/styles/colors'
+import React, { useEffect, useState } from "react"
+import { useModal } from "@/app/contexts/ModalContext"
+import { useAssignments, useClasses } from "@/app/hooks/entities"
+import { useSettings } from "@/app/hooks/useSettings"
+import { useToast } from "@shared/contexts/ToastContext"
+import { DEFAULT_ASSIGNMENT_TYPES } from "@/app/hooks/useSettings"
+import { todayString } from "@shared/lib"
+import { AssignmentType, Priority, Status } from "@/app/types"
+import { MODALS } from "@/app/styles/colors"
 import {
     ModalContainer,
     ModalHeader,
@@ -25,7 +25,7 @@ import {
     ModalTab,
     ModalTabPanelsContainer,
     ModalTabPanel,
-} from '@shared/components/modal'
+} from "@shared/components/modal"
 
 interface AssignmentFormModalProps {
     onClose: () => void
@@ -38,7 +38,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
     const { assignmentTypes } = useSettings()
     const { openModal } = useModal()
     const { showToast } = useToast()
-    const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details')
+    const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
     const [formData, setFormData] = useState<{
         title: string
         classId: string
@@ -49,14 +49,14 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
         status: Status
         type: AssignmentType
     }>({
-        title: '',
-        classId: '',
-        description: '',
+        title: "",
+        classId: "",
+        description: "",
         dueDate: todayString(),
-        dueTime: '23:59',
-        priority: 'Low',
-        status: 'To Do',
-        type: ''
+        dueTime: "23:59",
+        priority: "Low",
+        status: "To Do",
+        type: ""
     })
 
     const isEditMode = !!assignmentId
@@ -71,12 +71,12 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
                 setFormData({
                     title: assignment.title,
                     classId: assignment.classId,
-                    description: assignment.description || '',
+                    description: assignment.description || "",
                     dueDate: assignment.dueDate,
-                    dueTime: assignment.dueTime || '23:59',
+                    dueTime: assignment.dueTime || "23:59",
                     priority: assignment.priority,
                     status: assignment.status,
-                    type: assignment.type || ''
+                    type: assignment.type || ""
                 })
             }
         }
@@ -85,7 +85,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
     // Select a class for an assignment if not set (only for Add Assignment)
     useEffect(() => {
         if (classes.length > 0 && !formData.classId) {
-            const firstClassId = classes[0]?.id || ''
+            const firstClassId = classes[0]?.id || ""
             if (firstClassId) {
                 setFormData(prev => ({ ...prev, classId: prev.classId || firstClassId }))
             }
@@ -103,75 +103,75 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        const validPriorities: Priority[] = ['High', 'Medium', 'Low']
-        const validStatuses: Status[] = ['To Do', 'In Progress', 'Done']
+        const validPriorities: Priority[] = ["High", "Medium", "Low"]
+        const validStatuses: Status[] = ["To Do", "In Progress", "Done"]
         const validTypes: AssignmentType[] = currentTypes.length ? currentTypes : DEFAULT_ASSIGNMENT_TYPES
 
         const safeData = { ...formData }
 
         if (!safeData.title.trim()) {
-            showToast('Please enter a title', 'error')
+            showToast("Please enter a title", "error")
             return
         }
 
         if (!safeData.classId && classes.length > 0) {
-            safeData.classId = classes[0]?.id || ''
+            safeData.classId = classes[0]?.id || ""
         }
 
         if (!validPriorities.includes(safeData.priority)) {
-            safeData.priority = 'Low'
+            safeData.priority = "Low"
         }
 
         if (!validStatuses.includes(safeData.status)) {
-            safeData.status = 'To Do'
+            safeData.status = "To Do"
         }
 
         if (!safeData.dueDate || isNaN(new Date(safeData.dueDate).getTime())) {
             safeData.dueDate = todayString()
         }
 
-        if (!safeData.dueTime || typeof safeData.dueTime !== 'string') {
-            safeData.dueTime = '23:59'
+        if (!safeData.dueTime || typeof safeData.dueTime !== "string") {
+            safeData.dueTime = "23:59"
         }
 
-        const fallbackType = validTypes[0] ?? ''
+        const fallbackType = validTypes[0] ?? ""
         // Allow "No Type" explicitly
-        if (!safeData.type || (safeData.type !== 'No Type' && !validTypes.includes(safeData.type as AssignmentType))) {
+        if (!safeData.type || (safeData.type !== "No Type" && !validTypes.includes(safeData.type as AssignmentType))) {
             safeData.type = fallbackType
         }
 
         if (isEditMode) {
             updateAssignment(assignmentId, safeData)
-            showToast('Successfully updated assignment', 'success')
+            showToast("Successfully updated assignment", "success")
         } else {
             addAssignment(safeData)
-            showToast('Successfully added assignment', 'success')
+            showToast("Successfully added assignment", "success")
         }
         onClose()
     }
 
     const handleDelete = () => {
         onClose()
-        openModal('delete-assignment', assignmentId)
+        openModal("delete-assignment", assignmentId)
     }
 
     return (
         <ModalContainer>
             <ModalHeader color={MODALS.ASSIGNMENT.HEADING}>
-                {isEditMode ? 'Edit Assignment' : 'Add New Assignment'}
+                {isEditMode ? "Edit Assignment" : "Add New Assignment"}
             </ModalHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <ModalTabSwitcher ariaLabel="Assignment form tabs">
-                    <ModalTab value="details" isActive={activeTab === 'details'} onClick={() => setActiveTab('details')}>
+                    <ModalTab value="details" isActive={activeTab === "details"} onClick={() => setActiveTab("details")}>
                         Details
                     </ModalTab>
-                    <ModalTab value="settings" isActive={activeTab === 'settings'} onClick={() => setActiveTab('settings')}>
+                    <ModalTab value="settings" isActive={activeTab === "settings"} onClick={() => setActiveTab("settings")}>
                         Settings
                     </ModalTab>
                 </ModalTabSwitcher>
 
                 <ModalTabPanelsContainer>
-                    <ModalTabPanel isActive={activeTab === 'details'}>
+                    <ModalTabPanel isActive={activeTab === "details"}>
                         <div>
                             <ModalLabel>Title</ModalLabel>
                             <ModalTextInput
@@ -214,14 +214,14 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
                                 <ModalTimeInput
                                     name="dueTime"
                                     value={formData.dueTime}
-                                    onChange={e => setFormData({ ...formData, dueTime: e.target.value || '23:59' })}
+                                    onChange={e => setFormData({ ...formData, dueTime: e.target.value || "23:59" })}
                                     required
                                     focusColor={focusColor}
                                 />
                             </div>
                         </div>
                         <div>
-                            <ModalLabel>{isEditMode ? 'Description' : 'Description (Optional)'}</ModalLabel>
+                            <ModalLabel>{isEditMode ? "Description" : "Description (Optional)"}</ModalLabel>
                             <ModalTextareaInput
                                 name="description"
                                 rows={2}
@@ -231,7 +231,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
                             />
                         </div>
                     </ModalTabPanel>
-                    <ModalTabPanel isActive={activeTab === 'settings'}>
+                    <ModalTabPanel isActive={activeTab === "settings"}>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <ModalLabel>Priority</ModalLabel>
@@ -287,7 +287,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
                         bgColorHover={MODALS.ASSIGNMENT.PRIMARY_BG_HOVER}
                         textColor={MODALS.ASSIGNMENT.PRIMARY_TEXT}
                     >
-                        {isEditMode ? 'Save Changes' : 'Add Assignment'}
+                        {isEditMode ? "Save Changes" : "Add Assignment"}
                     </ModalSubmitButton>
                 </ModalFooter>
             </form>

@@ -3,12 +3,12 @@
 /**
  * Represents the priority level of an assignment.
  */
-export type Priority = 'High' | 'Medium' | 'Low'
+export type Priority = "High" | "Medium" | "Low"
 
 /**
  * Represents the current status of an assignment.
  */
-export type Status = 'To Do' | 'In Progress' | 'Done'
+export type Status = "To Do" | "In Progress" | "Done"
 
 /**
  * Represents the category/type of an assignment. User-configurable string label.
@@ -17,15 +17,15 @@ export type AssignmentType = string
 
 /**
  * Represents the type of school day in the schedule rotation.
- * 'A' and 'B' are alternating block schedule days.
+ * "A" and "B" are alternating block schedule days.
  * null represents a day with no specific schedule type (e.g. weekend or break).
  */
-export type DayType = 'A' | 'B' | null
+export type DayType = "A" | "B" | null
 
 /**
  * UI theme preference applied to the root element.
  */
-export type ThemeMode = 'light' | 'dark'
+export type ThemeMode = "light" | "dark"
 
 /**
  * Represents a single school assignment.
@@ -140,7 +140,7 @@ export interface TermSchedule {
 /**
  * Available schedule rotation types.
  */
-export type ScheduleType = 'alternating-ab' | 'none'
+export type ScheduleType = "alternating-ab" | "none"
 
 /**
  * Configuration data specific to alternating A/B schedule.
@@ -149,9 +149,9 @@ export interface AlternatingABData {
     /** First day of the school year */
     startDate: string
     /** What day type the start date was */
-    startDayType: 'A' | 'B'
+    startDayType: "A" | "B"
     /** Manual overrides for specific dates (sparse map) */
-    dayTypeOverrides: Record<string, 'A' | 'B'>
+    dayTypeOverrides: Record<string, "A" | "B">
     /** Per-term schedule data (termId -> schedule) */
     terms: Record<string, TermSchedule>
 }
@@ -167,16 +167,16 @@ export interface NoScheduleData { }
 export interface Schedules {
     /** The active schedule type */
     type: ScheduleType
-    /** A/B schedule data (present when type is 'alternating-ab') */
-    'alternating-ab'?: AlternatingABData
-    /** No schedule data (present when type is 'none') */
-    'none'?: NoScheduleData
+    /** A/B schedule data (present when type is "alternating-ab") */
+    "alternating-ab"?: AlternatingABData
+    /** No schedule data (present when type is "none") */
+    "none"?: NoScheduleData
 }
 
 /**
  * The term mode determines whether an institution uses semesters only or quarters.
  */
-export type TermMode = 'Semesters Only' | 'Semesters With Quarters'
+export type TermMode = "Semesters Only" | "Semesters With Quarters"
 
 /**
  * Represents a quarter within an academic term (quarters mode only).
@@ -185,7 +185,7 @@ export interface Quarter {
     /** Unique identifier for the quarter */
     id: string
     /** Quarter name (Q1, Q2, Q3, Q4) */
-    name: 'Q1' | 'Q2' | 'Q3' | 'Q4'
+    name: "Q1" | "Q2" | "Q3" | "Q4"
     /** The start date in ISO format (YYYY-MM-DD) */
     startDate: string
     /** The end date in ISO format (YYYY-MM-DD) */
@@ -197,7 +197,7 @@ export interface Quarter {
  */
 export interface Semester {
     id: string
-    name: 'Fall' | 'Spring'
+    name: "Fall" | "Spring"
     startDate: string
     endDate: string
     /** The quarters within this semester (only present in quarters mode) */
@@ -222,7 +222,7 @@ export interface AcademicTerm {
 /**
  * Types of toast notifications available.
  */
-export type ToastType = 'success' | 'error'
+export type ToastType = "success" | "error"
 
 /**
  * Context interface for managing toast notifications.

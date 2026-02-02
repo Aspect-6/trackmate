@@ -1,6 +1,6 @@
-import React from 'react'
-import type { AssignmentTypeSettings } from '@/pages/Settings/types'
-import { SETTINGS } from '@/app/styles/colors'
+import React from "react"
+import type { AssignmentTypeSettings } from "@/pages/Settings/types"
+import { SETTINGS } from "@/app/styles/colors"
 
 const AssignmentTypeSettingsComponent: React.FC<AssignmentTypeSettings.Props> = ({ children }) => {
     return (
@@ -18,10 +18,10 @@ const AssignmentTypeSettingsComponent: React.FC<AssignmentTypeSettings.Props> = 
 
 export default AssignmentTypeSettingsComponent
 
-export { default as AssignmentTypeSettingsContent } from './Content'
-export { default as AssignmentTypeList } from './Content/AssignmentTypeList'
-export { default as AssignmentTypeListRow } from './Content/AssignmentTypeList/AssignmentTypeListRow'
-export { default as AddTypeForm } from './Content/AddTypeForm'
-export { default as AddTypeInput } from './Content/AddTypeForm/AddTypeInput'
-export { default as AddTypeButton } from './Content/AddTypeForm/AddTypeButton'
+export { default as AssignmentTypeSettingsContent } from "./Content"
+export { default as AssignmentTypeList } from "./Content/AssignmentTypeList"
+export { default as AssignmentTypeListRow } from "./Content/AssignmentTypeList/AssignmentTypeListRow"
+export { default as AddTypeForm } from "./Content/AddTypeForm"
+export { default as AddTypeInput } from "./Content/AddTypeForm/AddTypeInput"
+export { default as AddTypeButton } from "./Content/AddTypeForm/AddTypeButton"
 

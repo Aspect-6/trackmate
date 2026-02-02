@@ -1,7 +1,7 @@
-import React from 'react'
-import type { TermSettings } from '@/pages/Settings/types'
-import { Calendar } from 'lucide-react'
-import { GLOBAL } from '@/app/styles/colors'
+import React from "react"
+import type { TermSettings } from "@/pages/Settings/types"
+import { Calendar } from "lucide-react"
+import { GLOBAL } from "@/app/styles/colors"
 
 const TermItemHeaderName: React.FC<TermSettings.Content.TermList.TermItem.Header.NameProps> = ({ children }) => {
     return (

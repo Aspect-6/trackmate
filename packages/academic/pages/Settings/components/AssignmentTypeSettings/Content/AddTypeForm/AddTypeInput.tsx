@@ -1,8 +1,8 @@
-import React from 'react'
-import type { AssignmentTypeSettings } from '@/pages/Settings/types'
-import { SETTINGS } from '@/app/styles/colors'
+import React from "react"
+import type { AssignmentTypeSettings } from "@/pages/Settings/types"
+import { SETTINGS } from "@/app/styles/colors"
 
-const AddTypeInput: React.FC<AssignmentTypeSettings.Content.AddTypeForm.AddTypeInputProps> = ({ value, onChange, placeholder = 'Add a new type' }) => {
+const AddTypeInput: React.FC<AssignmentTypeSettings.Content.AddTypeForm.AddTypeInputProps> = ({ value, onChange, placeholder = "Add a new type" }) => {
     return (
         <input
             type="text"

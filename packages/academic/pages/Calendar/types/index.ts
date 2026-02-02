@@ -1,4 +1,4 @@
-import { Assignment, Event, NoSchoolPeriod, Class } from '@/app/types';
+import { Assignment, Event, NoSchoolPeriod, Class } from "@/app/types";
 
 // Components
 export namespace CalendarHeader {
@@ -121,13 +121,13 @@ export namespace CalendarBody {
             export namespace DayType {
                 export interface Props {
                     noSchoolDay?: NoSchoolPeriod
-                    dayType: 'A' | 'B' | null
+                    dayType: "A" | "B" | null
                     onNoSchoolClick?: (id: string) => void
                     children?: React.ReactNode
                 }
                 // ======================
                 export interface DisplayProps {
-                    dayType?: 'A' | 'B' | null
+                    dayType?: "A" | "B" | null
                 }
                 export interface NoSchoolInfoProps {
                     noSchoolDay?: NoSchoolPeriod | null
@@ -142,7 +142,7 @@ export namespace CalendarBody {
                 export interface ClassItemProps {
                     classId: string | null
                     index: number
-                    getClassById: Props['getClassById']
+                    getClassById: Props["getClassById"]
                 }
             }
             export namespace AssignmentList {
@@ -154,8 +154,8 @@ export namespace CalendarBody {
                 // ======================
                 export interface AssignmentItemProps {
                     assignment: Assignment
-                    getClassById: Props['getClassById']
-                    onAssignmentClick: Props['onAssignmentClick']
+                    getClassById: Props["getClassById"]
+                    onAssignmentClick: Props["onAssignmentClick"]
                 }
             }
             export namespace EventList {
@@ -166,7 +166,7 @@ export namespace CalendarBody {
                 // ======================
                 export interface EventItemProps {
                     event: Event
-                    onEventClick: Props['onEventClick']
+                    onEventClick: Props["onEventClick"]
                 }
             }
         }
@@ -180,10 +180,10 @@ export namespace UseCalendar {
     }
 
     export interface EmptyCalendarCell extends BaseCalendarCell {
-        type: 'empty';
+        type: "empty";
     }
     export interface DayCalendarCell extends BaseCalendarCell {
-        type: 'day';
+        type: "day";
         day: number;
         dateString: string;
         isToday: boolean;

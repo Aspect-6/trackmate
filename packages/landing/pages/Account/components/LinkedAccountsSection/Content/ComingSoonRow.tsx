@@ -1,6 +1,6 @@
-import React from 'react'
-import type { LinkedAccountsSection } from '@/pages/Account/types'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { LinkedAccountsSection } from "@/pages/Account/types"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const ComingSoonRow: React.FC<LinkedAccountsSection.Content.ComingSoonRowProps> = ({
     providerName,

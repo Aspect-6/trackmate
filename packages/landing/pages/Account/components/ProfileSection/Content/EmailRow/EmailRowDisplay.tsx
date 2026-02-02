@@ -1,8 +1,8 @@
-import React from 'react'
-import type { ProfileSection } from '@/pages/Account/types'
-import { Mail, Pencil } from 'lucide-react'
-import { Button } from '@/app/components/Button'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { ProfileSection } from "@/pages/Account/types"
+import { Mail, Pencil } from "lucide-react"
+import { Button } from "@/app/components/Button"
+import { ACCOUNT } from "@/app/styles/colors"
 
 export const EmailRowDisplay: React.FC<ProfileSection.Content.EmailRow.DisplayProps> = ({
     user,

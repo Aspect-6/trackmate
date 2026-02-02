@@ -1,8 +1,8 @@
-import React from 'react'
-import type { DataSection } from '@/pages/Account/types'
-import { Trash2, AlertTriangle, X } from 'lucide-react'
-import { Button } from '@/app/components/Button'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { DataSection } from "@/pages/Account/types"
+import { Trash2, AlertTriangle, X } from "lucide-react"
+import { Button } from "@/app/components/Button"
+import { ACCOUNT } from "@/app/styles/colors"
 
 export const ConfirmationView: React.FC<DataSection.Content.DeleteAccountCard.ConfirmationViewProps> = ({
     error,
@@ -59,7 +59,7 @@ export const ConfirmationView: React.FC<DataSection.Content.DeleteAccountCard.Co
                     ) : (
                         <Trash2 size={16} />
                     )}
-                    {loading ? 'Deleting Account...' : 'Yes, Delete My Account'}
+                    {loading ? "Deleting Account..." : "Yes, Delete My Account"}
                 </Button>
             </div>
         </div>

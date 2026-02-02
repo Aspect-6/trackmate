@@ -1,6 +1,6 @@
-import React from 'react'
-import type { AlternatingDaysSchedule } from '@/pages/My Schedule/types'
-import { MY_SCHEDULE } from '@/app/styles/colors'
+import React from "react"
+import type { AlternatingDaysSchedule } from "@/pages/My Schedule/types"
+import { MY_SCHEDULE } from "@/app/styles/colors"
 
 const ScheduleTable: React.FC<AlternatingDaysSchedule.ScheduleTable.Props> = ({ children }) => {
     return (
@@ -9,13 +9,13 @@ const ScheduleTable: React.FC<AlternatingDaysSchedule.ScheduleTable.Props> = ({ 
                 className="overflow-x-hidden shadow-sm rounded-lg w-full"
                 style={{
                     border: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}`,
-                    minWidth: 'max-content'
+                    minWidth: "max-content"
                 }}
             >
                 <table
                     className="w-full"
                     style={{
-                        borderCollapse: 'separate',
+                        borderCollapse: "separate",
                         borderSpacing: 0
                     }}
                 >
@@ -38,7 +38,7 @@ const ScheduleTable: React.FC<AlternatingDaysSchedule.ScheduleTable.Props> = ({ 
                                     style={{
                                         color: MY_SCHEDULE.TEXT_SECONDARY,
                                         borderBottom: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}`,
-                                        borderRight: index < 3 ? `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` : 'none'
+                                        borderRight: index < 3 ? `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` : "none"
                                     }}
                                 >
                                     Period {period}

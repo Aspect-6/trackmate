@@ -1,13 +1,13 @@
-import React from 'react'
-import { FileText, BookOpen, X, Calendar } from 'lucide-react'
+import React from "react"
+import { FileText, BookOpen, X, Calendar } from "lucide-react"
 import {
     ModalContainer,
     ModalHeader,
     ModalFooter,
     ModalCancelButton,
-} from '@shared/components/modal'
-import OptionButton from './TypeSelectorModalOption'
-import { GLOBAL } from '@/app/styles/colors'
+} from "@shared/components/modal"
+import OptionButton from "./TypeSelectorModalOption"
+import { GLOBAL } from "@/app/styles/colors"
 
 interface TypeSelectorModalProps {
     onClose: () => void
@@ -21,7 +21,7 @@ export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, o
 
             <div className="space-y-3 py-2">
                 <OptionButton
-                    onClick={() => openModal('add-assignment')}
+                    onClick={() => openModal("add-assignment")}
                     icon={<FileText className="w-5 h-5" />}
                     label="Assignment"
                     bg={GLOBAL.ASSIGNMENT_BUTTON_BG}
@@ -29,7 +29,7 @@ export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, o
                 />
 
                 <OptionButton
-                    onClick={() => openModal('add-class')}
+                    onClick={() => openModal("add-class")}
                     icon={<BookOpen className="w-5 h-5" />}
                     label="Class"
                     bg={GLOBAL.CLASS_BUTTON_BG}
@@ -37,7 +37,7 @@ export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, o
                 />
 
                 <OptionButton
-                    onClick={() => openModal('add-event')}
+                    onClick={() => openModal("add-event")}
                     icon={<Calendar className="w-5 h-5" />}
                     label="Event"
                     bg={GLOBAL.EVENT_BUTTON_BG}
@@ -45,7 +45,7 @@ export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, o
                 />
 
                 <OptionButton
-                    onClick={() => openModal('add-no-school')}
+                    onClick={() => openModal("add-no-school")}
                     icon={<X className="w-5 h-5" />}
                     label="No School"
                     bg={GLOBAL.SCHEDULE_BUTTON_BG}

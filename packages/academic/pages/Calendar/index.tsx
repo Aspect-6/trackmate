@@ -1,21 +1,21 @@
-import React, { useCallback } from 'react'
-import { X } from 'lucide-react'
-import { useModal } from '@/app/contexts/ModalContext'
-import { useScheduleComponents } from '@/app/contexts/ScheduleComponentsContext'
-import { useClasses, useSchedules } from '@/app/hooks/entities'
-import { useSelectedDate } from './hooks/useSelectedDate'
-import { useCalendarNavigation } from './hooks/useCalendarNavigation'
-import { useCalendarGrid } from './hooks/useCalendarGrid'
-import { useSidePanel } from './hooks/useSidePanel'
-import { CALENDAR } from '@/app/styles/colors'
-import CalendarHeader, { PrevButton, NextButton, MonthTitle } from './components/CalendarHeader'
-import CalendarBody from './components/CalendarBody'
-import CalendarGrid, { CalendarGridDayHeader, CalendarDay, CalendarGridEmptyDay } from './components/CalendarBody/CalendarGrid'
-import CalendarSidePanel, { DayType, AssignmentList, EventList, NoSchoolInfo, DayTypeDisplay, CalendarSidePanelHeader, CalendarSidePanelBody, DateDisplay, CloseButton } from './components/CalendarBody/SidePanel'
-import ClassList from './components/CalendarBody/SidePanel/Body/ClassList'
-import NoClassesScheduled from './components/CalendarBody/SidePanel/Body/ClassList/NoClassesScheduled'
+import React, { useCallback } from "react"
+import { X } from "lucide-react"
+import { useModal } from "@/app/contexts/ModalContext"
+import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
+import { useClasses, useSchedules } from "@/app/hooks/entities"
+import { useSelectedDate } from "./hooks/useSelectedDate"
+import { useCalendarNavigation } from "./hooks/useCalendarNavigation"
+import { useCalendarGrid } from "./hooks/useCalendarGrid"
+import { useSidePanel } from "./hooks/useSidePanel"
+import { CALENDAR } from "@/app/styles/colors"
+import CalendarHeader, { PrevButton, NextButton, MonthTitle } from "./components/CalendarHeader"
+import CalendarBody from "./components/CalendarBody"
+import CalendarGrid, { CalendarGridDayHeader, CalendarDay, CalendarGridEmptyDay } from "./components/CalendarBody/CalendarGrid"
+import CalendarSidePanel, { DayType, AssignmentList, EventList, NoSchoolInfo, DayTypeDisplay, CalendarSidePanelHeader, CalendarSidePanelBody, DateDisplay, CloseButton } from "./components/CalendarBody/SidePanel"
+import ClassList from "./components/CalendarBody/SidePanel/Body/ClassList"
+import NoClassesScheduled from "./components/CalendarBody/SidePanel/Body/ClassList/NoClassesScheduled"
 
-import './index.css'
+import "./index.css"
 
 const Calendar: React.FC = () => {
     const { schedules } = useSchedules()
@@ -24,16 +24,16 @@ const Calendar: React.FC = () => {
     const { useClassIdsForDate } = useScheduleComponents()
 
     // Modal open callbacks
-    const openEditAssignment = useCallback((id: string) => openModal('edit-assignment', id), [openModal])
-    const openEditEvent = useCallback((id: string) => openModal('edit-event', id), [openModal])
-    const openEditNoSchool = useCallback((id: string) => openModal('edit-no-school', id), [openModal])
+    const openEditAssignment = useCallback((id: string) => openModal("edit-assignment", id), [openModal])
+    const openEditEvent = useCallback((id: string) => openModal("edit-event", id), [openModal])
+    const openEditNoSchool = useCallback((id: string) => openModal("edit-no-school", id), [openModal])
     const { selectedDate, setSelectedDate, clearSelection } = useSelectedDate()
     const { changeMonth, period, month, year } = useCalendarNavigation(clearSelection)
     const calendarCells = useCalendarGrid({ month, year })
     const sidePanelData = useSidePanel({ selectedDate })
 
     // Get class IDs for the selected date
-    const { classIds, hasClasses } = useClassIdsForDate(sidePanelData?.dateString || '')
+    const { classIds, hasClasses } = useClassIdsForDate(sidePanelData?.dateString || "")
 
     // Determine what to render for classes section
     const renderClassesSection = () => {
@@ -78,7 +78,7 @@ const Calendar: React.FC = () => {
                         <CalendarGridDayHeader backgroundColor={CALENDAR.BACKGROUND_SECONDARY} textColor={CALENDAR.TEXT_SECONDARY} />
 
                         {calendarCells.map((cell) => {
-                            if (cell.type === 'empty') {
+                            if (cell.type === "empty") {
                                 return <CalendarGridEmptyDay key={cell.key} />
                             }
                             return (
@@ -109,7 +109,7 @@ const Calendar: React.FC = () => {
                         </CalendarSidePanelHeader>
 
                         <CalendarSidePanelBody>
-                            {schedules.type === 'alternating-ab' && (
+                            {schedules.type === "alternating-ab" && (
                                 <DayType noSchoolDay={sidePanelData?.noSchoolDay || undefined} dayType={sidePanelData?.dayType || null} onNoSchoolClick={openEditNoSchool}>
                                     <NoSchoolInfo noSchoolDay={sidePanelData?.noSchoolDay || undefined} />
                                     <DayTypeDisplay dayType={sidePanelData?.dayType || null} />

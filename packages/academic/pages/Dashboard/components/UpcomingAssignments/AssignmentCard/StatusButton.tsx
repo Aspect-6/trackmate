@@ -1,26 +1,26 @@
-import React, { useEffect } from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { UpcomingAssignments } from '@/pages/Dashboard/types'
-import { cn } from '@/app/lib/utils'
-import { CheckCircle, Circle, PlayCircle } from 'lucide-react'
-import { DASHBOARD } from '@/app/styles/colors'
+import React, { useEffect } from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { UpcomingAssignments } from "@/pages/Dashboard/types"
+import { cn } from "@/app/lib/utils"
+import { CheckCircle, Circle, PlayCircle } from "lucide-react"
+import { DASHBOARD } from "@/app/styles/colors"
 
 const STATUS_CONFIG = {
-    'To Do': {
+    "To Do": {
         Icon: PlayCircle,
         color: DASHBOARD.ICON_PLAY_DEFAULT,
         hoverColor: DASHBOARD.ICON_PLAY_HOVER,
         title: "Start Assignment",
         className: undefined
     },
-    'In Progress': {
+    "In Progress": {
         Icon: Circle,
         color: DASHBOARD.ICON_IN_PROGRESS,
         hoverColor: DASHBOARD.ICON_IN_PROGRESS_HOVER,
         title: "Mark as Done",
         className: undefined
     },
-    'Completing': {
+    "Completing": {
         Icon: CheckCircle,
         color: DASHBOARD.ICON_COMPLETE,
         hoverColor: DASHBOARD.ICON_COMPLETE,
@@ -34,7 +34,7 @@ const StatusButton: React.FC<UpcomingAssignments.AssignmentCard.StatusButtonProp
 
     useEffect(() => { resetHover() }, [status, isCompleting, resetHover])
 
-    const configKey = isCompleting ? 'Completing' : status
+    const configKey = isCompleting ? "Completing" : status
     const config = STATUS_CONFIG[configKey as keyof typeof STATUS_CONFIG]
     if (!config) return null
 

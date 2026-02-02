@@ -1,9 +1,9 @@
-import { useLocation } from 'react-router-dom'
-import { PATHS } from '@/app/config/paths'
-import { GLOBAL, MY_CLASSES } from '@/app/styles/colors'
+import { useLocation } from "react-router-dom"
+import { PATHS } from "@/app/config/paths"
+import { GLOBAL, MY_CLASSES } from "@/app/styles/colors"
 
 export type HeaderActionConfig = {
-    modal: 'add-class' | 'add-assignment' | 'add-event' | 'type-selector'
+    modal: "add-class" | "add-assignment" | "add-event" | "type-selector"
     label: string
     bg: string
     bgHover: string
@@ -12,25 +12,25 @@ export type HeaderActionConfig = {
 export const useHeaderAction = (): HeaderActionConfig => {
     const location = useLocation()
 
-    if (location.pathname === PATHS['my-classes']) {
+    if (location.pathname === PATHS["my-classes"]) {
         return {
-            modal: 'add-class',
-            label: 'Add Class',
+            modal: "add-class",
+            label: "Add Class",
             bg: MY_CLASSES.CLASS_BUTTON_BG,
             bgHover: MY_CLASSES.CLASS_BUTTON_BG_HOVER
         }
     }
-    if (location.pathname === PATHS['my-assignments']) {
+    if (location.pathname === PATHS["my-assignments"]) {
         return {
-            modal: 'add-assignment',
-            label: 'Add Assignment',
+            modal: "add-assignment",
+            label: "Add Assignment",
             bg: GLOBAL.ASSIGNMENT_BUTTON_BG,
             bgHover: GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER
         }
     }
     return {
-        modal: 'type-selector',
-        label: 'Add Item',
+        modal: "type-selector",
+        label: "Add Item",
         bg: GLOBAL.ADDITEM_BUTTON_BG,
         bgHover: GLOBAL.ADDITEM_BUTTON_BG_HOVER
     }

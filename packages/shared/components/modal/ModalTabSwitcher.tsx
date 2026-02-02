@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 export interface ModalTabSwitcherProps {
     ariaLabel?: string
@@ -6,7 +6,7 @@ export interface ModalTabSwitcherProps {
 }
 
 export const ModalTabSwitcher: React.FC<ModalTabSwitcherProps> = ({
-    ariaLabel = 'Form sections',
+    ariaLabel = "Form sections",
     children,
 }) => {
     return (

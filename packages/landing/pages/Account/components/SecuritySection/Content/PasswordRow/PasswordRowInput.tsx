@@ -1,7 +1,7 @@
-import React from 'react'
-import type { SecuritySection } from '@/pages/Account/types'
-import { Lock } from 'lucide-react'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { SecuritySection } from "@/pages/Account/types"
+import { Lock } from "lucide-react"
+import { ACCOUNT } from "@/app/styles/colors"
 
 export const PasswordRowInput: React.FC<SecuritySection.Content.PasswordRow.InputProps> = ({
     children

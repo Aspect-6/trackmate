@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from "react"
 
 export interface ModalTabPanelProps {
     isActive: boolean
@@ -10,7 +10,7 @@ export interface ModalTabPanelProps {
 export const ModalTabPanel: React.FC<ModalTabPanelProps> = ({
     isActive,
     children,
-    className = '',
+    className = "",
     onHeightChange,
 }) => {
     const ref = useRef<HTMLDivElement>(null)
@@ -26,9 +26,9 @@ export const ModalTabPanel: React.FC<ModalTabPanelProps> = ({
     const hiddenStyles: React.CSSProperties = isActive
         ? {}
         : {
-            visibility: 'hidden',
-            position: 'absolute',
-            pointerEvents: 'none',
+            visibility: "hidden",
+            position: "absolute",
+            pointerEvents: "none",
             top: 0,
             left: 0,
             right: 0,

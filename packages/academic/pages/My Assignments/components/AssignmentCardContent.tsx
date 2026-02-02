@@ -11,8 +11,8 @@ const AssignmentCardContent: React.FC<AssignmentCardContentProps> = ({
 	className,
 	showGrip = false,
 }) => {
-	const dateLabel = assignment.type === 'Test' ? 'On' : 'Due'
-	const showTime = assignment.dueTime && assignment.dueTime !== '23:59'
+	const dateLabel = assignment.type === "Test" ? "On" : "Due"
+	const showTime = assignment.dueTime && assignment.dueTime !== "23:59"
 
 	return (
 		<>
@@ -37,7 +37,7 @@ const AssignmentCardContent: React.FC<AssignmentCardContentProps> = ({
 						className="text-xs font-medium"
 						style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY }}
 					>
-						{dateLabel}: {formatDateRelative('short', assignment.dueDate)}{showTime && ` at ${formatTime(assignment.dueTime)}`}
+						{dateLabel}: {formatDateRelative("short", assignment.dueDate)}{showTime && ` at ${formatTime(assignment.dueTime)}`}
 					</span>
 					<PriorityBadge
 						priority={assignment.priority}

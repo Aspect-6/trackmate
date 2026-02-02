@@ -1,8 +1,8 @@
-import React from 'react'
-import type { SecuritySection } from '@/pages/Account/types'
-import { PasswordRowInput } from './PasswordRowInput'
-import { PasswordRowActions } from './PasswordRowActions'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { SecuritySection } from "@/pages/Account/types"
+import { PasswordRowInput } from "./PasswordRowInput"
+import { PasswordRowActions } from "./PasswordRowActions"
+import { ACCOUNT } from "@/app/styles/colors"
 
 export const PasswordRowForm: React.FC<SecuritySection.Content.PasswordRow.FormProps> = ({
     currentPassword,

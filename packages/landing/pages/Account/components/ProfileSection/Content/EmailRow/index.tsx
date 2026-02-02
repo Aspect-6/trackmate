@@ -1,74 +1,74 @@
-import React, { useState } from 'react'
-import { useAccount } from '@/app/hooks/useAccount'
-import type { UserInfo } from 'firebase/auth'
-import type { ProfileSection } from '@/pages/Account/types'
-import { EmailRowDisplay } from './EmailRowDisplay'
-import { EmailRowForm } from './EmailRowForm'
-import { ACCOUNT } from '@/app/styles/colors'
+import React, { useState } from "react"
+import { useAccount } from "@/app/hooks/useAccount"
+import type { UserInfo } from "firebase/auth"
+import type { ProfileSection } from "@/pages/Account/types"
+import { EmailRowDisplay } from "./EmailRowDisplay"
+import { EmailRowForm } from "./EmailRowForm"
+import { ACCOUNT } from "@/app/styles/colors"
 
 const EmailRow: React.FC<ProfileSection.Content.EmailRow.Props> = ({
     user,
 }) => {
     const { changeEmail } = useAccount()
     const [isEditing, setIsEditing] = useState(false)
-    const [newEmail, setNewEmail] = useState('')
-    const [error, setError] = useState('')
-    const [success, setSuccess] = useState('')
+    const [newEmail, setNewEmail] = useState("")
+    const [error, setError] = useState("")
+    const [success, setSuccess] = useState("")
 
-    const hasPassword = user.providerData.some((p: UserInfo) => p.providerId === 'password')
+    const hasPassword = user.providerData.some((p: UserInfo) => p.providerId === "password")
 
     const handleSave = async () => {
-        setError('')
-        setSuccess('')
+        setError("")
+        setSuccess("")
         if (!newEmail) {
-            setError('Please enter a new email')
+            setError("Please enter a new email")
             return
         }
         if (newEmail.toLowerCase() === user.email?.toLowerCase()) {
-            setError('Email address cannot be the same as the current email address')
+            setError("Email address cannot be the same as the current email address")
             return
         }
 
         const result = await changeEmail(newEmail)
         if (result.success) {
-            setSuccess('Verification email sent to new address')
+            setSuccess("Verification email sent to new address")
             setIsEditing(false)
-            setNewEmail('')
+            setNewEmail("")
         } else {
-            const code = result.error.code || ''
+            const code = result.error.code || ""
             console.log(result.error)
             switch (code) {
-                case 'auth/invalid-new-email':
-                    setError('Please enter a valid email address')
+                case "auth/invalid-new-email":
+                    setError("Please enter a valid email address")
                     break
-                case 'auth/email-already-in-use':
-                    setError('This email is already in use by another account')
+                case "auth/email-already-in-use":
+                    setError("This email is already in use by another account")
                     break
-                case 'auth/requires-recent-login':
-                    setError('Please sign out and sign back in to change your email')
+                case "auth/requires-recent-login":
+                    setError("Please sign out and sign back in to change your email")
                     break
-                case 'auth/too-many-requests':
-                    setError('Too many attempts. Please try again later')
+                case "auth/too-many-requests":
+                    setError("Too many attempts. Please try again later")
                     break
-                case 'auth/operation-not-allowed':
-                    setError('Email change is not allowed. Please contact support')
+                case "auth/operation-not-allowed":
+                    setError("Email change is not allowed. Please contact support")
                     break
                 default:
-                    setError('Failed to update email. Please try again')
+                    setError("Failed to update email. Please try again")
             }
         }
     }
 
     const handleEditStart = () => {
-        setSuccess('')
-        setError('')
+        setSuccess("")
+        setError("")
         setIsEditing(true)
     }
 
     const handleEditCancel = () => {
         setIsEditing(false)
-        setNewEmail('')
-        setError('')
+        setNewEmail("")
+        setError("")
     }
 
     return (

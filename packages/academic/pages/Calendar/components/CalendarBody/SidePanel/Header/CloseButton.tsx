@@ -1,7 +1,7 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { CalendarBody } from '@/pages/Calendar/types'
-import { CALENDAR } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { CalendarBody } from "@/pages/Calendar/types"
+import { CALENDAR } from "@/app/styles/colors"
 
 const CloseButton: React.FC<CalendarBody.SidePanel.Header.CloseButtonProps> = ({ onClick, children }) => {
     const { isHovered, hoverProps } = useHover()

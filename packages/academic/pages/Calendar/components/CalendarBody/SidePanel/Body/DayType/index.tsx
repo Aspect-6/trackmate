@@ -1,7 +1,7 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { CalendarBody } from '@/pages/Calendar/types'
-import { CALENDAR } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { CalendarBody } from "@/pages/Calendar/types"
+import { CALENDAR } from "@/app/styles/colors"
 
 const DayType: React.FC<CalendarBody.SidePanel.Body.DayType.Props> = ({ noSchoolDay, dayType, onNoSchoolClick, children }) => {
     const { isHovered, hoverProps } = useHover()
@@ -12,7 +12,7 @@ const DayType: React.FC<CalendarBody.SidePanel.Body.DayType.Props> = ({ noSchool
     return (
         <div
             id="day-type-info"
-            className={`mb-4 p-3 rounded-lg${isInteractive ? ' cursor-pointer transition-colors' : ''}`}
+            className={`mb-4 p-3 rounded-lg${isInteractive ? " cursor-pointer transition-colors" : ""}`}
             style={{
                 border: `1px solid ${CALENDAR.BORDER_PRIMARY}`,
                 backgroundColor: isInteractive && isHovered ? CALENDAR.ITEM_BG_HOVER : CALENDAR.ITEM_BG

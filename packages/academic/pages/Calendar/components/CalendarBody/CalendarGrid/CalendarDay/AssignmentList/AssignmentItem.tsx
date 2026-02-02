@@ -1,6 +1,6 @@
-import React from 'react'
-import type { CalendarBody } from '@/pages/Calendar/types'
-import { getTextColorForBackground } from '@/app/lib/utils'
+import React from "react"
+import type { CalendarBody } from "@/pages/Calendar/types"
+import { getTextColorForBackground } from "@/app/lib/utils"
 
 const AssignmentItem: React.FC<CalendarBody.Grid.Day.AssignmentList.AssignmentItemProps> = ({ assignment, color, onClick }) => {
     const textColor = getTextColorForBackground(color)

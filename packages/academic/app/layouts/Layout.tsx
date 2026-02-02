@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
-import PageHeader from '@/app/components/PageHeader'
-import Sidebar from '@/app/components/Sidebar'
-import FloatingMenuButton from '@shared/components/FloatingMenuButton'
-import { GLOBAL } from '@/app/styles/colors'
-import { PATHS } from '@/app/config/paths'
+import React, { useEffect, useState } from "react"
+import { Outlet, useLocation } from "react-router-dom"
+import PageHeader from "@/app/components/PageHeader"
+import Sidebar from "@/app/components/Sidebar"
+import FloatingMenuButton from "@shared/components/FloatingMenuButton"
+import { GLOBAL } from "@/app/styles/colors"
+import { PATHS } from "@/app/config/paths"
 
 const Layout: React.FC = () => {
     const location = useLocation()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
     const [isDesktopViewport, setIsDesktopViewport] = useState<boolean>(() => {
-        if (typeof window === 'undefined') return true
-        return window.matchMedia('(min-width: 1024px)').matches
+        if (typeof window === "undefined") return true
+        return window.matchMedia("(min-width: 1024px)").matches
     })
 
     useEffect(() => {
-        if (typeof window === 'undefined') return
-        const mediaQuery = window.matchMedia('(min-width: 1024px)')
+        if (typeof window === "undefined") return
+        const mediaQuery = window.matchMedia("(min-width: 1024px)")
 
         const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {
-            const matches = 'matches' in event ? event.matches : mediaQuery.matches
+            const matches = "matches" in event ? event.matches : mediaQuery.matches
             setIsDesktopViewport(matches)
         }
 
         handleChange(mediaQuery)
 
-        if (typeof mediaQuery.addEventListener === 'function') {
-            mediaQuery.addEventListener('change', handleChange as EventListener)
-            return () => mediaQuery.removeEventListener('change', handleChange as EventListener)
+        if (typeof mediaQuery.addEventListener === "function") {
+            mediaQuery.addEventListener("change", handleChange as EventListener)
+            return () => mediaQuery.removeEventListener("change", handleChange as EventListener)
         }
 
         mediaQuery.addListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void)
         return () => mediaQuery.removeListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void)
     }, [])
 
-    const isCalendar = location.pathname === PATHS['calendar']
-    const isAssignments = location.pathname === PATHS['my-assignments']
+    const isCalendar = location.pathname === PATHS["calendar"]
+    const isAssignments = location.pathname === PATHS["my-assignments"]
     const isFixedViewportPage = isCalendar || (isAssignments && isDesktopViewport)
 
     return (

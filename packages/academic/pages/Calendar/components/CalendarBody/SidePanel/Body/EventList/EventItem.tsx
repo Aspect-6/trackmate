@@ -1,8 +1,8 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import { formatEventTimeRange } from '@/app/lib/utils'
-import type { CalendarBody } from '@/pages/Calendar/types'
-import { CALENDAR } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { formatEventTimeRange } from "@/app/lib/utils"
+import type { CalendarBody } from "@/pages/Calendar/types"
+import { CALENDAR } from "@/app/styles/colors"
 
 const EventItem: React.FC<CalendarBody.SidePanel.Body.EventList.EventItemProps> = ({ event, onEventClick }) => {
     const { isHovered, hoverProps } = useHover()

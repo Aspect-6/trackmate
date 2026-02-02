@@ -1,6 +1,6 @@
-import { useHover } from '@shared/hooks/ui/useHover'
-import React from 'react'
-import { AUTH } from '@/app/styles/colors'
+import { useHover } from "@shared/hooks/ui/useHover"
+import React from "react"
+import { AUTH } from "@/app/styles/colors"
 
 interface SubmitButtonProps {
     disabled: boolean
@@ -16,7 +16,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ disabled, children }) => {
             style={{
                 backgroundColor: isHovered ? AUTH.PRIMARY_BUTTON_BG_HOVER : AUTH.PRIMARY_BUTTON_BG,
                 color: AUTH.TEXT_WHITE,
-                transform: isHovered ? 'translateY(-0.65px)' : 'none',
+                transform: isHovered ? "translateY(-0.65px)" : "none",
             }}
             {...hoverProps}
             disabled={disabled}

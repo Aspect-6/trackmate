@@ -1,6 +1,6 @@
-import React from 'react'
-import type { Landing } from '@/pages/Landing/types'
-import { LANDING } from '@/app/styles/colors'
+import React from "react"
+import type { Landing } from "@/pages/Landing/types"
+import { LANDING } from "@/app/styles/colors"
 
 const ProductCardDescription: React.FC<Landing.ProductCard.ProductCardDescriptionProps> = ({ children }) => {
     return (

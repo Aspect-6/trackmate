@@ -1,8 +1,8 @@
-import { useMemo, useCallback } from 'react'
-import { useLocalStorage } from '@/app/hooks/data/useLocalStorage'
-import { generateId } from '@shared/lib'
-import { STORAGE_KEYS } from '@/app/config/storageKeys'
-import type { AcademicTerm, Semester, TermMode } from '@/app/types'
+import { useMemo, useCallback } from "react"
+import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { generateId } from "@shared/lib"
+import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import type { AcademicTerm, Semester, TermMode } from "@/app/types"
 
 const DEFAULT_TERMS: AcademicTerm[] = []
 
@@ -10,7 +10,7 @@ const DEFAULT_TERMS: AcademicTerm[] = []
  * Hook for accessing and working with academic terms.
  * Provides filtered views, lookup functions, and CRUD operations.
  */
-export const useAcademicTerms = (termMode: TermMode = 'Semesters Only') => {
+export const useAcademicTerms = (termMode: TermMode = "Semesters Only") => {
     const [academicTerms, setAcademicTerms] = useLocalStorage<AcademicTerm[]>(STORAGE_KEYS.TERMS, DEFAULT_TERMS)
 
     // Computed: filter terms by current termMode
@@ -39,10 +39,10 @@ export const useAcademicTerms = (termMode: TermMode = 'Semesters Only') => {
     }, [academicTerms])
 
     const getTermDisplay = useCallback((termId: string | undefined, semesterId?: string): string => {
-        if (!termId) return 'Not Assigned'
+        if (!termId) return "Not Assigned"
 
         const term = academicTerms.find(t => t.id === termId)
-        if (!term) return 'Not Assigned'
+        if (!term) return "Not Assigned"
 
         if (semesterId) {
             const semester = term.semesters.find(s => s.id === semesterId)
@@ -74,7 +74,7 @@ export const useAcademicTerms = (termMode: TermMode = 'Semesters Only') => {
     }, [])
 
     // Actions
-    const addAcademicTerm = useCallback((term: Omit<AcademicTerm, 'id'>): void => {
+    const addAcademicTerm = useCallback((term: Omit<AcademicTerm, "id">): void => {
         setAcademicTerms(prev => [...prev, { ...term, id: generateId() }])
     }, [setAcademicTerms])
 

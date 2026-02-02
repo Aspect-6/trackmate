@@ -1,6 +1,6 @@
-import { User } from 'firebase/auth'
+import { User } from "firebase/auth"
 
-export type ActiveSection = 'profile' | 'linked' | 'security' | 'data'
+export type ActiveSection = "profile" | "linked" | "security" | "data"
 
 export namespace Account {
     export interface Props { }

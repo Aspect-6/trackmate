@@ -1,8 +1,8 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { ClassBoard } from '@/pages/My Classes/types'
-import { Trash2, Edit2 } from 'lucide-react'
-import { MY_CLASSES } from '@/app/styles/colors'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { ClassBoard } from "@/pages/My Classes/types"
+import { Trash2, Edit2 } from "lucide-react"
+import { MY_CLASSES } from "@/app/styles/colors"
 
 const ClassCardButtons: React.FC<ClassBoard.Card.Header.ButtonsProps> = ({ onEdit, onDelete }) => {
     const { isHovered: isEditHovered, hoverProps: editHoverProps } = useHover()

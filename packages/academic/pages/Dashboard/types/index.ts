@@ -1,4 +1,4 @@
-import { Assignment, Class, Status, Event, NoSchoolPeriod } from '@/app/types'
+import { Assignment, Class, Status, Event, NoSchoolPeriod } from "@/app/types"
 
 export namespace TodaysEvents {
     export interface Props {

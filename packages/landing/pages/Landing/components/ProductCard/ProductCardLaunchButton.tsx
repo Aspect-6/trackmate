@@ -1,8 +1,8 @@
-import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
-import type { Landing } from '@/pages/Landing/types'
-import { LANDING } from '@/app/styles/colors'
-import ArrowRight from '@/pages/Landing/assets/arrow-right.svg?react'
+import React from "react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import type { Landing } from "@/pages/Landing/types"
+import { LANDING } from "@/app/styles/colors"
+import ArrowRight from "@/pages/Landing/assets/arrow-right.svg?react"
 
 const ProductCardLaunchButton: React.FC<Landing.ProductCard.ProductCardLaunchButtonProps> = ({ href }) => {
     const { isHovered, hoverProps } = useHover()
@@ -13,7 +13,7 @@ const ProductCardLaunchButton: React.FC<Landing.ProductCard.ProductCardLaunchBut
             style={{
                 backgroundColor: isHovered ? LANDING.PRIMARY_BUTTON_BG_HOVER : LANDING.PRIMARY_BUTTON_BG,
                 color: LANDING.TEXT_WHITE,
-                transform: isHovered ? 'translate3d(0, -1px, 0)' : 'translate3d(0, 0, 0)',
+                transform: isHovered ? "translate3d(0, -1px, 0)" : "translate3d(0, 0, 0)",
             }}
             onClick={() => window.location.pathname = href}
             {...hoverProps}

@@ -1,7 +1,7 @@
-import { useModal } from '@/app/contexts/ModalContext'
-import { useClasses, useSchedules } from '@/app/hooks/entities'
-import type { TermSchedule, SemesterScheduleData, DaySchedule, DayType } from '@/app/types'
-import type { SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
+import { useModal } from "@/app/contexts/ModalContext"
+import { useClasses, useSchedules } from "@/app/hooks/entities"
+import type { TermSchedule, SemesterScheduleData, DaySchedule, DayType } from "@/app/types"
+import type { SemesterName, ScheduleDayType } from "@/pages/My Schedule/types"
 
 // Constants
 const createEmptyDay = (label: NonNullable<DayType>): DaySchedule => ({
@@ -10,7 +10,7 @@ const createEmptyDay = (label: NonNullable<DayType>): DaySchedule => ({
 })
 
 const EMPTY_SEMESTER: SemesterScheduleData = {
-    days: [createEmptyDay('A'), createEmptyDay('B')]
+    days: [createEmptyDay("A"), createEmptyDay("B")]
 }
 
 const EMPTY_TERM_SCHEDULE: TermSchedule = {
@@ -40,7 +40,7 @@ export const useAlternatingABSchedule = (selectedTermId: string | null) => {
     const { getClassById } = useClasses()
 
     // Get terms from the alternating-ab data
-    const terms = schedules['alternating-ab']?.terms || {}
+    const terms = schedules["alternating-ab"]?.terms || {}
     const currentSchedule = getScheduleForTerm(terms, selectedTermId)
 
     const getScheduleForSemester = (semester: SemesterName): SemesterScheduleData => currentSchedule[semester]
@@ -79,8 +79,8 @@ export const useAlternatingABSchedule = (selectedTermId: string | null) => {
     }
 
     const handleCellClick = (semester: SemesterName, dayType: ScheduleDayType, periodIndex: number) => {
-        const otherSemester: SemesterName = semester === 'Fall' ? 'Spring' : 'Fall'
-        openModal('semester-class-selector', {
+        const otherSemester: SemesterName = semester === "Fall" ? "Spring" : "Fall"
+        openModal("semester-class-selector", {
             semester,
             dayType,
             periodIndex,

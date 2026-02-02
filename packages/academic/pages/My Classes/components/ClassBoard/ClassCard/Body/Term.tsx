@@ -1,7 +1,7 @@
-import React from 'react'
-import { useAcademicTerms } from '@/app/hooks/entities'
-import type { ClassBoard } from '@/pages/My Classes/types'
-import { MY_CLASSES } from '@/app/styles/colors'
+import React from "react"
+import { useAcademicTerms } from "@/app/hooks/entities"
+import type { ClassBoard } from "@/pages/My Classes/types"
+import { MY_CLASSES } from "@/app/styles/colors"
 
 const ClassCardTerm: React.FC<ClassBoard.Card.Body.TermProps> = ({ termId, semesterId }) => {
     const { getTermDisplay } = useAcademicTerms()

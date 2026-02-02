@@ -1,6 +1,6 @@
-import React from 'react'
-import type { ProfileSection } from '@/pages/Account/types'
-import { ACCOUNT } from '@/app/styles/colors'
+import React from "react"
+import type { ProfileSection } from "@/pages/Account/types"
+import { ACCOUNT } from "@/app/styles/colors"
 
 export const EmailRowInput: React.FC<ProfileSection.Content.EmailRow.InputProps> = ({
     value,

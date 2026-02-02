@@ -1,5 +1,5 @@
-import React from 'react'
-import type { ClassBoard } from '@/pages/My Classes/types'
+import React from "react"
+import type { ClassBoard } from "@/pages/My Classes/types"
 
 const ClassCardHeader: React.FC<ClassBoard.Card.Header.Props> = ({ children }) => {
     return (
@@ -11,5 +11,5 @@ const ClassCardHeader: React.FC<ClassBoard.Card.Header.Props> = ({ children }) =
 
 export default ClassCardHeader
 
-export { default as ClassCardTitle } from './Title'
-export { default as ClassCardButtons } from './Buttons'
+export { default as ClassCardTitle } from "./Title"
+export { default as ClassCardButtons } from "./Buttons"

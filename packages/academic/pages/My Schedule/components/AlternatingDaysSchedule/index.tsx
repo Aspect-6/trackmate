@@ -1,6 +1,6 @@
-import React from 'react'
-import type { AlternatingDaysSchedule } from '@/pages/My Schedule/types'
-import { MY_SCHEDULE } from '@/app/styles/colors'
+import React from "react"
+import type { AlternatingDaysSchedule } from "@/pages/My Schedule/types"
+import { MY_SCHEDULE } from "@/app/styles/colors"
 
 const AlternatingDaysSchedule: React.FC<AlternatingDaysSchedule.Props> = ({ title, children }) => {
     return (
@@ -18,7 +18,7 @@ const AlternatingDaysSchedule: React.FC<AlternatingDaysSchedule.Props> = ({ titl
 
 export default AlternatingDaysSchedule
 
-export { default as ScheduleTable } from './ScheduleTable'
-export { default as ScheduleTableRow } from './ScheduleTable/Row'
-export { default as EmptyCell } from './ScheduleTable/Row/EmptyCell'
-export { default as FilledCell } from './ScheduleTable/Row/FilledCell'
+export { default as ScheduleTable } from "./ScheduleTable"
+export { default as ScheduleTableRow } from "./ScheduleTable/Row"
+export { default as EmptyCell } from "./ScheduleTable/Row/EmptyCell"
+export { default as FilledCell } from "./ScheduleTable/Row/FilledCell"
