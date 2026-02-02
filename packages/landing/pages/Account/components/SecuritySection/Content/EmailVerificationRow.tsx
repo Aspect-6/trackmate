@@ -46,7 +46,7 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
                 )}
                 {isVerified && (
                     <div
-                        className="w-12 h-8 rounded-full flex items-center justify-center"
+                        className="w-8 h-8 rounded-full flex items-center justify-center"
                         style={{
                             backgroundColor: ACCOUNT.GLOBAL_ACCENT_15,
                         }}

@@ -61,7 +61,6 @@ export namespace ProfileSection {
             export interface ActionsProps {
                 onSave: () => void
                 onCancel: () => void
-                variant: 'desktop' | 'mobile'
             }
         }
         export interface AccountIdRowProps {

@@ -10,7 +10,7 @@ export const EmailRowDisplay: React.FC<ProfileSection.Content.EmailRow.DisplayPr
 }) => {
     return (
         <div className="flex flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4 flex-1 min-w-0">
+            <div className="flex items-start gap-4 flex-1 min-w-0">
                 <div
                     className="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center"
                     style={{ backgroundColor: ACCOUNT.BACKGROUND_QUATERNARY }}
