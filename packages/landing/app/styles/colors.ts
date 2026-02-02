@@ -12,17 +12,13 @@ export const GLOBAL = {
     GLOBAL_ACCENT_15: 'var(--global-accent-15)',
     GLOBAL_ACCENT_25: 'var(--global-accent-25)',
 
-    PRIMARY_BUTTON_BG: 'var(--submit-button-bg)',
-    PRIMARY_BUTTON_BG_HOVER: 'var(--submit-button-bg-hover)',
+    PRIMARY_BUTTON_BG: 'var(--primary-button-bg)',
+    PRIMARY_BUTTON_BG_HOVER: 'var(--primary-button-bg-hover)',
 }
 
 // Auth Page Colors
 export const AUTH = {
     ...GLOBAL,
-
-    // Button Colors
-    SUBMIT_BUTTON_BG: 'var(--submit-button-bg)',
-    SUBMIT_BUTTON_BG_HOVER: 'var(--submit-button-bg-hover)',
 }
 
 // Landing Page Colors

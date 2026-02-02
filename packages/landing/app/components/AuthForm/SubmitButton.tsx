@@ -14,7 +14,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ disabled, children }) => {
             type="submit"
             className="auth-button w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
             style={{
-                backgroundColor: isHovered ? AUTH.SUBMIT_BUTTON_BG_HOVER : AUTH.SUBMIT_BUTTON_BG,
+                backgroundColor: isHovered ? AUTH.PRIMARY_BUTTON_BG_HOVER : AUTH.PRIMARY_BUTTON_BG,
                 color: AUTH.TEXT_WHITE,
                 transform: isHovered ? 'translateY(-0.65px)' : 'none',
             }}

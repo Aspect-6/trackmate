@@ -180,7 +180,7 @@ const ResetPasswordAction: React.FC<ActionHandler.ResetPasswordAction.Props> = (
                                 disabled={submitting}
                                 className="w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
                                 style={{
-                                    backgroundColor: isHovered ? AUTH.SUBMIT_BUTTON_BG_HOVER : AUTH.SUBMIT_BUTTON_BG,
+                                    backgroundColor: isHovered ? AUTH.PRIMARY_BUTTON_BG_HOVER : AUTH.PRIMARY_BUTTON_BG,
                                     color: AUTH.TEXT_WHITE,
                                     willChange: 'transform',
                                     transform: isHovered ? 'translateY(-0.65px)' : 'none',
@@ -205,7 +205,7 @@ const ResetPasswordAction: React.FC<ActionHandler.ResetPasswordAction.Props> = (
                             onClick={() => navigate('/auth/sign-in')}
                             className="w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
                             style={{
-                                backgroundColor: isHovered ? AUTH.SUBMIT_BUTTON_BG_HOVER : AUTH.SUBMIT_BUTTON_BG,
+                                backgroundColor: isHovered ? AUTH.PRIMARY_BUTTON_BG_HOVER : AUTH.PRIMARY_BUTTON_BG,
                                 color: AUTH.TEXT_WHITE,
                                 willChange: 'transform',
                                 transform: isHovered ? 'translateY(-0.65px)' : 'none',
@@ -229,7 +229,7 @@ const ResetPasswordAction: React.FC<ActionHandler.ResetPasswordAction.Props> = (
                             onClick={() => navigate('/auth/sign-in')}
                             className="w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
                             style={{
-                                backgroundColor: isHovered ? AUTH.SUBMIT_BUTTON_BG_HOVER : AUTH.SUBMIT_BUTTON_BG,
+                                backgroundColor: isHovered ? AUTH.PRIMARY_BUTTON_BG_HOVER : AUTH.PRIMARY_BUTTON_BG,
                                 color: AUTH.TEXT_WHITE,
                                 willChange: 'transform',
                                 transform: isHovered ? 'translateY(-0.65px)' : 'none',

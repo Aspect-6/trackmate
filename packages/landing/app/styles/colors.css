@@ -20,6 +20,6 @@
     --danger-zone-border: hsla(0, 100%, 60%, 0.2);
     --danger-zone-confirm-delete-shadow: 0 6px 6px -1px hsl(0 100% 60% / 0.15);
 
-    --submit-button-bg: hsl(var(--landing-accent-hsl));
-    --submit-button-bg-hover: hsl(var(--landing-accent-hue), 63%, 38%);
+    --primary-button-bg: hsl(var(--landing-accent-hsl));
+    --primary-button-bg-hover: hsl(var(--landing-accent-hue), 63%, 38%);
 }

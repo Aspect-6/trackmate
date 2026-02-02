@@ -19,7 +19,7 @@ const FormCheckbox: React.FC<FormCheckboxProps> = ({ checked, onChange, children
                 onChange={(e) => onChange(e.target.checked)}
                 className="w-4 h-4 rounded"
                 style={{
-                    accentColor: AUTH.SUBMIT_BUTTON_BG,
+                    accentColor: AUTH.PRIMARY_BUTTON_BG,
                     outline: 'none',
                 }}
             />
