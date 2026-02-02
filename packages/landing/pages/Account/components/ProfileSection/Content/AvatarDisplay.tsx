@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useAccount } from '@/app/hooks/useAccount'
 import type { ProfileSection } from '@/pages/Account/types'
 import { Pencil, Check, X } from 'lucide-react'
+import { Button } from '@/app/components/Button'
 import { ACCOUNT } from '@/app/styles/colors'
 
 const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ user }) => {
@@ -70,14 +71,15 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ us
                         <p className="text-lg font-semibold" style={{ color: ACCOUNT.TEXT_PRIMARY }}>
                             {user.displayName || user.email?.split('@')[0]}
                         </p>
-                        <button
+                        <Button
+                            variant="icon"
                             onClick={handleEditStart}
-                            className="p-1.5 rounded-md hover:opacity-70 transition-opacity"
-                            style={{ color: ACCOUNT.TEXT_SECONDARY, willChange: 'opacity' }}
+                            className="p-1.5"
+                            style={{ color: ACCOUNT.TEXT_SECONDARY }}
                             title="Edit display name"
                         >
                             <Pencil size={14} />
-                        </button>
+                        </Button>
                     </div>
                 ) : (
                     <div className="flex flex-col gap-2 w-0 min-w-full">
@@ -100,22 +102,24 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ us
                                 }}
                             />
                             <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                                <button
+                                <Button
+                                    variant="icon"
                                     onClick={handleSave}
-                                    className="p-1 rounded hover:bg-white/10 transition-colors"
+                                    className="p-1"
                                     style={{ color: ACCOUNT.TEXT_SUCCESS }}
                                     title="Save"
                                 >
                                     <Check size={14} />
-                                </button>
-                                <button
+                                </Button>
+                                <Button
+                                    variant="icon"
                                     onClick={handleEditCancel}
-                                    className="p-1 rounded hover:bg-white/10 transition-colors"
+                                    className="p-1"
                                     style={{ color: ACCOUNT.TEXT_SECONDARY }}
                                     title="Cancel"
                                 >
                                     <X size={14} />
-                                </button>
+                                </Button>
                             </div>
                         </div>
                         {error && <p className="text-xs" style={{ color: ACCOUNT.TEXT_DANGER }}>{error}</p>}

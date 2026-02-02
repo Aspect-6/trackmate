@@ -1,7 +1,7 @@
 import React from 'react'
-import { useHover } from '@shared/hooks/ui/useHover'
 import type { DataSection } from '@/pages/Account/types'
 import { Trash2, AlertTriangle, X } from 'lucide-react'
+import { Button } from '@/app/components/Button'
 import { ACCOUNT } from '@/app/styles/colors'
 
 export const ConfirmationView: React.FC<DataSection.Content.DeleteAccountCard.ConfirmationViewProps> = ({
@@ -10,8 +10,7 @@ export const ConfirmationView: React.FC<DataSection.Content.DeleteAccountCard.Co
     onConfirmDelete,
     onCancelDelete,
 }) => {
-    const { isHovered: isCancelHovered, hoverProps: cancelHoverProps } = useHover()
-    const { isHovered: isDeleteHovered, hoverProps: deleteHoverProps } = useHover()
+
 
     return (
         <div className="space-y-6">
@@ -39,30 +38,21 @@ export const ConfirmationView: React.FC<DataSection.Content.DeleteAccountCard.Co
             )}
 
             <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
-                <button
-                    {...cancelHoverProps}
+                <Button
+                    variant="secondary"
                     onClick={onCancelDelete}
-                    className="flex-1 flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-colors"
-                    style={{
-                        border: `1px solid ${ACCOUNT.CANCEL_BUTTON_BORDER}`,
-                        color: ACCOUNT.CANCEL_BUTTON_TEXT,
-                        backgroundColor: isCancelHovered ? ACCOUNT.CANCEL_BUTTON_BG_HOVER : ACCOUNT.CANCEL_BUTTON_BG,
-                    }}
+                    className="flex-1 px-6 py-2.5"
                 >
                     <X size={16} />
                     Cancel, Keep My Account
-                </button>
+                </Button>
 
-                <button
-                    {...deleteHoverProps}
+                <Button
+                    variant="danger"
                     onClick={onConfirmDelete}
                     disabled={loading}
-                    className="flex-1 flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all"
-                    style={{
-                        backgroundColor: (!loading && isDeleteHovered) ? ACCOUNT.DELETE_BUTTON_BG_HOVER : ACCOUNT.DELETE_BUTTON_BG,
-                        color: ACCOUNT.DELETE_BUTTON_TEXT,
-                        boxShadow: ACCOUNT.DANGER_ZONE_CONFIRM_DELETE_SHADOW
-                    }}
+                    isLoading={loading}
+                    className="flex-1 px-6 py-2.5 font-bold"
                 >
                     {loading ? (
                         <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -70,7 +60,7 @@ export const ConfirmationView: React.FC<DataSection.Content.DeleteAccountCard.Co
                         <Trash2 size={16} />
                     )}
                     {loading ? 'Deleting Account...' : 'Yes, Delete My Account'}
-                </button>
+                </Button>
             </div>
         </div>
     )

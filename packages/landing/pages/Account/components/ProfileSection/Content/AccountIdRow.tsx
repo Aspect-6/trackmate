@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Hash, Copy, Check } from 'lucide-react'
 import type { ProfileSection } from '@/pages/Account/types'
+import { Hash, Copy, Check } from 'lucide-react'
+import { Button } from '@/app/components/Button'
 import { ACCOUNT } from '@/app/styles/colors'
 
 const AccountIdRow: React.FC<ProfileSection.Content.AccountIdRowProps> = ({
@@ -35,17 +36,18 @@ const AccountIdRow: React.FC<ProfileSection.Content.AccountIdRowProps> = ({
                         <p className="font-mono text-sm break-all pr-2" style={{ color: ACCOUNT.TEXT_PRIMARY }}>{userId}</p>
                     </div>
                 </div>
-                <button
+                <Button
+                    variant="icon"
                     onClick={handleCopy}
-                    className="p-2 rounded-lg transition-all hover:opacity-80"
+                    className="p-2"
+                    title={copied ? 'Copied!' : 'Copy to clipboard'}
                     style={{
                         backgroundColor: copied ? ACCOUNT.TEXT_SUCCESS_15 : undefined,
                         color: copied ? ACCOUNT.TEXT_SUCCESS : ACCOUNT.TEXT_PRIMARY,
                     }}
-                    title={copied ? 'Copied!' : 'Copy to clipboard'}
                 >
                     {copied ? <Check size={18} /> : <Copy size={18} />}
-                </button>
+                </Button>
             </div>
         </div>
     )

@@ -1,6 +1,7 @@
 import React from 'react'
 import type { ProfileSection } from '@/pages/Account/types'
 import { Mail, Pencil } from 'lucide-react'
+import { Button } from '@/app/components/Button'
 import { ACCOUNT } from '@/app/styles/colors'
 
 export const EmailRowDisplay: React.FC<ProfileSection.Content.EmailRow.DisplayProps> = ({
@@ -24,14 +25,14 @@ export const EmailRowDisplay: React.FC<ProfileSection.Content.EmailRow.DisplayPr
             </div>
 
             {hasPassword && (
-                <button
+                <Button
+                    variant="icon"
                     onClick={onEditStart}
-                    className="p-2 rounded-lg hover:opacity-80 transition-opacity"
-                    style={{ color: ACCOUNT.TEXT_PRIMARY }}
+                    className="p-2"
                     title="Edit email"
                 >
                     <Pencil size={18} />
-                </button>
+                </Button>
             )}
 
             {!hasPassword && (

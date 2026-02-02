@@ -1,6 +1,7 @@
 import React from 'react'
 import type { SecuritySection } from '@/pages/Account/types'
 import { Lock, Pencil } from 'lucide-react'
+import { Button } from '@/app/components/Button'
 import { ACCOUNT } from '@/app/styles/colors'
 
 export const PasswordRowDisplay: React.FC<SecuritySection.Content.PasswordRow.DisplayProps> = ({
@@ -28,14 +29,14 @@ export const PasswordRowDisplay: React.FC<SecuritySection.Content.PasswordRow.Di
                 </div>
             </div>
             {hasPassword && (
-                <button
+                <Button
+                    variant="icon"
                     onClick={onEditStart}
-                    className="p-2 rounded-lg hover:opacity-80 transition-opacity"
-                    style={{ color: ACCOUNT.TEXT_PRIMARY }}
+                    className="p-2"
                     title="Change password"
                 >
                     <Pencil size={18} />
-                </button>
+                </Button>
             )}
         </div>
     )

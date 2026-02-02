@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useAuth } from '@shared/contexts/AuthContext'
 import { useAccount } from '@/app/hooks/useAccount'
 import { Mail, Lock } from 'lucide-react'
+import { Button } from '@/app/components/Button'
 import GoogleIconColored from '@/app/assets/google-icon.svg?react'
 import GoogleIconMono from '@/app/assets/google-icon-mono.svg?react'
 import FacebookIconColored from '@/app/assets/facebook-icon.svg?react'
@@ -101,17 +102,17 @@ const LinkedAccountsSection: React.FC = () => {
                     iconBackgroundColor={ACCOUNT.BACKGROUND_QUATERNARY}
                     action={
                         <div
-                            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-not-allowed select-none"
-                            style={{
-                                backgroundColor: 'transparent',
-                                border: `1px solid ${ACCOUNT.BORDER_PRIMARY}`,
-                                color: ACCOUNT.TEXT_PRIMARY,
-                                opacity: 0.7
-                            }}
+                            className="select-none"
                             title="Primary authentication method cannot be removed"
                         >
-                            <Lock size={12} />
-                            <span>Primary</span>
+                            <Button
+                                variant="secondary"
+                                disabled
+                                className="px-4 py-2"
+                            >
+                                <Lock size={12} />
+                                <span>Primary</span>
+                            </Button>
                         </div>
                     }
                 />
@@ -123,31 +124,26 @@ const LinkedAccountsSection: React.FC = () => {
                 iconBackgroundColor={hasGoogle ? ACCOUNT.GLOBAL_ACCENT_25 : ACCOUNT.BACKGROUND_QUATERNARY}
                 action={
                     hasGoogle ? (
-                        <button
+                        <Button
+                            variant="secondary"
                             onClick={handleUnlinkGoogle}
                             disabled={loading || !canUnlinkGoogle}
-                            className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80 disabled:opacity-50"
-                            style={{
-                                backgroundColor: 'transparent',
-                                border: `1px solid ${ACCOUNT.BORDER_PRIMARY}`,
-                                color: ACCOUNT.TEXT_PRIMARY,
-                            }}
+                            isLoading={loading}
+                            className="px-4 py-2"
                             title={!canUnlinkGoogle ? 'You need at least one sign-in method' : undefined}
                         >
                             Disconnect
-                        </button>
+                        </Button>
                     ) : (
-                        <button
+                        <Button
+                            variant="primary"
                             onClick={handleLinkGoogle}
                             disabled={loading}
-                            className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
-                            style={{
-                                backgroundColor: ACCOUNT.GLOBAL_ACCENT,
-                                color: ACCOUNT.TEXT_PRIMARY,
-                            }}
+                            isLoading={loading}
+                            className="px-4 py-2"
                         >
                             Connect
-                        </button>
+                        </Button>
                     )
                 }
             />
@@ -158,31 +154,26 @@ const LinkedAccountsSection: React.FC = () => {
                 iconBackgroundColor={hasFacebook ? ACCOUNT.GLOBAL_ACCENT_25 : ACCOUNT.BACKGROUND_QUATERNARY}
                 action={
                     hasFacebook ? (
-                        <button
+                        <Button
+                            variant="secondary"
                             onClick={handleUnlinkFacebook}
                             disabled={loading || !canUnlinkFacebook}
-                            className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80 disabled:opacity-50"
-                            style={{
-                                backgroundColor: 'transparent',
-                                border: `1px solid ${ACCOUNT.BORDER_PRIMARY}`,
-                                color: ACCOUNT.TEXT_PRIMARY,
-                            }}
+                            isLoading={loading}
+                            className="px-4 py-2"
                             title={!canUnlinkFacebook ? 'You need at least one sign-in method' : undefined}
                         >
                             Disconnect
-                        </button>
+                        </Button>
                     ) : (
-                        <button
+                        <Button
+                            variant="primary"
                             onClick={handleLinkFacebook}
                             disabled={loading}
-                            className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
-                            style={{
-                                backgroundColor: ACCOUNT.GLOBAL_ACCENT,
-                                color: ACCOUNT.TEXT_PRIMARY,
-                            }}
+                            isLoading={loading}
+                            className="px-4 py-2"
                         >
                             Connect
-                        </button>
+                        </Button>
                     )
                 }
             />

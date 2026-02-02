@@ -1,6 +1,7 @@
 import React from 'react'
-import { ShieldCheck, Check } from 'lucide-react'
 import type { SecuritySection } from '@/pages/Account/types'
+import { ShieldCheck, Check } from 'lucide-react'
+import { Button } from '@/app/components/Button'
 import { ACCOUNT } from '@/app/styles/colors'
 
 const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRowProps> = ({
@@ -33,16 +34,13 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
                     </div>
                 </div>
                 {!isVerified && (
-                    <button
+                    <Button
+                        variant="primary"
                         onClick={onResend}
-                        className="px-4 py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-80"
-                        style={{
-                            backgroundColor: ACCOUNT.PRIMARY_BUTTON_BG,
-                            color: ACCOUNT.TEXT_PRIMARY,
-                        }}
+                        className="px-4 py-2"
                     >
                         Resend Email
-                    </button>
+                    </Button>
                 )}
                 {isVerified && (
                     <div
