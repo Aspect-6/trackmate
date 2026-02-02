@@ -64,7 +64,7 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ us
                     {user.email?.charAt(0).toUpperCase()}
                 </div>
             )}
-            <div>
+            <div className="flex flex-col gap-2">
                 {!isEditing ? (
                     <div className="flex items-center gap-2">
                         <p className="text-lg font-semibold" style={{ color: ACCOUNT.TEXT_PRIMARY }}>
@@ -80,14 +80,14 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ us
                         </button>
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-2">
-                        <div className="relative w-full max-w-[200px]">
+                    <div className="flex flex-col gap-2 w-0 min-w-full">
+                        <div className="relative w-full">
                             <input
                                 type="text"
                                 value={newDisplayName}
                                 onChange={(e) => setNewDisplayName(e.target.value)}
                                 placeholder="Enter display name"
-                                className="pl-3 pr-16 py-1.5 rounded-lg text-sm outline-none w-full"
+                                className="pl-3 pr-16 h-7 rounded-lg text-sm outline-none w-full"
                                 style={{
                                     backgroundColor: ACCOUNT.BACKGROUND_TERTIARY,
                                     border: `1px solid ${ACCOUNT.BORDER_PRIMARY}`,
@@ -99,7 +99,7 @@ const AvatarDisplay: React.FC<ProfileSection.Content.AvatarDisplayProps> = ({ us
                                     if (e.key === 'Escape') handleEditCancel()
                                 }}
                             />
-                            <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
                                 <button
                                     onClick={handleSave}
                                     className="p-1 rounded hover:bg-white/10 transition-colors"
