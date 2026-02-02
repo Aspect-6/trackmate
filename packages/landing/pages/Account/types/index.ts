@@ -103,21 +103,36 @@ export namespace SecuritySection {
             verificationError: string
             onResend: () => void
         }
-        export interface PasswordRowProps {
-            hasPassword: boolean
-            isEditing: boolean
-            currentPassword: string
-            newPassword: string
-            confirmPassword: string
-            error: string
-            success: string
-            loading: boolean
-            onEditStart: () => void
-            onEditCancel: () => void
-            onCurrentPasswordChange: (value: string) => void
-            onNewPasswordChange: (value: string) => void
-            onConfirmPasswordChange: (value: string) => void
-            onSave: () => void
+        export namespace PasswordRow {
+            export interface Props {
+                user: User
+            }
+            // ======================
+            export interface DisplayProps {
+                hasPassword: boolean
+                onEditStart: () => void
+            }
+            export interface FormProps {
+                currentPassword: string
+                newPassword: string
+                confirmPassword: string
+                error: string
+                success: string
+                loading: boolean
+                onCurrentPasswordChange: (value: string) => void
+                onNewPasswordChange: (value: string) => void
+                onConfirmPasswordChange: (value: string) => void
+                onSave: () => void
+                onCancel: () => void
+            }
+            export interface InputProps {
+                children: React.ReactNode
+            }
+            export interface ActionsProps {
+                onSave: () => void
+                onCancel: () => void
+                loading: boolean
+            }
         }
     }
 }
