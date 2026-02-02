@@ -16,7 +16,7 @@ const AuthAction: React.FC = () => {
 
     useEffect(() => {
         if (!mode || !oobCode) {
-            navigate('/sign-in')
+            navigate('/auth/sign-in')
         }
     }, [mode, oobCode, navigate])
 

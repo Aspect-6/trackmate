@@ -160,7 +160,7 @@ const SignIn: React.FC = () => {
                         <FormCheckbox checked={showPassword} onChange={setShowPassword}>
                             Show password
                         </FormCheckbox>
-                        <FormLink href="/forgot-password">Forgot password?</FormLink>
+                        <FormLink href="/auth/forgot-password">Forgot password?</FormLink>
                     </div>
 
                     {errors.root && (
@@ -183,7 +183,7 @@ const SignIn: React.FC = () => {
                     style={{ color: AUTH.TEXT_SECONDARY }}
                 >
                     Don't have an account?{' '}
-                    <FormLink href={redirectTo !== '/account' ? `/sign-up?redirect=${encodeURIComponent(redirectTo)}` : '/sign-up'}>Sign up</FormLink>
+                    <FormLink href={redirectTo !== '/account' ? `/auth/sign-up?redirect=${encodeURIComponent(redirectTo)}` : '/auth/sign-up'}>Sign up</FormLink>
                 </p>
             </div>
         </div>

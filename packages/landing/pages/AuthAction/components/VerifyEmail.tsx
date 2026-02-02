@@ -61,7 +61,7 @@ const VerifyEmailAction: React.FC<ActionHandler.VerifyEmailActionProps> = ({ oob
         if (auth.currentUser) {
             navigate('/landing')
         } else {
-            navigate('/sign-in')
+            navigate('/auth/sign-in')
         }
     }
 
@@ -112,7 +112,7 @@ const VerifyEmailAction: React.FC<ActionHandler.VerifyEmailActionProps> = ({ oob
 
                     {state === 'error' && (
                         <button
-                            onClick={() => navigate('/sign-in')}
+                            onClick={() => navigate('/auth/sign-in')}
                             className="w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
                             style={{
                                 backgroundColor: isHovered ? AUTH.SUBMIT_BUTTON_BG_HOVER : AUTH.SUBMIT_BUTTON_BG,

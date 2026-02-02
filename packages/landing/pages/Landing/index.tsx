@@ -32,10 +32,10 @@ const Landing: React.FC = () => {
                         </div>
                     ) : (
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                            <Button variant="secondary" onClick={() => navigate('/sign-in')}>
+                            <Button variant="secondary" onClick={() => navigate('/auth/sign-in')}>
                                 Sign In
                             </Button>
-                            <Button variant="primary" onClick={() => navigate('/sign-up')} className="lg:mr-8">
+                            <Button variant="primary" onClick={() => navigate('/auth/sign-up')} className="lg:mr-8">
                                 Sign Up
                             </Button>
                         </div>

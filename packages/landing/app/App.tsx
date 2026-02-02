@@ -15,12 +15,12 @@ const App: React.FC = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/sign-in" element={<SignIn />} />
-                <Route path="/sign-up" element={<SignUp />} />
+                <Route path="/auth/sign-in" element={<SignIn />} />
+                <Route path="/auth/sign-up" element={<SignUp />} />
                 <Route path="/account" element={<Account />} />
-                <Route path="/verify-email" element={<VerifyEmail />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/auth-action" element={<AuthAction />} />
+                <Route path="/auth/verify-email" element={<VerifyEmail />} />
+                <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+                <Route path="/auth/action" element={<AuthAction />} />
                 <Route path="/landing" element={<Landing />} />
                 <Route path="/" element={<Navigate to="/landing" replace />} />
                 <Route path="*" element={

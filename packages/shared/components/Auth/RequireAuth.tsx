@@ -10,10 +10,10 @@ interface RequireAuthProps {
 
 /**
  * Route guard that ensures a user is authenticated.
- * Redirects to the login page (default /sign-in) if no user is found.
+ * Redirects to the login page (default /auth/sign-in) if no user is found.
  */
 const RequireAuth: React.FC<RequireAuthProps> = ({
-    redirectTo = '/sign-in',
+    redirectTo = '/auth/sign-in',
     requireEmailVerification = false,
     unverifiedRedirectTo = '/account?tab=security'
 }) => {

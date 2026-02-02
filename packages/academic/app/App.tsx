@@ -16,7 +16,7 @@ import { GLOBAL } from '@/app/styles/colors'
 import DevLogin from '@/app/pages/DevLogin'
 
 const App: React.FC = () => {
-    const SIGN_IN_URL = import.meta.env.DEV ? '/academic/dev-login' : '/sign-in'
+    const SIGN_IN_URL = import.meta.env.DEV ? '/academic/dev-login' : '/auth/sign-in'
 
     return (
         <>

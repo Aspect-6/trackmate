@@ -202,7 +202,7 @@ const ResetPasswordAction: React.FC<ActionHandler.ResetPasswordAction.Props> = (
                             Your password has been successfully reset. You can now sign in with your new password.
                         </p>
                         <button
-                            onClick={() => navigate('/sign-in')}
+                            onClick={() => navigate('/auth/sign-in')}
                             className="w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
                             style={{
                                 backgroundColor: isHovered ? AUTH.SUBMIT_BUTTON_BG_HOVER : AUTH.SUBMIT_BUTTON_BG,
@@ -226,7 +226,7 @@ const ResetPasswordAction: React.FC<ActionHandler.ResetPasswordAction.Props> = (
                             {errorMessage}
                         </p>
                         <button
-                            onClick={() => navigate('/sign-in')}
+                            onClick={() => navigate('/auth/sign-in')}
                             className="w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
                             style={{
                                 backgroundColor: isHovered ? AUTH.SUBMIT_BUTTON_BG_HOVER : AUTH.SUBMIT_BUTTON_BG,

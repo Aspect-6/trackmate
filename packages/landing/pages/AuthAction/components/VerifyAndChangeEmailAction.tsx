@@ -59,7 +59,7 @@ const VerifyAndChangeEmailAction: React.FC<ActionHandler.VerifyAndChangeEmailAct
     }, [oobCode])
 
     const handleContinue = () => {
-        navigate('/sign-in')
+        navigate('/auth/sign-in')
     }
 
     return (
@@ -109,7 +109,7 @@ const VerifyAndChangeEmailAction: React.FC<ActionHandler.VerifyAndChangeEmailAct
 
                     {state === 'error' && (
                         <button
-                            onClick={() => navigate('/sign-in')}
+                            onClick={() => navigate('/auth/sign-in')}
                             className="w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
                             style={{
                                 backgroundColor: isHovered ? AUTH.SUBMIT_BUTTON_BG_HOVER : AUTH.SUBMIT_BUTTON_BG,

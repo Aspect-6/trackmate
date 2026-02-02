@@ -14,15 +14,7 @@
 					"destination": "/academic/index.html"
 				},
 				{
-					"source": "/auth-action",
-					"destination": "/index.html"
-				},
-				{
-					"source": "/sign-in",
-					"destination": "/index.html"
-				},
-				{
-					"source": "/sign-up",
+					"source": "/auth/**",
 					"destination": "/index.html"
 				},
 				{
@@ -49,15 +41,7 @@
 					"destination": "/academic/index.html"
 				},
 				{
-					"source": "/auth-action",
-					"destination": "/index.html"
-				},
-				{
-					"source": "/sign-in",
-					"destination": "/index.html"
-				},
-				{
-					"source": "/sign-up",
+					"source": "/auth/**",
 					"destination": "/index.html"
 				},
 				{

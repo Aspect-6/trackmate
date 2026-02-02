@@ -26,8 +26,8 @@ const SignUp: React.FC = () => {
         if (user) {
             await sendVerificationEmail()
             const verifyUrl = redirectTo !== '/account'
-                ? `/verify-email?redirect=${encodeURIComponent(redirectTo)}`
-                : '/verify-email'
+                ? `/auth/verify-email?redirect=${encodeURIComponent(redirectTo)}`
+                : '/auth/verify-email'
             redirect(verifyUrl)
             return
         }
@@ -206,7 +206,7 @@ const SignUp: React.FC = () => {
                     style={{ color: AUTH.TEXT_SECONDARY }}
                 >
                     Already have an account?{' '}
-                    <FormLink href={redirectTo !== '/account' ? `/sign-in?redirect=${encodeURIComponent(redirectTo)}` : '/sign-in'}>Sign in</FormLink>
+                    <FormLink href={redirectTo !== '/account' ? `/auth/sign-in?redirect=${encodeURIComponent(redirectTo)}` : '/auth/sign-in'}>Sign in</FormLink>
                 </p>
             </div>
         </div>

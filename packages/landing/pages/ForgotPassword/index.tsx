@@ -121,7 +121,7 @@ const ForgotPassword: React.FC = () => {
                             style={{ color: AUTH.TEXT_SECONDARY }}
                         >
                             Remember your password?{' '}
-                            <FormLink href="/sign-in">Sign in</FormLink>
+                            <FormLink href="/auth/sign-in">Sign in</FormLink>
                         </p>
                     </>
                 ) : (
@@ -137,7 +137,7 @@ const ForgotPassword: React.FC = () => {
                             Please check your inbox and click the link to reset your password.
                         </p>
                         <button
-                            onClick={() => navigate('/sign-in')}
+                            onClick={() => navigate('/auth/sign-in')}
                             className="w-full py-3 rounded-lg text-sm font-semibold transition-all duration-200"
                             style={{
                                 backgroundColor: isHovered ? AUTH.SUBMIT_BUTTON_BG_HOVER : AUTH.SUBMIT_BUTTON_BG,

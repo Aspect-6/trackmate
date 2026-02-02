@@ -16,7 +16,7 @@ const VerifyEmail: React.FC = () => {
     useEffect(() => {
         const checkVerification = async () => {
             if (!auth.currentUser) {
-                redirect('/sign-in')
+                redirect('/auth/sign-in')
                 return
             }
             await auth.currentUser.reload()

@@ -38,7 +38,7 @@ const Account: React.FC = () => {
     useEffect(() => {
         if (!userLoading && !user) {
             const currentPath = `${location.pathname}${location.search}${location.hash}`
-            redirect(`/sign-in?redirect=${encodeURIComponent(currentPath)}`)
+            redirect(`/auth/sign-in?redirect=${encodeURIComponent(currentPath)}`)
         }
     }, [user, userLoading, redirect, location])
 
