@@ -157,7 +157,7 @@ const LinkedAccountsSection: React.FC = () => {
                         <Button
                             variant="secondary"
                             onClick={handleUnlinkFacebook}
-                            disabled={loading || !canUnlinkFacebook}
+                            disabled={true}
                             isLoading={loading}
                             className="px-4 py-2"
                             title={!canUnlinkFacebook ? 'You need at least one sign-in method' : undefined}
@@ -168,7 +168,7 @@ const LinkedAccountsSection: React.FC = () => {
                         <Button
                             variant="primary"
                             onClick={handleLinkFacebook}
-                            disabled={loading}
+                            disabled={true}
                             isLoading={loading}
                             className="px-4 py-2"
                         >

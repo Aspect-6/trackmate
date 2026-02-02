@@ -19,7 +19,7 @@ const ProviderButtons: React.FC<ProviderButtonsProps> = ({ onGoogleClick, onMicr
             <ProviderButton onClick={onMicrosoftClick || (() => { })} disabled={!onMicrosoftClick}>
                 <MicrosoftIcon className="w-5 h-5" />
             </ProviderButton>
-            <ProviderButton onClick={onFacebookClick || (() => { })} disabled={!onFacebookClick}>
+            <ProviderButton onClick={onFacebookClick || (() => { })} disabled={true}>
                 <FacebookIcon className="w-5 h-5" />
             </ProviderButton>
         </div>
