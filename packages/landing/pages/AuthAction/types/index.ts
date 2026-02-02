@@ -10,11 +10,16 @@ export namespace ActionHandler {
         oobCode: string
     }
 
+    export interface RecoverEmailActionProps {
+        oobCode: string
+    }
+
     export namespace ResetPasswordAction {
         export interface Props {
             oobCode: string
         }
         // ======================
+        
         export interface FormData {
             password: string
             confirmPassword: string
