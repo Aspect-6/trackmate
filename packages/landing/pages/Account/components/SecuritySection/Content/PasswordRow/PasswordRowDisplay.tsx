@@ -18,7 +18,7 @@ export const PasswordRowDisplay: React.FC<SecuritySection.Content.PasswordRow.Di
                     <Lock size={20} style={{ color: hasPassword ? ACCOUNT.GLOBAL_ACCENT : ACCOUNT.TEXT_SECONDARY }} />
                 </div>
                 <div className="flex-1 min-w-0">
-                    <p className="text-sm pb-1" style={{ color: ACCOUNT.TEXT_SECONDARY }}>Password</p>
+                    <p className="text-sm" style={{ color: ACCOUNT.TEXT_SECONDARY }}>Password</p>
                     {!hasPassword ? (
                         <p className="text-sm" style={{ color: ACCOUNT.TEXT_SECONDARY }}>
                             Not available — Must sign up with email and password to use this feature

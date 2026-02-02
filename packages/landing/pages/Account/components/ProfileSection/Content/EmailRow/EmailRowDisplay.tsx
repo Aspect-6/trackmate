@@ -19,7 +19,7 @@ export const EmailRowDisplay: React.FC<ProfileSection.Content.EmailRow.DisplayPr
                     <Mail size={20} style={{ color: ACCOUNT.GLOBAL_ACCENT }} />
                 </div>
                 <div className="flex-1 min-w-0">
-                    <p className="text-sm pb-1" style={{ color: ACCOUNT.TEXT_SECONDARY }}>Email</p>
+                    <p className="text-sm" style={{ color: ACCOUNT.TEXT_SECONDARY }}>Email</p>
                     <p className="break-all sm:break-normal" style={{ color: ACCOUNT.TEXT_PRIMARY }}>{user.email}</p>
                 </div>
             </div>
