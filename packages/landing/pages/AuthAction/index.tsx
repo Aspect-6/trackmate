@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import VerifyEmailAction from './components/VerifyEmail'
+import VerifyAndChangeEmailAction from './components/VerifyAndChangeEmailAction'
 import ResetPasswordAction from './components/ResetPasswordAction'
-import { useEffect } from 'react'
 
 type AuthAction = 'verifyEmail' | 'resetPassword' | 'verifyAndChangeEmail'
 
@@ -27,7 +27,7 @@ const AuthAction: React.FC = () => {
         case 'verifyEmail':
             return <VerifyEmailAction oobCode={oobCode} />
         case 'verifyAndChangeEmail':
-            return null
+            return <VerifyAndChangeEmailAction oobCode={oobCode} />
         case 'resetPassword':
             return <ResetPasswordAction oobCode={oobCode} />
         default:

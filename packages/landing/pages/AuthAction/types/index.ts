@@ -1,7 +1,12 @@
 export namespace ActionHandler {
     export interface Props { }
     // ======================
+
     export interface VerifyEmailActionProps {
+        oobCode: string
+    }
+
+    export interface VerifyAndChangeEmailActionProps {
         oobCode: string
     }
 
