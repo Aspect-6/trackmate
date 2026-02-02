@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import RequireAuth from '@shared/components/Auth/RequireAuth'
+import NotFound from '@shared/pages/NotFound'
 import ModalManager from '@/app/components/ModalManager'
 import Layout from '@/app/layouts/Layout'
 import Dashboard from '@/pages/Dashboard'
@@ -9,22 +10,16 @@ import MyClasses from '@/pages/My Classes'
 import MySchedule from '@/pages/My Schedule'
 import Calendar from '@/pages/Calendar'
 import Settings from '@/pages/Settings'
-import NotFound from '@shared/pages/NotFound'
 import { ROUTES, DEFAULT_ROUTE, BASE_PATH } from '@/app/config/paths'
 import { GLOBAL } from '@/app/styles/colors'
 
-import DevLogin from '@/app/pages/DevLogin'
-
 const App: React.FC = () => {
-    const SIGN_IN_URL = import.meta.env.DEV ? '/academic/dev-login' : '/auth/sign-in'
-
     return (
         <>
             <ModalManager />
             <Routes>
-                {import.meta.env.DEV && <Route path="/academic/dev-login" element={<DevLogin />} />}
                 <Route path={BASE_PATH} element={<Layout />}>
-                    <Route element={<RequireAuth redirectTo={SIGN_IN_URL} requireEmailVerification={true} />}>
+                    <Route element={<RequireAuth redirectTo="/auth/sign-in" requireEmailVerification={true} />}>
                         <Route index element={<Navigate to={DEFAULT_ROUTE.fullPath} replace />} />
                         <Route path={ROUTES['dashboard'].path} element={<Dashboard />} />
                         <Route path={ROUTES['calendar'].path} element={<Calendar />} />
