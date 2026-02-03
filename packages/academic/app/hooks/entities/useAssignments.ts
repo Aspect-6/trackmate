@@ -1,8 +1,8 @@
 import { useMemo, useCallback } from "react"
 import { useSettings } from "@/app/hooks/useSettings"
-import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { useFirestoreCollection } from "@/app/hooks/data/useFirestore"
 import { generateId, todayString } from "@shared/lib"
-import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Assignment, Status } from "@/app/types"
 
 const DEFAULT_ASSIGNMENTS: Assignment[] = []
@@ -12,7 +12,7 @@ const DEFAULT_ASSIGNMENTS: Assignment[] = []
  * Provides filtered views, lookup functions, and CRUD operations.
  */
 export const useAssignments = () => {
-    const [assignments, setAssignments] = useLocalStorage<Assignment[]>(STORAGE_KEYS.ASSIGNMENTS, DEFAULT_ASSIGNMENTS)
+    const [assignments, setAssignments] = useFirestoreCollection<Assignment>(FIRESTORE_KEYS.ASSIGNMENTS, DEFAULT_ASSIGNMENTS)
     const { assignmentTypes } = useSettings()
 
     // Counts

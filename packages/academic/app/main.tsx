@@ -5,6 +5,7 @@ import { ModalProvider } from "@/app/contexts/ModalContext"
 import { ScheduleComponentsProvider } from "@/app/contexts/ScheduleComponentsContext"
 import { ToastProvider } from "@shared/contexts/ToastContext"
 import { AuthProvider } from "@shared/contexts/AuthContext"
+import { FirestoreCacheProvider } from "@shared/contexts/FirestoreCacheContext"
 import App from "@/app/App"
 import { APP_FULL_NAME } from "@/app/config/brand"
 
@@ -30,11 +31,13 @@ createRoot(rootElement).render(
 		<BrowserRouter>
 			<ToastProvider>
 				<AuthProvider>
-					<ModalProvider>
-						<ScheduleComponentsProvider>
-							<App />
-						</ScheduleComponentsProvider>
-					</ModalProvider>
+					<FirestoreCacheProvider>
+						<ModalProvider>
+							<ScheduleComponentsProvider>
+								<App />
+							</ScheduleComponentsProvider>
+						</ModalProvider>
+					</FirestoreCacheProvider>
 				</AuthProvider>
 			</ToastProvider>
 		</BrowserRouter>

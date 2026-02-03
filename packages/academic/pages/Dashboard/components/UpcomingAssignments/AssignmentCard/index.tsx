@@ -15,7 +15,10 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
     const { openModal } = useModal()
     const { isHovered, hoverProps } = useHover()
     const [isCompleting, setIsCompleting] = useState(false)
-    const classInfo = getClassById(assignment.classId)!
+    const classInfo = getClassById(assignment.classId)
+    
+    // Handle case where class data hasn't loaded yet
+    if (!classInfo) return null
 
     const handleStatusUpdate = (e: React.MouseEvent) => {
         e.stopPropagation()

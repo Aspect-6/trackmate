@@ -1,8 +1,8 @@
 import { useCallback } from "react"
-import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import { todayString } from "@shared/lib"
 import { calculateDayType } from "@/app/lib/schedule"
-import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Schedules, ScheduleType, TermSchedule, DayType, AcademicTerm, NoSchoolPeriod } from "@/app/types"
 
 const DEFAULT_SCHEDULES: Schedules = {
@@ -20,7 +20,7 @@ const DEFAULT_SCHEDULES: Schedules = {
  * Manages the schedule type, A/B day configuration, and per-term schedules.
  */
 export const useSchedules = () => {
-    const [schedules, setSchedules] = useLocalStorage<Schedules>(STORAGE_KEYS.SCHEDULES, DEFAULT_SCHEDULES)
+    const [schedules, setSchedules] = useFirestoreDoc<Schedules>(FIRESTORE_KEYS.SCHEDULES, DEFAULT_SCHEDULES)
 
     // Actions
     const updateTermSchedule = useCallback((termId: string, newSchedule: TermSchedule): void => {

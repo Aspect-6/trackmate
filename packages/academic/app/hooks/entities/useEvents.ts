@@ -1,7 +1,7 @@
 import { useMemo, useCallback } from "react"
-import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { useFirestoreCollection } from "@/app/hooks/data/useFirestore"
 import { generateId, todayString } from "@shared/lib"
-import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Event } from "@/app/types"
 
 const DEFAULT_EVENTS: Event[] = []
@@ -11,7 +11,7 @@ const DEFAULT_EVENTS: Event[] = []
  * Provides filtered views, lookup functions, and CRUD operations.
  */
 export const useEvents = () => {
-    const [events, setEvents] = useLocalStorage<Event[]>(STORAGE_KEYS.EVENTS, DEFAULT_EVENTS)
+    const [events, setEvents] = useFirestoreCollection<Event>(FIRESTORE_KEYS.EVENTS, DEFAULT_EVENTS)
 
     // Counts
     const totalNum = events.length

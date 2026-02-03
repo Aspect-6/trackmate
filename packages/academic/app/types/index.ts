@@ -59,9 +59,9 @@ export interface Assignment {
 export interface Class {
     /** Unique identifier for the class */
     id: string
-    /** The name of the class (e.g., "AP Calculus") */
+    /** The name of the class */
     name: string
-    /** The color code (hex) associated with this class for UI styling */
+    /** The color code associated with this class for UI styling */
     color: string
     /** The name of the teacher for this class */
     teacherName: string
@@ -71,6 +71,8 @@ export interface Class {
     termId?: string
     /** Reference to a specific semester within the term (if not year-long) */
     semesterId?: string
+    /** Order index for manual sorting (lower is earlier) */
+    order: number
 }
 
 /**

@@ -1,8 +1,8 @@
 import { useMemo, useCallback } from "react"
-import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { useFirestoreCollection } from "@/app/hooks/data/useFirestore"
 import { useToast } from "@shared/contexts/ToastContext"
 import { generateId } from "@shared/lib"
-import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Class } from "@/app/types"
 
 const DEFAULT_CLASSES: Class[] = []
@@ -12,8 +12,14 @@ const DEFAULT_CLASSES: Class[] = []
  * Provides filtered views, lookup functions, and CRUD operations.
  */
 export const useClasses = () => {
-    const [classes, setClasses] = useLocalStorage<Class[]>(STORAGE_KEYS.CLASSES, DEFAULT_CLASSES)
+    const [rawClasses, setClasses] = useFirestoreCollection<Class>(FIRESTORE_KEYS.CLASSES, DEFAULT_CLASSES)
     const { showToast } = useToast()
+
+    // Sort classes by order field
+    const classes = useMemo(() => 
+        [...rawClasses].sort((a, b) => a.order - b.order),
+        [rawClasses]
+    )
 
     // Counts
     const totalNum = classes.length
@@ -36,14 +42,17 @@ export const useClasses = () => {
     }, [classesByTerm])
 
     // Actions
-    const addClass = useCallback((newClass: Omit<Class, "id">): boolean => {
+    const addClass = useCallback((newClass: Omit<Class, "id" | "order">): boolean => {
         if (classes.some(c => c.name.toLowerCase() === newClass.name.toLowerCase())) {
             showToast(`A class with the name "${newClass.name}" already exists.`, "error")
             return false
         }
+        // New classes go at the end
+        const maxOrder = classes.reduce((max, c) => Math.max(max, c.order), -1)
         setClasses(prev => [...prev, {
             ...newClass,
             id: generateId(),
+            order: maxOrder + 1,
         }])
         showToast(`Successfully added class "${newClass.name}"`, "success")
         return true
@@ -58,7 +67,9 @@ export const useClasses = () => {
     }, [setClasses])
 
     const reorderClasses = useCallback((newOrder: Class[]): void => {
-        setClasses(newOrder)
+        // Assign order index to each class based on position
+        const orderedClasses = newOrder.map((c, index) => ({ ...c, order: index }))
+        setClasses(orderedClasses)
     }, [setClasses])
 
     return {

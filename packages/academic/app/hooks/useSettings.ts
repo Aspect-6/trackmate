@@ -1,7 +1,7 @@
-import { useCallback, useEffect } from "react"
-import { useLocalStorage } from "@/app/hooks/data/useLocalStorage"
+import { useCallback, useEffect, useRef } from "react"
+import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import { useToast } from "@shared/contexts/ToastContext"
-import { STORAGE_KEYS } from "@/app/config/storageKeys"
+import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Assignment, AssignmentType, ThemeMode, TermMode } from "@/app/types"
 
 export const DEFAULT_ASSIGNMENT_TYPES: AssignmentType[] = [
@@ -25,15 +25,30 @@ interface Settings {
     assignmentTypes: AssignmentType[]
 }
 
+// Read initial theme from localStorage to prevent flash
+// This matches what main.tsx applies before React mounts
+const getInitialTheme = (): ThemeMode => {
+    const saved = localStorage.getItem("trackmateTheme")
+    return saved === "dark" ? "dark" : "light"
+}
+
 const DEFAULT_SETTINGS: Settings = {
-    theme: "light",
+    theme: getInitialTheme(),
     termMode: "Semesters Only",
     assignmentTypes: DEFAULT_ASSIGNMENT_TYPES
 }
 
 export const useSettings = () => {
-    const [settings, setSettings] = useLocalStorage<Settings>(STORAGE_KEYS.SETTINGS, DEFAULT_SETTINGS)
+    const [settings, setSettings, { loading }] = useFirestoreDoc<Settings>(FIRESTORE_KEYS.SETTINGS, DEFAULT_SETTINGS)
     const { showToast } = useToast()
+    const hasLoadedRef = useRef(false)
+
+    // Track when initial load completes
+    useEffect(() => {
+        if (!loading) {
+            hasLoadedRef.current = true
+        }
+    }, [loading])
 
     // Update settings actions
     const setTheme = useCallback((theme: ThemeMode) => {
@@ -43,8 +58,12 @@ export const useSettings = () => {
         setSettings(prev => ({ ...prev, termMode }))
     }, [setSettings])
 
-    // Apply theme to DOM
+    // Apply theme to DOM and sync to localStorage
+    // Only apply after initial load to prevent overwriting the correct initial theme
     useEffect(() => {
+        // Skip if still loading initial data - main.tsx already set the correct theme
+        if (loading && !hasLoadedRef.current) return
+        
         if (settings.theme === "dark") {
             document.documentElement.classList.add("dark")
             document.documentElement.classList.remove("light")
@@ -52,7 +71,9 @@ export const useSettings = () => {
             document.documentElement.classList.remove("dark")
             document.documentElement.classList.add("light")
         }
-    }, [settings.theme])
+        // Sync to localStorage for pre-React theme application on next visit
+        localStorage.setItem("trackmateTheme", settings.theme)
+    }, [settings.theme, loading])
 
     // Assignment type actions
     const addAssignmentType = useCallback((type: AssignmentType): boolean => {
@@ -92,6 +113,9 @@ export const useSettings = () => {
     }, [setSettings, showToast])
 
     return {
+        // Loading state
+        loading,
+        
         // Each setting
         settings,
         theme: settings.theme,
