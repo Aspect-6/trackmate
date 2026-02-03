@@ -9,7 +9,7 @@ import { GLOBAL } from "@/app/styles/colors"
 export const useArrowStyle = () => {
     const getArrowSvg = useCallback((color: string) => {
         const encodedColor = encodeURIComponent(color)
-        return `url("data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="${encodedColor}"%3E%3Cpath stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"%3E%3C/path%3E%3C/svg%3E")`
+        return `url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22none%22 viewBox=%220 0 24 24%22 stroke=%22${encodedColor}%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22M19 9l-7 7-7-7%22%3E%3C/path%3E%3C/svg%3E")`
     }, [])
 
     const [arrowColor, setArrowColor] = useState("")
