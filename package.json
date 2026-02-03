@@ -15,7 +15,7 @@
 		"lint:all": "npm run lint --workspace packages/landing && npm run lint --workspace packages/academic",
 		"preview:landing": "npm run preview --workspace packages/landing",
 		"preview:academic": "npm run preview --workspace packages/academic",
-		"deploy:prod": "npm run build:all && firebase deploy --only hosting:production",
+		"deploy:prod": "npm run build:all && firebase deploy --only hosting:production,firestore:rules",
 		"deploy:dev": "npm run build:all && firebase deploy --only hosting:dev"
 	},
 	"type": "module",
