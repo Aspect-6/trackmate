@@ -27,7 +27,7 @@ import { db } from "./firebase"
  * Firestore paths must have odd segments for collections, even for documents.
  */
 
-export type AppName = "academic" | "projects" | "fitness"
+export type AppName = "academic"
 
 // Container document name for subcollections
 const DATA_CONTAINER = "data"

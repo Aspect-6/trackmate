@@ -16,24 +16,23 @@ export function useFirestoreWithArchive<T extends { id: string }>(
     getItemDate: (item: T) => string, // Function to get the relevant date from an item
     isArchivable: (item: T) => boolean // Function to determine if an item can be archived
 ) {
-    const initialDoc = useRef({ items: [] as T[] }).current
-    
+    const initialDoc = useMemo(() => ({ items: [] as T[] }), [])
+
     // Subscribe to both active and archive documents
     const [activeDoc, setActiveDoc] = useCachedFirestoreDoc<{ items: T[] }>("academic", activeKey, initialDoc)
     const [archiveDoc, setArchiveDoc] = useCachedFirestoreDoc<{ items: T[] }>("academic", archiveKey, initialDoc)
 
     // Merge items from both documents
-    const items = useMemo(() => {
+    const rawItems = useMemo(() => {
         const active = activeDoc.items || []
         const archived = archiveDoc.items || []
         return [...active, ...archived]
     }, [activeDoc.items, archiveDoc.items])
 
-    // Stable ref for items to prevent unnecessary re-renders
-    const itemsRef = useRef<T[]>([])
-    if (JSON.stringify(items) !== JSON.stringify(itemsRef.current)) {
-        itemsRef.current = items
-    }
+    // Stable reference for items to prevent unnecessary re-renders
+    const itemsStr = JSON.stringify(rawItems)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const items = useMemo(() => rawItems, [itemsStr])
 
     // Calculate cutoff date for archiving (365 days ago)
     const getArchiveCutoff = useCallback(() => {
@@ -55,20 +54,20 @@ export function useFirestoreWithArchive<T extends { id: string }>(
     useEffect(() => {
         // Only run once per session and only if there are active items
         if (hasRunArchival.current || activeDoc.items.length === 0) return
-        
+
         const itemsToArchive = activeDoc.items.filter(shouldBeArchived)
         if (itemsToArchive.length === 0) return
-        
+
         hasRunArchival.current = true
-        
+
         // Move old items to archive
         const remainingActive = activeDoc.items.filter(item => !shouldBeArchived(item))
         const newArchive = [...(archiveDoc.items || []), ...itemsToArchive]
-        
+
         // Update both documents
         setActiveDoc({ items: remainingActive })
         setArchiveDoc({ items: newArchive })
-        
+
         console.log(`Archived ${itemsToArchive.length} items`)
     }, [activeDoc.items, archiveDoc.items, shouldBeArchived, setActiveDoc, setArchiveDoc])
 
@@ -77,17 +76,17 @@ export function useFirestoreWithArchive<T extends { id: string }>(
         async (valueOrUpdater: T[] | ((prev: T[]) => T[])) => {
             // Get current merged items
             const currentItems = [...(activeDoc.items || []), ...(archiveDoc.items || [])]
-            
+
             // Calculate new items
             const newItems = typeof valueOrUpdater === "function"
                 ? (valueOrUpdater as (prev: T[]) => T[])(currentItems)
                 : valueOrUpdater
-            
+
             // Split into active and archive based on date
             const cutoff = getArchiveCutoff()
             const newActive: T[] = []
             const newArchive: T[] = []
-            
+
             for (const item of newItems) {
                 if (isArchivable(item) && getItemDate(item) < cutoff) {
                     newArchive.push(item)
@@ -95,7 +94,7 @@ export function useFirestoreWithArchive<T extends { id: string }>(
                     newActive.push(item)
                 }
             }
-            
+
             // Update both documents
             await Promise.all([
                 setActiveDoc({ items: newActive }),
@@ -105,5 +104,5 @@ export function useFirestoreWithArchive<T extends { id: string }>(
         [activeDoc.items, archiveDoc.items, getItemDate, isArchivable, getArchiveCutoff, setActiveDoc, setArchiveDoc]
     )
 
-    return [itemsRef.current, setItems] as const
+    return [items, setItems] as const
 }
