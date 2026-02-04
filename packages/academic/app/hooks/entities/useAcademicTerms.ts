@@ -1,17 +1,15 @@
 import { useMemo, useCallback } from "react"
-import { useFirestoreCollection } from "@/app/hooks/data/useFirestore"
+import { useFirestoreItems } from "@/app/hooks/data/useFirestore"
 import { generateId } from "@shared/lib"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { AcademicTerm, Semester, TermMode } from "@/app/types"
-
-const DEFAULT_TERMS: AcademicTerm[] = []
 
 /**
  * Hook for accessing and working with academic terms.
  * Provides filtered views, lookup functions, and CRUD operations.
  */
 export const useAcademicTerms = (termMode: TermMode = "Semesters Only") => {
-    const [academicTerms, setAcademicTerms] = useFirestoreCollection<AcademicTerm>(FIRESTORE_KEYS.TERMS, DEFAULT_TERMS)
+    const [academicTerms, setAcademicTerms] = useFirestoreItems<AcademicTerm>(FIRESTORE_KEYS.TERMS)
 
     // Computed: filter terms by current termMode
     const filteredAcademicTerms = useMemo(() =>

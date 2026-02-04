@@ -1,14 +1,16 @@
-import { useCachedFirestoreDoc, useCachedFirestoreCollection } from "@shared/contexts/FirestoreCacheContext"
+import { useCachedFirestoreDoc, useCachedFirestoreItems } from "@shared/contexts/FirestoreCacheContext"
 import { DocumentData } from "firebase/firestore"
 import { type FirestoreKey } from "@/app/config/firestoreKeys"
 
 /**
- * Hook for Firestore collections (arrays of items with `id` fields).
- * Uses cached subscriptions that persist across navigations.
+ * Hook for Firestore documents that store arrays of items.
+ * Each entity (assignments, classes, etc.) is stored as a single document
+ * with an `items` array, reducing reads from N to 1.
+ * 
  * Used for: assignments, classes, terms, events, noSchool
  */
-export function useFirestoreCollection<T extends { id: string }>(key: FirestoreKey, initialValue: T[]) {
-    return useCachedFirestoreCollection<T>("academic", key, initialValue)
+export function useFirestoreItems<T extends { id: string }>(key: FirestoreKey) {
+    return useCachedFirestoreItems<T>("academic", key)
 }
 
 /**

@@ -1,17 +1,15 @@
 import { useMemo, useCallback } from "react"
-import { useFirestoreCollection } from "@/app/hooks/data/useFirestore"
+import { useFirestoreItems } from "@/app/hooks/data/useFirestore"
 import { generateId, parseDateLocal, dateToLocalISOString } from "@shared/lib"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { NoSchoolPeriod } from "@/app/types"
-
-const DEFAULT_NO_SCHOOL: NoSchoolPeriod[] = []
 
 /**
  * Hook for accessing and working with no-school periods.
  * Provides filtered views, lookup functions, and CRUD operations.
  */
 export const useNoSchool = () => {
-    const [noSchoolPeriods, setNoSchoolPeriods] = useFirestoreCollection<NoSchoolPeriod>(FIRESTORE_KEYS.NO_SCHOOL, DEFAULT_NO_SCHOOL)
+    const [noSchoolPeriods, setNoSchoolPeriods] = useFirestoreItems<NoSchoolPeriod>(FIRESTORE_KEYS.NO_SCHOOL)
 
     // Indexed by date (expands date ranges into individual dates)
     const noSchoolByDate = useMemo(() => noSchoolPeriods.reduce<Record<string, NoSchoolPeriod>>((acc, period) => {

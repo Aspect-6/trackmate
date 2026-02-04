@@ -1,17 +1,27 @@
 import { useMemo, useCallback } from "react"
-import { useFirestoreCollection } from "@/app/hooks/data/useFirestore"
+import { useFirestoreWithArchive } from "@/app/hooks/data/useFirestoreWithArchive"
 import { generateId, todayString } from "@shared/lib"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Event } from "@/app/types"
 
-const DEFAULT_EVENTS: Event[] = []
+// Archive past events older than 365 days
+const getEventDate = (e: Event) => e.date
+const isEventArchivable = (e: Event) => e.date < todayString() // Only archive past events
 
 /**
  * Hook for accessing and working with events.
  * Provides filtered views, lookup functions, and CRUD operations.
+ * 
+ * Automatically archives past events older than 365 days
+ * while keeping them accessible to the user seamlessly.
  */
 export const useEvents = () => {
-    const [events, setEvents] = useFirestoreCollection<Event>(FIRESTORE_KEYS.EVENTS, DEFAULT_EVENTS)
+    const [events, setEvents] = useFirestoreWithArchive<Event>(
+        FIRESTORE_KEYS.EVENTS,
+        FIRESTORE_KEYS.EVENTS_ARCHIVE,
+        getEventDate,
+        isEventArchivable
+    )
 
     // Counts
     const totalNum = events.length

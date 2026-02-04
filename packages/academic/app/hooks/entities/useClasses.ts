@@ -1,18 +1,16 @@
 import { useMemo, useCallback } from "react"
-import { useFirestoreCollection } from "@/app/hooks/data/useFirestore"
+import { useFirestoreItems } from "@/app/hooks/data/useFirestore"
 import { useToast } from "@shared/contexts/ToastContext"
 import { generateId } from "@shared/lib"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Class } from "@/app/types"
-
-const DEFAULT_CLASSES: Class[] = []
 
 /**
  * Hook for accessing and working with classes.
  * Provides filtered views, lookup functions, and CRUD operations.
  */
 export const useClasses = () => {
-    const [rawClasses, setClasses] = useFirestoreCollection<Class>(FIRESTORE_KEYS.CLASSES, DEFAULT_CLASSES)
+    const [rawClasses, setClasses] = useFirestoreItems<Class>(FIRESTORE_KEYS.CLASSES)
     const { showToast } = useToast()
 
     // Sort classes by order field

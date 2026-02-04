@@ -1,18 +1,28 @@
 import { useMemo, useCallback } from "react"
 import { useSettings } from "@/app/hooks/useSettings"
-import { useFirestoreCollection } from "@/app/hooks/data/useFirestore"
+import { useFirestoreWithArchive } from "@/app/hooks/data/useFirestoreWithArchive"
 import { generateId, todayString } from "@shared/lib"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Assignment, Status } from "@/app/types"
 
-const DEFAULT_ASSIGNMENTS: Assignment[] = []
+// Archive completed assignments older than 365 days
+const getAssignmentDate = (a: Assignment) => a.dueDate
+const isAssignmentArchivable = (a: Assignment) => a.status === "Done"
 
 /**
  * Hook for accessing and working with assignments.
  * Provides filtered views, lookup functions, and CRUD operations.
+ * 
+ * Automatically archives completed assignments older than 365 days
+ * while keeping them accessible to the user seamlessly.
  */
 export const useAssignments = () => {
-    const [assignments, setAssignments] = useFirestoreCollection<Assignment>(FIRESTORE_KEYS.ASSIGNMENTS, DEFAULT_ASSIGNMENTS)
+    const [assignments, setAssignments] = useFirestoreWithArchive<Assignment>(
+        FIRESTORE_KEYS.ASSIGNMENTS,
+        FIRESTORE_KEYS.ASSIGNMENTS_ARCHIVE,
+        getAssignmentDate,
+        isAssignmentArchivable
+    )
     const { assignmentTypes } = useSettings()
 
     // Counts

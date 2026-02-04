@@ -4,25 +4,26 @@
  */
 
 export const FIRESTORE_KEYS = {
-    // Collections (arrays of items with `id` fields)
+    // Entity documents (arrays of items stored as { items: T[] })
     ASSIGNMENTS: "assignments",
     CLASSES: "classes",
     TERMS: "terms",
     EVENTS: "events",
     NO_SCHOOL: "noSchool",
     
-    // Documents (single objects)
+    // Archive documents (old completed assignments and past events)
+    ASSIGNMENTS_ARCHIVE: "assignments-archive",
+    EVENTS_ARCHIVE: "events-archive",
+    
+    // Config documents (single objects)
     SCHEDULES: "schedules",
     SETTINGS: "settings",
 } as const
 
 export type FirestoreKey = typeof FIRESTORE_KEYS[keyof typeof FIRESTORE_KEYS]
 
-// Keys that are collections (vs documents)
-export const COLLECTION_KEYS: FirestoreKey[] = [
-    FIRESTORE_KEYS.ASSIGNMENTS,
-    FIRESTORE_KEYS.CLASSES,
-    FIRESTORE_KEYS.TERMS,
-    FIRESTORE_KEYS.EVENTS,
-    FIRESTORE_KEYS.NO_SCHOOL,
-]
+// Archive configuration
+export const ARCHIVE_CONFIG = {
+    // Items older than this many days are archived
+    ARCHIVE_AFTER_DAYS: 365,
+} as const
