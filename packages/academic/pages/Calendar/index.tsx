@@ -50,12 +50,7 @@ const Calendar: React.FC = () => {
 
         if (!hasClasses) return <NoClassesScheduled />
 
-        return (
-            <ClassList
-                classes={classIds}
-                getClassById={getClassById}
-            />
-        )
+        return <ClassList classes={classIds} getClassById={getClassById} />
     }
 
     return (
@@ -94,7 +89,7 @@ const Calendar: React.FC = () => {
                                     onSelectDate={setSelectedDate}
                                     onAssignmentClick={openEditAssignment}
                                     onEventClick={openEditEvent}
-                                    getClassColor={(classId: string) => getClassById(classId).color}
+                                    getClassColor={(classId: string) => getClassById(classId)?.color || ""}
                                 />
                             )
                         })}

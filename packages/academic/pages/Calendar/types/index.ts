@@ -140,7 +140,7 @@ export namespace CalendarBody {
                 }
                 // ======================
                 export interface ClassItemProps {
-                    classId: string | null
+                    classId: string
                     index: number
                     getClassById: Props["getClassById"]
                 }

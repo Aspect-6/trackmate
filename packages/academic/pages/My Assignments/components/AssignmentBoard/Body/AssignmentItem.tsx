@@ -12,13 +12,8 @@ const AssignmentItem: React.FC<AssignmentBoardTypes.Body.AssignmentItemProps> = 
 	getClassById,
 	dragEnabled
 }) => {
-	const { id, classId } = assignment
-	const linkedClass = getClassById(classId)
-	const classColor = linkedClass ? linkedClass.color : MY_ASSIGNMENTS.TEXT_MUTED
-	const className = linkedClass ? linkedClass.name : "Unassigned"
-
 	const { isHovered, hoverProps } = useHover()
-
+	const { id, classId } = assignment
 	const {
 		attributes,
 		listeners,
@@ -27,6 +22,12 @@ const AssignmentItem: React.FC<AssignmentBoardTypes.Body.AssignmentItemProps> = 
 		transition,
 		isDragging,
 	} = useSortable({ id, disabled: !dragEnabled })
+
+	const linkedClass = getClassById(classId)
+	if (!linkedClass) return null
+
+	const classColor = linkedClass.color
+	const className = linkedClass.name
 
 	const transformTransition = !isDragging && transition ? transition : null
 	const baseHoverTransition =
