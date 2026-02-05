@@ -1,12 +1,8 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode } from "react"
+import React, { createContext, useContext, useState, useCallback } from "react"
 import { CheckCircle, AlertCircle } from "lucide-react"
-import type { ToastType, Toast, ToastContextType } from "@shared/types/ToastContext"
+import type { ToastType, Toast, ToastContextType, ToastProviderProps } from "@shared/types/ToastContext"
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined)
-
-interface ToastProviderProps {
-    children: ReactNode
-}
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     const [toasts, setToasts] = useState<Toast[]>([])

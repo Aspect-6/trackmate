@@ -1,7 +1,13 @@
+import { ReactNode } from "react"
+
 /**
  * Types of toast notifications available.
  */
 export type ToastType = "success" | "error"
+
+export interface ToastProviderProps {
+    children: ReactNode
+}
 
 export interface Toast {
     id: number
