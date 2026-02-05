@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useEffect } from "react"
-import { useCachedFirestoreDoc } from "@shared/contexts/FirestoreCacheContext"
+import { useCachedFirestoreDoc } from "@shared/hooks/firestore/useCachedFirestoreDoc"
 import { type FirestoreKey } from "@/app/config/firestoreKeys"
 import { getArchiveCutoffDate, shouldArchiveItem, partitionItems } from "@/app/lib/archive"
 

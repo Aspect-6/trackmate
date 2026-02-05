@@ -1,4 +1,5 @@
-import { useCachedFirestoreDoc, useCachedFirestoreItems } from "@shared/contexts/FirestoreCacheContext"
+import { useCachedFirestoreDoc } from "@shared/hooks/firestore/useCachedFirestoreDoc"
+import { useCachedFirestoreItems } from "@shared/hooks/firestore/useCachedFirestoreItems"
 import { DocumentData } from "firebase/firestore"
 import { type FirestoreKey } from "@/app/config/firestoreKeys"
 
