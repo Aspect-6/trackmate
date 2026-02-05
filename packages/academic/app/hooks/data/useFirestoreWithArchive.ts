@@ -5,10 +5,8 @@ import { ARCHIVE_CONFIG, type FirestoreKey } from "@/app/config/firestoreKeys"
 /**
  * Hook for entities that need archiving (assignments, events).
  * 
- * Reads from both active and archive documents, merges them seamlessly.
+ * Reads from both active and archive documents, merges them when displayed.
  * On write, automatically moves old items to archive.
- * 
- * User sees all items as one unified list - archive is invisible to them.
  */
 export function useFirestoreWithArchive<T extends { id: string }>(
     activeKey: FirestoreKey,
