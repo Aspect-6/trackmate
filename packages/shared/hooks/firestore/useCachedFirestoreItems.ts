@@ -1,4 +1,4 @@
-import { useCallback, useRef, useSyncExternalStore } from "react"
+import { useCallback, useRef, useSyncExternalStore, useMemo } from "react"
 import { type AppName } from "@shared/lib/firestore"
 import { useFirestoreCache } from "@shared/contexts/FirestoreCacheContext"
 
@@ -30,14 +30,11 @@ export function useCachedFirestoreItems<T extends { id: string }>(
         [cache, app, key, initialDoc]
     )
 
-    const itemsRef = useRef<T[]>([])
     const rawItems = useSyncExternalStore(subscribe, getSnapshot, getSnapshot)
 
-    if (JSON.stringify(rawItems) !== JSON.stringify(itemsRef.current)) {
-        itemsRef.current = rawItems
-    }
-
-    const items = itemsRef.current
+    const itemsStr = JSON.stringify(rawItems)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const items = useMemo(() => rawItems, [itemsStr])
     const loading = cache.getDocLoading(app, key)
     const error = cache.getDocError(app, key)
 
