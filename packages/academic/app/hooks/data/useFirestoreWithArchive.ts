@@ -13,8 +13,8 @@ import { ARCHIVE_CONFIG, type FirestoreKey } from "@/app/config/firestoreKeys"
 export function useFirestoreWithArchive<T extends { id: string }>(
     activeKey: FirestoreKey,
     archiveKey: FirestoreKey,
-    getItemDate: (item: T) => string, // Function to get the relevant date from an item
-    isArchivable: (item: T) => boolean // Function to determine if an item can be archived
+    getItemDate: (item: T) => string,
+    isArchivable: (item: T) => boolean
 ) {
     const initialDoc = useMemo(() => ({ items: [] as T[] }), [])
 
@@ -29,10 +29,8 @@ export function useFirestoreWithArchive<T extends { id: string }>(
         return [...active, ...archived]
     }, [activeDoc.items, archiveDoc.items])
 
-    // Stable reference for items to prevent unnecessary re-renders
     const itemsStr = JSON.stringify(rawItems)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const items = useMemo(() => rawItems, [itemsStr])
+    const items = useMemo(() => rawItems, [rawItems, itemsStr])
 
     // Calculate cutoff date for archiving (365 days ago)
     const getArchiveCutoff = useCallback(() => {
