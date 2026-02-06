@@ -2,7 +2,7 @@ import React, { useCallback } from "react"
 import { X } from "lucide-react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
-import { useClasses, useSchedules } from "@/app/hooks/entities"
+import { useClasses } from "@/app/hooks/entities"
 import { useSelectedDate } from "./hooks/useSelectedDate"
 import { useCalendarNavigation } from "./hooks/useCalendarNavigation"
 import { useCalendarGrid } from "./hooks/useCalendarGrid"
@@ -18,7 +18,6 @@ import NoClassesScheduled from "./components/CalendarBody/SidePanel/Body/ClassLi
 import "./index.css"
 
 const Calendar: React.FC = () => {
-    const { schedules } = useSchedules()
     const { openModal } = useModal()
     const { getClassById } = useClasses()
     const { useClassIdsForDate } = useScheduleComponents()
@@ -104,7 +103,7 @@ const Calendar: React.FC = () => {
                         </CalendarSidePanelHeader>
 
                         <CalendarSidePanelBody>
-                            {schedules.type === "alternating-ab" && (
+                            {sidePanelData?.scheduleType === "alternating-ab" && (
                                 <DayType noSchoolDay={sidePanelData?.noSchoolDay || undefined} dayType={sidePanelData?.dayType || null} onNoSchoolClick={openEditNoSchool}>
                                     <NoSchoolInfo noSchoolDay={sidePanelData?.noSchoolDay || undefined} />
                                     <DayTypeDisplay dayType={sidePanelData?.dayType || null} />

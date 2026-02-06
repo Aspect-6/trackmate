@@ -53,8 +53,8 @@ export const calculateDayType = (
 ): AlternatingABDayType => {
     if (!activeTerm) return null
 
-    // Use the term's schedule type instead of the global one
-    const termScheduleType = activeTerm.scheduleType ?? schedules.type
+    // Use the term's schedule type
+    const termScheduleType = activeTerm.scheduleType
     if (termScheduleType !== "alternating-ab") return null
 
     const abData = schedules["alternating-ab"]
