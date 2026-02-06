@@ -169,10 +169,10 @@ const Settings: React.FC = () => {
                             <CurrentDayCalculation currentDayType={currentDayType || ""} />
 
                             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
-                                <SetDayTypeButton dayType="A" onClick={() => setReferenceDayType("A")}>
+                                <SetDayTypeButton dayType="A" onClick={() => setReferenceDayType("A", activeTermForToday?.id || "")}>
                                     Set Today as A-Day
                                 </SetDayTypeButton>
-                                <SetDayTypeButton dayType="B" onClick={() => setReferenceDayType("B")}>
+                                <SetDayTypeButton dayType="B" onClick={() => setReferenceDayType("B", activeTermForToday?.id || "")}>
                                     Set Today as B-Day
                                 </SetDayTypeButton>
                             </div>

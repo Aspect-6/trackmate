@@ -16,13 +16,6 @@ export type Status = "To Do" | "In Progress" | "Done"
 export type AssignmentType = string
 
 /**
- * Represents the type of school day in the schedule rotation.
- * "A" and "B" are alternating block schedule days.
- * null represents a day with no specific schedule type (e.g. weekend or break).
- */
-export type DayType = "A" | "B" | null
-
-/**
  * UI theme preference applied to the root element.
  */
 export type ThemeMode = "light" | "dark"
@@ -145,16 +138,30 @@ export interface TermSchedule {
 export type ScheduleType = "alternating-ab" | "none"
 
 /**
+ * Represents the type of school day in the schedule rotation.
+ * "A" and "B" are alternating block schedule days.
+ * null represents a day with no specific schedule type (e.g. weekend or break).
+ */
+export type AlternatingABDayType = "A" | "B" | null
+
+/**
+ * Per-term rotation configuration for alternating A/B schedules.
+ * Stores overrides and starting day type scoped to a specific term.
+ */
+export interface AlternatingABRotationConfig {
+    /** What day type the term started on */
+    startDayType: NonNullable<AlternatingABDayType>
+    /** Manual overrides for specific dates within this term (sparse map) */
+    overrides: Record<string, NonNullable<AlternatingABDayType>>
+}
+
+/**
  * Configuration data specific to alternating A/B schedule.
  */
 export interface AlternatingABData {
-    /** First day of the school year */
-    startDate: string
-    /** What day type the start date was */
-    startDayType: "A" | "B"
-    /** Manual overrides for specific dates (sparse map) */
-    dayTypeOverrides: Record<string, "A" | "B">
-    /** Per-term schedule data (termId -> schedule) */
+    /** Per-term rotation configuration (termId -> config) */
+    termConfigs: Record<string, AlternatingABRotationConfig>
+    /** Per-term schedule data for class periods (termId -> schedule) */
     terms: Record<string, TermSchedule>
 }
 
@@ -216,20 +223,7 @@ export interface AcademicTerm {
     endDate: string
     /** The type of term (semesters-only or quarters) */
     termType: TermMode
+    /** The schedule rotation type for this term */
+    scheduleType: ScheduleType
     semesters: Semester[]
-}
-
-// Toast types
-
-/**
- * Types of toast notifications available.
- */
-export type ToastType = "success" | "error"
-
-/**
- * Context interface for managing toast notifications.
- */
-export interface ToastContextType {
-    /** Displays a toast message with a specific type */
-    showToast: (message: string, type?: ToastType) => void
 }

@@ -1,10 +1,10 @@
 import { useModal } from "@/app/contexts/ModalContext"
 import { useClasses, useSchedules } from "@/app/hooks/entities"
-import type { TermSchedule, SemesterScheduleData, DaySchedule, DayType } from "@/app/types"
+import type { TermSchedule, SemesterScheduleData, DaySchedule, AlternatingABDayType } from "@/app/types"
 import type { SemesterName, ScheduleDayType } from "@/pages/My Schedule/types"
 
 // Constants
-const createEmptyDay = (label: NonNullable<DayType>): DaySchedule => ({
+const createEmptyDay = (label: NonNullable<AlternatingABDayType>): DaySchedule => ({
     dayLabel: label,
     classes: [null, null, null, null]
 })

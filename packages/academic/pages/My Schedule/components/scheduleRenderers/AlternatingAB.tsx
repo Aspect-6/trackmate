@@ -1,6 +1,6 @@
 import React from "react"
 import { useAlternatingABSchedule } from "@/pages/My Schedule/hooks/useAlternatingABSchedule"
-import type { DayType } from "@/app/types"
+import type { AlternatingABDayType } from "@/app/types"
 import type { SemesterName } from "@/pages/My Schedule/types"
 import type { ScheduleRendererProps } from "@/app/contexts/ScheduleComponentsContext"
 import AlternatingDaysSchedule, { ScheduleTable, ScheduleTableRow, EmptyCell, FilledCell } from "../AlternatingDaysSchedule"
@@ -24,7 +24,7 @@ const AlternatingABRenderer: React.FC<ScheduleRendererProps> = ({ selectedTermId
             <ScheduleTable>
                 {scheduleData.days.map((daySchedule, dayIndex) => {
                     const isLastRow = dayIndex === scheduleData.days.length - 1
-                    const dayType = daySchedule.dayLabel as NonNullable<DayType>
+                    const dayType = daySchedule.dayLabel as NonNullable<AlternatingABDayType>
                     return (
                         <ScheduleTableRow
                             key={daySchedule.dayLabel}

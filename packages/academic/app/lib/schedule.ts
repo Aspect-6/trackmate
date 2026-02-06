@@ -1,6 +1,5 @@
 import { parseDateLocal, dateToLocalISOString } from "@shared/lib"
-import type { Schedules, DayType, AcademicTerm, NoSchoolPeriod } from "@/app/types"
-
+import type { Schedules, AlternatingABDayType, AcademicTerm, NoSchoolPeriod } from "@/app/types"
 
 export const isWeekend = (dateString: string): boolean => {
     const date = parseDateLocal(dateString)
@@ -44,16 +43,19 @@ export const getActiveQuarter = (dateString: string, activeTerm: AcademicTerm) =
  * @param schedules - The full schedules data object (containing type and A/B config)
  * @param activeTerm - The academic term active for this date (if any)
  * @param noSchoolPeriods - List of all no-school periods (holidays, breaks)
- * @returns "A", "B", or null (for weekends, no-school days, or non-alternating schedules)
+ * @returns "A" or "B" for alternating AB schedules, or null for weekends, no-school days, or non-alternating schedules
  */
 export const calculateDayType = (
     dateString: string,
     schedules: Schedules,
     activeTerm: AcademicTerm | undefined,
     noSchoolPeriods: NoSchoolPeriod[]
-): DayType => {
-    if (schedules.type !== "alternating-ab") return null
+): AlternatingABDayType => {
     if (!activeTerm) return null
+
+    // Use the term's schedule type instead of the global one
+    const termScheduleType = activeTerm.scheduleType ?? schedules.type
+    if (termScheduleType !== "alternating-ab") return null
 
     const abData = schedules["alternating-ab"]
     if (!abData) return null
@@ -64,13 +66,21 @@ export const calculateDayType = (
     if (!getActiveSemester(dateString, activeTerm)) return null
     if (activeTerm.termType === "Semesters With Quarters" && !getActiveQuarter(dateString, activeTerm)) return null
 
+    // Get term-specific rotation config, or use default (assumes term starts on "A" day)
+    const rotationConfig = abData.termConfigs?.[activeTerm.id] ?? {
+        startDayType: "A" as const,
+        overrides: {}
+    }
+
+    const overrides = rotationConfig.overrides || {}
+
     // Find the most recent override ON OR BEFORE this target date to use as reference
-    if (abData.dayTypeOverrides[dateString]) return abData.dayTypeOverrides[dateString]
-    const overrideDates = Object.keys(abData.dayTypeOverrides).sort()
+    if (overrides[dateString]) return overrides[dateString]
+    const overrideDates = Object.keys(overrides).sort()
     const lastValidOverride = overrideDates.filter(date => date <= dateString).pop()
 
     const refDate = lastValidOverride || activeTerm.startDate
-    const refType = lastValidOverride ? abData.dayTypeOverrides[lastValidOverride]! : abData.startDayType
+    const refType = lastValidOverride ? overrides[lastValidOverride]! : rotationConfig.startDayType
 
     // Count school days from reference point
     const current = parseDateLocal(refDate)

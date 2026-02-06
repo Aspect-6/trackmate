@@ -143,6 +143,7 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                 startDate: termStart,
                 endDate: termEnd,
                 termType: "Semesters With Quarters",
+                scheduleType: existingTerm?.scheduleType ?? "alternating-ab",
                 semesters: [
                     {
                         id: fallSemester?.id || generateId(),
@@ -176,6 +177,7 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                 startDate: termStart,
                 endDate: termEnd,
                 termType: "Semesters Only",
+                scheduleType: existingTerm?.scheduleType ?? "alternating-ab",
                 semesters: [
                     { id: fallSemester?.id || generateId(), name: "Fall", startDate: termStart, endDate: fallEnd },
                     { id: springSemester?.id || generateId(), name: "Spring", startDate: springStart, endDate: termEnd }

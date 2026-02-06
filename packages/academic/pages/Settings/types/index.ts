@@ -1,4 +1,4 @@
-import { AssignmentType, DayType, AcademicTerm } from "@/app/types"
+import { AssignmentType, AlternatingABDayType, AcademicTerm } from "@/app/types"
 import { DragEndEvent, SensorDescriptor, SensorOptions } from "@dnd-kit/core"
 import { LucideIcon } from "lucide-react"
 
@@ -202,7 +202,7 @@ export namespace ScheduleSettings {
             currentDayType: string
         }
         export interface SetDayTypeButtonProps {
-            dayType: NonNullable<DayType>
+            dayType: NonNullable<AlternatingABDayType>
             onClick: () => void
             children: React.ReactNode
         }

@@ -1,10 +1,10 @@
-import { Class, DayType, Semester } from "@/app/types"
+import { Class, AlternatingABDayType, Semester } from "@/app/types"
 
 /** Semester name type */
 export type SemesterName = Semester["name"]
 
 /** Non-nullable day type for A/B days */
-export type ScheduleDayType = NonNullable<DayType>
+export type ScheduleDayType = NonNullable<AlternatingABDayType>
 
 export namespace AlternatingDaysSchedule {
     export interface Props {
