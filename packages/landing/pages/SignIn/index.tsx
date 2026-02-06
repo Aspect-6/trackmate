@@ -45,9 +45,12 @@ const SignIn: React.FC = () => {
         }
     }
 
-    const handleGoogleSignIn = async () => {
+    const handleProviderSignIn = async (
+        provider: "Google" | "Facebook",
+        signInFn: typeof signInWithGoogle
+    ) => {
         clearErrors()
-        const { user, error } = await signInWithGoogle()
+        const { user, error } = await signInFn()
         if (user) {
             redirect(redirectTo)
             return
@@ -59,47 +62,20 @@ const SignIn: React.FC = () => {
                     setError("root", { message: "No account found. Please sign up first." })
                     break
                 case "auth/user-cancelled":
-                    setError("root", { message: "Google sign-in was cancelled" })
-                    break
                 case "auth/popup-closed-by-user":
-                    setError("root", { message: "Google sign-in window was closed" })
+                    setError("root", { message: `${provider} sign-in was cancelled` })
                     break
                 case "auth/popup-blocked":
-                    setError("root", { message: "Google sign-in window was blocked" })
+                    setError("root", { message: `${provider} sign-in was blocked by browser` })
                     break
                 default:
-                    setError("root", { message: "Failed to sign in with Google. Please try again." })
+                    setError("root", { message: `Failed to sign in with ${provider}. Please try again.` })
             }
         }
     }
 
-    const handleFacebookSignIn = async () => {
-        clearErrors()
-        const { user, error } = await signInWithFacebook()
-        if (user) {
-            redirect(redirectTo)
-            return
-        }
-
-        if (error) {
-            switch (error.code) {
-                case "auth/account-not-found":
-                    setError("root", { message: "No account found. Please sign up first." })
-                    break
-                case "auth/user-cancelled":
-                    setError("root", { message: "Facebook sign-in was cancelled" })
-                    break
-                case "auth/popup-closed-by-user":
-                    setError("root", { message: "Facebook sign-in window was closed" })
-                    break
-                case "auth/popup-blocked":
-                    setError("root", { message: "Facebook sign-in window was blocked" })
-                    break
-                default:
-                    setError("root", { message: "Failed to sign in with Facebook. Please try again." })
-            }
-        }
-    }
+    const handleGoogleSignIn = () => handleProviderSignIn("Google", signInWithGoogle)
+    const handleFacebookSignIn = () => handleProviderSignIn("Facebook", signInWithFacebook)
 
     return (
         <div className="min-h-dvh flex items-center justify-center p-4">

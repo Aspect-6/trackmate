@@ -32,20 +32,15 @@ const SignUp: React.FC = () => {
             return
         }
 
-        if (error) {
-            switch (error.code) {
-                case "auth/email-already-in-use":
-                    setError("root", { message: "Failed to create account. Please try again" })
-                    break
-                default:
-                    setError("root", { message: "Failed to create account. Please try again" })
-            }
-        }
+        if (error) setError("root", { message: "Failed to create account. Please try again" })
     }
 
-    const handleGoogleSignUp = async () => {
+    const handleProviderSignUp = async (
+        provider: "Google" | "Facebook",
+        signUpFn: typeof signUpWithGoogle
+    ) => {
         clearErrors()
-        const { user, error } = await signUpWithGoogle()
+        const { user, error } = await signUpFn()
         if (user) {
             redirect(redirectTo)
             return
@@ -54,44 +49,20 @@ const SignUp: React.FC = () => {
         if (error) {
             switch (error.code) {
                 case "auth/user-cancelled":
-                    setError("root", { message: "Google sign-up was cancelled" })
-                    break
                 case "auth/popup-closed-by-user":
-                    setError("root", { message: "Google sign-up window was closed" })
+                    setError("root", { message: `${provider} sign-up was cancelled` })
                     break
                 case "auth/popup-blocked":
-                    setError("root", { message: "Google sign-up window was blocked" })
+                    setError("root", { message: `${provider} sign-up was blocked by browser` })
                     break
                 default:
-                    setError("root", { message: "Failed to sign up with Google. Please try again." })
+                    setError("root", { message: `Failed to sign up with ${provider}. Please try again.` })
             }
         }
     }
 
-    const handleFacebookSignUp = async () => {
-        clearErrors()
-        const { user, error } = await signUpWithFacebook()
-        if (user) {
-            redirect(redirectTo)
-            return
-        }
-
-        if (error) {
-            switch (error.code) {
-                case "auth/user-cancelled":
-                    setError("root", { message: "Facebook sign-up was cancelled" })
-                    break
-                case "auth/popup-closed-by-user":
-                    setError("root", { message: "Facebook sign-up window was closed" })
-                    break
-                case "auth/popup-blocked":
-                    setError("root", { message: "Facebook sign-up window was blocked" })
-                    break
-                default:
-                    setError("root", { message: "Failed to sign up with Facebook. Please try again." })
-            }
-        }
-    }
+    const handleGoogleSignUp = () => handleProviderSignUp("Google", signUpWithGoogle)
+    const handleFacebookSignUp = () => handleProviderSignUp("Facebook", signUpWithFacebook)
 
     return (
         <div className="min-h-dvh flex items-center justify-center p-4">

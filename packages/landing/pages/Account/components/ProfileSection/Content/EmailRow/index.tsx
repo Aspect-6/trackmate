@@ -41,9 +41,6 @@ const EmailRow: React.FC<ProfileSection.Content.EmailRow.Props> = ({
                 case "auth/invalid-new-email":
                     setError("Please enter a valid email address")
                     break
-                case "auth/email-already-in-use":
-                    setError("This email is already in use by another account")
-                    break
                 case "auth/requires-recent-login":
                     setError("Please sign out and sign back in to change your email")
                     break
