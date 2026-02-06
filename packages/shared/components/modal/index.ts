@@ -57,3 +57,6 @@ export type { ModalTabPanelProps } from "./ModalTabPanel"
 
 export { ModalTabPanelsContainer } from "./ModalTabPanelsContainer"
 export type { ModalTabPanelsContainerProps } from "./ModalTabPanelsContainer"
+
+export { ModalCharacterCountDisplay } from "./ModalCharacterCountDisplay"
+export type { ModalCharacterCountDisplayProps } from "./ModalCharacterCountDisplay"

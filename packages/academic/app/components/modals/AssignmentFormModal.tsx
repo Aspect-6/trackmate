@@ -25,6 +25,7 @@ import {
     ModalTab,
     ModalTabPanelsContainer,
     ModalTabPanel,
+    ModalCharacterCountDisplay,
 } from "@shared/components/modal"
 
 interface AssignmentFormModalProps {
@@ -227,7 +228,12 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
                                 rows={2}
                                 value={formData.description}
                                 onChange={e => setFormData({ ...formData, description: e.target.value })}
+                                maxLength={150}
                                 focusColor={focusColor}
+                            />
+                            <ModalCharacterCountDisplay
+                                current={formData.description.length}
+                                max={150}
                             />
                         </div>
                     </ModalTabPanel>

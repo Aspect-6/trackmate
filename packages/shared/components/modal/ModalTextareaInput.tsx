@@ -8,6 +8,7 @@ export interface ModalTextareaInputProps {
     placeholder?: string
     rows?: number
     required?: boolean
+    maxLength?: number
     focusColor?: string
     className?: string
 }
@@ -20,6 +21,7 @@ export const ModalTextareaInput: React.FC<ModalTextareaInputProps> = ({
     placeholder,
     rows = 2,
     required,
+    maxLength,
     focusColor,
     className = "",
 }) => {
@@ -32,6 +34,7 @@ export const ModalTextareaInput: React.FC<ModalTextareaInputProps> = ({
             placeholder={placeholder}
             rows={rows}
             required={required}
+            maxLength={maxLength}
             className={`modal-textarea ${className}`.trim()}
             style={focusColor ? { "--focus-color": focusColor } as React.CSSProperties : undefined}
         />
