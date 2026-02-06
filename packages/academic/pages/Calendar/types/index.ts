@@ -37,6 +37,7 @@ export namespace CalendarBody {
                 month: number;
                 year: number;
                 isToday: boolean;
+                isSelected: boolean;
                 noSchool?: NoSchoolPeriod;
                 assignments: Assignment[];
                 events: Event[];
@@ -52,6 +53,7 @@ export namespace CalendarBody {
                 month: number;
                 day: number;
                 isToday?: boolean;
+                isSelected?: boolean;
                 noSchool?: NoSchoolPeriod | undefined;
                 onSelectDate: (d: Date) => void;
                 children?: React.ReactNode;

@@ -82,6 +82,7 @@ const Calendar: React.FC = () => {
                                     month={month}
                                     year={year}
                                     isToday={cell.isToday}
+                                    isSelected={selectedDate?.getFullYear() === year && selectedDate?.getMonth() === month && selectedDate?.getDate() === cell.day}
                                     noSchool={cell.noSchool}
                                     assignments={cell.assignments}
                                     events={cell.events}
