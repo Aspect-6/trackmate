@@ -173,6 +173,19 @@ export namespace CalendarBody {
     }
 }
 
+export namespace UseSidePanel {
+    export interface Data {
+        date: Date
+        dateString: string
+        formattedDate: string
+        noSchoolDay: NoSchoolPeriod | undefined
+        dayType: "A" | "B" | null
+        scheduleType: string | undefined
+        dueAssignments: Assignment[]
+        dayEvents: Event[]
+    }
+}
+
 // Hooks
 export namespace UseCalendar {
     interface BaseCalendarCell {

@@ -23,9 +23,8 @@ export const useSidePanel = ({ selectedDate }: UseSidePanelProps) => {
 
         const dateString = dateToLocalISOString(selectedDate)
         const noSchoolDay = getNoSchoolStatusForDate(dateString)
-        const dayType = getDayTypeForDate(dateString, getActiveTerm(dateString, academicTerms), noSchoolPeriods)
-        // TODO: Classes now stored per-term - need to determine active term to show classes
-        const dayClasses: (string | null)[] = []
+        const activeTerm = getActiveTerm(dateString, academicTerms)
+        const dayType = getDayTypeForDate(dateString, activeTerm, noSchoolPeriods)
         const dueAssignments = getAssignmentsForDate(dateString)
         const dayEvents = getEventsForDate(dateString)
 
@@ -37,7 +36,7 @@ export const useSidePanel = ({ selectedDate }: UseSidePanelProps) => {
             formattedDate,
             noSchoolDay,
             dayType,
-            classes: dayClasses,
+            scheduleType: activeTerm?.scheduleType,
             dueAssignments,
             dayEvents
         }
