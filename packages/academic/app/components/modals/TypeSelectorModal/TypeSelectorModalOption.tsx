@@ -18,7 +18,7 @@ const OptionButton: React.FC<OptionButtonProps> = ({ onClick, icon, label, bg, b
             className="modal-btn"
             style={{
                 backgroundColor: isHovered ? bgHover : bg,
-                color: GLOBAL.TEXT_PRIMARY
+                color: GLOBAL.TEXT_WHITE
             }}
             {...hoverProps}
         >
