@@ -1,4 +1,3 @@
-/* Calendar Page Variables */
 :root.dark {
     /* No School */
     --calendar-no-school-bg: var(--background-primary);
@@ -65,9 +64,4 @@
     white-space: nowrap;
     font-weight: 500;
     transition: opacity 0.15s;
-}
-
-.calendar-assignment:hover,
-.calendar-event:hover {
-    opacity: 0.85;
 }

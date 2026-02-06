@@ -90,3 +90,32 @@ export const parseDateLocal = (dateString: string): Date => {
     }
     return new Date(parts[0], parts[1] - 1, parts[2])
 }
+
+/**
+ * Checks if a specific date string (YYYY-MM-DD) is strictly in the past (before today).
+ * @param dateStr - The date string to check.
+ * @returns True if dateStr < todayString(), false otherwise.
+ */
+export const isDatePast = (dateStr: string): boolean => {
+    return dateStr < todayString()
+}
+
+/**
+ * Checks if a time string (HH:MM) has passed today.
+ * @param timeStr - The time string to check.
+ * @returns True if the time is earlier than the current local time.
+ */
+export const isTimePast = (timeStr: string): boolean => {
+    if (!timeStr) return false
+    const now = new Date()
+    const [hours, minutes] = timeStr.split(':').map(Number)
+
+    if (hours === undefined || isNaN(hours) || minutes === undefined || isNaN(minutes)) {
+        return false
+    }
+
+    const targetTime = new Date(now)
+    targetTime.setHours(hours, minutes, 0, 0)
+
+    return targetTime.getTime() < now.getTime()
+}
