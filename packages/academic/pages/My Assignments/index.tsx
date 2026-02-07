@@ -58,7 +58,7 @@ const MyAssignments: React.FC = () => {
 				onDragCancel={handleDragCancel}
 				onDragOver={handleDragOver}
 			>
-				<div className="assignments-column-layout flex-1 min-h-0 flex flex-col lg:flex-row gap-4 pb-4 lg:pb-0">
+				<div className="assignments-column-layout flex-1 min-h-0 flex flex-col lg:flex-row gap-4 pb-4 md:pb-0">
 					{COLUMN_CONFIGS.map(({ status, title }) => (
 						<AssignmentColumn
 							key={status}

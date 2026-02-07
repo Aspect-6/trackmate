@@ -2,7 +2,8 @@
 :root.dark {
     --my-assignments-header-upcoming: hsl(216, 12%, 84%);
     --my-assignments-header-inprogress: hsl(31, 97%, 72%);
-    --my-assignments-header-done: hsl(142, 77%, 73%);}
+    --my-assignments-header-done: hsl(142, 77%, 73%);
+}
 
 :root.light {
     --my-assignments-header-upcoming: hsl(215, 15%, 40%);
@@ -15,8 +16,32 @@
     margin-top: 0.5rem;
 }
 
+/* Medium: 2-column grid with Done full-width below */
+@media (width >= theme(--breakpoint-md)) and (width < theme(--breakpoint-lg)) {
+    .assignments-column-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 1rem;
+        height: 100%;
+    }
+
+    .assignments-column-layout>.assignments-board:nth-child(1),
+    .assignments-column-layout>.assignments-board:nth-child(2) {
+        max-height: 315px;
+    }
+
+    .assignments-column-layout>.assignments-board:nth-child(3) {
+        grid-column: span 2;
+    }
+
+    .assignments-board+.assignments-board {
+        margin-top: 0;
+    }
+}
+
 /* Desktop: Reset for desktop layout */
-@media (width >= theme(--breakpoint-lg)) {
+@media (width >=theme(--breakpoint-lg)) {
     .assignments-board+.assignments-board {
         margin-top: 0;
     }

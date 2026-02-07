@@ -9,18 +9,18 @@ import { PATHS } from "@/app/config/paths"
 const Layout: React.FC = () => {
     const location = useLocation()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
-    const [isDesktopViewport, setIsDesktopViewport] = useState<boolean>(() => {
+    const [isMediumViewport, setIsMediumViewport] = useState<boolean>(() => {
         if (typeof window === "undefined") return true
-        return window.matchMedia("(min-width: 1024px)").matches
+        return window.matchMedia("(min-width: 768px)").matches
     })
 
     useEffect(() => {
         if (typeof window === "undefined") return
-        const mediaQuery = window.matchMedia("(min-width: 1024px)")
+        const mediaQuery = window.matchMedia("(min-width: 768px)")
 
         const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {
             const matches = "matches" in event ? event.matches : mediaQuery.matches
-            setIsDesktopViewport(matches)
+            setIsMediumViewport(matches)
         }
 
         handleChange(mediaQuery)
@@ -36,7 +36,7 @@ const Layout: React.FC = () => {
 
     const isCalendar = location.pathname === PATHS["calendar"]
     const isAssignments = location.pathname === PATHS["my-assignments"]
-    const isFixedViewportPage = isCalendar || (isAssignments && isDesktopViewport)
+    const isFixedViewportPage = isCalendar || (isAssignments && isMediumViewport)
 
     return (
         <div className={`app-container flex ${isFixedViewportPage ? "h-dvh overflow-hidden" : "min-h-dvh"}`}
