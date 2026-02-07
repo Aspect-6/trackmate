@@ -1,21 +1,35 @@
 import React, { useState } from "react"
-import { useClasses } from "@/app/hooks/entities/useClasses"
-import AssignmentBoard from "@/pages/My Assignments/components/AssignmentBoard"
-import ActionBar from "@/pages/My Assignments/components/ActionBar"
-import AssignmentDragOverlay from "@/pages/My Assignments/components/AssignmentDragOverlay"
-import { useAssignmentBoard } from "@/pages/My Assignments/hooks/useAssignmentBoard"
 import { DndContext, DragOverlay } from "@dnd-kit/core"
+import { useMobileDetection } from "@/pages/My Assignments/hooks/useMobileDetection"
+import { useColumnVisibility } from "@/pages/My Assignments/hooks/useColumnVisibility"
+import { useAssignmentDrag } from "@/pages/My Assignments/hooks/useAssignmentDrag"
+import ActionBar from "@/pages/My Assignments/components/ActionBar"
+import AssignmentColumn from "@/pages/My Assignments/components/AssignmentColumn"
+import AssignmentDragOverlay from "@/pages/My Assignments/components/AssignmentDragOverlay"
+import type { Status } from "@/app/types"
 import "./index.css"
 
-const MyAssignments: React.FC = () => {
-	const { getClassById } = useClasses()
+interface ColumnConfig {
+	status: Status
+	title: string
+}
 
-	const [searchQuery, setSearchQuery] = useState("")
+const COLUMN_CONFIGS: ColumnConfig[] = [
+	{ status: "To Do", title: "Upcoming" },
+	{ status: "In Progress", title: "In Progress" },
+	{ status: "Done", title: "Done" },
+]
+
+const MyAssignments: React.FC = () => {
+	const [searchQuery, setSearchQuery] = useState<string>("")
 	const [typeFilter, setTypeFilter] = useState<string[]>([])
 	const [priorityFilter, setPriorityFilter] = useState<string[]>([])
 
+	const { isMobile } = useMobileDetection()
+	const { openColumns, toggleColumn } = useColumnVisibility(isMobile)
+
+	const dragEnabled = !isMobile
 	const {
-		columnConfigs,
 		sensors,
 		collisionDetection,
 		handleDragStart,
@@ -23,12 +37,8 @@ const MyAssignments: React.FC = () => {
 		handleDragCancel,
 		handleDragOver,
 		activeAssignmentId,
-		dragEnabled,
-		isMobile,
-		openColumns,
-		toggleColumn,
 		overId,
-	} = useAssignmentBoard()
+	} = useAssignmentDrag(dragEnabled)
 
 	return (
 		<div className="flex-1 min-h-0 flex flex-col">
@@ -49,14 +59,14 @@ const MyAssignments: React.FC = () => {
 				onDragOver={handleDragOver}
 			>
 				<div className="assignments-column-layout flex-1 min-h-0 flex flex-col lg:flex-row gap-4 pb-4 lg:pb-0">
-					{columnConfigs.map(({ status, title }) => (
-						<AssignmentBoard
+					{COLUMN_CONFIGS.map(({ status, title }) => (
+						<AssignmentColumn
 							key={status}
 							status={status}
 							title={title}
 							isMobile={isMobile}
-							openColumns={openColumns}
-							toggleColumn={toggleColumn}
+							isOpen={openColumns[status]}
+							onToggle={() => toggleColumn(status)}
 							activeAssignmentId={activeAssignmentId}
 							overId={overId}
 							dragEnabled={dragEnabled}
@@ -69,10 +79,7 @@ const MyAssignments: React.FC = () => {
 
 				<DragOverlay>
 					{dragEnabled && activeAssignmentId ? (
-						<AssignmentDragOverlay
-							assignmentId={activeAssignmentId}
-							getClassById={getClassById}
-						/>
+						<AssignmentDragOverlay assignmentId={activeAssignmentId} />
 					) : null}
 				</DragOverlay>
 			</DndContext>
@@ -81,3 +88,4 @@ const MyAssignments: React.FC = () => {
 }
 
 export default MyAssignments
+

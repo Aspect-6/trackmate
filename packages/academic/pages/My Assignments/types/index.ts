@@ -1,83 +1,5 @@
 import { Assignment, Status, Class } from "@/app/types"
 
-export interface AssignmentCardContentProps {
-	assignment: Assignment
-	classColor: string
-	className: string
-	showGrip?: boolean
-}
-
-export interface AssignmentDragOverlayProps {
-	assignmentId: string
-	getClassById: (id: string) => Class
-}
-
-export namespace AssignmentBoard {
-	export interface Props {
-		status: Status
-		title: string
-		isMobile: boolean
-		openColumns: Record<Status, boolean>
-		toggleColumn: (status: Status) => void
-		activeAssignmentId: string | null
-		overId: string | null
-		dragEnabled: boolean
-		searchQuery?: string
-		typeFilter?: string[]
-		priorityFilter?: string[]
-	}
-	// ======================
-
-	export namespace Header {
-		export interface Props {
-			status: Status
-			children: React.ReactNode
-			isMobile: boolean
-			openColumns: Record<Status, boolean>
-			toggleColumn: (status: Status) => void
-		}
-		// ======================
-
-		export interface TitleProps {
-			status: Status
-			children: React.ReactNode
-			isMobile: boolean
-			openColumns: Record<Status, boolean>
-		}
-		export interface AssignmentCountProps {
-			status: Status
-		}
-	}
-
-	export namespace Body {
-		export interface Props {
-			status: Status
-			itemsInView: Assignment[]
-			isMobile: boolean
-			isCollapsed: boolean
-			isOver: boolean
-			droppableRef: (node: HTMLElement | null) => void
-			children: React.ReactNode
-		}
-		// ======================
-
-		export interface ListProps {
-			items: Assignment[]
-			showPlaceholder: boolean
-			insertionIndex: number
-			onAssignmentClick: (id: string) => void
-			getClassById: (id: string) => Class
-			dragEnabled: boolean
-		}
-		export interface AssignmentItemProps {
-			assignment: Assignment
-			onClick: (id: string) => void
-			getClassById: (id: string) => Class
-			dragEnabled: boolean
-		}
-	}
-}
-
 export namespace ActionBar {
 	export interface Props {
 		searchQuery: string
@@ -97,6 +19,59 @@ export namespace ActionBar {
 	}
 }
 
+export namespace AssignmentColumn {
+	export interface Props {
+		status: Status
+		title: string
+		isMobile: boolean
+		isOpen: boolean
+		onToggle: () => void
+		activeAssignmentId: string | null
+		overId: string | null
+		dragEnabled: boolean
+		searchQuery?: string
+		typeFilter?: string[]
+		priorityFilter?: string[]
+	}
+	// ====================== 
+
+	export interface HeaderProps {
+		status: Status
+		title: string
+		totalCount: number
+		isMobile: boolean
+		isCollapsed: boolean
+		onToggle: () => void
+	}
+	// ====================== 
+
+	export namespace Body {
+		export interface Props {
+			status: Status
+			items: Assignment[]
+			droppableRef: (node: HTMLElement | null) => void
+			isOver: boolean
+			isMobile: boolean
+			dragEnabled: boolean
+			activeAssignmentId: string | null
+			overId: string | null
+		}
+		// ====================== 
+
+		export interface AssignmentCardProps {
+			assignment: Assignment
+			classInfo: Class
+			dragEnabled: boolean
+			onClick: (id: string) => void
+		}
+		export interface DragPlaceholderProps { }
+	}
+}
+
+export interface AssignmentDragOverlayProps {
+	assignmentId: string
+}
+
 // Hooks
 export namespace UseAssignmentBoard {
 	export interface ColumnConfig {
@@ -114,22 +89,5 @@ export namespace UseAssignmentBoard {
 		isMobile: boolean
 		openColumns: Record<Status, boolean>
 		toggleColumn: (status: Status) => void
-	}
-}
-
-export namespace UseCollapseAnimation {
-	export interface Props {
-		status: string
-		isMobile: boolean
-		isCollapsed: boolean
-		itemCount: number
-	}
-
-	export interface Return {
-		listRef: React.RefObject<HTMLDivElement | null>
-		contentMaxHeight: number
-		shouldAnimate: boolean
-		isListHidden: boolean
-		contentId: string
 	}
 }
