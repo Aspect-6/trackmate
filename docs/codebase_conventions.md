@@ -252,7 +252,7 @@ Imports must follow this strict order:
 4. Imports from hooks — Third party first, @shared second, `@/app/hooks` third, and `@/pages` fourth
 5. `import type { ... }` for types
 6. General function imports like from utilities or auth functions — `@shared` first, `@/app` second
-7. Component imports — Components from `@shared` first, `@/app` second, `@/pages` third
+7. Component imports — Components from third-party libraries first, `@shared` second, `@/app` third, `@/pages` fourth
 8. Always second to last, or last if the final import is not present, are color imports
 9. CSS file imports
 
