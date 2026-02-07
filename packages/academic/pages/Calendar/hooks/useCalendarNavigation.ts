@@ -21,9 +21,15 @@ export const useCalendarNavigation = (onMonthChange?: () => void) => {
     const year = currentDate.getFullYear()
     const period = formatDate("period", dateToLocalISOString(currentDate))
 
+    const jumpToDate = useCallback((date: Date) => {
+        setCurrentDate(date)
+        onMonthChange?.()
+    }, [onMonthChange])
+
     return {
         currentDate,
         changeMonth,
+        jumpToDate,
         month,
         year,
         period,
