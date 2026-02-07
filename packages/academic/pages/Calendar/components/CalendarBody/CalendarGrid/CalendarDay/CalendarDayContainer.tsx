@@ -9,7 +9,7 @@ const CalendarDayContainer: React.FC<CalendarBody.Grid.Day.ContainerProps> = ({ 
     return (
         <div
             onClick={() => onSelectDate(new Date(year, month, day))}
-            className="border-r border-b p-2 overflow-y-auto relative cursor-pointer transition-colors"
+            className="border-r border-b p-2 overflow-y-auto no-scrollbar relative cursor-pointer transition-colors"
             style={{
                 borderColor: CALENDAR.BORDER_PRIMARY,
                 backgroundColor: isHovered ? CALENDAR.BACKGROUND_TERTIARY : (noSchool ? CALENDAR.NO_SCHOOL_BG : undefined),
