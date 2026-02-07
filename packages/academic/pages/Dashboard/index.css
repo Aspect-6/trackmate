@@ -28,3 +28,11 @@
     transition: max-height 0.25s ease;
     overflow: hidden;
 }
+
+/* Medium: Apply max-height to top modules */
+@media (width >=theme(--breakpoint-md)) and (width < theme(--breakpoint-lg)) {
+    .dashboard-collapsible {
+        max-height: 315px;
+        overflow: hidden;
+    }
+}

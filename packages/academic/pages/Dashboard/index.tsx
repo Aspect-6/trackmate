@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="dashboard-page flex-1 min-h-0 flex flex-col gap-6 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-shrink-0 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-shrink-0 w-full">
                 <TodaysEvents
                     events={todaysEvents}
                     onEventClick={openEditEvent}
