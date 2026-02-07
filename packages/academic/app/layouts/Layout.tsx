@@ -39,7 +39,7 @@ const Layout: React.FC = () => {
     const isFixedViewportPage = isCalendar || (isAssignments && isMediumViewport)
 
     return (
-        <div className={`app-container flex ${isFixedViewportPage ? "h-dvh overflow-hidden" : "min-h-dvh"}`}
+        <div id="app-container" className={`flex ${isFixedViewportPage ? "h-dvh overflow-hidden" : "min-h-dvh"}`}
             style={{ backgroundColor: GLOBAL.WEBPAGE_BACKGROUND }}
         >
             <Sidebar variant="desktop" />

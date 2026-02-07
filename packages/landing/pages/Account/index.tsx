@@ -81,7 +81,7 @@ const Account: React.FC = () => {
     }
 
     return (
-        <div className="min-h-dvh flex flex-col lg:flex-row" style={{ backgroundColor: ACCOUNT.BACKGROUND_PRIMARY }}>
+        <div id="account-container" className="min-h-dvh flex flex-col lg:flex-row" style={{ backgroundColor: ACCOUNT.BACKGROUND_PRIMARY }}>
 
 
             <AccountSidebar

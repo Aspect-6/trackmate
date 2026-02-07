@@ -18,7 +18,7 @@ const Landing: React.FC = () => {
     const { user, loading } = useAuth()
 
     return (
-        <div className="min-h-dvh flex flex-col items-center p-8">
+        <div id="landing-container" className="min-h-dvh flex flex-col items-center p-8">
             <Header>
                 <TrackMateLogo size={50} showBackground={false} crop className="lg:ml-8" />
                 {!loading && (

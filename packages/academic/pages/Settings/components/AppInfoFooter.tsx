@@ -4,7 +4,7 @@ import { DEVELOPER_NAME } from "@shared/config/brand"
 
 const AppInfoFooter: React.FC = () => {
     return (
-        <div className="mt-8 text-center text-gray-500 text-sm">
+        <div id="app-info-footer" className="mt-8 text-center text-gray-500 text-sm">
             <p>{APP_FULL_NAME} (v{CURRENT_APP_VERSION}) – {DEVELOPER_NAME}</p>
         </div>
     )
