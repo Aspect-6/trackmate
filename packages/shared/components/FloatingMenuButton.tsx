@@ -18,8 +18,7 @@ const FloatingMenuButton: React.FC<FloatingMenuButtonProps> = ({
 }) => {
     const { isHovered, hoverProps } = useHover()
 
-    // Animate position: Left (closed) -> Right (open)
-    const leftPosition = isOpen ? "calc(100% - 3.5rem - 1.5rem)" : "1.5rem" // 3.5rem (w-14) + 1.5rem (margin)
+    const leftPosition = isOpen ? "calc(100% - 3.5rem - 1.5rem)" : "1.5rem"
 
     return (
         <button
@@ -27,7 +26,7 @@ const FloatingMenuButton: React.FC<FloatingMenuButtonProps> = ({
             className={`lg:hidden fixed bottom-6 z-40 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out active:scale-95 ${isOpen ? "z-[60]" : "z-40"}`}
             style={{
                 backgroundColor: isHovered ? hoverColor : backgroundColor,
-                color: TRACKMATE.TEXT_PRIMARY,
+                color: TRACKMATE.TEXT_WHITE,
                 left: leftPosition
             }}
             aria-label={isOpen ? "Close menu" : "Open menu"}
