@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 import { useClasses } from "@/app/hooks/entities/useClasses"
 import AssignmentBoard from "@/pages/My Assignments/components/AssignmentBoard"
+import ActionBar from "@/pages/My Assignments/components/ActionBar"
 import AssignmentDragOverlay from "@/pages/My Assignments/components/AssignmentDragOverlay"
 import { useAssignmentBoard } from "@/pages/My Assignments/hooks/useAssignmentBoard"
 import { DndContext, DragOverlay } from "@dnd-kit/core"
@@ -8,6 +9,10 @@ import "./index.css"
 
 const MyAssignments: React.FC = () => {
 	const { getClassById } = useClasses()
+
+	const [searchQuery, setSearchQuery] = useState("")
+	const [typeFilter, setTypeFilter] = useState<string[]>([])
+	const [priorityFilter, setPriorityFilter] = useState<string[]>([])
 
 	const {
 		columnConfigs,
@@ -27,6 +32,14 @@ const MyAssignments: React.FC = () => {
 
 	return (
 		<div className="flex-1 min-h-0 flex flex-col">
+			<ActionBar
+				searchQuery={searchQuery}
+				onSearchChange={setSearchQuery}
+				typeFilter={typeFilter}
+				onTypeFilterChange={setTypeFilter}
+				priorityFilter={priorityFilter}
+				onPriorityFilterChange={setPriorityFilter}
+			/>
 			<DndContext
 				sensors={sensors}
 				collisionDetection={collisionDetection}
@@ -47,6 +60,9 @@ const MyAssignments: React.FC = () => {
 							activeAssignmentId={activeAssignmentId}
 							overId={overId}
 							dragEnabled={dragEnabled}
+							searchQuery={searchQuery}
+							typeFilter={typeFilter}
+							priorityFilter={priorityFilter}
 						/>
 					))}
 				</div>

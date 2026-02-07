@@ -22,6 +22,9 @@ export namespace AssignmentBoard {
 		activeAssignmentId: string | null
 		overId: string | null
 		dragEnabled: boolean
+		searchQuery?: string
+		typeFilter?: string[]
+		priorityFilter?: string[]
 	}
 	// ======================
 
@@ -72,6 +75,25 @@ export namespace AssignmentBoard {
 			getClassById: (id: string) => Class
 			dragEnabled: boolean
 		}
+	}
+}
+
+export namespace ActionBar {
+	export interface Props {
+		searchQuery: string
+		onSearchChange: (value: string) => void
+		typeFilter: string[]
+		onTypeFilterChange: (values: string[]) => void
+		priorityFilter: string[]
+		onPriorityFilterChange: (values: string[]) => void
+	}
+	// ====================== 
+
+	export interface FilterChipProps {
+		label: string
+		isActive: boolean
+		onClick: () => void
+		color?: string
 	}
 }
 

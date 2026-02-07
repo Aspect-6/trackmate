@@ -28,3 +28,11 @@
 .custom-scrollbar-horizontal::-webkit-scrollbar-thumb:hover {
 	background: var(--scrollbar-thumb-hover);
 }
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}

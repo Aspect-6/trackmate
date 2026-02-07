@@ -54,3 +54,8 @@
 	border-color: var(--modal-input-border);
 	color: var(--modal-input-text);
 }
+
+.mask-linear-fade {
+    mask-image: linear-gradient(to right, black calc(100% - 25px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 25px), transparent 100%);
+}

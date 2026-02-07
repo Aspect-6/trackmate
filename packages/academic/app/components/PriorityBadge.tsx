@@ -1,17 +1,14 @@
 import React from "react"
 import { cn } from "@/app/lib/utils"
+import type { Priority } from "@/app/types"
 import { GLOBAL } from "@/app/styles/colors"
 
 interface PriorityBadgeProps {
-    priority: string
+    priority: Priority | "Done"
     className?: string
 }
 
-const PriorityBadge: React.FC<PriorityBadgeProps> = ({
-    priority,
-    className
-}) => {
-    // Map priority levels to the global color variables
+const PriorityBadge: React.FC<PriorityBadgeProps> = ({ priority, className }) => {
     const getPriorityStyles = (priorityLevel: string) => {
         const p = priorityLevel.toLowerCase()
 
@@ -39,13 +36,6 @@ const PriorityBadge: React.FC<PriorityBadgeProps> = ({
                 borderColor: GLOBAL.PRIORITY_LOW_BORDER,
                 color: GLOBAL.PRIORITY_LOW_TEXT
             }
-        }
-
-        // Fallback styling for unknown priorities
-        return {
-            backgroundColor: "transparent",
-            borderColor: GLOBAL.BORDER_PRIMARY,
-            color: GLOBAL.TEXT_SECONDARY
         }
     }
 
