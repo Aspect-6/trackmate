@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import type { CalendarBody } from "@/pages/Calendar/types"
 import CalendarDayContainer from "./CalendarDayContainer"
 import CalendarDayNumber from "./CalendarDayNumber"
@@ -20,8 +20,12 @@ const CalendarDay: React.FC<CalendarBody.Grid.Day.Props> = ({
     onEventClick,
     getClassColor
 }) => {
+    const sortedAssignments = useMemo(() => {
+        return assignments.toSorted((a, b) => (a.dueTime).localeCompare(b.dueTime))
+    }, [assignments])
+
     const mobileDots = [
-        ...assignments.map(a => ({ id: `assignment-${a.id}`, color: getClassColor(a.classId) })),
+        ...sortedAssignments.map(a => ({ id: `assignment-${a.id}`, color: getClassColor(a.classId) })),
         ...events.map(e => ({ id: `event-${e.id}`, color: e.color }))
     ]
 
@@ -32,8 +36,8 @@ const CalendarDay: React.FC<CalendarBody.Grid.Day.Props> = ({
             <CalendarDayMobileDots dots={mobileDots} />
 
             <div className="space-y-1 overflow-hidden hidden md:block">
-                <AssignmentList assignments={assignments} getClassColor={getClassColor} onAssignmentClick={onAssignmentClick} />
-                {events.length > 0 && assignments.length > 0 && <div className="h-0.5"></div>}
+                <AssignmentList assignments={sortedAssignments} getClassColor={getClassColor} onAssignmentClick={onAssignmentClick} />
+                {events.length > 0 && sortedAssignments.length > 0 && <div className="h-0.5"></div>}
                 <EventList events={events} onEventClick={onEventClick} />
             </div>
         </CalendarDayContainer>
@@ -41,3 +45,4 @@ const CalendarDay: React.FC<CalendarBody.Grid.Day.Props> = ({
 }
 
 export default React.memo(CalendarDay)
+
