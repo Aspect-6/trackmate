@@ -55,13 +55,16 @@ body::before {
         -webkit-overflow-scrolling: touch;
     }
 
-    #landing-container,
-    #account-container {
+    #landing-container, #account-container {
         min-height: 100% !important;
         width: 100% !important;
     }
 
-    #landing-footer {
-        margin-bottom: 2rem;
+    #sidebar {
+        height: 100% !important;
+    }
+
+    #landing-footer-text {
+        margin-bottom: 2rem !important;
     }
 }

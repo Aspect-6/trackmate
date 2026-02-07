@@ -5,7 +5,6 @@ import { LANDING } from "@/app/styles/colors"
 const Footer: React.FC<Landing.FooterProps> = ({ children }) => {
     return (
         <footer
-            id="landing-footer"
             className="lg:mx-15 self-stretch"
             style={{
                 marginTop: "4rem",
@@ -14,10 +13,13 @@ const Footer: React.FC<Landing.FooterProps> = ({ children }) => {
                 textAlign: "center",
             }}
         >
-            <p style={{
-                fontSize: "0.85rem",
-                color: LANDING.TEXT_TERTIARY,
-            }}>
+            <p
+                id="landing-footer-text"
+                style={{
+                    fontSize: "0.85rem",
+                    color: LANDING.TEXT_TERTIARY,
+                }}
+            >
                 {children}
             </p>
         </footer>
