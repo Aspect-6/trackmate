@@ -71,23 +71,3 @@ export namespace AssignmentColumn {
 export interface AssignmentDragOverlayProps {
 	assignmentId: string
 }
-
-// Hooks
-export namespace UseAssignmentBoard {
-	export interface ColumnConfig {
-		status: Status
-		title: string
-	}
-
-	export interface DragState {
-		activeAssignmentId: string | null
-		overId: string | null
-		dragEnabled: boolean
-	}
-
-	export interface ColumnState {
-		isMobile: boolean
-		openColumns: Record<Status, boolean>
-		toggleColumn: (status: Status) => void
-	}
-}

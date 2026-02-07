@@ -12,12 +12,12 @@
 }
 
 /* Default: Mobile layout spacing */
-.assignments-board+.assignments-board {
+.assignments-column+.assignments-column {
     margin-top: 0.5rem;
 }
 
 /* Medium: 2-column grid with Done full-width below */
-@media (width >= theme(--breakpoint-md)) and (width < theme(--breakpoint-lg)) {
+@media (width >=theme(--breakpoint-md)) and (width < theme(--breakpoint-lg)) {
     .assignments-column-layout {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -26,23 +26,23 @@
         height: 100%;
     }
 
-    .assignments-column-layout>.assignments-board:nth-child(1),
-    .assignments-column-layout>.assignments-board:nth-child(2) {
+    .assignments-column-layout>.assignments-column:nth-child(1),
+    .assignments-column-layout>.assignments-column:nth-child(2) {
         max-height: 315px;
     }
 
-    .assignments-column-layout>.assignments-board:nth-child(3) {
+    .assignments-column-layout>.assignments-column:nth-child(3) {
         grid-column: span 2;
     }
 
-    .assignments-board+.assignments-board {
+    .assignments-column+.assignments-column {
         margin-top: 0;
     }
 }
 
 /* Desktop: Reset for desktop layout */
 @media (width >=theme(--breakpoint-lg)) {
-    .assignments-board+.assignments-board {
+    .assignments-column+.assignments-column {
         margin-top: 0;
     }
 }

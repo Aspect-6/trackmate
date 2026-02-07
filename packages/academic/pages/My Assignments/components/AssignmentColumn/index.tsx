@@ -53,7 +53,7 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
 
     return (
         <div
-            className={`assignments-board w-full lg:flex-1 rounded-xl shadow-md p-4 flex flex-col ${isMobile ? "" : "h-full min-h-0"}`}
+            className={`assignments-column w-full lg:flex-1 rounded-xl shadow-md p-4 flex flex-col ${isMobile ? "" : "h-full min-h-0"}`}
             style={{
                 backgroundColor: MY_ASSIGNMENTS.BACKGROUND_PRIMARY,
                 border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`,
