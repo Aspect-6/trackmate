@@ -2,6 +2,7 @@ import React from "react"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { useHover } from "@shared/hooks/ui/useHover"
+import type { AssignmentType } from "@/app/types"
 import type { AssignmentColumn } from "@/pages/My Assignments/types"
 import { formatDateRelative, formatTime } from "@shared/lib"
 import { GripVertical } from "lucide-react"
@@ -24,7 +25,8 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
         isDragging,
     } = useSortable({ id: assignment.id, disabled: !dragEnabled })
 
-    const dateLabel = assignment.type === "Test" ? "On" : "Due"
+    const examTypes: AssignmentType[] = ["Quiz", "Test", "Midterm", "Final Exam"]
+    const dateLabel = examTypes.includes(assignment.type) ? "On" : "Due"
     const showTime = assignment.dueTime && assignment.dueTime !== "23:59"
 
     const dragStyle = {
