@@ -17,10 +17,8 @@ if (!rootElement) {
 	throw new Error("Root element not found")
 }
 
-// Apply document title
 document.title = APP_FULL_NAME
 
-// Apply the saved theme before React hydrates
 const savedTheme = localStorage.getItem("trackmateTheme")
 const initialTheme = savedTheme === "dark" ? "dark" : "light"
 document.documentElement.classList.remove("light", "dark")
@@ -43,4 +41,3 @@ createRoot(rootElement).render(
 		</BrowserRouter>
 	</React.StrictMode>
 )
-

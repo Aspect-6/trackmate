@@ -7,10 +7,8 @@ interface DataLoaderProps {
 }
 
 /**
- * Wrapper component that blocks rendering until critical Firestore data is loaded.
+ * Wrapper component that blocks rendering until Firestore data is loaded.
  * This prevents the flash of default/empty state on initial load.
- * 
- * Place this inside RequireAuth to ensure user is authenticated before loading data.
  */
 const DataLoader: React.FC<DataLoaderProps> = ({ children }) => {
     const { loading } = useSettings()
@@ -19,14 +17,14 @@ const DataLoader: React.FC<DataLoaderProps> = ({ children }) => {
         return (
             <div className="flex flex-1 items-center justify-center">
                 <div 
-                    className="animate-spin rounded-full h-8 w-8 border-b-2"
-                    style={{ borderColor: GLOBAL.TEXT_SECONDARY }}
+                    className="animate-spin rounded-full h-8 w-8"
+                    style={{ borderBottom: `2px solid ${GLOBAL.TEXT_SECONDARY}` }}
                 />
             </div>
         )
     }
 
-    return <>{children}</>
+    return children
 }
 
 export default DataLoader
