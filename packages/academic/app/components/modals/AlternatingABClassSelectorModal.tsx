@@ -22,20 +22,17 @@ export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelecto
     const { classes } = useClasses()
     const { semester, dayType, periodIndex, termId, onSelect, otherSemesterSchedule } = data
 
-
     const handleSelect = (classId: string, isSemesterClass: boolean) => {
         onSelect(classId, isSemesterClass)
         onClose()
     }
 
-    // Get all class IDs used in the other semester
     const otherSemesterClassIds = new Set(
         otherSemesterSchedule.days.flatMap(day =>
             day.classes.filter((id): id is string => id !== null)
         )
     )
 
-    // Filter classes
     const availableClasses = classes.filter(classData => {
         if (!classData.termId || classData.termId !== termId) {
             return false
