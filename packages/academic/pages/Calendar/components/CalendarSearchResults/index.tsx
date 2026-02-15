@@ -61,7 +61,7 @@ const CalendarSearchResults: React.FC<CalendarSearchResultsProps> = ({ searchQue
                 title: a.title,
                 date: a.dueDate,
                 subtext: getClassById(a.classId)?.name || a.type,
-                color: getClassById(a.classId)?.color || CALENDAR.TEXT_PRIMARY
+                color: getClassById(a.classId)?.color
             })),
             ...filteredEvents.map(e => ({
                 type: "event" as const,

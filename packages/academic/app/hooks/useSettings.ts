@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react"
 import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import { useToast } from "@shared/contexts/ToastContext"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
-import type { Assignment, AssignmentType, ThemeMode, TermMode } from "@/app/types"
+import type { Assignment, AssignmentType, ThemeMode, TermMode, AssignmentTemplate } from "@/app/types"
 
 export const DEFAULT_ASSIGNMENT_TYPES: AssignmentType[] = [
     "Homework",
@@ -23,6 +23,7 @@ interface Settings {
     theme: ThemeMode
     termMode: TermMode
     assignmentTypes: AssignmentType[]
+    assignmentTemplates: AssignmentTemplate[]
 }
 
 // Read initial theme from localStorage to prevent flash
@@ -35,7 +36,8 @@ const getInitialTheme = (): ThemeMode => {
 const DEFAULT_SETTINGS: Settings = {
     theme: getInitialTheme(),
     termMode: "Semesters Only",
-    assignmentTypes: DEFAULT_ASSIGNMENT_TYPES
+    assignmentTypes: DEFAULT_ASSIGNMENT_TYPES,
+    assignmentTemplates: []
 }
 
 export const useSettings = () => {
@@ -59,11 +61,9 @@ export const useSettings = () => {
     }, [setSettings])
 
     // Apply theme to DOM and sync to localStorage
-    // Only apply after initial load to prevent overwriting the correct initial theme
     useEffect(() => {
-        // Skip if still loading initial data - main.tsx already set the correct theme
         if (loading && !hasLoadedRef.current) return
-        
+
         if (settings.theme === "dark") {
             document.documentElement.classList.add("dark")
             document.documentElement.classList.remove("light")
@@ -71,7 +71,6 @@ export const useSettings = () => {
             document.documentElement.classList.remove("dark")
             document.documentElement.classList.add("light")
         }
-        // Sync to localStorage for pre-React theme application on next visit
         localStorage.setItem("trackmateTheme", settings.theme)
     }, [settings.theme, loading])
 
@@ -94,7 +93,6 @@ export const useSettings = () => {
         return true
     }, [settings.assignmentTypes, setSettings, showToast])
     const removeAssignmentType = useCallback((type: AssignmentType, existingAssignments: Assignment[]) => {
-        // Check if type is in use
         const isInUse = existingAssignments.filter(a => a.type === type).length
         if (isInUse > 0) {
             showToast(`Cannot delete "${type}" because it is used by ${isInUse} existing assignment${isInUse > 1 ? "s" : ""}`, "error")
@@ -112,15 +110,45 @@ export const useSettings = () => {
         showToast(`Reordered assignment types`, "success")
     }, [setSettings, showToast])
 
+    // Assignment template actions
+    const addAssignmentTemplate = useCallback((template: AssignmentTemplate) => {
+        setSettings(prev => ({
+            ...prev,
+            assignmentTemplates: [...(prev.assignmentTemplates || []), template]
+        }))
+        showToast("Template saved", "success")
+    }, [setSettings, showToast])
+
+    const removeAssignmentTemplate = useCallback((templateId: string) => {
+        setSettings(prev => ({
+            ...prev,
+            assignmentTemplates: (prev.assignmentTemplates || []).filter(t => t.id !== templateId)
+        }))
+        showToast("Template removed", "success")
+    }, [setSettings, showToast])
+
+    const updateAssignmentTemplate = useCallback((templateId: string, updates: Partial<AssignmentTemplate>) => {
+        setSettings(prev => ({
+            ...prev,
+            assignmentTemplates: (prev.assignmentTemplates || []).map(t => t.id === templateId ? { ...t, ...updates } : t)
+        }))
+        showToast("Template updated", "success")
+    }, [setSettings, showToast])
+
+    const reorderAssignmentTemplates = useCallback((templates: AssignmentTemplate[]) => {
+        setSettings(prev => ({ ...prev, assignmentTemplates: templates }))
+    }, [setSettings])
+
     return {
         // Loading state
         loading,
-        
+
         // Each setting
         settings,
         theme: settings.theme,
         termMode: settings.termMode,
         assignmentTypes: settings.assignmentTypes,
+        assignmentTemplates: settings.assignmentTemplates || [],
 
         // Actions
         setSettings,
@@ -128,6 +156,10 @@ export const useSettings = () => {
         setTermMode,
         addAssignmentType,
         removeAssignmentType,
-        reorderAssignmentTypes
+        reorderAssignmentTypes,
+        addAssignmentTemplate,
+        removeAssignmentTemplate,
+        updateAssignmentTemplate,
+        reorderAssignmentTemplates
     }
 }

@@ -9,6 +9,7 @@ import { TermFormModal } from "@/app/components/modals/TermFormModal"
 import { DeleteConfirmationModal } from "@/app/components/modals/DeleteConfirmationModal"
 import { AlternatingABClassSelectorModal } from "@/app/components/modals/AlternatingABClassSelectorModal"
 import { TypeSelectorModal } from "@/app/components/modals/TypeSelectorModal"
+import { AssignmentKindChooserModal } from "@/app/components/modals/AssignmentKindChooserModal"
 import { GLOBAL } from "@/app/styles/colors"
 
 const ModalManager: React.FC = () => {
@@ -43,11 +44,14 @@ const ModalManager: React.FC = () => {
             case "type-selector":
                 return <TypeSelectorModal onClose={closeModal} openModal={openModal} />
 
+            case "assignment-kind-chooser":
+                return <AssignmentKindChooserModal onClose={closeModal} />
+
             // Assignment modals
             case "add-assignment":
-                return <AssignmentFormModal onClose={closeModal} />
+                return <AssignmentFormModal onClose={closeModal} {...(modalData && typeof modalData === "object" ? modalData : {})} />
             case "edit-assignment":
-                return <AssignmentFormModal onClose={closeModal} assignmentId={modalData} />
+                return <AssignmentFormModal onClose={closeModal} assignmentId={modalData?.assignmentId ?? modalData} />
 
             // Class modals
             case "add-class":

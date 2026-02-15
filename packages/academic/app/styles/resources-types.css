@@ -1,7 +1,9 @@
 @import "@shared/styles/buttons.css";
 
 :root.light {
-    --assignment-theme: hsl(280, 38%, 62%);
+    --assignment-theme-hsl: 280, 38%, 62%;
+    --assignment-theme: hsl(var(--assignment-theme-hsl));
+    --assignment-theme-18: hsla(var(--assignment-theme-hsl), 0.18);
     --assignment-theme-hover: hsl(280, 38%, 56%);
     --assignment-text-color: hsl(280, 38%, 47%);
 
@@ -19,7 +21,9 @@
 }
 
 :root.dark {
-    --assignment-theme: hsl(280, 38%, 47%);
+    --assignment-theme-hsl: 280, 38%, 47%;
+    --assignment-theme: hsl(var(--assignment-theme-hsl));
+    --assignment-theme-25: hsla(var(--assignment-theme-hsl), 0.25);
     --assignment-theme-hover: hsl(280, 38%, 39%);
     --assignment-text-color: hsl(280, 38%, 47%);
 

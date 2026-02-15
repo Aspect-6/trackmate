@@ -173,7 +173,7 @@ const Calendar: React.FC = () => {
                                         onSelectDate={setSelectedDate}
                                         onAssignmentClick={openEditAssignment}
                                         onEventClick={openEditEvent}
-                                        getClassColor={(classId: string) => getClassById(classId)?.color || ""}
+                                        getClassColor={(classId: string) => getClassById(classId)?.color}
                                     />
                                 )
                             })}

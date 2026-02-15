@@ -3,7 +3,7 @@ import { PATHS } from "@/app/config/paths"
 import { GLOBAL, MY_CLASSES } from "@/app/styles/colors"
 
 export type HeaderActionConfig = {
-    modal: "add-class" | "add-assignment" | "add-event" | "type-selector"
+    modal: "add-class" | "add-assignment" | "assignment-kind-chooser" | "add-event" | "type-selector"
     label: string
     bg: string
     bgHover: string
@@ -22,7 +22,7 @@ export const useHeaderAction = (): HeaderActionConfig => {
     }
     if (location.pathname === PATHS["my-assignments"]) {
         return {
-            modal: "add-assignment",
+            modal: "assignment-kind-chooser",
             label: "Add Assignment",
             bg: GLOBAL.ASSIGNMENT_BUTTON_BG,
             bgHover: GLOBAL.ASSIGNMENT_BUTTON_BG_HOVER

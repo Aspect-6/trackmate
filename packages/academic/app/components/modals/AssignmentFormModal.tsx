@@ -5,7 +5,7 @@ import { useSettings } from "@/app/hooks/useSettings"
 import { useToast } from "@shared/contexts/ToastContext"
 import { DEFAULT_ASSIGNMENT_TYPES } from "@/app/hooks/useSettings"
 import { todayString } from "@shared/lib"
-import { AssignmentType, Priority, Status } from "@/app/types"
+import { AssignmentType, Priority, Status, AssignmentTemplate } from "@/app/types"
 import { MODALS } from "@/app/styles/colors"
 import {
     ModalContainer,
@@ -30,17 +30,27 @@ import {
 
 interface AssignmentFormModalProps {
     onClose: () => void
-    assignmentId?: string // If provided, modal is in edit mode
+    assignmentId?: string // If provided, modal is in edit mode for assignment
+    templateId?: string // If provided, modal is in edit mode for template
+    mode?: "default" | "template"
+    templateData?: AssignmentTemplate // If provided, pre-fill form with this template data
 }
 
-export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClose, assignmentId }) => {
+export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
+    onClose,
+    assignmentId,
+    templateId,
+    mode = "default",
+    templateData
+}) => {
     const { classes } = useClasses()
     const { assignments, addAssignment, updateAssignment } = useAssignments()
-    const { assignmentTypes } = useSettings()
+    const { assignmentTypes, addAssignmentTemplate, updateAssignmentTemplate } = useSettings()
     const { openModal } = useModal()
     const { showToast } = useToast()
     const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
     const [formData, setFormData] = useState<{
+        templateName: string
         title: string
         classId: string
         description: string
@@ -50,6 +60,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
         status: Status
         type: AssignmentType
     }>({
+        templateName: "",
         title: "",
         classId: "",
         description: "",
@@ -60,16 +71,18 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
         type: ""
     })
 
-    const isEditMode = !!assignmentId
+    const isEditMode = !!assignmentId || !!templateId
+    const isTemplateMode = mode === "template"
     const currentTypes = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES
     const focusColor = MODALS.ASSIGNMENT.PRIMARY_BG
 
     // Populate form with existing assignment data in edit mode (only on mount)
     useEffect(() => {
-        if (isEditMode) {
+        if (assignmentId) {
             const assignment = assignments.find(a => a.id === assignmentId)
             if (assignment) {
                 setFormData({
+                    templateName: "",
                     title: assignment.title,
                     classId: assignment.classId,
                     description: assignment.description || "",
@@ -80,8 +93,41 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
                     type: assignment.type || ""
                 })
             }
+        } else if (templateData) {
+            setFormData({
+                templateName: "",
+                title: templateData.title,
+                classId: templateData.classId,
+                description: templateData.description || "",
+                dueDate: todayString(), // Reset date for new assignment from template
+                dueTime: templateData.dueTime || "23:59",
+                priority: templateData.priority,
+                status: templateData.status,
+                type: templateData.type || ""
+            })
         }
-    }, [assignmentId, assignments, isEditMode])
+    }, [assignmentId, assignments, templateData, templateId])
+
+    // Load template data for editing
+    const { assignmentTemplates } = useSettings()
+    useEffect(() => {
+        if (templateId && assignmentTemplates) {
+            const template = assignmentTemplates.find(t => t.id === templateId)
+            if (template) {
+                setFormData(prev => ({
+                    ...prev,
+                    templateName: template.templateName,
+                    title: template.title,
+                    classId: template.classId,
+                    description: template.description ?? "",
+                    dueTime: template.dueTime,
+                    priority: template.priority,
+                    status: template.status,
+                    type: template.type
+                }))
+            }
+        }
+    }, [templateId, assignmentTemplates])
 
     // Select a class for an assignment if not set (only for Add Assignment)
     useEffect(() => {
@@ -109,6 +155,11 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
         const validTypes: AssignmentType[] = currentTypes.length ? currentTypes : DEFAULT_ASSIGNMENT_TYPES
 
         const safeData = { ...formData }
+
+        if (isTemplateMode && !safeData.templateName.trim()) {
+            showToast("Please enter a template name", "error")
+            return
+        }
 
         if (!safeData.title.trim()) {
             showToast("Please enter a title", "error")
@@ -141,25 +192,45 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
             safeData.type = fallbackType
         }
 
-        if (isEditMode) {
-            updateAssignment(assignmentId, safeData)
-            showToast("Successfully updated assignment", "success")
+        if (isTemplateMode) {
+            const { dueDate: _removed, ...templateFields } = safeData
+            const templatePayload = { ...templateFields, templateName: safeData.templateName } as AssignmentTemplate
+            if (templateId) {
+                updateAssignmentTemplate(templateId, templatePayload)
+            } else {
+                const newTemplate = {
+                    ...templatePayload,
+                    id: crypto.randomUUID(),
+                    createdAt: todayString()
+                }
+                addAssignmentTemplate(newTemplate)
+            }
         } else {
-            addAssignment(safeData)
-            showToast("Successfully added assignment", "success")
+            if (isEditMode && assignmentId) {
+                updateAssignment(assignmentId, safeData)
+                showToast("Successfully updated assignment", "success")
+            } else {
+                addAssignment(safeData)
+                showToast("Successfully added assignment", "success")
+            }
         }
         onClose()
     }
 
     const handleDelete = () => {
         onClose()
-        openModal("delete-assignment", assignmentId)
+        if (!isTemplateMode) {
+            openModal("delete-assignment", assignmentId)
+        }
     }
 
     return (
         <ModalContainer>
             <ModalHeader color={MODALS.ASSIGNMENT.HEADING}>
-                {isEditMode ? "Edit Assignment" : "Add New Assignment"}
+                {isTemplateMode
+                    ? (templateId ? "Edit Template" : "New Template")
+                    : (isEditMode ? "Edit Assignment" : "Add New Assignment")
+                }
             </ModalHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <ModalTabSwitcher ariaLabel="Assignment form tabs">
@@ -173,54 +244,99 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
 
                 <ModalTabPanelsContainer>
                     <ModalTabPanel isActive={activeTab === "details"}>
+                        {isTemplateMode && (
+                            <div>
+                                <ModalLabel>Template Name</ModalLabel>
+                                <ModalTextInput
+                                    name="templateName"
+                                    value={formData.templateName}
+                                    onChange={e => setFormData({ ...formData, templateName: e.target.value })}
+                                    placeholder="Algebra Practice Problems"
+                                    focusColor={focusColor}
+                                />
+                            </div>
+                        )}
                         <div>
                             <ModalLabel>Title</ModalLabel>
                             <ModalTextInput
                                 name="title"
                                 value={formData.title}
                                 onChange={e => setFormData({ ...formData, title: e.target.value })}
-                                placeholder="e.g. Read Chapter 4"
+                                placeholder="Lesson 2 Practice Problems"
                                 focusColor={focusColor}
                             />
                         </div>
-                        <div>
-                            <ModalLabel>Class</ModalLabel>
-                            <ModalSelectInput
-                                name="classId"
-                                value={formData.classId}
-                                onChange={e => setFormData({ ...formData, classId: e.target.value })}
-                                required
-                                focusColor={focusColor}
-                            >
-                                {classes.map(c => (
-                                    <ModalSelectInputOption key={c.id} value={c.id}>
-                                        {c.name}
-                                    </ModalSelectInputOption>
-                                ))}
-                            </ModalSelectInput>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <ModalLabel>Due Date</ModalLabel>
-                                <ModalDateInput
-                                    name="dueDate"
-                                    value={formData.dueDate}
-                                    onChange={e => setFormData({ ...formData, dueDate: e.target.value })}
-                                    required
-                                    focusColor={focusColor}
-                                />
+                        {isTemplateMode ? (
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <ModalLabel>Class</ModalLabel>
+                                    <ModalSelectInput
+                                        name="classId"
+                                        value={formData.classId}
+                                        onChange={e => setFormData({ ...formData, classId: e.target.value })}
+                                        required
+                                        focusColor={focusColor}
+                                    >
+                                        {classes.map(c => (
+                                            <ModalSelectInputOption key={c.id} value={c.id}>
+                                                {c.name}
+                                            </ModalSelectInputOption>
+                                        ))}
+                                    </ModalSelectInput>
+                                </div>
+                                <div>
+                                    <ModalLabel>Due Time</ModalLabel>
+                                    <ModalTimeInput
+                                        name="dueTime"
+                                        value={formData.dueTime}
+                                        onChange={e => setFormData({ ...formData, dueTime: e.target.value || "23:59" })}
+                                        required
+                                        focusColor={focusColor}
+                                    />
+                                </div>
                             </div>
-                            <div>
-                                <ModalLabel>Due Time</ModalLabel>
-                                <ModalTimeInput
-                                    name="dueTime"
-                                    value={formData.dueTime}
-                                    onChange={e => setFormData({ ...formData, dueTime: e.target.value || "23:59" })}
-                                    required
-                                    focusColor={focusColor}
-                                />
-                            </div>
-                        </div>
+                        ) : (
+                            <>
+                                <div>
+                                    <ModalLabel>Class</ModalLabel>
+                                    <ModalSelectInput
+                                        name="classId"
+                                        value={formData.classId}
+                                        onChange={e => setFormData({ ...formData, classId: e.target.value })}
+                                        required
+                                        focusColor={focusColor}
+                                    >
+                                        {classes.map(c => (
+                                            <ModalSelectInputOption key={c.id} value={c.id}>
+                                                {c.name}
+                                            </ModalSelectInputOption>
+                                        ))}
+                                    </ModalSelectInput>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <ModalLabel>Due Date</ModalLabel>
+                                        <ModalDateInput
+                                            name="dueDate"
+                                            value={formData.dueDate}
+                                            onChange={e => setFormData({ ...formData, dueDate: e.target.value })}
+                                            required
+                                            focusColor={focusColor}
+                                        />
+                                    </div>
+                                    <div>
+                                        <ModalLabel>Due Time</ModalLabel>
+                                        <ModalTimeInput
+                                            name="dueTime"
+                                            value={formData.dueTime}
+                                            onChange={e => setFormData({ ...formData, dueTime: e.target.value || "23:59" })}
+                                            required
+                                            focusColor={focusColor}
+                                        />
+                                    </div>
+                                </div>
+                            </>
+                        )}
                         <div>
                             <ModalLabel>{isEditMode ? "Description" : "Description (Optional)"}</ModalLabel>
                             <ModalTextareaInput
@@ -285,7 +401,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
                 </ModalTabPanelsContainer>
 
                 <ModalFooter>
-                    {isEditMode && <ModalDeleteButton onClick={handleDelete} className="mr-auto" />}
+                    {isEditMode && !isTemplateMode && <ModalDeleteButton onClick={handleDelete} className="mr-auto" />}
                     <ModalCancelButton onClick={onClose} />
                     <ModalSubmitButton
                         type="submit"
@@ -293,7 +409,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({ onClos
                         bgColorHover={MODALS.ASSIGNMENT.PRIMARY_BG_HOVER}
                         textColor={MODALS.ASSIGNMENT.PRIMARY_TEXT}
                     >
-                        {isEditMode ? "Save Changes" : "Add Assignment"}
+                        {isTemplateMode ? "Save Template" : (isEditMode ? "Save Changes" : "Add Assignment")}
                     </ModalSubmitButton>
                 </ModalFooter>
             </form>

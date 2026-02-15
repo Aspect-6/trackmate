@@ -21,7 +21,7 @@ export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, o
 
             <div className="space-y-3 py-2">
                 <OptionButton
-                    onClick={() => openModal("add-assignment")}
+                    onClick={() => openModal("assignment-kind-chooser")}
                     icon={<FileText className="w-5 h-5" />}
                     label="Assignment"
                     bg={GLOBAL.ASSIGNMENT_BUTTON_BG}

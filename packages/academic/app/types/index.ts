@@ -227,3 +227,11 @@ export interface AcademicTerm {
     scheduleType: ScheduleType
     semesters: Semester[]
 }
+
+/**
+ * Represents a reusable template for creating assignments.
+ */
+export interface AssignmentTemplate extends Omit<Assignment, "dueDate"> {
+    /** The name of the template used for identification */
+    templateName: string
+}

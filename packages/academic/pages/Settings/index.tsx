@@ -1,8 +1,9 @@
 import React from "react"
 import { useModal } from "@/app/contexts/ModalContext"
-import { useAcademicTerms, useSchedules, useNoSchool } from "@/app/hooks/entities"
+import { useAcademicTerms, useSchedules, useNoSchool, useClasses } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useAssignmentTypeSettings } from "@/pages/Settings/hooks/useAssignmentTypeSettings"
+import { useAssignmentTemplateSettings } from "@/pages/Settings/hooks/useAssignmentTemplateSettings"
 // Base settings module imports
 import {
     BaseModuleHeader,
@@ -22,6 +23,14 @@ import AssignmentTypeSettings, {
     AddTypeInput,
     AddTypeButton
 } from "@/pages/Settings/components/AssignmentTypeSettings"
+// Assignment template settings imports
+import AssignmentTemplateSettings, {
+    AssignmentTemplateSettingsContent,
+    TemplateList,
+    TemplateRow,
+    AddTemplateButton,
+    NoTemplatesYetButton
+} from "@/pages/Settings/components/AssignmentTemplateSettings"
 // Schedule settings imports
 import ScheduleSettings, {
     ScheduleSettingsContent,
@@ -92,6 +101,17 @@ const Settings: React.FC = () => {
         moveType,
     } = useAssignmentTypeSettings()
 
+    const {
+        assignmentTemplates,
+        sensors: templateSensors,
+        handleAddTemplate,
+        handleEditTemplate,
+        handleRemoveTemplate,
+        handleDragEnd: handleTemplateDragEnd,
+    } = useAssignmentTemplateSettings()
+
+    const { getClassById } = useClasses()
+
     return (
         <div className="w-full max-w-2xl mx-auto">
             <ThemeSettings>
@@ -146,6 +166,47 @@ const Settings: React.FC = () => {
                     </AddTypeForm>
                 </AssignmentTypeSettingsContent>
             </AssignmentTypeSettings>
+
+            <AssignmentTemplateSettings>
+                <BaseModuleHeader title="Assignment Templates" />
+
+                <BaseModuleDescription>
+                    Create reusable templates to quickly add recurring assignments.
+                </BaseModuleDescription>
+
+                <AssignmentTemplateSettingsContent>
+                    {assignmentTemplates.length === 0 ? (
+                        <NoTemplatesYetButton onClick={handleAddTemplate}>
+                            No templates yet. Click to add one.
+                        </NoTemplatesYetButton>
+                    ) : (
+                        <>
+                            <TemplateList
+                                sensors={templateSensors}
+                                onDragEnd={handleTemplateDragEnd}
+                                items={assignmentTemplates.map(t => t.id)}
+                            >
+                                {assignmentTemplates.map(template => (
+                                    <TemplateRow
+                                        key={template.id}
+                                        id={template.id}
+                                        templateName={template.templateName}
+                                        title={template.title}
+                                        type={template.type}
+                                        classColor={getClassById(template.classId)?.color}
+                                        onEdit={() => handleEditTemplate(template.id)}
+                                        onRemove={() => handleRemoveTemplate(template.id)}
+                                    />
+                                ))}
+                            </TemplateList>
+
+                            <AddTemplateButton onClick={handleAddTemplate}>
+                                Add Template
+                            </AddTemplateButton>
+                        </>
+                    )}
+                </AssignmentTemplateSettingsContent>
+            </AssignmentTemplateSettings>
 
             <ScheduleSettings>
                 <BaseModuleHeader title="Schedule Settings" />

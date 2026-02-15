@@ -5,11 +5,7 @@ import { MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { arrayMove } from "@dnd-kit/sortable"
 
 /**
- * Hook that manages all assignment type settings logic:
- * - Adding new types
- * - Removing types
- * - Drag-and-drop reordering
- * - Manual up/down movement
+ * Hook that manages all assignment type settings logic
  */
 export const useAssignmentTypeSettings = () => {
     const {
@@ -21,27 +17,22 @@ export const useAssignmentTypeSettings = () => {
 
     const { assignments } = useAssignments()
 
-    // State for the "add new type" input
     const [newType, setNewType] = useState("")
 
-    // Sensors for drag-and-drop functionality
     const sensors = useSensors(
         useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
         useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 8 } })
     )
 
-    // Handler for adding a new assignment type
     const handleAdd = () => {
         const success = addAssignmentType(newType)
         if (success) setNewType("")
     }
 
-    // Handler for removing an assignment type
     const handleRemove = (type: string) => {
         removeAssignmentType(type, assignments)
     }
 
-    // Handler for drag-and-drop reordering
     const handleDragEnd = (event: any) => {
         const { active, over } = event
         if (!over || active.id === over.id) return
@@ -52,7 +43,6 @@ export const useAssignmentTypeSettings = () => {
         reorderAssignmentTypes(updated)
     }
 
-    // Handler for manual up/down movement via buttons
     const moveType = (type: string, direction: "up" | "down") => {
         const index = assignmentTypes.findIndex(t => t === type)
         if (index === -1) return
@@ -68,6 +58,7 @@ export const useAssignmentTypeSettings = () => {
         assignmentTypes,
         newType,
         sensors,
+        
         // Actions
         setNewType,
         handleAdd,

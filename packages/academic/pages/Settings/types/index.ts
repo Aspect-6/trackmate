@@ -87,6 +87,50 @@ export namespace AssignmentTypeSettings {
     }
 }
 
+// AssignmentTemplateSettings namespace
+export namespace AssignmentTemplateSettings {
+    export interface Props {
+        children: React.ReactNode
+    }
+    // ======================
+
+    export namespace Content {
+        export interface Props {
+            children: React.ReactNode
+        }
+        // ======================
+
+        export namespace TemplateList {
+            export interface Props {
+                sensors: SensorDescriptor<SensorOptions>[]
+                onDragEnd: (event: DragEndEvent) => void
+                items: string[]
+                children: React.ReactNode
+            }
+            // ======================
+            export interface TemplateRowProps {
+                id: string
+                templateName: string
+                title: string
+                type: string
+                classColor: string
+                onEdit: () => void
+                onRemove: () => void
+            }
+        }
+
+        export interface NoTemplatesYetButtonProps {
+            onClick: () => void
+            children: React.ReactNode
+        }
+    }
+
+    export interface AddTemplateButtonProps {
+        onClick: () => void
+        children: React.ReactNode
+    }
+}
+
 // TermSettings namespace
 export namespace TermSettings {
     export interface Props {
