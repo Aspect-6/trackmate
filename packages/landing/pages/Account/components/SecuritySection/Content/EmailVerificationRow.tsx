@@ -54,7 +54,7 @@ const EmailVerificationRow: React.FC<SecuritySection.Content.EmailVerificationRo
                 )}
             </div>
             {verificationSent && (
-                <p className="text-sm mt-3" style={{ color: ACCOUNT.GLOBAL_ACCENT }}>Verification email sent! Check your inbox.</p>
+                <p className="text-sm mt-3" style={{ color: ACCOUNT.TEXT_SUCCESS }}>Verification email sent! Check your inbox.</p>
             )}
             {verificationError && (
                 <p className="text-sm mt-3" style={{ color: ACCOUNT.TEXT_DANGER }}>{verificationError}</p>
