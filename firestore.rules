@@ -1,13 +1,50 @@
 rules_version = '2';
 
 service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-    
-    match /{document=**} {
-      allow read, write: if false;
-    }
-  }
+	match /databases/{database}/documents {
+
+		function isSignedIn() {
+			return request.auth != null
+		}
+		function isEmailVerified() {
+			return isSignedIn() && request.auth.token.email_verified == true
+		}
+		function isOwner(userId) {
+			return isSignedIn() && request.auth.uid == userId
+		}
+		function premiumFor(product) {
+			return isSignedIn()
+				&& "premium" in request.auth.token
+				&& request.auth.token.premium != null
+				&& (
+			request.auth.token.premium.all == true
+				|| request.auth.token.premium[product] == true
+			)
+		}
+		function isChanging(field) {
+			return resource == null
+				? field in request.resource.data
+				: field in request.resource.data.diff(resource.data).affectedKeys()
+		}
+
+		match /users/{userId}/academic/{document} {
+			function isPremiumDocument(docId) {
+				return docId == "assignments-premium"
+					|| docId == "assignments-premium-archive"
+			}
+
+			function isSettingsRestrictedUpdate(docId) {
+				return docId == "settings" && isChanging("assignmentTemplates");
+			}
+
+			allow read: if isOwner(userId);
+			allow create, update: if isOwner(userId)
+				&& isEmailVerified()
+				&& (
+			(!isPremiumDocument(document) && !isSettingsRestrictedUpdate(document))
+				|| premiumFor("academic")
+			);
+			allow delete: if false;
+		}
+	}
 }
