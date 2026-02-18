@@ -1,0 +1,362 @@
+{
+    "assignments": {
+        "items": [
+            {
+				"id": "eacgq70mlgxbr80",
+				"title": "3.5 Sinusoidal Functions",
+				"classId": "j5h7ol5migkr4lx",
+				"type": "Homework",
+				"status": "Done",
+				"priority": "Low",
+				"dueDate": "2026-02-12",
+				"dueTime": "23:59",
+				"description": "",
+				"createdAt": "2026-02-10"
+			},
+			{
+				"id": "rdp3kuwmlh9u5cc",
+				"title": "Unit 7 Progress Check",
+				"classId": "xb90lwnmigj0uma",
+				"type": "Homework",
+				"status": "Done",
+				"priority": "Medium",
+				"dueDate": "2026-02-12",
+				"dueTime": "11:10",
+				"description": "",
+				"createdAt": "2026-02-10"
+			},
+			{
+				"id": "usst2k4mljs60eh",
+				"title": "Unit 5 Test Corrections",
+				"classId": "f89oulemigkqtwm",
+				"type": "Homework",
+				"status": "Done",
+				"priority": "Low",
+				"dueDate": "2026-02-13",
+				"dueTime": "23:59",
+				"description": "",
+				"createdAt": "2026-02-12"
+			},
+			{
+				"id": "qre7exqmljs9chj",
+				"title": "3.6a Sinusoidal Transformations",
+				"classId": "j5h7ol5migkr4lx",
+				"type": "Homework",
+				"status": "Done",
+				"priority": "Low",
+				"dueDate": "2026-02-16",
+				"dueTime": "23:59",
+				"description": "",
+				"createdAt": "2026-02-12"
+			}
+        ]
+    },
+    "assignments-archive": {
+		"items": []
+	},
+	"assignments-premium": {
+		"items": []
+	},
+	"assignments-premium-archive": {
+		"items": []
+	},
+    "classes": {
+		"items": [
+			{
+				"id": "2100a7vmiicauev",
+				"classDayType": "B",
+				"color": "hsl(258, 60%, 57%)",
+				"name": "African American History",
+				"order": 4,
+				"roomNumber": "904",
+				"teacherName": "John Doe",
+				"termId": "uiku6blmk7qkvcl"
+			},
+			{
+				"id": "ed5zmxjmighm1gc",
+				"classDayType": "B",
+				"color": "hsl(292, 60%, 57%)",
+				"name": "AP Psychology",
+				"order": 1,
+				"roomNumber": "406",
+				"teacherName": "John Doe",
+				"termId": "uiku6blmk7qkvcl"
+			},
+			{
+				"id": "f89oulemigkqtwm",
+				"classDayType": "B",
+				"color": "hsl(142, 60%, 57%)",
+				"name": "AP Chemistry",
+				"order": 3,
+				"roomNumber": "663",
+				"teacherName": "John Doe",
+				"termId": "uiku6blmk7qkvcl"
+			},
+			{
+				"id": "fda2yktmigkrw8s",
+				"classDayType": "A",
+				"color": "hsl(239, 60%, 57%)",
+				"name": "Hollywood History",
+				"order": 5,
+				"roomNumber": "402",
+				"teacherName": "Jane Doe",
+				"termId": "uiku6blmk7qkvcl"
+			},
+			{
+				"id": "j5h7ol5migkr4lx",
+				"classDayType": "A",
+				"color": "hsl(0, 60%, 57%)",
+				"name": "AP Pre-Calculus",
+				"order": 0,
+				"roomNumber": "202",
+				"teacherName": "John Doe",
+				"termId": "uiku6blmk7qkvcl"
+			},
+			{
+				"id": "laskp44migkropz",
+				"color": "hsl(25, 60%, 57%)",
+				"name": "DE English Composition 1",
+				"order": 7,
+				"roomNumber": "228",
+				"semesterId": "87ya0sfmk7qkvcl",
+				"teacherName": "Jane Doe",
+				"termId": "uiku6blmk7qkvcl"
+			},
+			{
+				"id": "vvqryfpmj4uvmx6",
+				"color": "hsl(217, 60%, 57%)",
+				"name": "Robotics Engineering 2",
+				"order": 6,
+				"roomNumber": "302",
+				"semesterId": "olc90tzmk7qkvcl",
+				"teacherName": "Jane Doe",
+				"termId": "uiku6blmk7qkvcl"
+			},
+			{
+				"id": "xb90lwnmigj0uma",
+				"classDayType": "A",
+				"color": "hsl(47, 60%, 57%)",
+				"name": "AP European History",
+				"order": 2,
+				"roomNumber": "410",
+				"teacherName": "John Doe",
+				"termId": "uiku6blmk7qkvcl"
+			}
+		]
+	},
+    "events": {
+        "items": [
+            {
+				"id": "kr8pm6amlh0yodj",
+				"title": "After-School Tutoring",
+				"description": "",
+				"createdAt": "2026-02-10T19:59:42.055Z",
+				"color": "hsl(220, 40%, 63%)",
+				"date": "2026-02-10",
+				"endTime": "15:45",
+				"startTime": "14:30"
+			},
+			{
+				"id": "rcl0ozumlh12y5q",
+				"title": "After-School Tutoring",
+				"description": "",
+				"createdAt": "2026-02-10T20:03:01.358Z",
+				"color": "hsl(220, 40%, 63%)",
+				"date": "2026-02-11",
+				"endTime": "15:45",
+				"startTime": "14:30"
+			},
+			{
+				"id": "zi7dreomlh13nkx",
+				"title": "Robotics Club Meeting",
+				"description": "",
+				"createdAt": "2026-02-10T20:03:34.305Z",
+				"color": "hsl(20, 40%, 63%)",
+				"date": "2026-02-12",
+				"endTime": "15:45",
+				"startTime": "14:30"
+			},
+			{
+				"id": "8lp1jr5mlk9p9yr",
+				"title": "Robotics Club Meeting",
+				"description": "",
+				"createdAt": "2026-02-13T02:27:38.547Z",
+				"color": "hsl(20, 40%, 63%)",
+				"date": "2026-02-13",
+				"endTime": "14:00",
+				"startTime": "11:05"
+			}
+        ]
+    },
+    "events-archive": {
+		"items": []
+	},
+    "noSchool": {
+        "items": [
+            {
+				"id": "afu7dapmla08qn9",
+				"createdAt": "2026-02-05T22:05:08.709Z",
+				"endDate": "2026-02-05",
+				"name": "Inclement Weather Day",
+				"startDate": "2026-02-05"
+			},
+			{
+				"id": "6ny16vgmljhazxd",
+				"createdAt": "2026-02-12T13:12:43.105Z",
+				"endDate": "2026-02-16",
+				"name": "Presidents' Day",
+				"startDate": "2026-02-16"
+			},
+			{
+				"id": "j4r7e5pmljhbocn",
+				"createdAt": "2026-02-12T13:13:14.759Z",
+				"endDate": "2026-02-17",
+				"name": "Teacher Workday",
+				"startDate": "2026-02-17"
+			}
+        ]
+    },
+    "schedules": {
+		"type": "alternating-ab",
+		"alternating-ab": {
+			"termConfigs": {
+				"uiku6blmk7qkvcl": {
+					"overrides": {
+						"2026-02-03": "B",
+						"2026-02-06": "A"
+					},
+					"startDayType": "B"
+				}
+			},
+			"terms": {
+				"uiku6blmk7qkvcl": {
+					"Fall": {
+						"days": [
+							{
+								"classes": [
+									"laskp44migkropz",
+									"j5h7ol5migkr4lx",
+									"xb90lwnmigj0uma",
+									"fda2yktmigkrw8s"
+								],
+								"dayLabel": "A"
+							},
+							{
+								"classes": [
+									"laskp44migkropz",
+									"ed5zmxjmighm1gc",
+									"f89oulemigkqtwm",
+									"2100a7vmiicauev"
+								],
+								"dayLabel": "B"
+							}
+						]
+					},
+					"Spring": {
+						"days": [
+							{
+								"classes": [
+									"vvqryfpmj4uvmx6",
+									"j5h7ol5migkr4lx",
+									"xb90lwnmigj0uma",
+									"fda2yktmigkrw8s"
+								],
+								"dayLabel": "A"
+							},
+							{
+								"classes": [
+									"vvqryfpmj4uvmx6",
+									"ed5zmxjmighm1gc",
+									"f89oulemigkqtwm",
+									"2100a7vmiicauev"
+								],
+								"dayLabel": "B"
+							}
+						]
+					}
+				}
+			}
+		}
+	},
+	"settings": {
+		"assignmentTemplates": [
+			{
+				"id": "cb98f849-dddd-4df4-8e44-4bc4806fc25a",
+				"title": "X.Y In Homework Packet",
+				"classId": "xb90lwnmigj0uma",
+				"type": "Homework",
+				"status": "To Do",
+				"priority": "Low",
+				"dueTime": "23:59",
+				"description": "",
+				"createdAt": "2026-02-14",
+				"templateName": "Homework Packet Lesson"
+			},
+			{
+				"id": "3efc0b47-830e-4024-9414-6822a249a892",
+				"title": "X.Y Practice Problems",
+				"classId": "f89oulemigkqtwm",
+				"type": "Workbook",
+				"status": "To Do",
+				"priority": "Low",
+				"dueTime": "23:59",
+				"description": "",
+				"createdAt": "2026-02-14",
+				"templateName": "Workbook Practice Problems"
+			},
+			{
+				"id": "c55c7c22-97e9-45e4-ad73-d4808b710605",
+				"title": "X.Y - X.Z Vocabulary",
+				"classId": "ed5zmxjmighm1gc",
+				"type": "Homework",
+				"status": "To Do",
+				"priority": "Low",
+				"dueTime": "10:10",
+				"description": "",
+				"createdAt": "2026-02-14",
+				"templateName": "Handwritten Vocabulary"
+			}
+		],
+		"assignmentTypes": [
+			"Homework",
+			"Classwork",
+			"Workbook",
+			"Project",
+			"Presentation",
+			"Paper",
+			"Lab",
+			"Quiz",
+			"Test",
+			"Midterm",
+			"Final Exam"
+		],
+		"termMode": "Semesters Only",
+		"theme": "dark"
+	},
+	"terms": {
+		"items": [
+			{
+				"id": "uiku6blmk7qkvcl",
+				"endDate": "2026-05-22",
+				"name": "2025-2026 School Year",
+				"scheduleType": "alternating-ab",
+				"semesters": [
+					{
+						"id": "87ya0sfmk7qkvcl",
+						"endDate": "2025-12-19",
+						"name": "Fall",
+						"startDate": "2025-08-06"
+					},
+					{
+						"id": "olc90tzmk7qkvcl",
+						"endDate": "2026-05-22",
+						"name": "Spring",
+						"startDate": "2026-01-07"
+					}
+				],
+				"startDate": "2025-08-06",
+				"termType": "Semesters Only"
+			}
+		]
+	}
+}

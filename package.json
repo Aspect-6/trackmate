@@ -5,6 +5,7 @@
 		"packages/*"
 	],
 	"scripts": {
+		"test": "cd packages/testing && mocha --exit ./tests/*.spec.ts",
 		"dev:landing": "npm run dev --workspace packages/landing",
 		"dev:academic": "npm run dev --workspace packages/academic",
 		"build:landing": "npm run build --workspace packages/landing",
@@ -22,6 +23,8 @@
 	"type": "module",
 	"homepage": "https://trackmate.co",
 	"devDependencies": {
+		"@firebase/rules-unit-testing": "^5.0.0",
+		"@types/mocha": "^10.0.10",
 		"@types/node": "^24.10.1",
 		"@types/react": "^19.2.5",
 		"@types/react-dom": "^19.2.3",
@@ -29,6 +32,7 @@
 		"eslint": "^9.39.1",
 		"eslint-plugin-react-hooks": "^7.0.1",
 		"eslint-plugin-react-refresh": "^0.4.24",
+		"mocha": "^11.7.5",
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.53.1",
 		"vite": "^7.2.4"

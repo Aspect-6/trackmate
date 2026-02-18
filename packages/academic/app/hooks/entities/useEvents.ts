@@ -79,7 +79,7 @@ export const useEvents = () => {
 
     // CRUD Actions
     const addEvent = useCallback((event: Omit<Event, "id" | "createdAt">): void => {
-        setEvents(prev => [...prev, { ...event, id: generateId(), createdAt: new Date().toISOString() }])
+        setEvents(prev => [...prev, { ...event, id: generateId(), createdAt: todayString() }])
     }, [setEvents])
 
     const updateEvent = useCallback((id: string, updates: Partial<Event>): void => {

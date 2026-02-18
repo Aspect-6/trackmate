@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .firebase
+packages/testing/data/*-export.json
 
 # Editor directories and files
 .vscode/*

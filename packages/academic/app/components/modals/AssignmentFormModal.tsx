@@ -4,7 +4,7 @@ import { useAssignments, useClasses } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useToast } from "@shared/contexts/ToastContext"
 import { DEFAULT_ASSIGNMENT_TYPES } from "@/app/hooks/useSettings"
-import { todayString } from "@shared/lib"
+import { todayString, generateId } from "@shared/lib"
 import { AssignmentType, Priority, Status, AssignmentTemplate } from "@/app/types"
 import { MODALS } from "@/app/styles/colors"
 import {
@@ -200,7 +200,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
             } else {
                 const newTemplate = {
                     ...templatePayload,
-                    id: crypto.randomUUID(),
+                    id: generateId(),
                     createdAt: todayString()
                 }
                 addAssignmentTemplate(newTemplate)

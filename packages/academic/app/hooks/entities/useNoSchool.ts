@@ -1,6 +1,6 @@
 import { useMemo, useCallback } from "react"
 import { useFirestoreItems } from "@/app/hooks/data/useFirestore"
-import { generateId, parseDateLocal, dateToLocalISOString } from "@shared/lib"
+import { generateId, parseDateLocal, dateToLocalISOString, todayString } from "@shared/lib"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { NoSchoolPeriod } from "@/app/types"
 
@@ -33,7 +33,7 @@ export const useNoSchool = () => {
 
     // CRUD Actions
     const addNoSchool = useCallback((period: Omit<NoSchoolPeriod, "id" | "createdAt">): void => {
-        setNoSchoolPeriods(prev => [...prev, { ...period, id: generateId(), createdAt: new Date().toISOString() }])
+        setNoSchoolPeriods(prev => [...prev, { ...period, id: generateId(), createdAt: todayString() }])
     }, [setNoSchoolPeriods])
 
     const updateNoSchool = useCallback((id: string, updates: Partial<NoSchoolPeriod>): void => {

@@ -17,9 +17,9 @@ service cloud.firestore {
 				&& "premium" in request.auth.token
 				&& request.auth.token.premium != null
 				&& (
-			request.auth.token.premium.all == true
-				|| request.auth.token.premium[product] == true
-			)
+					request.auth.token.premium.all == true ||
+					request.auth.token.premium[product] == true
+				)
 		}
 		function isChanging(field) {
 			return resource == null
@@ -32,18 +32,33 @@ service cloud.firestore {
 				return docId == "assignments-premium"
 					|| docId == "assignments-premium-archive"
 			}
-
+			function isAllowedDoc(docId) {
+				return docId in [
+					"assignments",
+					"assignments-archive",
+					"assignments-premium",
+					"assignments-premium-archive",
+					"classes",
+					"events",
+					"events-archive",
+					"noSchool",
+					"schedules",
+					"settings",
+					"terms"
+				]
+			}
 			function isSettingsRestrictedUpdate(docId) {
-				return docId == "settings" && isChanging("assignmentTemplates");
+				return docId == "settings" && isChanging("assignmentTemplates")
 			}
 
-			allow read: if isOwner(userId);
+			allow read: if isEmailVerified() && isOwner(userId);
 			allow create, update: if isOwner(userId)
 				&& isEmailVerified()
+				&& isAllowedDoc(document)
 				&& (
-			(!isPremiumDocument(document) && !isSettingsRestrictedUpdate(document))
-				|| premiumFor("academic")
-			);
+					(!isPremiumDocument(document) && !isSettingsRestrictedUpdate(document))
+					|| premiumFor("academic")
+				);
 			allow delete: if false;
 		}
 	}
