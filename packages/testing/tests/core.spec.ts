@@ -101,9 +101,14 @@ describe("Core Security (Ownership & Verification)", () => {
                 }).firestore()
 
                 const docRef = doc(db, `users/${TEST_USER_ID}/academic/${docType}`)
+                const payload = docType == "schedules"
+                    ? { type: "alternating-ab" }
+                    : docType == "settings"
+                        ? { theme: "dark" }
+                        : { items: [] }
 
                 await assertSucceeds(
-                    setDoc(docRef, { lastEdited: new Date().toISOString() }, { merge: true })
+                    setDoc(docRef, payload, { merge: true })
                 )
                 await assertFails(
                     deleteDoc(docRef)
