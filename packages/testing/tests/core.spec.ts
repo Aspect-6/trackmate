@@ -49,7 +49,7 @@ describe("Core Security (Ownership & Verification)", () => {
 
         await assertFails(
             setDoc(doc(db, "users/bob/academic/assignments"), {
-                foo: "bar"
+                items: []
             })
         )
     })
@@ -61,7 +61,7 @@ describe("Core Security (Ownership & Verification)", () => {
 
         await assertFails(
             setDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`), {
-                foo: "bar"
+                items: []
             })
         )
     })
@@ -73,10 +73,9 @@ describe("Core Security (Ownership & Verification)", () => {
 
         await testEnv.withSecurityRulesDisabled(async (context) => {
             await context.firestore().doc(`users/${TEST_USER_ID}/academic/assignments`).set({
-                foo: "bar"
+                items: []
             })
         })
-
         await assertFails(
             getDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`))
         )
@@ -88,7 +87,9 @@ describe("Core Security (Ownership & Verification)", () => {
         }).firestore()
 
         await assertFails(
-            setDoc(doc(db, `users/${TEST_USER_ID}/academic/random`), { foo: "bar" })
+            setDoc(doc(db, `users/${TEST_USER_ID}/academic/foo`), {
+                items: []
+            })
         )
     })
 

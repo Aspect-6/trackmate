@@ -6,6 +6,7 @@
 	],
 	"scripts": {
 		"test": "cd packages/testing && mocha --exit ./tests/*.spec.ts",
+		"emu:firestore": "firebase emulators:start --only firestore",
 		"dev:landing": "npm run dev --workspace packages/landing",
 		"dev:academic": "npm run dev --workspace packages/academic",
 		"build:landing": "npm run build --workspace packages/landing",

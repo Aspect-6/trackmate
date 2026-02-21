@@ -17,48 +17,67 @@ service cloud.firestore {
 				&& "premium" in request.auth.token
 				&& request.auth.token.premium != null
 				&& (
-					request.auth.token.premium.all == true ||
-					request.auth.token.premium[product] == true
-				)
+			request.auth.token.premium.all == true ||
+			request.auth.token.premium.get(product, false) == true
+			)
 		}
 		function isChanging(field) {
 			return resource == null
-				? field in request.resource.data
-				: field in request.resource.data.diff(resource.data).affectedKeys()
+			? field in request.resource.data
+			: field in request.resource.data.diff(resource.data).affectedKeys()
 		}
 
 		match /users/{userId}/academic/{document} {
-			function isPremiumDocument(docId) {
-				return docId == "assignments-premium"
-					|| docId == "assignments-premium-archive"
-			}
-			function isAllowedDoc(docId) {
-				return docId in [
-					"assignments",
-					"assignments-archive",
-					"assignments-premium",
-					"assignments-premium-archive",
-					"classes",
-					"events",
-					"events-archive",
-					"noSchool",
-					"schedules",
-					"settings",
-					"terms"
-				]
+			function isDocumentOfType(docId, type) {
+				let premiumDocuments = ["assignments-premium", "assignments-premium-archive"];
+				let singleObjectDocuments = ["settings", "schedules"];
+				let allowedDocuments = [
+				"assignments", "assignments-archive", "classes",
+				"events", "events-archive", "noSchool", "terms"
+				].concat(premiumDocuments).concat(singleObjectDocuments);
+
+				return type == "premium"
+				? docId in premiumDocuments
+				: type == "singleObject" 
+				? docId in singleObjectDocuments
+				: type == "allowed" 
+				? docId in allowedDocuments
+				: false
+
 			}
 			function isSettingsRestrictedUpdate(docId) {
 				return docId == "settings" && isChanging("assignmentTemplates")
+			}
+			function hasValidShape(docId) {
+				let d = request.resource.data;
+				return docId == "settings"
+				? d.keys().hasOnly(["theme", "termMode", "assignmentTemplates", "assignmentTypes"])
+					&& d.keys().hasAll(["theme", "termMode", "assignmentTemplates", "assignmentTypes"])
+					&& d.theme in ["light", "dark"]
+					&& d.termMode in ["Semesters Only", "Semesters With Quarters"]
+					&& d.assignmentTemplates.size() <= 200
+					&& d.assignmentTypes.size() >= 1
+					&& d.assignmentTypes.size() <= 200
+				: docId == "schedules"
+				? d.keys().hasOnly(["type", "alternating-ab"])
+					&& d.keys().hasAll(["type", "alternating-ab"])
+					&& d.type in ["alternating-ab"]
+					&& d["alternating-ab"].termConfigs is map
+					&& d["alternating-ab"].terms is map
+				: d.keys().hasOnly(["items"])
+					&& d.items is list
+					&& d.items.size() <= 5000;
 			}
 
 			allow read: if isEmailVerified() && isOwner(userId);
 			allow create, update: if isOwner(userId)
 				&& isEmailVerified()
-				&& isAllowedDoc(document)
+				&& isDocumentOfType(document, "allowed")
+				&& hasValidShape(document)
 				&& (
-					(!isPremiumDocument(document) && !isSettingsRestrictedUpdate(document))
-					|| premiumFor("academic")
-				);
+			(!isDocumentOfType(document, "premium") && !isSettingsRestrictedUpdate(document))
+				|| premiumFor("academic")
+			);
 			allow delete: if false;
 		}
 	}
