@@ -15,20 +15,16 @@ const Dashboard: React.FC = () => {
     const openEditEvent = useCallback((id: string) => openModal("edit-event", id), [openModal])
 
     const [isMobile, setIsMobile] = useState<boolean>(() => {
-        if (typeof window === "undefined") return false
         return window.matchMedia(MOBILE_BREAKPOINT).matches
     })
     const [isEventsCollapsed, setIsEventsCollapsed] = useState<boolean>(() => {
-        if (typeof window === "undefined") return false
         return window.matchMedia(MOBILE_BREAKPOINT).matches
     })
     const [isClassesCollapsed, setIsClassesCollapsed] = useState<boolean>(() => {
-        if (typeof window === "undefined") return false
         return window.matchMedia(MOBILE_BREAKPOINT).matches
     })
 
     useEffect(() => {
-        if (typeof window === "undefined") return
         const mediaQuery = window.matchMedia(MOBILE_BREAKPOINT)
 
         const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {

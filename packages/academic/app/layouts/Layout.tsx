@@ -10,12 +10,10 @@ const Layout: React.FC = () => {
     const location = useLocation()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
     const [isMediumViewport, setIsMediumViewport] = useState<boolean>(() => {
-        if (typeof window === "undefined") return true
         return window.matchMedia("(min-width: 768px)").matches
     })
 
     useEffect(() => {
-        if (typeof window === "undefined") return
         const mediaQuery = window.matchMedia("(min-width: 768px)")
 
         const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {

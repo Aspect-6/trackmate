@@ -3,7 +3,6 @@ import type { ClassBoard } from "@/pages/My Classes/types"
 import { MY_CLASSES } from "@/app/styles/colors"
 
 const cssColorToHex = (value: string): string => {
-    if (typeof window === "undefined") return value
     const canvas = document.createElement("canvas")
     canvas.width = canvas.height = 1
     const ctx = canvas.getContext("2d")
@@ -42,7 +41,7 @@ const ClassCardColor: React.FC<ClassBoard.Card.Body.ColorProps> = ({ color }) =>
     const resolveColorValue = useMemo(() => {
         if (!color) return null
         const variableMatch = color.match(/var\((--[^)]+)\)/)
-        if (variableMatch && typeof window !== "undefined") {
+        if (variableMatch) {
             const varName = variableMatch[1]
             if (!varName) return null
             return getComputedStyle(document.documentElement)
