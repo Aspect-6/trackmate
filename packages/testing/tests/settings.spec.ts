@@ -80,4 +80,42 @@ describe("Settings & Templates Restrictions", () => {
             setDoc(doc(db, settingsPath), newData)
         )
     })
+
+    it("allows standard users to create settings with empty assignmentTemplates", async () => {
+        await testEnv.withSecurityRulesDisabled(async (context) => {
+            await context.firestore().doc(settingsPath).delete()
+        })
+
+        const db = testEnv.authenticatedContext(TEST_USER_ID, {
+            email_verified: true
+        }).firestore()
+
+        await assertSucceeds(
+            setDoc(doc(db, settingsPath), {
+                theme: "dark",
+                termMode: "Semesters Only",
+                assignmentTemplates: [],
+                assignmentTypes: ["Homework"]
+            })
+        )
+    })
+
+    it("prevents standard users from creating settings document with populated assignmentTemplates", async () => {
+        await testEnv.withSecurityRulesDisabled(async (context) => {
+            await context.firestore().doc(settingsPath).delete()
+        })
+
+        const db = testEnv.authenticatedContext(TEST_USER_ID, {
+            email_verified: true
+        }).firestore()
+
+        await assertFails(
+            setDoc(doc(db, settingsPath), {
+                theme: "dark",
+                termMode: "Semesters Only",
+                assignmentTemplates: [{ templateName: "foo" }],
+                assignmentTypes: ["Homework"]
+            })
+        )
+    })
 })

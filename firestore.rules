@@ -46,7 +46,11 @@ service cloud.firestore {
 
 			}
 			function isSettingsRestrictedUpdate(docId) {
-				return docId == "settings" && resource != null && isChanging("assignmentTemplates")
+				return docId == "settings" && (
+					resource == null
+						? request.resource.data.assignmentTemplates.size() > 0
+						: isChanging("assignmentTemplates")
+				)
 			}
 			function hasValidShape(docId) {
 				let d = request.resource.data;
