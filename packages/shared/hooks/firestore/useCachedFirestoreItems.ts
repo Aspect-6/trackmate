@@ -4,9 +4,10 @@ import { useFirestoreCache } from "@shared/contexts/FirestoreCacheContext"
 
 /**
  * Hook for Firestore documents that store arrays of items.
- * Used for entities like assignments, classes, events, terms, noSchool.
+ * Used for documents with only an items value with an arbritrary
+ * length (e.g. assignments, classes, events, noSchool, and terms).
  * 
- * The document structure is: { items: T[] }
+ * The document structure is: `{ items: T[] }`.
  * This hook abstracts that away, returning just the items array.
  */
 export function useCachedFirestoreItems<T extends { id: string }>(
@@ -16,6 +17,7 @@ export function useCachedFirestoreItems<T extends { id: string }>(
     const cache = useFirestoreCache()
 
     const initialDoc = useRef({ items: [] as T[] }).current
+    const snapshotRef = useRef<{ items: T[]; loading: boolean }>({ items: [], loading: true })
 
     const subscribe = useCallback(
         (callback: () => void) => cache.subscribeDoc(app, key, initialDoc, callback),
@@ -25,17 +27,22 @@ export function useCachedFirestoreItems<T extends { id: string }>(
     const getSnapshot = useCallback(
         () => {
             const doc = cache.getDocData<{ items: T[] }>(app, key, initialDoc)
-            return doc.items
+            const items = doc.items
+            const loading = cache.getDocLoading(app, key)
+            const prev = snapshotRef.current
+            if (prev.items !== items || prev.loading !== loading) {
+                snapshotRef.current = { items, loading }
+            }
+            return snapshotRef.current
         },
         [cache, app, key, initialDoc]
     )
 
-    const rawItems = useSyncExternalStore(subscribe, getSnapshot, getSnapshot)
+    const snapshot = useSyncExternalStore(subscribe, getSnapshot, getSnapshot)
 
-    const itemsStr = JSON.stringify(rawItems)
+    const itemsStr = JSON.stringify(snapshot.items)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const items = useMemo(() => rawItems, [itemsStr])
-    const loading = cache.getDocLoading(app, key)
+    const items = useMemo(() => snapshot.items, [itemsStr])
     const error = cache.getDocError(app, key)
 
     const setItems = useCallback(async (valueOrUpdater: T[] | ((prev: T[]) => T[])) => {
@@ -47,5 +54,5 @@ export function useCachedFirestoreItems<T extends { id: string }>(
         await cache.setDocData(app, key, { items: newItems })
     }, [cache, app, key, initialDoc])
 
-    return [items, setItems, { loading, error }] as const
+    return [items, setItems, { loading: snapshot.loading, error }] as const
 }

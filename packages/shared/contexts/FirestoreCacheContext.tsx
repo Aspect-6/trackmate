@@ -55,6 +55,8 @@ export const FirestoreCacheProvider: React.FC<{ children: React.ReactNode }> = (
                 const currentEntry = docCacheRef.current.get(cacheKey) as CacheEntry<T>
                 if (firestoreData !== null) {
                     currentEntry.data = firestoreData
+                } else {
+                    setDocument(user.uid, app, key, initialValue as DocumentData)
                 }
                 currentEntry.loading = false
                 currentEntry.subscribers.forEach(cb => cb())

@@ -5,7 +5,7 @@ import { useFirestoreCache } from "@shared/contexts/FirestoreCacheContext"
 
 /**
  * Hook for Firestore documents with real-time sync and caching.
- * Used for simple documents like settings and schedules.
+ * Used for documents with defined property values (e.g. settings and schedules).
  */
 export function useCachedFirestoreDoc<T extends DocumentData>(
     app: AppName,
@@ -14,17 +14,23 @@ export function useCachedFirestoreDoc<T extends DocumentData>(
 ) {
     const cache = useFirestoreCache()
     const stableInitialValue = useRef(initialValue).current
+    const snapshotRef = useRef<{ data: T; loading: boolean }>({ data: stableInitialValue, loading: true })
 
     const subscribe = useCallback((callback: () => void) => {
         return cache.subscribeDoc(app, key, stableInitialValue, callback)
     }, [cache, app, key, stableInitialValue])
 
     const getSnapshot = useCallback(() => {
-        return cache.getDocData<T>(app, key, stableInitialValue)
+        const data = cache.getDocData<T>(app, key, stableInitialValue)
+        const loading = cache.getDocLoading(app, key)
+        const prev = snapshotRef.current
+        if (prev.data !== data || prev.loading !== loading) {
+            snapshotRef.current = { data, loading }
+        }
+        return snapshotRef.current
     }, [cache, app, key, stableInitialValue])
 
-    const data = useSyncExternalStore(subscribe, getSnapshot, getSnapshot)
-    const loading = cache.getDocLoading(app, key)
+    const snapshot = useSyncExternalStore(subscribe, getSnapshot, getSnapshot)
     const error = cache.getDocError(app, key)
 
     const setData = useCallback(async (valueOrUpdater: T | ((prev: T) => T)) => {
@@ -35,5 +41,5 @@ export function useCachedFirestoreDoc<T extends DocumentData>(
         await cache.setDocData(app, key, newValue)
     }, [cache, app, key, stableInitialValue])
 
-    return [data, setData, { loading, error }] as const
+    return [snapshot.data, setData, { loading: snapshot.loading, error }] as const
 }
