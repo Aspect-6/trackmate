@@ -43,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({ variant, isOpen, onClose }) => {
             />
 
             <SidebarContent>
-                <SidebarNav onLinkClick={isMobile ? onClose : undefined} />
+                <SidebarNav onLinkClick={isMobile ? () => setTimeout(() => onClose?.(), 50) : undefined} />
                 {/* Note: SidebarNav here is the local Academic nav content list, distinct from shared SidebarHeader/etc */}
             </SidebarContent>
         </SidebarContainer>
