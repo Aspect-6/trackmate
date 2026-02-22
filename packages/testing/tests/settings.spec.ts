@@ -30,40 +30,40 @@ describe("Settings & Templates Restrictions", () => {
         )
     })
 
-    it("prevents standard users from modifying assignmentTemplates", async () => {
+    it("prevents standard users from modifying templates", async () => {
         const db = testEnv.authenticatedContext(TEST_USER_ID, {
             email_verified: true
         }).firestore()
 
         const existingData = academicFixtures["settings"]
         const templates = [
-            ...existingData.assignmentTemplates,
+            ...existingData.templates,
             { id: "foo", title: "bar" }
         ]
-        const newData = { ...existingData, assignmentTemplates: templates }
+        const newData = { ...existingData, templates: templates }
 
         await assertFails(
             setDoc(doc(db, settingsPath), newData)
         )
     })
 
-    it("prevents standard users from merging assignmentTemplates", async () => {
+    it("prevents standard users from merging templates", async () => {
         const db = testEnv.authenticatedContext(TEST_USER_ID, {
             email_verified: true
         }).firestore()
 
         const existingData = academicFixtures["settings"]
         const templates = [
-            ...existingData.assignmentTemplates,
+            ...existingData.templates,
             { id: "foo", title: "bar" }
         ]
 
         await assertFails(
-            setDoc(doc(db, settingsPath), { assignmentTemplates: templates }, { merge: true })
+            setDoc(doc(db, settingsPath), { templates: templates }, { merge: true })
         )
     })
 
-    it("allows premium users to modify assignmentTemplates", async () => {
+    it("allows premium users to modify templates", async () => {
         const db = testEnv.authenticatedContext(TEST_USER_ID, {
             email_verified: true,
             premium: { academic: true }
@@ -71,17 +71,17 @@ describe("Settings & Templates Restrictions", () => {
 
         const existingData = academicFixtures["settings"]
         const newTemplates = [
-            ...existingData.assignmentTemplates,
+            ...existingData.templates,
             { id: "foo", title: "bar" }
         ]
-        const newData = { ...existingData, assignmentTemplates: newTemplates }
+        const newData = { ...existingData, templates: newTemplates }
 
         await assertSucceeds(
             setDoc(doc(db, settingsPath), newData)
         )
     })
 
-    it("allows standard users to create settings with empty assignmentTemplates", async () => {
+    it("allows standard users to create settings with empty templates", async () => {
         await testEnv.withSecurityRulesDisabled(async (context) => {
             await context.firestore().doc(settingsPath).delete()
         })
@@ -94,13 +94,13 @@ describe("Settings & Templates Restrictions", () => {
             setDoc(doc(db, settingsPath), {
                 theme: "dark",
                 termMode: "Semesters Only",
-                assignmentTemplates: [],
+                templates: [],
                 assignmentTypes: ["Homework"]
             })
         )
     })
 
-    it("prevents standard users from creating settings document with populated assignmentTemplates", async () => {
+    it("prevents standard users from creating settings document with populated templates", async () => {
         await testEnv.withSecurityRulesDisabled(async (context) => {
             await context.firestore().doc(settingsPath).delete()
         })
@@ -113,7 +113,7 @@ describe("Settings & Templates Restrictions", () => {
             setDoc(doc(db, settingsPath), {
                 theme: "dark",
                 termMode: "Semesters Only",
-                assignmentTemplates: [{ templateName: "foo" }],
+                templates: [{ templateName: "foo" }],
                 assignmentTypes: ["Homework"]
             })
         )

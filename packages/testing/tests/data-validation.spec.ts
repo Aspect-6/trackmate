@@ -6,7 +6,7 @@ import { getTestEnv, loadAcademicFixtures, TEST_USER_ID } from "../utils.ts"
 const validSettings = {
     theme: "dark",
     termMode: "Semesters Only",
-    assignmentTemplates: [{ templateName: "Template 1" }],
+    templates: [{ templateName: "Template 1" }],
     assignmentTypes: ["Homework"],
 }
 
@@ -107,13 +107,13 @@ describe("Data Validation (hasValidShape)", () => {
             )
         })
 
-        it("rejects a missing required field (assignmentTemplates)", async () => {
+        it("rejects a missing required field (templates)", async () => {
             const db = testEnv.authenticatedContext(TEST_USER_ID, {
                 email_verified: true, premium: { academic: true },
             }).firestore()
             await assertSucceeds(setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), validSettings))
 
-            const { assignmentTemplates: _, ...noTemplates } = validSettings
+            const { templates: _, ...noTemplates } = validSettings
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), noTemplates)
             )

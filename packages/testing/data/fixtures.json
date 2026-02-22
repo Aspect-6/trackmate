@@ -279,44 +279,6 @@
 		}
 	},
 	"settings": {
-		"assignmentTemplates": [
-			{
-				"id": "cb98f849-dddd-4df4-8e44-4bc4806fc25a",
-				"title": "X.Y In Homework Packet",
-				"classId": "xb90lwnmigj0uma",
-				"type": "Homework",
-				"status": "To Do",
-				"priority": "Low",
-				"dueTime": "23:59",
-				"description": "",
-				"createdAt": "2026-02-14",
-				"templateName": "Homework Packet Lesson"
-			},
-			{
-				"id": "3efc0b47-830e-4024-9414-6822a249a892",
-				"title": "X.Y Practice Problems",
-				"classId": "f89oulemigkqtwm",
-				"type": "Workbook",
-				"status": "To Do",
-				"priority": "Low",
-				"dueTime": "23:59",
-				"description": "",
-				"createdAt": "2026-02-14",
-				"templateName": "Workbook Practice Problems"
-			},
-			{
-				"id": "c55c7c22-97e9-45e4-ad73-d4808b710605",
-				"title": "X.Y - X.Z Vocabulary",
-				"classId": "ed5zmxjmighm1gc",
-				"type": "Homework",
-				"status": "To Do",
-				"priority": "Low",
-				"dueTime": "10:10",
-				"description": "",
-				"createdAt": "2026-02-14",
-				"templateName": "Handwritten Vocabulary"
-			}
-		],
 		"assignmentTypes": [
 			"Homework",
 			"Classwork",
@@ -331,7 +293,48 @@
 			"Final Exam"
 		],
 		"termMode": "Semesters Only",
-		"theme": "dark"
+		"theme": "dark",
+		"templates": [
+			{
+				"dueTime": "23:59",
+				"type": "Homework",
+				"kind": "assignment",
+				"classId": "xb90lwnmigj0uma",
+				"createdAt": "2026-02-14",
+				"description": "",
+				"id": "gn01zvmmls2216e",
+				"priority": "Low",
+				"title": "X.Y In Homework Packet",
+				"status": "To Do",
+				"templateName": "Homework Packet Lesson"
+			},
+			{
+				"priority": "Low",
+				"title": "X.Y Practice Problems",
+				"templateName": "Workbook Practice Problems",
+				"status": "To Do",
+				"description": "",
+				"createdAt": "2026-02-14",
+				"id": "rlv2x3mmls2216e",
+				"kind": "assignment",
+				"classId": "f89oulemigkqtwm",
+				"dueTime": "23:59",
+				"type": "Workbook"
+			},
+			{
+				"kind": "assignment",
+				"classId": "ed5zmxjmighm1gc",
+				"dueTime": "10:10",
+				"type": "Homework",
+				"priority": "Low",
+				"templateName": "Handwritten Vocabulary",
+				"status": "To Do",
+				"title": "X.Y - X.Z Vocabulary",
+				"description": "",
+				"createdAt": "2026-02-14",
+				"id": "8ydgqf7mls2216e"
+			}
+		]
 	},
 	"terms": {
 		"items": [

@@ -48,18 +48,18 @@ service cloud.firestore {
 			function isSettingsRestrictedUpdate(docId) {
 				return docId == "settings" && (
 					resource == null
-						? request.resource.data.assignmentTemplates.size() > 0
-						: isChanging("assignmentTemplates")
+						? request.resource.data.templates.size() > 0
+						: isChanging("templates")
 				)
 			}
 			function hasValidShape(docId) {
 				let d = request.resource.data;
 				return docId == "settings"
-				? d.keys().hasOnly(["theme", "termMode", "assignmentTemplates", "assignmentTypes"])
-					&& d.keys().hasAll(["theme", "termMode", "assignmentTemplates", "assignmentTypes"])
+				? d.keys().hasOnly(["theme", "termMode", "templates", "assignmentTypes"])
+					&& d.keys().hasAll(["theme", "termMode", "templates", "assignmentTypes"])
 					&& d.theme in ["light", "dark"]
 					&& d.termMode in ["Semesters Only", "Semesters With Quarters"]
-					&& d.assignmentTemplates.size() <= 200
+					&& d.templates.size() <= 200
 					&& d.assignmentTypes.size() >= 1
 					&& d.assignmentTypes.size() <= 200
 				: docId == "schedules"
