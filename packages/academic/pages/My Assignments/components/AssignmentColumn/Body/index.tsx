@@ -36,6 +36,7 @@ const AssignmentColumnBody: React.FC<AssignmentColumn.Body.Props> = ({
                 backgroundColor: dragEnabled && isOver ? MY_ASSIGNMENTS.BACKGROUND_BLACK_05 : undefined,
                 minHeight: items.length === 0 ? "60px" : undefined,
                 paddingBottom: isMobile && items.length > 0 ? "12px" : undefined,
+                overscrollBehavior: "contain",
             }}
         >
             {items.length === 0 ? (
