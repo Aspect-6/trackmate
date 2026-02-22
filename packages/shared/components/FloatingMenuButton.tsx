@@ -23,11 +23,12 @@ const FloatingMenuButton: React.FC<FloatingMenuButtonProps> = ({
     return (
         <button
             onClick={onClick}
-            className={`lg:hidden fixed bottom-6 z-40 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out active:scale-95 ${isOpen ? "z-[60]" : "z-40"}`}
+            className={`lg:hidden fixed bottom-6 w-14 h-14 rounded-full shadow-lg inset-shadow flex items-center justify-center transition-all duration-300 ease-in-out active:scale-95`}
             style={{
                 backgroundColor: isHovered ? hoverColor : backgroundColor,
                 color: TRACKMATE.TEXT_WHITE,
-                left: leftPosition
+                left: leftPosition,
+                zIndex: 60
             }}
             aria-label={isOpen ? "Close menu" : "Open menu"}
             {...hoverProps}
