@@ -115,7 +115,7 @@ const ActionBar: React.FC<ActionBar.Props> = ({
                     {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                 </button>
 
-                <div className="hidden md:flex items-center gap-2 overflow-x-scroll no-scrollbar mask-linear-fade max-w-[400px] lg:max-w-full py-1">
+                <div className="hidden md:flex items-center gap-2 overflow-x-scroll no-scrollbar mask-linear-fade max-w-[400px] xl:max-w-full py-1">
                     {typeChips}
                 </div>
 

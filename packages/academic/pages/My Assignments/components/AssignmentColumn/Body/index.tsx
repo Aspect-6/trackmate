@@ -13,6 +13,7 @@ const AssignmentColumnBody: React.FC<AssignmentColumn.Body.Props> = ({
     droppableRef,
     isOver,
     isMobile,
+    isTablet,
     dragEnabled,
     activeAssignmentId,
     overId,
@@ -56,6 +57,7 @@ const AssignmentColumnBody: React.FC<AssignmentColumn.Body.Props> = ({
                                     assignment={assignment}
                                     classInfo={classInfo}
                                     dragEnabled={dragEnabled}
+                                    isTablet={isTablet}
                                     onClick={handleClick}
                                 />
                             </React.Fragment>

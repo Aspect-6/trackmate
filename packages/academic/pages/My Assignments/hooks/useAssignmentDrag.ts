@@ -4,7 +4,8 @@ import { Status } from "@/app/types"
 import {
     closestCenter,
     KeyboardSensor,
-    PointerSensor,
+    MouseSensor,
+    TouchSensor,
     useSensor,
     useSensors,
     DragEndEvent,
@@ -16,21 +17,26 @@ import { sortableKeyboardCoordinates } from "@dnd-kit/sortable"
 
 const COLUMN_IDS: Status[] = ["To Do", "In Progress", "Done"]
 
-export const useAssignmentDrag = (dragEnabled: boolean) => {
+export const useAssignmentDrag = (dragEnabled: boolean, isTablet: boolean) => {
     const { getAssignmentById, updateAssignment } = useAssignments()
 
     const [activeAssignmentId, setActiveAssignmentId] = useState<string | null>(null)
     const [overId, setOverId] = useState<string | null>(null)
 
+    const mouseSensor = useSensor(MouseSensor, {
+        activationConstraint: { distance: 8 },
+    })
+    const touchSensor = useSensor(TouchSensor, {
+        activationConstraint: { delay: 0, tolerance: 5 },
+    })
+    const keyboardSensor = useSensor(KeyboardSensor, {
+        coordinateGetter: sortableKeyboardCoordinates,
+    })
+
     const sensors = useSensors(
-        useSensor(PointerSensor, {
-            activationConstraint: {
-                distance: 8,
-            },
-        }),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        }),
+        mouseSensor,
+        ...(isTablet ? [touchSensor] : []),
+        keyboardSensor,
     )
 
     const handleDragStart = useCallback((event: DragStartEvent) => {

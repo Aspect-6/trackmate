@@ -24,6 +24,7 @@ export namespace AssignmentColumn {
 		status: Status
 		title: string
 		isMobile: boolean
+		isTablet: boolean
 		isOpen: boolean
 		onToggle: () => void
 		activeAssignmentId: string | null
@@ -52,6 +53,7 @@ export namespace AssignmentColumn {
 			droppableRef: (node: HTMLElement | null) => void
 			isOver: boolean
 			isMobile: boolean
+			isTablet: boolean
 			dragEnabled: boolean
 			activeAssignmentId: string | null
 			overId: string | null
@@ -62,6 +64,7 @@ export namespace AssignmentColumn {
 			assignment: Assignment
 			classInfo: Class
 			dragEnabled: boolean
+			isTablet: boolean
 			onClick: (id: string) => void
 		}
 		export interface DragPlaceholderProps { }

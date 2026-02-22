@@ -13,6 +13,7 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
     assignment,
     classInfo,
     dragEnabled,
+    isTablet,
     onClick,
 }) => {
     const { isHovered, hoverProps } = useHover()
@@ -38,13 +39,16 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
         ]
             .filter(Boolean)
             .join(", "),
-        willChange: "transform" as const,
+        willChange: "transform",
     }
+
+    const cardDragProps = dragEnabled && !isTablet ? { ...attributes, ...listeners } : {}
+    const gripDragProps = dragEnabled && isTablet ? { ...attributes, ...listeners } : {}
 
     return (
         <div
             ref={setNodeRef}
-            className={`p-4 rounded-lg shadow-md overflow-hidden transition-colors ${dragEnabled ? "flex gap-3 cursor-grab active:cursor-grabbing" : "flex cursor-default"}`}
+            className={`p-4 rounded-lg shadow-md overflow-hidden transition-colors ${dragEnabled && !isTablet ? "flex gap-3 cursor-grab active:cursor-grabbing" : "flex gap-3 cursor-default"}`}
             style={{
                 ...dragStyle,
                 border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`,
@@ -52,17 +56,21 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
                 backgroundColor: isHovered
                     ? MY_ASSIGNMENTS.BACKGROUND_SECONDARY
                     : MY_ASSIGNMENTS.BACKGROUND_PRIMARY,
-                touchAction: dragEnabled ? "none" : "auto",
+                touchAction: dragEnabled && !isTablet ? "none" : "auto",
                 opacity: isDragging ? 0.4 : 1,
             }}
             onClick={() => onClick(assignment.id)}
-            {...(dragEnabled ? { ...attributes, ...listeners } : {})}
+            {...cardDragProps}
             {...hoverProps}
         >
             {dragEnabled && (
                 <div
-                    className="flex items-center justify-center"
-                    style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY }}
+                    className={`flex items-center justify-center ${isTablet ? "cursor-grab active:cursor-grabbing" : ""}`}
+                    style={{
+                        color: MY_ASSIGNMENTS.TEXT_SECONDARY,
+                        touchAction: isTablet ? "none" : undefined,
+                    }}
+                    {...gripDragProps}
                 >
                     <GripVertical size={16} />
                 </div>

@@ -11,6 +11,7 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
     status,
     title,
     isMobile,
+    isTablet,
     isOpen,
     onToggle,
     activeAssignmentId,
@@ -53,7 +54,7 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
 
     return (
         <div
-            className={`assignments-column w-full lg:flex-1 rounded-xl shadow-md p-4 flex flex-col ${isMobile ? "" : "h-full min-h-0"}`}
+            className={`assignments-column w-full xl:flex-1 rounded-xl shadow-md p-4 flex flex-col ${!isMobile && !isTablet ? "h-full min-h-0" : ""}`}
             style={{
                 backgroundColor: MY_ASSIGNMENTS.BACKGROUND_PRIMARY,
                 border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`,
@@ -76,13 +77,14 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
                     gridTemplateRows: isCollapsed ? "0fr" : "1fr",
                 }}
             >
-                <div className="overflow-hidden" style={{ maxHeight: isMobile ? "345px" : undefined }}>
+                <div className="overflow-hidden" style={{ maxHeight: isMobile || isTablet ? "330px" : undefined }}>
                     <AssignmentColumnBody
                         status={status}
                         items={items}
                         droppableRef={setDroppableRef}
                         isOver={isOver}
                         isMobile={isMobile}
+                        isTablet={isTablet}
                         dragEnabled={dragEnabled}
                         activeAssignmentId={activeAssignmentId}
                         overId={overId}

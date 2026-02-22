@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react"
 
 const MOBILE_BREAKPOINT = "(max-width: 767px)"
+const TABLET_BREAKPOINT = "(min-width: 768px) and (max-width: 1279px)"
 
 export const useMobileDetection = () => {
     const [isMobile, setIsMobile] = useState(false)
+    const [isTablet, setIsTablet] = useState(false)
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia(MOBILE_BREAKPOINT)
-        setIsMobile(mediaQuery.matches)
+        const mobileQuery = window.matchMedia(MOBILE_BREAKPOINT)
+        const tabletQuery = window.matchMedia(TABLET_BREAKPOINT)
 
-        const handleChange = (event: MediaQueryListEvent) => setIsMobile(event.matches)
-        mediaQuery.addEventListener("change", handleChange)
+        setIsMobile(mobileQuery.matches)
+        setIsTablet(tabletQuery.matches)
 
-        return () => mediaQuery.removeEventListener("change", handleChange)
+        const handleMobile = (event: MediaQueryListEvent) => setIsMobile(event.matches)
+        const handleTablet = (event: MediaQueryListEvent) => setIsTablet(event.matches)
+
+        mobileQuery.addEventListener("change", handleMobile)
+        tabletQuery.addEventListener("change", handleTablet)
+
+        return () => {
+            mobileQuery.removeEventListener("change", handleMobile)
+            tabletQuery.removeEventListener("change", handleTablet)
+        }
     }, [])
 
-    return { isMobile }
+    return { isMobile, isTablet }
 }

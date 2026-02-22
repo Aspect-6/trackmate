@@ -17,22 +17,16 @@
 }
 
 /* Medium: 2-column grid with Done full-width below */
-@media (width >=theme(--breakpoint-md)) and (width < theme(--breakpoint-lg)) {
+@media (width >=theme(--breakpoint-md)) and (width < theme(--breakpoint-xl)) {
     .assignments-column-layout {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto 1fr;
         gap: 1rem;
-        height: 100%;
-    }
-
-    .assignments-column-layout>.assignments-column:nth-child(1),
-    .assignments-column-layout>.assignments-column:nth-child(2) {
-        max-height: 315px;
     }
 
     .assignments-column-layout>.assignments-column:nth-child(3) {
         grid-column: span 2;
+        margin-bottom: 2rem;
     }
 
     .assignments-column+.assignments-column {
@@ -41,7 +35,7 @@
 }
 
 /* Desktop: Reset for desktop layout */
-@media (width >=theme(--breakpoint-lg)) {
+@media (width >=theme(--breakpoint-xl)) {
     .assignments-column+.assignments-column {
         margin-top: 0;
     }

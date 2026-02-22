@@ -25,7 +25,7 @@ const MyAssignments: React.FC = () => {
 	const [typeFilter, setTypeFilter] = useState<string[]>([])
 	const [priorityFilter, setPriorityFilter] = useState<string[]>([])
 
-	const { isMobile } = useMobileDetection()
+	const { isMobile, isTablet } = useMobileDetection()
 	const { openColumns, toggleColumn } = useColumnVisibility(isMobile)
 
 	const dragEnabled = !isMobile
@@ -38,10 +38,10 @@ const MyAssignments: React.FC = () => {
 		handleDragOver,
 		activeAssignmentId,
 		overId,
-	} = useAssignmentDrag(dragEnabled)
+	} = useAssignmentDrag(dragEnabled, isTablet)
 
 	return (
-		<div className="flex-1 min-h-0 flex flex-col">
+		<div className={`flex flex-col ${!isMobile && !isTablet ? "flex-1 min-h-0" : ""}`}>
 			<ActionBar
 				searchQuery={searchQuery}
 				onSearchChange={setSearchQuery}
@@ -58,13 +58,14 @@ const MyAssignments: React.FC = () => {
 				onDragCancel={handleDragCancel}
 				onDragOver={handleDragOver}
 			>
-				<div className="assignments-column-layout flex-1 min-h-0 flex flex-col lg:flex-row gap-4 pb-4 md:pb-0">
+				<div className={`assignments-column-layout flex flex-col xl:flex-row gap-4 pb-4 md:pb-0 ${!isMobile && !isTablet ? "flex-1 min-h-0" : ""}`}>
 					{COLUMN_CONFIGS.map(({ status, title }) => (
 						<AssignmentColumn
 							key={status}
 							status={status}
 							title={title}
 							isMobile={isMobile}
+							isTablet={isTablet}
 							isOpen={openColumns[status]}
 							onToggle={() => toggleColumn(status)}
 							activeAssignmentId={activeAssignmentId}
