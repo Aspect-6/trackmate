@@ -101,7 +101,6 @@ const ActionBar: React.FC<ActionBar.Props> = ({
                 border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`
             }}>
             <div className="flex items-center gap-2">
-                <div className="flex-1 min-w-0 hidden md:block" />
 
                 <div className="flex-1 md:hidden min-w-0">
                     {searchInput("")}
@@ -115,11 +114,11 @@ const ActionBar: React.FC<ActionBar.Props> = ({
                     {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                 </button>
 
-                <div className="hidden md:flex items-center gap-2 overflow-x-scroll no-scrollbar mask-linear-fade max-w-[400px] xl:max-w-full py-1">
+                <div className="hidden md:flex flex-1 min-w-0 items-center gap-2 overflow-x-scroll no-scrollbar mask-linear-fade py-1">
                     {typeChips}
                 </div>
 
-                <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+                <div className="hidden md:flex items-center gap-2 flex-shrink-0 mr-1">
                     <div className="w-px h-4 bg-white/10 flex-shrink-0 mx-1" />
                     {priorityChips}
                     <AllChip />
