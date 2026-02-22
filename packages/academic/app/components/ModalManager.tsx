@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useDeleteModalConfig } from "@/app/hooks/useDeleteModalConfig"
 import { AssignmentFormModal } from "@/app/components/modals/AssignmentFormModal"
@@ -21,6 +21,27 @@ const ModalManager: React.FC = () => {
     } = useModal()
 
     const deleteConfig = useDeleteModalConfig(activeModal, modalData)
+    const backdropRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (!activeModal) return
+
+        document.body.style.overflow = "hidden"
+
+        const handleTouchMove = (e: TouchEvent) => {
+            const target = e.target as HTMLElement
+            const modal = backdropRef.current?.querySelector("[data-modal-content]")
+            if (modal?.contains(target)) return
+            e.preventDefault()
+        }
+
+        document.addEventListener("touchmove", handleTouchMove, { passive: false })
+
+        return () => {
+            document.body.style.overflow = ""
+            document.removeEventListener("touchmove", handleTouchMove)
+        }
+    }, [activeModal])
 
     if (!activeModal) return null
 
@@ -88,10 +109,12 @@ const ModalManager: React.FC = () => {
 
     return (
         <div
+            ref={backdropRef}
             className="fixed inset-0 flex items-center justify-center p-4 z-50"
             style={{
                 backgroundColor: GLOBAL.MODAL_BACKDROP,
-                touchAction: "none"
+                touchAction: "none",
+                overscrollBehavior: "none",
             }}
         >
             {renderModalContent()}
