@@ -41,14 +41,15 @@ body::before {
     html, body {
         overflow: hidden;
         height: 100%;
+        --scale: 0.85;
     }
 
     #root {
-        transform: scale(0.9);
+        transform: scale(var(--scale));
         transform-origin: top left;
-        width: 111.1111vw;
-        min-height: 111.1111dvh;
-        height: 111.1111dvh;
+        width: calc(100vw / var(--scale));
+        min-height: calc(100dvh / var(--scale));
+        height: calc(100dvh / var(--scale));
         display: flex;
         flex-direction: column;
         overflow-y: auto;
