@@ -4,8 +4,8 @@ const MOBILE_BREAKPOINT = "(max-width: 767px)"
 const TABLET_BREAKPOINT = "(min-width: 768px) and (max-width: 1279px)"
 
 export const useMobileDetection = () => {
-    const [isMobile, setIsMobile] = useState(false)
-    const [isTablet, setIsTablet] = useState(false)
+    const [isMobile, setIsMobile] = useState(() => window.matchMedia(MOBILE_BREAKPOINT).matches)
+    const [isTablet, setIsTablet] = useState(() => window.matchMedia(TABLET_BREAKPOINT).matches)
 
     useEffect(() => {
         const mobileQuery = window.matchMedia(MOBILE_BREAKPOINT)
