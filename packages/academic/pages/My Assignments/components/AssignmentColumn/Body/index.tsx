@@ -31,7 +31,7 @@ const AssignmentColumnBody: React.FC<AssignmentColumn.Body.Props> = ({
     return (
         <div
             ref={droppableRef}
-            className="min-h-0 flex-1 h-full space-y-3 overflow-y-auto custom-scrollbar"
+            className="min-h-0 flex-1 h-full space-y-3 overflow-y-auto custom-scrollbar pr-2"
             style={{
                 backgroundColor: dragEnabled && isOver ? MY_ASSIGNMENTS.BACKGROUND_BLACK_05 : undefined,
                 minHeight: items.length === 0 ? "60px" : undefined,
