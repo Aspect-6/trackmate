@@ -4,7 +4,7 @@ import { MY_SCHEDULE } from "@/app/styles/colors"
 
 const AlternatingDaysSchedule: React.FC<AlternatingDaysSchedule.Props> = ({ title, children }) => {
     return (
-        <div className="mb-8">
+        <div className="mb-8 last:mb-0">
             <h3
                 className="text-lg font-semibold mb-4"
                 style={{ color: MY_SCHEDULE.TEXT_PRIMARY }}

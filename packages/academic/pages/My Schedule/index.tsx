@@ -20,9 +20,9 @@ const MySchedule: React.FC = () => {
     const { isFocused, focusProps } = useFocus()
 
     return (
-        <div className="my-schedule-page flex-1 min-h-0 flex flex-col">
+        <div className="my-schedule-page flex flex-col">
             <div
-                className="overflow-x-hidden p-6 rounded-xl shadow-md flex-1 flex flex-col transition-colors overflow-auto"
+                className="overflow-x-hidden p-6 rounded-xl shadow-md flex flex-col transition-colors overflow-auto"
                 style={{
                     border: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}`,
                     backgroundColor: MY_SCHEDULE.BACKGROUND_PRIMARY,
