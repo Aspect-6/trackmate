@@ -45,7 +45,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
 }) => {
     const { classes } = useClasses()
     const { assignments, addAssignment, updateAssignment } = useAssignments()
-    const { assignmentTypes, addAssignmentTemplate, updateAssignmentTemplate } = useSettings()
+    const { assignmentTypes, addTemplate, updateTemplate } = useSettings()
     const { openModal } = useModal()
     const { showToast } = useToast()
     const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
@@ -194,16 +194,16 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
 
         if (isTemplateMode) {
             const { dueDate: _removed, ...templateFields } = safeData
-            const templatePayload = { ...templateFields, templateName: safeData.templateName } as AssignmentTemplate
+            const templatePayload = { ...templateFields, templateName: safeData.templateName, kind: "assignment" as const }
             if (templateId) {
-                updateAssignmentTemplate(templateId, templatePayload)
+                updateTemplate(templateId, templatePayload)
             } else {
-                const newTemplate = {
+                const newTemplate: AssignmentTemplate = {
                     ...templatePayload,
                     id: generateId(),
                     createdAt: todayString()
                 }
-                addAssignmentTemplate(newTemplate)
+                addTemplate(newTemplate)
             }
         } else {
             if (isEditMode && assignmentId) {
@@ -228,7 +228,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
         <ModalContainer>
             <ModalHeader color={MODALS.ASSIGNMENT.HEADING}>
                 {isTemplateMode
-                    ? (templateId ? "Edit Template" : "New Template")
+                    ? (templateId ? "Edit Template" : "Add New Template")
                     : (isEditMode ? "Edit Assignment" : "Add New Assignment")
                 }
             </ModalHeader>

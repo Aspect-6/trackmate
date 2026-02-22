@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useToast } from "@shared/contexts/ToastContext"
 import { useEvents } from "@/app/hooks/entities"
-import { todayString } from "@shared/lib"
+import { useSettings } from "@/app/hooks/useSettings"
+import { todayString, generateId } from "@shared/lib"
+import type { EventTemplate } from "@/app/types"
 import { MODALS } from "@/app/styles/colors"
 import {
     ModalContainer,
@@ -22,13 +24,24 @@ import {
 interface EventFormModalProps {
     onClose: () => void
     eventId?: string // If provided, modal is in edit mode
+    mode?: "default" | "template"
+    templateId?: string
+    templateData?: EventTemplate
 }
 
-export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId }) => {
+export const EventFormModal: React.FC<EventFormModalProps> = ({
+    onClose,
+    eventId,
+    mode = "default",
+    templateId,
+    templateData
+}) => {
     const { events, addEvent, updateEvent } = useEvents()
+    const { eventTemplates, addTemplate, updateTemplate } = useSettings()
     const { openModal } = useModal()
     const { showToast } = useToast()
     const [formData, setFormData] = useState({
+        templateName: "",
         title: "",
         date: todayString(),
         startTime: "",
@@ -37,15 +50,17 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
         color: MODALS.EVENT.COLORS[0]!
     })
 
-    const isEditMode = !!eventId
+    const isEditMode = !!eventId || !!templateId
+    const isTemplateMode = mode === "template"
     const focusColor = MODALS.EVENT.PRIMARY_BG
 
     // Populate form with existing event data in edit mode (only on mount)
     useEffect(() => {
-        if (isEditMode) {
+        if (eventId) {
             const event = events.find(e => e.id === eventId)
             if (event) {
                 setFormData({
+                    templateName: "",
                     title: event.title,
                     date: event.date,
                     startTime: event.startTime || "",
@@ -54,8 +69,36 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
                     color: event.color
                 })
             }
+        } else if (templateData) {
+            setFormData({
+                templateName: "",
+                title: templateData.title,
+                date: todayString(),
+                startTime: templateData.startTime || "",
+                endTime: templateData.endTime || "",
+                description: templateData.description || "",
+                color: templateData.color
+            })
         }
-    }, [eventId, events, isEditMode])
+    }, [eventId, events, templateData, templateId])
+
+    // Load template data for editing
+    useEffect(() => {
+        if (templateId && eventTemplates) {
+            const template = eventTemplates.find(t => t.id === templateId)
+            if (template) {
+                setFormData(prev => ({
+                    ...prev,
+                    templateName: template.templateName,
+                    title: template.title,
+                    startTime: template.startTime || "",
+                    endTime: template.endTime || "",
+                    description: template.description || "",
+                    color: template.color
+                }))
+            }
+        }
+    }, [templateId, eventTemplates])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -69,52 +112,96 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
             color: formData.color
         }
 
+        if (isTemplateMode && !formData.templateName.trim()) {
+            showToast("Please enter a template name", "error")
+            return
+        }
+
+        if (!safeData.title.trim()) {
+            showToast("Please enter a title", "error")
+            return
+        }
+
         if (!safeData.date || isNaN(new Date(safeData.date).getTime())) {
             safeData.date = todayString()
         }
 
-        if (isEditMode) {
-            updateEvent(eventId, safeData)
-            showToast("Successfully updated event", "success")
+        if (isTemplateMode) {
+            const { date: _removed, ...templateFields } = safeData
+            const templatePayload = { ...templateFields, templateName: formData.templateName, kind: "event" as const }
+            if (templateId) {
+                updateTemplate(templateId, templatePayload)
+            } else {
+                const newTemplate: EventTemplate = {
+                    ...templatePayload,
+                    id: generateId(),
+                    createdAt: todayString()
+                }
+                addTemplate(newTemplate)
+            }
         } else {
-            addEvent(safeData)
-            showToast("Successfully added event", "success")
+            if (isEditMode && eventId) {
+                updateEvent(eventId, safeData)
+                showToast("Successfully updated event", "success")
+            } else {
+                addEvent(safeData)
+                showToast("Successfully added event", "success")
+            }
         }
         onClose()
     }
 
     const handleDelete = () => {
         onClose()
-        openModal("delete-event", eventId)
+        if (!isTemplateMode) {
+            openModal("delete-event", eventId)
+        }
     }
 
     return (
         <ModalContainer>
             <ModalHeader color={MODALS.EVENT.HEADING}>
-                {isEditMode ? "Edit Event" : "Add New Event"}
+                {isTemplateMode
+                    ? (templateId ? "Edit Template" : "Add New Template")
+                    : (isEditMode ? "Edit Event" : "Add New Event")
+                }
             </ModalHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
+                {isTemplateMode && (
+                    <div>
+                        <ModalLabel>Template Name</ModalLabel>
+                        <ModalTextInput
+                            name="templateName"
+                            value={formData.templateName}
+                            onChange={e => setFormData({ ...formData, templateName: e.target.value })}
+                            placeholder="Band Practice"
+                            focusColor={focusColor}
+                        />
+                    </div>
+                )}
                 <div>
-                    <ModalLabel>Event Title</ModalLabel>
+                    <ModalLabel>{isTemplateMode ? "Event Title" : "Title"}</ModalLabel>
                     <ModalTextInput
                         name="title"
                         value={formData.title}
                         onChange={e => setFormData({ ...formData, title: e.target.value })}
-                        placeholder="Club Meeting"
+                        placeholder="Marching Band Practice"
                         required
                         focusColor={focusColor}
                     />
                 </div>
-                <div>
-                    <ModalLabel>Date</ModalLabel>
-                    <ModalDateInput
-                        name="date"
-                        value={formData.date}
-                        onChange={e => setFormData({ ...formData, date: e.target.value })}
-                        required
-                        focusColor={focusColor}
-                    />
-                </div>
+                {!isTemplateMode && (
+                    <div>
+                        <ModalLabel>Date</ModalLabel>
+                        <ModalDateInput
+                            name="date"
+                            value={formData.date}
+                            onChange={e => setFormData({ ...formData, date: e.target.value })}
+                            required
+                            focusColor={focusColor}
+                        />
+                    </div>
+                )}
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <ModalLabel>Start Time (Optional)</ModalLabel>
@@ -166,7 +253,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
                 </div>
 
                 <ModalFooter>
-                    {isEditMode && <ModalDeleteButton className="mr-auto" onClick={handleDelete} />}
+                    {isEditMode && !isTemplateMode && <ModalDeleteButton className="mr-auto" onClick={handleDelete} />}
                     <ModalCancelButton onClick={onClose} />
                     <ModalSubmitButton
                         type="submit"
@@ -174,7 +261,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({ onClose, eventId
                         bgColorHover={MODALS.EVENT.PRIMARY_BG_HOVER}
                         textColor={MODALS.EVENT.PRIMARY_TEXT}
                     >
-                        {isEditMode ? "Save Changes" : "Add Event"}
+                        {isTemplateMode ? "Save Template" : (isEditMode ? "Save Changes" : "Add Event")}
                     </ModalSubmitButton>
                 </ModalFooter>
             </form>

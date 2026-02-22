@@ -1,10 +1,10 @@
 import React from "react"
 import { useHover } from "@shared/hooks/ui/useHover"
-import type { AssignmentTemplateSettings } from "@/pages/Settings/types"
+import type { TemplateSettings } from "@/pages/Settings/types"
 import { Plus } from "lucide-react"
 import { GLOBAL } from "@/app/styles/colors"
 
-const AddTemplateButton: React.FC<AssignmentTemplateSettings.AddTemplateButtonProps> = ({ onClick, children }) => {
+const AddTemplateButton: React.FC<TemplateSettings.AddTemplateButtonProps> = ({ onClick, children }) => {
     const { isHovered, hoverProps } = useHover()
 
     return (

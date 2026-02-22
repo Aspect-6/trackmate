@@ -10,6 +10,7 @@ import { DeleteConfirmationModal } from "@/app/components/modals/DeleteConfirmat
 import { AlternatingABClassSelectorModal } from "@/app/components/modals/AlternatingABClassSelectorModal"
 import { TypeSelectorModal } from "@/app/components/modals/TypeSelectorModal"
 import { AssignmentKindChooserModal } from "@/app/components/modals/AssignmentKindChooserModal"
+import { EventKindChooserModal } from "@/app/components/modals/EventKindChooserModal"
 import { GLOBAL } from "@/app/styles/colors"
 
 const ModalManager: React.FC = () => {
@@ -67,6 +68,8 @@ const ModalManager: React.FC = () => {
 
             case "assignment-kind-chooser":
                 return <AssignmentKindChooserModal onClose={closeModal} />
+            case "event-kind-chooser":
+                return <EventKindChooserModal onClose={closeModal} />
 
             // Assignment modals
             case "add-assignment":
@@ -82,7 +85,7 @@ const ModalManager: React.FC = () => {
 
             // Event modals
             case "add-event":
-                return <EventFormModal onClose={closeModal} />
+                return <EventFormModal onClose={closeModal} {...(modalData && typeof modalData === "object" ? modalData : {})} />
             case "edit-event":
                 return <EventFormModal onClose={closeModal} eventId={modalData} />
 

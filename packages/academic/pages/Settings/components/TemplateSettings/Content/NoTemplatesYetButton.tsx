@@ -1,9 +1,9 @@
 import React from "react"
 import { useHover } from "@shared/hooks/ui/useHover"
-import type { AssignmentTemplateSettings } from "@/pages/Settings/types"
+import type { TemplateSettings } from "@/pages/Settings/types"
 import { SETTINGS } from "@/app/styles/colors"
 
-const NoTemplatesYetButton: React.FC<AssignmentTemplateSettings.Content.NoTemplatesYetButtonProps> = ({ onClick, children }) => {
+const NoTemplatesYetButton: React.FC<TemplateSettings.Content.NoTemplatesYetButtonProps> = ({ onClick, children }) => {
     const { isHovered, hoverProps } = useHover()
 
     return (

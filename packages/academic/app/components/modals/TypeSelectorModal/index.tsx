@@ -37,7 +37,7 @@ export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, o
                 />
 
                 <OptionButton
-                    onClick={() => openModal("add-event")}
+                    onClick={() => openModal("event-kind-chooser")}
                     icon={<Calendar className="w-5 h-5" />}
                     label="Event"
                     bg={GLOBAL.EVENT_BUTTON_BG}

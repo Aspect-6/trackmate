@@ -229,9 +229,27 @@ export interface AcademicTerm {
 }
 
 /**
+ * Discriminator for template types.
+ */
+export type TemplateKind = "assignment" | "event"
+
+/**
  * Represents a reusable template for creating assignments.
  */
 export interface AssignmentTemplate extends Omit<Assignment, "dueDate"> {
-    /** The name of the template used for identification */
     templateName: string
+    kind: "assignment"
 }
+
+/**
+ * Represents a reusable template for creating events.
+ */
+export interface EventTemplate extends Omit<Event, "date"> {
+    templateName: string
+    kind: "event"
+}
+
+/**
+ * Union type for all template kinds.
+ */
+export type Template = AssignmentTemplate | EventTemplate

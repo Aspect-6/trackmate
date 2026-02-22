@@ -1,4 +1,4 @@
-import { AssignmentType, AlternatingABDayType, AcademicTerm } from "@/app/types"
+import { AssignmentType, AlternatingABDayType, AcademicTerm, Template } from "@/app/types"
 import { DragEndEvent, SensorDescriptor, SensorOptions } from "@dnd-kit/core"
 import { LucideIcon } from "lucide-react"
 
@@ -87,8 +87,8 @@ export namespace AssignmentTypeSettings {
     }
 }
 
-// AssignmentTemplateSettings namespace
-export namespace AssignmentTemplateSettings {
+// TemplateSettings namespace
+export namespace TemplateSettings {
     export interface Props {
         children: React.ReactNode
     }
@@ -109,11 +109,7 @@ export namespace AssignmentTemplateSettings {
             }
             // ======================
             export interface TemplateRowProps {
-                id: string
-                templateName: string
-                title: string
-                type: string
-                classColor: string
+                template: Template
                 onEdit: () => void
                 onRemove: () => void
             }

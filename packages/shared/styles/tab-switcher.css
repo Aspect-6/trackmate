@@ -1,0 +1,42 @@
+/* Tab Switcher — stylized full-width design */
+.tab-switcher {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--border-secondary, var(--modal-tab-border));
+    gap: 0.25rem;
+}
+
+.tab-switcher-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-secondary, var(--modal-label-color));
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+    transition: all 150ms ease;
+}
+
+.tab-switcher-tab:hover {
+    color: var(--text-primary, var(--modal-input-text));
+    background: var(--modal-tab-hover-bg);
+}
+
+.tab-switcher-tab.active {
+    color: var(--text-primary, var(--modal-input-text));
+    background: var(--modal-tab-active-bg);
+    border-bottom-color: currentColor;
+}
+
+.tab-switcher-tab:focus-visible {
+    outline: 2px solid var(--focus-color, var(--modal-input-border));
+    outline-offset: -2px;
+}

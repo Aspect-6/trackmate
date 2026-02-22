@@ -1,9 +1,9 @@
 import React from "react"
 import { DndContext, closestCenter } from "@dnd-kit/core"
-import type { AssignmentTemplateSettings } from "@/pages/Settings/types"
+import type { TemplateSettings } from "@/pages/Settings/types"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 
-const TemplateList: React.FC<AssignmentTemplateSettings.Content.TemplateList.Props> = ({
+const TemplateList: React.FC<TemplateSettings.Content.TemplateList.Props> = ({
     sensors,
     onDragEnd,
     items,

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react"
 import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import { useToast } from "@shared/contexts/ToastContext"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
-import type { Assignment, AssignmentType, ThemeMode, TermMode, AssignmentTemplate } from "@/app/types"
+import type { Assignment, AssignmentType, ThemeMode, TermMode, Template } from "@/app/types"
 
 export const DEFAULT_ASSIGNMENT_TYPES: AssignmentType[] = [
     "Homework",
@@ -23,7 +23,7 @@ interface Settings {
     theme: ThemeMode
     termMode: TermMode
     assignmentTypes: AssignmentType[]
-    assignmentTemplates: AssignmentTemplate[]
+    templates: Template[]
 }
 
 // Read initial theme from localStorage to prevent flash
@@ -37,7 +37,7 @@ const DEFAULT_SETTINGS: Settings = {
     theme: getInitialTheme(),
     termMode: "Semesters Only",
     assignmentTypes: DEFAULT_ASSIGNMENT_TYPES,
-    assignmentTemplates: []
+    templates: []
 }
 
 export const useSettings = () => {
@@ -110,34 +110,39 @@ export const useSettings = () => {
         showToast(`Reordered assignment types`, "success")
     }, [setSettings, showToast])
 
-    // Assignment template actions
-    const addAssignmentTemplate = useCallback((template: AssignmentTemplate) => {
+    // Template actions (generic — work for both assignment and event templates)
+    const addTemplate = useCallback((template: Template) => {
         setSettings(prev => ({
             ...prev,
-            assignmentTemplates: [...(prev.assignmentTemplates || []), template]
+            templates: [...(prev.templates || []), template]
         }))
         showToast("Template saved", "success")
     }, [setSettings, showToast])
 
-    const removeAssignmentTemplate = useCallback((templateId: string) => {
+    const removeTemplate = useCallback((templateId: string) => {
         setSettings(prev => ({
             ...prev,
-            assignmentTemplates: (prev.assignmentTemplates || []).filter(t => t.id !== templateId)
+            templates: (prev.templates || []).filter(t => t.id !== templateId)
         }))
         showToast("Template removed", "success")
     }, [setSettings, showToast])
 
-    const updateAssignmentTemplate = useCallback((templateId: string, updates: Partial<AssignmentTemplate>) => {
+    const updateTemplate = useCallback((templateId: string, updates: Partial<Template>) => {
         setSettings(prev => ({
             ...prev,
-            assignmentTemplates: (prev.assignmentTemplates || []).map(t => t.id === templateId ? { ...t, ...updates } : t)
+            templates: (prev.templates || []).map(t => t.id === templateId ? { ...t, ...updates } as Template : t)
         }))
         showToast("Template updated", "success")
     }, [setSettings, showToast])
 
-    const reorderAssignmentTemplates = useCallback((templates: AssignmentTemplate[]) => {
-        setSettings(prev => ({ ...prev, assignmentTemplates: templates }))
+    const reorderTemplates = useCallback((templates: Template[]) => {
+        setSettings(prev => ({ ...prev, templates }))
     }, [setSettings])
+
+    // Filtered template getters
+    const allTemplates = settings.templates || []
+    const assignmentTemplates = allTemplates.filter(t => t.kind === "assignment")
+    const eventTemplates = allTemplates.filter(t => t.kind === "event")
 
     return {
         // Loading state
@@ -148,7 +153,9 @@ export const useSettings = () => {
         theme: settings.theme,
         termMode: settings.termMode,
         assignmentTypes: settings.assignmentTypes,
-        assignmentTemplates: settings.assignmentTemplates || [],
+        templates: allTemplates,
+        assignmentTemplates,
+        eventTemplates,
 
         // Actions
         setSettings,
@@ -157,9 +164,9 @@ export const useSettings = () => {
         addAssignmentType,
         removeAssignmentType,
         reorderAssignmentTypes,
-        addAssignmentTemplate,
-        removeAssignmentTemplate,
-        updateAssignmentTemplate,
-        reorderAssignmentTemplates
+        addTemplate,
+        removeTemplate,
+        updateTemplate,
+        reorderTemplates
     }
 }

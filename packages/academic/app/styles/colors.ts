@@ -21,11 +21,11 @@ export const GLOBAL = {
     EVENT_HEADING_TEXT: "var(--event-text-color)",
     SCHEDULE_HEADING_TEXT: "var(--schedule-text-color)",
     CLASS_HEADING_TEXT: "var(--class-text-color)",
-    
+
     // Buttons
     ADDITEM_BUTTON_BG: "var(--additem-bg)",
     ADDITEM_BUTTON_BG_HOVER: "var(--additem-bg-hover)",
-    
+
     ASSIGNMENT_BUTTON_BG: "var(--assignment-theme)",
     ASSIGNMENT_BUTTON_BG_HOVER: "var(--assignment-theme-hover)",
     ASSIGNMENT_BUTTON_BG_18: "var(--assignment-theme-18)",
@@ -33,6 +33,7 @@ export const GLOBAL = {
 
     EVENT_BUTTON_BG: "var(--event-theme)",
     EVENT_BUTTON_BG_HOVER: "var(--event-theme-hover)",
+    EVENT_BUTTON_BG_18: "var(--event-theme-18)",
     EVENT_BUTTON_TEXT: "var(--event-text-color)",
 
     SCHEDULE_BUTTON_BG: "var(--schedule-theme)",

@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
-import { useAcademicTerms, useSchedules, useNoSchool, useClasses } from "@/app/hooks/entities"
+import { useAcademicTerms, useSchedules, useNoSchool } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useAssignmentTypeSettings } from "@/pages/Settings/hooks/useAssignmentTypeSettings"
-import { useAssignmentTemplateSettings } from "@/pages/Settings/hooks/useAssignmentTemplateSettings"
+import { useTemplateSettings } from "@/pages/Settings/hooks/useTemplateSettings"
+import { TabSwitcher, Tab } from "@shared/components/TabSwitcher"
 // Base settings module imports
 import {
     BaseModuleHeader,
@@ -24,13 +25,13 @@ import AssignmentTypeSettings, {
     AddTypeButton
 } from "@/pages/Settings/components/AssignmentTypeSettings"
 // Assignment template settings imports
-import AssignmentTemplateSettings, {
-    AssignmentTemplateSettingsContent,
+import TemplateSettings, {
+    TemplateSettingsContent,
     TemplateList,
     TemplateRow,
     AddTemplateButton,
     NoTemplatesYetButton
-} from "@/pages/Settings/components/AssignmentTemplateSettings"
+} from "@/pages/Settings/components/TemplateSettings"
 // Schedule settings imports
 import ScheduleSettings, {
     ScheduleSettingsContent,
@@ -103,16 +104,31 @@ const Settings: React.FC = () => {
         moveType,
     } = useAssignmentTypeSettings()
 
-    const {
-        assignmentTemplates,
-        sensors: templateSensors,
-        handleAddTemplate,
-        handleEditTemplate,
-        handleRemoveTemplate,
-        handleDragEnd: handleTemplateDragEnd,
-    } = useAssignmentTemplateSettings()
+    const [activeTemplateTab, setActiveTemplateTab] = useState<"assignment" | "event">("assignment")
 
-    const { getClassById } = useClasses()
+    const {
+        templates: assignmentTemplates,
+        sensors: assignmentTemplateSensors,
+        handleAddTemplate: handleAddAssignmentTemplate,
+        handleEditTemplate: handleEditAssignmentTemplate,
+        handleRemoveTemplate: handleRemoveAssignmentTemplate,
+        handleDragEnd: handleAssignmentTemplateDragEnd,
+    } = useTemplateSettings("assignment")
+
+    const {
+        templates: eventTemplates,
+        sensors: eventTemplateSensors,
+        handleAddTemplate: handleAddEventTemplate,
+        handleEditTemplate: handleEditEventTemplate,
+        handleRemoveTemplate: handleRemoveEventTemplate,
+        handleDragEnd: handleEventTemplateDragEnd,
+    } = useTemplateSettings("event")
+
+    const isAssignmentTab = activeTemplateTab === "assignment"
+    const activeTemplates = isAssignmentTab ? assignmentTemplates : eventTemplates
+    const activeSensors = isAssignmentTab ? assignmentTemplateSensors : eventTemplateSensors
+    const activeDragEnd = isAssignmentTab ? handleAssignmentTemplateDragEnd : handleEventTemplateDragEnd
+    const activeAddTemplate = isAssignmentTab ? handleAddAssignmentTemplate : handleAddEventTemplate
 
     return (
         <div className="w-full max-w-2xl mx-auto">
@@ -169,46 +185,53 @@ const Settings: React.FC = () => {
                 </AssignmentTypeSettingsContent>
             </AssignmentTypeSettings>
 
-            <AssignmentTemplateSettings>
-                <BaseModuleHeader title="Assignment Templates" />
+            <TemplateSettings>
+                <BaseModuleHeader title="Templates" />
 
                 <BaseModuleDescription>
-                    Create reusable templates to quickly add recurring assignments.
+                    Create reusable templates to quickly add recurring assignments or events.
                 </BaseModuleDescription>
 
-                <AssignmentTemplateSettingsContent>
-                    {assignmentTemplates.length === 0 ? (
-                        <NoTemplatesYetButton onClick={handleAddTemplate}>
-                            No templates yet. Click to add one.
+                <div className="mb-6 mt-2">
+                    <TabSwitcher ariaLabel="Template types">
+                        <Tab value="assignment" isActive={activeTemplateTab === "assignment"} onClick={() => setActiveTemplateTab("assignment")}>
+                            Assignments
+                        </Tab>
+                        <Tab value="event" isActive={activeTemplateTab === "event"} onClick={() => setActiveTemplateTab("event")}>
+                            Events
+                        </Tab>
+                    </TabSwitcher>
+                </div>
+
+                <TemplateSettingsContent>
+                    {activeTemplates.length === 0 ? (
+                        <NoTemplatesYetButton onClick={activeAddTemplate}>
+                            No {activeTemplateTab} templates yet. Click to add one.
                         </NoTemplatesYetButton>
                     ) : (
                         <>
                             <TemplateList
-                                sensors={templateSensors}
-                                onDragEnd={handleTemplateDragEnd}
-                                items={assignmentTemplates.map(t => t.id)}
+                                sensors={activeSensors}
+                                onDragEnd={activeDragEnd}
+                                items={activeTemplates.map(t => t.id)}
                             >
-                                {assignmentTemplates.map(template => (
+                                {activeTemplates.map(template => (
                                     <TemplateRow
                                         key={template.id}
-                                        id={template.id}
-                                        templateName={template.templateName}
-                                        title={template.title}
-                                        type={template.type}
-                                        classColor={getClassById(template.classId)?.color}
-                                        onEdit={() => handleEditTemplate(template.id)}
-                                        onRemove={() => handleRemoveTemplate(template.id)}
+                                        template={template}
+                                        onEdit={() => template.kind === "assignment" ? handleEditAssignmentTemplate(template.id) : handleEditEventTemplate(template.id)}
+                                        onRemove={() => template.kind === "assignment" ? handleRemoveAssignmentTemplate(template.id) : handleRemoveEventTemplate(template.id)}
                                     />
                                 ))}
                             </TemplateList>
 
-                            <AddTemplateButton onClick={handleAddTemplate}>
-                                Add Template
+                            <AddTemplateButton onClick={activeAddTemplate}>
+                                Add {isAssignmentTab ? "Assignment" : "Event"} Template
                             </AddTemplateButton>
                         </>
                     )}
-                </AssignmentTemplateSettingsContent>
-            </AssignmentTemplateSettings>
+                </TemplateSettingsContent>
+            </TemplateSettings>
 
             <ScheduleSettings>
                 <BaseModuleHeader title="Schedule Settings" />
@@ -248,11 +271,11 @@ const Settings: React.FC = () => {
                 <div className="flex items-center justify-between mb-4">
                     <BaseModuleHeader title="Academic Terms" />
                 </div>
-                {/* <BaseModuleDescription className=" mb-7">
-                    Define your school years and semesters to organize your schedule.
-                </BaseModuleDescription> */}
 
-                {/* Term Mode Selector */}
+                <BaseModuleDescription className=" mb-7">
+                    Define your school years and semesters to configure your schedule.
+                </BaseModuleDescription>
+
                 <div className="mt-4 mb-4">
                     <BaseModuleDescription>
                         Select the kind of academic terms your institution uses.

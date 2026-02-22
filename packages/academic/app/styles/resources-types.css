@@ -11,7 +11,9 @@
     --class-theme-hover: hsl(235, 50%, 65%);
     --class-text-color: hsl(235, 50%, 54%);
 
-    --event-theme: hsl(119, 20%, 57%);
+    --event-theme-hsl: 119, 20%, 57%;
+    --event-theme: hsl(var(--event-theme-hsl));
+    --event-theme-18: hsla(var(--event-theme-hsl), 0.18);
     --event-theme-hover: hsl(119, 20%, 52%);
     --event-text-color: hsl(119, 20%, 42%);
 
@@ -31,7 +33,9 @@
     --class-theme-hover: hsl(235, 50%, 46%);
     --class-text-color: hsl(235, 50%, 54%);
 
-    --event-theme: hsl(119, 20%, 42%);
+    --event-theme-hsl: 119, 20%, 42%;
+    --event-theme: hsl(var(--event-theme-hsl));
+    --event-theme-18: hsla(var(--event-theme-hsl), 0.18);
     --event-theme-hover: hsl(119, 20%, 34%);
     --event-text-color: hsl(119, 20%, 42%);
 
