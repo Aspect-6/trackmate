@@ -11,12 +11,12 @@ const ClassCardTitle: React.FC<ClassBoard.Card.Header.TitleProps> = ({ name }) =
     const { isHovered: isTitleHovered, hoverProps: titleHoverProps } = useHover()
 
     return (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
             <div
                 {...attributes}
                 {...listeners}
                 {...gripHoverProps}
-                className="cursor-grab touch-none p-1 rounded transition-colors grip-container"
+                className="cursor-grab touch-none p-0 rounded transition-colors grip-container"
             >
                 <GripVertical
                     className="w-5 h-5"

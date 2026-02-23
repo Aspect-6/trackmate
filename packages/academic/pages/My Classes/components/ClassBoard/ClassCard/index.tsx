@@ -19,7 +19,7 @@ const ClassCard: React.FC<ClassBoard.Card.Props> = ({ classInfo, children }) => 
     const { isHovered, hoverProps } = useHover()
 
     return (
-        <ClassCardProvider value={{ attributes, listeners }}>
+        <ClassCardProvider value={{ attributes, listeners, isHovered }}>
             <div
                 ref={setNodeRef}
                 className={`rounded-xl shadow-lg overflow-hidden flex flex-col transition-all group ${isDragging ? "dragging" : ""}`}

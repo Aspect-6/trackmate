@@ -7,8 +7,8 @@ const ClassCardTerm: React.FC<ClassBoard.Card.Body.TermProps> = ({ termId, semes
     const { getTermDisplay } = useAcademicTerms()
 
     return (
-        <div className="flex items-center text-sm">
-            <span className="w-24" style={{ color: MY_CLASSES.TEXT_SECONDARY }}>Term:</span>
+        <div className="flex items-center text-sm min-w-0">
+            <span className="w-24 flex-shrink-0" style={{ color: MY_CLASSES.TEXT_SECONDARY }}>Term:</span>
             <span className="font-medium" style={{ color: MY_CLASSES.TEXT_PRIMARY }}>{getTermDisplay(termId, semesterId)}</span>
         </div>
     )
