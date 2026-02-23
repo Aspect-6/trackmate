@@ -50,20 +50,20 @@
 
 :root.light {
     /* General Colors */
-    --webpage-background-color: hsl(215, 10%, 93%);
+    --webpage-background-color: hsl(30, 7%, 89%);
 
     /* Header Menu Icon */
     --header-menu-icon: hsl(215, 15%, 45%);
     --header-menu-icon-hover: hsl(215, 25%, 28%);
 
     /* Background Colors */
-    --background-primary: hsl(215, 5%, 93%);
-    --background-secondary: hsl(215, 5%, 92%);
-    --background-tertiary: hsl(215, 5%, 91%);
-    --background-quaternary: hsl(215, 5%, 88.9%);
+    --background-primary: hsl(30, 7%, 89.5%);
+    --background-secondary: hsl(30, 7%, 88%);
+    --background-tertiary: hsl(30, 7%, 87%);
+    --background-quaternary: hsl(30, 7%, 84.9%);
 
     /* Border Colors */
-    --border-primary: hsl(215, 20%, 85%);
+    --border-primary: hsl(215, 20%, 83%);
     --border-secondary: hsl(215, 20%, 80%);
     --page-header-divider: hsl(215, 20%, 80%);
 
