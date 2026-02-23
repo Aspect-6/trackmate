@@ -1,8 +1,9 @@
 import React from "react"
-import { Calendar } from "lucide-react"
 import { useHover } from "@shared/hooks/ui/useHover"
-import { GLOBAL } from "@/app/styles/colors"
+import { formatEventTimeRange } from "@/app/lib/utils"
 import type { EventTemplate } from "@/app/types"
+import { Calendar } from "lucide-react"
+import { GLOBAL } from "@/app/styles/colors"
 
 interface TemplateItemProps {
     template: EventTemplate
@@ -36,7 +37,7 @@ const TemplateItem: React.FC<TemplateItemProps> = ({ template, onSelect }) => {
                 <div>
                     <div className="font-medium" style={{ color: GLOBAL.TEXT_PRIMARY }}>{template.templateName}</div>
                     <div className="text-xs" style={{ color: GLOBAL.TEXT_SECONDARY }}>
-                        {template.title}
+                        {formatEventTimeRange(template.startTime, template.endTime)}
                     </div>
                 </div>
             </div>

@@ -1,8 +1,8 @@
 import React from "react"
-import { FileText } from "lucide-react"
 import { useHover } from "@shared/hooks/ui/useHover"
-import { GLOBAL } from "@/app/styles/colors"
 import type { AssignmentTemplate } from "@/app/types"
+import { FileText } from "lucide-react"
+import { GLOBAL } from "@/app/styles/colors"
 
 interface TemplateItemProps {
     template: AssignmentTemplate
