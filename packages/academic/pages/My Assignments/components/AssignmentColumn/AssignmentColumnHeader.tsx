@@ -50,7 +50,7 @@ const AssignmentColumnHeader: React.FC<AssignmentColumn.HeaderProps> = ({
                 </h2>
             </div>
             <span
-                className="text-xs font-bold px-2 py-1 rounded-full"
+                className="inline-flex justify-center items-center text-xs font-bold px-2 h-6 min-w-6 rounded-full flex-shrink-0 ml-auto"
                 style={{
                     backgroundColor: MY_ASSIGNMENTS.BACKGROUND_TERTIARY,
                     color: headerColor,
