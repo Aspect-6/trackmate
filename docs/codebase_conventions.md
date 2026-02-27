@@ -213,7 +213,6 @@ pages/<PageName>/
 | Library | Package | Purpose |
 |---------|---------|---------|
 | **@dnd-kit** (core, sortable, utilities) | academic | Drag-and-drop for assignments |
-| **date-fns** | academic | Date manipulation |
 | **lucide-react** | both | Icon library |
 | **react-hook-form** | landing | Form handling |
 | **clsx + tailwind-merge** | both | CSS class utilities |

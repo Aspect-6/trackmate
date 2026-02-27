@@ -18,7 +18,7 @@ export default defineConfig({
                 manualChunks: {
                     "react-vendor": ["react", "react-dom", "react-router-dom"],
                     "firebase-vendor": ["firebase/app", "firebase/auth", "firebase/firestore"],
-                    "ui-vendor": ["lucide-react", "@dnd-kit/core", "@dnd-kit/sortable", "@dnd-kit/utilities", "date-fns"]
+                    "ui-vendor": ["lucide-react", "@dnd-kit/core", "@dnd-kit/sortable", "@dnd-kit/utilities"]
                 }
             }
         }
