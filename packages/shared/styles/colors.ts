@@ -20,7 +20,6 @@ export const TRACKMATE = {
     TEXT_SUCCESS: "var(--text-success)",
     TEXT_SUCCESS_15: "var(--text-success-15)",
     TEXT_WHITE: "var(--text-white)",
-    MODAL_DELETE_BODY: "var(--modal-delete-body-text)",
 
     // Border Colors
     BORDER_PRIMARY: "var(--border-primary)",
@@ -39,7 +38,6 @@ export const TRACKMATE = {
 
     HOVER_ZONE_BUTTON_BORDER: "var(--hover-zone-button-border)",
     HOVER_ZONE_BUTTON_BORDER_HOVER: "var(--hover-zone-button-border-hover)",
-
 }
 
 export const TRACKMATE_MODALS = {
@@ -47,8 +45,7 @@ export const TRACKMATE_MODALS = {
         BG: TRACKMATE.BACKGROUND_PRIMARY,
         BACKDROP: TRACKMATE.MODAL_BACKDROP,
         BORDER: TRACKMATE.BORDER_PRIMARY,
-        TEXT: TRACKMATE.TEXT_PRIMARY,
-        DELETE_BODY: TRACKMATE.MODAL_DELETE_BODY,
+        BODY: TRACKMATE.TEXT_SECONDARY,
         DELETE_HEADING: TRACKMATE.DELETE_BUTTON_BG,
         CANCEL_BG: TRACKMATE.CANCEL_BUTTON_BG,
         CANCEL_BG_HOVER: TRACKMATE.CANCEL_BUTTON_BG_HOVER,

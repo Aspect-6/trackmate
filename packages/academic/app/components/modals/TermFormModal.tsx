@@ -248,7 +248,7 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                             <div>
                                 <ModalLabel>Q1 End</ModalLabel>
                                 <ModalDateInput value={formData.q1End} onChange={e => setFormData({ ...formData, q1End: e.target.value })} focusColor={focusColor} />
-                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Starts on Year Start</span>
+                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Starts on Year Start</span>
                             </div>
                             <div>
                                 <ModalLabel>Q2 Start</ModalLabel>
@@ -259,12 +259,12 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                             <div>
                                 <ModalLabel>Q2 End</ModalLabel>
                                 <ModalDateInput value={formData.q2End} onChange={e => setFormData({ ...formData, q2End: e.target.value })} focusColor={focusColor} />
-                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Serves as Fall semester end</span>
+                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Serves as Fall semester end</span>
                             </div>
                             <div>
                                 <ModalLabel>Q3 Start</ModalLabel>
                                 <ModalDateInput value={formData.q3Start} onChange={e => setFormData({ ...formData, q3Start: e.target.value })} focusColor={focusColor} />
-                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Serves as Spring semester start</span>
+                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Serves as Spring semester start</span>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
@@ -275,7 +275,7 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                             <div>
                                 <ModalLabel>Q4 Start</ModalLabel>
                                 <ModalDateInput value={formData.q4Start} onChange={e => setFormData({ ...formData, q4Start: e.target.value })} focusColor={focusColor} />
-                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Ends on Year End</span>
+                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Ends on Year End</span>
                             </div>
                         </div>
                     </>
@@ -284,12 +284,12 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                         <div>
                             <ModalLabel>Fall Semester End</ModalLabel>
                             <ModalDateInput value={formData.fallEnd} onChange={e => setFormData({ ...formData, fallEnd: e.target.value })} focusColor={focusColor} />
-                            <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Starts on Year Start</span>
+                            <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Starts on Year Start</span>
                         </div>
                         <div>
                             <ModalLabel>Spring Semester Start</ModalLabel>
                             <ModalDateInput value={formData.springStart} onChange={e => setFormData({ ...formData, springStart: e.target.value })} focusColor={focusColor} />
-                            <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.DELETE_BODY }}>Ends on Year End</span>
+                            <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Ends on Year End</span>
                         </div>
                     </div>
                 )}

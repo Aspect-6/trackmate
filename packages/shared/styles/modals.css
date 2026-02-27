@@ -1,40 +1,14 @@
 /* Modal CSS Variables */
 :root.dark {
-    --modal-label-color: hsl(218, 11%, 65%);
-    --modal-input-bg: hsl(217, 19%, 21.5%);
-    --modal-input-border: hsl(215, 14%, 28%);
-    --modal-input-text: hsl(0, 0%, 100%);
-    --modal-body-text: hsl(216, 12%, 84%);
-    --modal-delete-body-text: hsl(215, 15%, 78%);
-    --modal-color-grid-bg: var(--modal-input-bg);
-    --modal-color-tile-hover: hsl(0, 0%, 100%);
-    --modal-color-tile-selected: hsl(0, 0%, 100%);
-
-    --modal-tab-bg: hsla(0, 0%, 100%, 0.04);
-    --modal-tab-border: hsla(0, 0%, 100%, 0.06);
-    --modal-tab-hover-bg: hsla(0, 0%, 100%, 0.03);
-    --modal-tab-hover-border: hsla(0, 0%, 100%, 0.08);
-    --modal-tab-active-bg: hsla(0, 0%, 100%, 0.08);
-    --modal-tab-active-border: hsla(0, 0%, 100%, 0.12);
+    --modal-input-bg: var(--text-muted);
+    --modal-tab-border: var(--border-primary);
+    --modal-tab-active-border: var(--border-secondary);
 }
 
 :root.light {
-    --modal-label-color: hsl(215, 15%, 40%);
-    --modal-input-bg: hsl(215, 25%, 97%);
-    --modal-input-border: hsl(215, 20%, 85%);
-    --modal-input-text: hsl(215, 25%, 15%);
-    --modal-body-text: hsl(215, 25%, 25%);
-    --modal-delete-body-text: hsl(215, 20%, 40%);
-    --modal-color-grid-bg: var(--modal-input-bg);
-    --modal-color-tile-hover: hsl(215, 25%, 95%);
-    --modal-color-tile-selected: hsl(215, 25%, 55%);
-
-    --modal-tab-bg: hsla(0, 0%, 0%, 0.039);
-    --modal-tab-border: hsla(0, 0%, 0%, 0.05);
-    --modal-tab-hover-bg: hsla(0, 0%, 0%, 0.035);
-    --modal-tab-hover-border: hsla(0, 0%, 0%, 0.08);
-    --modal-tab-active-bg: hsla(0, 0%, 0%, 0.08);
-    --modal-tab-active-border: hsla(0, 0%, 0%, 0.12);
+    --modal-input-bg: var(--text-white);
+    --modal-tab-border: var(--border-secondary);
+    --modal-tab-active-border: var(--text-muted);
 }
 
 /* Modal Container */
@@ -89,7 +63,7 @@
     gap: 0.35rem;
     padding: 0.25rem;
     border-radius: 999px;
-    background: var(--modal-tab-bg);
+    background: var(--background-secondary);
     border: 1px solid var(--modal-tab-border);
 }
 
@@ -99,7 +73,7 @@
     padding: 0.3rem 0.6rem;
     font-weight: 600;
     font-size: 0.92rem;
-    color: var(--modal-label-color);
+    color: var(--text-secondary);
     background: transparent;
     transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease;
 }
@@ -115,19 +89,19 @@
 }
 
 .modal-tab:hover {
-    color: var(--modal-input-text);
-    background: var(--modal-tab-hover-bg);
-    border-color: var(--modal-tab-hover-border);
+    color: var(--text-primary);
+    background: var(--background-quaternary);
+    border-color: var(--border-secondary);
 }
 
 .modal-tab.active {
-    color: var(--modal-input-text);
-    background: var(--modal-tab-active-bg);
+    color: var(--text-primary);
+    background: var(--background-quaternary);
     border-color: var(--modal-tab-active-border);
 }
 
 .modal-tab:focus-visible {
-    outline: 2px solid var(--focus-color, var(--modal-input-border));
+    outline: 2px solid var(--focus-color, var(--border-primary));
     outline-offset: 1px;
 }
 
@@ -147,12 +121,11 @@
 }
 
 
-/* Labels */
 .modal-label {
     display: block;
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--modal-label-color);
+    color: var(--text-secondary);
     margin-bottom: 0.25rem;
 }
 
@@ -163,8 +136,8 @@
     width: 100%;
     border-radius: 0.5rem;
     background-color: var(--modal-input-bg);
-    border: 1px solid var(--modal-input-border);
-    color: var(--modal-input-text);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
 }
 
 .modal-input:focus,
@@ -200,9 +173,9 @@
     overflow-x: auto;
     gap: 8px;
     padding: 8px;
-    border: 1px solid var(--modal-input-border);
+    border: 1px solid var(--border-primary);
     border-radius: 8px;
-    background: var(--modal-color-grid-bg);
+    background: var(--modal-input-bg);
 }
 
 /* Color Picker - Individual Color Tiles */
@@ -218,9 +191,9 @@
 
 .color-tile:hover {
     transform: scale(1.1);
-    border-color: var(--modal-color-tile-hover);
+    border-color: var(--border-primary);
 }
 
 .color-tile.selected {
-    border-color: var(--modal-color-tile-selected);
+    border-color: var(--border-primary);
 }
