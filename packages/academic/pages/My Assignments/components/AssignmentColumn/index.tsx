@@ -48,7 +48,7 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
             )
     }, [getAssignmentsByStatus, status, searchQuery, typeFilter, priorityFilter, getClassById])
 
-    const totalCount = getAssignmentsByStatus(status).length
+    const totalCount = items.length
 
     const { setNodeRef: setDroppableRef, isOver } = useDroppable({ id: status })
 
