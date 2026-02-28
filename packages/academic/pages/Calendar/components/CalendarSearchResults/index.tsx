@@ -1,6 +1,5 @@
 import React, { useMemo } from "react"
 import { useAssignments, useEvents, useClasses } from "@/app/hooks/entities"
-import { CALENDAR } from "@/app/styles/colors"
 import SearchResultItem from "./SearchResultItem"
 import NoResults from "./NoResults"
 
@@ -69,7 +68,7 @@ const CalendarSearchResults: React.FC<CalendarSearchResultsProps> = ({ searchQue
                 title: e.title,
                 date: e.date,
                 subtext: "Event",
-                color: CALENDAR.GLOBAL_ACCENT
+                color: e.color
             }))
         ]
 
