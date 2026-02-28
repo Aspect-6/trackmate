@@ -1,6 +1,6 @@
 {
 	"name": "trackmate-academic",
-	"version": "0.16.7",
+	"version": "0.16.8",
 	"private": true,
 	"scripts": {
 		"dev": "vite --host",
@@ -16,13 +16,11 @@
 		"@dnd-kit/utilities": "^3.2.2",
 		"@tailwindcss/postcss": "^4.1.17",
 		"autoprefixer": "^10.4.22",
-		"clsx": "^2.1.1",
 		"lucide-react": "^0.555.0",
 		"postcss": "^8.5.6",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-router-dom": "^7.9.6",
-		"tailwind-merge": "^3.4.0",
 		"tailwindcss": "^4.1.17"
 	},
 	"devDependencies": {}

@@ -1,5 +1,4 @@
 import React from "react"
-import { cn } from "@/app/lib/utils"
 import type { Priority } from "@/app/types"
 import { GLOBAL } from "@/app/styles/colors"
 
@@ -41,7 +40,7 @@ const PriorityBadge: React.FC<PriorityBadgeProps> = ({ priority, className }) =>
 
     return (
         <span
-            className={cn("text-xs font-normal px-3 py-1 rounded-full border flex-shrink-0 inline-flex items-center justify-center", className)}
+            className={`text-xs font-normal px-3 py-1 rounded-full border flex-shrink-0 inline-flex items-center justify-center ${className}`.trim()}
             style={getPriorityStyles(priority)}
         >
             {priority}

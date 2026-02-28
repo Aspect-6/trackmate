@@ -1,7 +1,6 @@
 import React, { useEffect } from "react"
 import { useHover } from "@shared/hooks/ui/useHover"
 import type { UpcomingAssignments } from "@/pages/Dashboard/types"
-import { cn } from "@/app/lib/utils"
 import { CheckCircle, Circle, PlayCircle } from "lucide-react"
 import { DASHBOARD } from "@/app/styles/colors"
 
@@ -49,10 +48,7 @@ const StatusButton: React.FC<UpcomingAssignments.AssignmentCard.StatusButtonProp
             aria-label={title}
         >
             <Icon
-                className={cn(
-                    "w-6 h-6 transition-colors duration-200",
-                    className
-                )}
+                className={`w-6 h-6 transition-colors duration-200 ${className}`.trim()}
                 style={{ color: isHovered ? hoverColor : color }}
                 {...hoverProps}
             />

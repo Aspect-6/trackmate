@@ -215,7 +215,6 @@ pages/<PageName>/
 | **@dnd-kit** (core, sortable, utilities) | academic | Drag-and-drop for assignments |
 | **lucide-react** | both | Icon library |
 | **react-hook-form** | landing | Form handling |
-| **clsx + tailwind-merge** | both | CSS class utilities |
 | **autoprefixer** | both | CSS vendor prefixing |
 | **vite-plugin-svgr** | landing | SVG as React components |
 
@@ -717,7 +716,6 @@ Feature-specific hooks live in `pages/<Page>/hooks/`:
 
 | Function | Description |
 |----------|-------------|
-| `cn()` | Tailwind class merging (clsx + twMerge) |
 | `getTextColorForBackground()` | Contrast calculation (black/white) for color strings |
 | `parse12HourTime()` | Convert "2:30 PM" to "14:30" (24-hour format) |
 | `addDaysToDateString()` | Add/subtract days from YYYY-MM-DD string |

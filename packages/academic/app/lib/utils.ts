@@ -1,16 +1,3 @@
-import { clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
-import type { ClassValue } from "clsx"
-
-/**
- * Merges Tailwind CSS classes with clsx, handling conflicts intelligently.
- * @param inputs - Class names, arrays, or objects to merge.
- * @returns The merged class string.
- */
-export function cn(...inputs: ClassValue[]): string {
-    return twMerge(clsx(inputs))
-}
-
 /**
  * Determines the appropriate text color (black or white) for a given background color.
  * Uses luminance calculation to ensure readability.
