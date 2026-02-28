@@ -1,5 +1,6 @@
 import React, { useMemo } from "react"
 import { useAssignments, useEvents, useClasses } from "@/app/hooks/entities"
+import { formatEventTimeRange } from "@/app/lib/utils"
 import SearchResultItem from "./SearchResultItem"
 import NoResults from "./NoResults"
 
@@ -67,7 +68,7 @@ const CalendarSearchResults: React.FC<CalendarSearchResultsProps> = ({ searchQue
                 id: e.id,
                 title: e.title,
                 date: e.date,
-                subtext: "Event",
+                subtext: formatEventTimeRange(e.startTime, e.endTime),
                 color: e.color
             }))
         ]

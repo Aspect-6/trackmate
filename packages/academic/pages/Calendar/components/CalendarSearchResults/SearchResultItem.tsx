@@ -20,7 +20,7 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({ item, onClick }) =>
     return (
         <div
             onClick={() => onClick(dateObj)}
-            className="p-3 rounded-lg cursor-pointer flex items-center gap-3 transition-colors active:scale-[0.98]"
+            className="p-3 rounded-lg cursor-pointer flex items-center gap-3 transition-colors"
             style={{
                 backgroundColor: CALENDAR.BACKGROUND_SECONDARY,
                 border: `1px solid ${CALENDAR.BORDER_PRIMARY}`,
