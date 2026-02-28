@@ -6,7 +6,7 @@ import NoResults from "./NoResults"
 
 interface CalendarSearchResultsProps {
     searchQuery: string
-    onSelectDate: (date: Date) => void
+    onSelectDate: (date: Date, type: "assignment" | "event", id: string) => void
     month: number
     year: number
 }

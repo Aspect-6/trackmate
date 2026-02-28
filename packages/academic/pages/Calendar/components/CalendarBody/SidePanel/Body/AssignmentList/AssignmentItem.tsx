@@ -13,6 +13,7 @@ const AssignmentItem: React.FC<CalendarBody.SidePanel.Body.AssignmentList.Assign
 
     return (
         <div
+            id={`assignment-${assignment.id}`}
             onClick={() => onAssignmentClick(assignment.id)}
             className={`p-3 rounded-lg cursor-pointer transition-colors ${isDone ? "opacity-60" : ""}`}
             style={{

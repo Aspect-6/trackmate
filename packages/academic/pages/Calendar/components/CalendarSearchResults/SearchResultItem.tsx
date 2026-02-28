@@ -11,7 +11,7 @@ export interface SearchResultItemProps {
         subtext: string
         color: string
     }
-    onClick: (date: Date) => void
+    onClick: (date: Date, type: "assignment" | "event", id: string) => void
 }
 
 const SearchResultItem: React.FC<SearchResultItemProps> = ({ item, onClick }) => {
@@ -19,8 +19,8 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({ item, onClick }) =>
 
     return (
         <div
-            onClick={() => onClick(dateObj)}
-            className="p-3 rounded-lg cursor-pointer flex items-center gap-3 transition-colors"
+            onClick={() => onClick(dateObj, item.type, item.id)}
+            className="p-3 rounded-lg cursor-pointer flex items-center gap-3 transition-colors active:scale-[0.98]"
             style={{
                 backgroundColor: CALENDAR.BACKGROUND_SECONDARY,
                 border: `1px solid ${CALENDAR.BORDER_PRIMARY}`,

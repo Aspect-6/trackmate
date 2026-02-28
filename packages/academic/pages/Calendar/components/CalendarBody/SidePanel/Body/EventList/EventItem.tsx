@@ -9,6 +9,7 @@ const EventItem: React.FC<CalendarBody.SidePanel.Body.EventList.EventItemProps> 
 
     return (
         <div
+            id={`event-${event.id}`}
             onClick={() => onEventClick(event.id)}
             className="p-3 rounded-lg cursor-pointer transition-colors"
             style={{

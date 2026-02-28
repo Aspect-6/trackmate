@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react"
+import React, { useCallback, useMemo, useState, useEffect } from "react"
 import { X } from "lucide-react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
@@ -25,6 +25,7 @@ const Calendar: React.FC = () => {
 
     const [searchQuery, setSearchQuery] = useState("")
     const [showMobileResults, setShowMobileResults] = useState(false)
+    const [selectedItemId, setSelectedItemId] = useState<{ type: "assignment" | "event", id: string } | null>(null)
 
     const openEditAssignment = useCallback((id: string) => openModal("edit-assignment", id), [openModal])
     const openEditEvent = useCallback((id: string) => openModal("edit-event", id), [openModal])
@@ -34,12 +35,33 @@ const Calendar: React.FC = () => {
     const calendarCells = useCalendarGrid({ month, year })
     const sidePanelData = useSidePanel({ selectedDate })
 
-    // When clicking a result, go to date but keep search query (hide results view)
-    const handleMobileSearchResultClick = useCallback((date: Date) => {
+    // Dont reset search query when clicking a result
+    const handleMobileSearchResultClick = useCallback((date: Date, type: "assignment" | "event", id: string) => {
         jumpToDate(date)
         setSelectedDate(date)
+        setSelectedItemId({ type, id })
         setShowMobileResults(false)
     }, [jumpToDate, setSelectedDate])
+
+    // Scroll to the item when it's selected and side panel is ready
+    useEffect(() => {
+        if (selectedItemId && sidePanelData) {
+            const timer = setTimeout(() => {
+                const element = document.getElementById(`${selectedItemId.type}-${selectedItemId.id}`)
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "center" })
+                    setTimeout(() => {
+                        element.classList.add("selected-item-pop")
+                        setTimeout(() => {
+                            element.classList.remove("selected-item-pop")
+                        }, 500)
+                    }, 300)
+                }
+                setSelectedItemId(null)
+            }, 100)
+            return () => clearTimeout(timer)
+        }
+    }, [selectedItemId, sidePanelData])
 
     // Show results when typing
     const handleSearchChange = useCallback((value: string) => {
