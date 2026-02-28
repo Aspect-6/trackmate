@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "target": "ES2020",
+        "target": "ES2023",
         "lib": [
-            "ES2020"
+            "ES2023"
         ],
         "module": "ESNext",
         "skipLibCheck": true,
@@ -19,6 +19,9 @@
         "noFallthroughCasesInSwitch": true
     },
     "include": [
-        "vite.config.ts"
+        "eslint.config.ts",
+        "postcss.config.ts",
+        "tailwind.config.ts",
+        "packages/*/vite.config.ts"
     ]
 }

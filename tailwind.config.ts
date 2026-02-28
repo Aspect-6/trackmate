@@ -1,4 +1,5 @@
-/** @type {import("tailwindcss").Config} */
+import type { Config } from "tailwindcss";
+
 export default {
     content: [
         "./packages/academic/index.html",
@@ -9,4 +10,4 @@ export default {
         extend: {},
     },
     plugins: [],
-}
+} satisfies Config;
