@@ -21,7 +21,6 @@ const EventItem: React.FC<CalendarBody.SidePanel.Body.EventList.EventItemProps> 
         >
             <div className="font-semibold" style={{ color: CALENDAR.TEXT_PRIMARY }}>{event.title}</div>
             <div className="text-sm" style={{ color: CALENDAR.TEXT_SECONDARY }}>{formatEventTimeRange(event.startTime, event.endTime)}</div>
-            {event.description && <div className="text-xs mt-1" style={{ color: CALENDAR.TEXT_SECONDARY }}>{event.description}</div>}
         </div>
     )
 }
