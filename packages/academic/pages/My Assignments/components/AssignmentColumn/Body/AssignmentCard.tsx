@@ -1,6 +1,5 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useSortable } from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
 import { useHover } from "@shared/hooks/ui/useHover"
 import type { AssignmentType } from "@/app/types"
 import type { AssignmentColumn } from "@/pages/My Assignments/types"
@@ -16,41 +15,34 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
     isTablet,
     onClick,
 }) => {
+    const [isLeftClicking, setIsLeftClicking] = useState(false)
     const { isHovered, hoverProps } = useHover()
     const {
         attributes,
         listeners,
         setNodeRef,
-        transform,
-        transition,
         isDragging,
     } = useSortable({ id: assignment.id, disabled: !dragEnabled })
+
+    useEffect(() => {
+        if (!isLeftClicking) return
+        const handleGlobalMouseUp = () => setIsLeftClicking(false)
+        window.addEventListener("mouseup", handleGlobalMouseUp)
+        return () => window.removeEventListener("mouseup", handleGlobalMouseUp)
+    }, [isLeftClicking])
 
     const examTypes: AssignmentType[] = ["Quiz", "Test", "Midterm", "Final Exam"]
     const dateLabel = examTypes.includes(assignment.type) ? "On" : "Due"
     const showTime = assignment.dueTime && assignment.dueTime !== "23:59"
 
-    const dragStyle = {
-        transform: CSS.Transform.toString(transform),
-        transition: [
-            !isDragging && transition,
-            "background-color 200ms cubic-bezier(0.4, 0, 0.2, 1)",
-            "box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)",
-        ]
-            .filter(Boolean)
-            .join(", "),
-        willChange: "transform",
-    }
-
-    const cardDragProps = dragEnabled && !isTablet ? { ...attributes, ...listeners } : {}
-    const gripDragProps = dragEnabled && isTablet ? { ...attributes, ...listeners } : {}
+    const cardDragHandlers = dragEnabled && !isTablet ? listeners : undefined
+    const gripDragHandlers = dragEnabled ? listeners : undefined
 
     return (
         <div
             ref={setNodeRef}
-            className={`p-4 rounded-lg shadow-md overflow-hidden transition-colors ${dragEnabled && !isTablet ? "flex gap-3 cursor-grab active:cursor-grabbing" : "flex gap-3 cursor-default"}`}
+            className={`p-4 rounded-lg shadow-md overflow-hidden transition-all flex gap-3 ${dragEnabled && !isTablet ? "cursor-grab active:cursor-grabbing select-none" : "cursor-pointer"}`}
             style={{
-                ...dragStyle,
                 border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`,
                 borderLeft: `4px solid ${classInfo.color}`,
                 backgroundColor: isHovered
@@ -58,24 +50,30 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
                     : MY_ASSIGNMENTS.BACKGROUND_PRIMARY,
                 touchAction: dragEnabled && !isTablet ? "none" : "auto",
                 opacity: isDragging ? 0.4 : 1,
+                transition: "background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)",
             }}
             onClick={() => onClick(assignment.id)}
-            {...cardDragProps}
             {...hoverProps}
+            {...cardDragHandlers}
+            onMouseDown={(e) => {
+                if (e.button === 0) setIsLeftClicking(true)
+                cardDragHandlers?.onMouseDown?.(e)
+            }}
+            {...attributes}
         >
             {dragEnabled && (
                 <div
-                    className={`flex items-center justify-center ${isTablet ? "cursor-grab active:cursor-grabbing" : ""}`}
+                    className="flex items-center justify-center cursor-grab active:cursor-grabbing shrink-0"
                     style={{
                         color: MY_ASSIGNMENTS.TEXT_SECONDARY,
-                        touchAction: isTablet ? "none" : undefined,
+                        touchAction: "none",
                     }}
-                    {...gripDragProps}
+                    {...gripDragHandlers}
                 >
                     <GripVertical size={16} />
                 </div>
             )}
-            <div className="flex-grow">
+            <div className={`flex-grow ${isLeftClicking ? "select-none" : "select-text"}`}>
                 <p
                     className="font-semibold text-sm mb-1"
                     style={{ color: MY_ASSIGNMENTS.TEXT_PRIMARY }}
@@ -83,8 +81,8 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
                     {assignment.title}
                 </p>
                 <p
-                    className="text-xs mb-2"
-                    style={{ color: classInfo.color, fontWeight: 600 }}
+                    className="text-xs font-semibold mb-2"
+                    style={{ color: classInfo.color }}
                 >
                     {classInfo.name}
                 </p>

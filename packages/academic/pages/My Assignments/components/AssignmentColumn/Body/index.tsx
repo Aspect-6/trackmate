@@ -2,6 +2,7 @@ import React from "react"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useClasses } from "@/app/hooks/entities/useClasses"
+import { useAssignments } from "@/app/hooks/entities/useAssignments"
 import type { AssignmentColumn } from "@/pages/My Assignments/types"
 import AssignmentCard from "./AssignmentCard"
 import DragPlaceholder from "./DragPlaceholder"
@@ -20,11 +21,28 @@ const AssignmentColumnBody: React.FC<AssignmentColumn.Body.Props> = ({
 }) => {
     const { openModal } = useModal()
     const { getClassById } = useClasses()
+    const { getAssignmentById } = useAssignments()
 
+    const activeAssignment = activeAssignmentId ? getAssignmentById(activeAssignmentId) : null
     const isOverColumn = overId === status || items.some((item) => item.id === overId)
-    const overIndex = items.findIndex((item) => item.id === overId)
-    const insertionIndex = isOverColumn ? (overIndex >= 0 ? overIndex : items.length) : -1
-    const showPlaceholder = dragEnabled && !!activeAssignmentId && isOverColumn
+    const showPlaceholder = dragEnabled && !!activeAssignmentId && isOverColumn && activeAssignment?.status !== status
+
+    let insertionIndex = -1
+    if (showPlaceholder && activeAssignment) {
+        if (activeAssignment.status === status) {
+            insertionIndex = items.findIndex((item) => item.id === activeAssignment.id)
+            if (insertionIndex === -1) insertionIndex = items.length
+        } else {
+            const index = items.findIndex((item) => {
+                if (status === "Done") {
+                    return activeAssignment.dueDate.localeCompare(item.dueDate) > 0
+                } else {
+                    return activeAssignment.dueDate.localeCompare(item.dueDate) < 0
+                }
+            })
+            insertionIndex = index >= 0 ? index : items.length
+        }
+    }
 
     const handleClick = (id: string) => openModal("edit-assignment", id)
 
