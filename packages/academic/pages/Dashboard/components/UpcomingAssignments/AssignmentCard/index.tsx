@@ -16,7 +16,7 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
     const { isHovered, hoverProps } = useHover()
     const [isCompleting, setIsCompleting] = useState(false)
     const classInfo = getClassById(assignment.classId)
-    
+
     // Handle case where class data hasn't loaded yet
     if (!classInfo) return null
 
@@ -66,7 +66,9 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
                     </AssignmentDetailsBody>
                 </AssignmentDetails>
 
-                <PriorityBadge priority={assignment.priority} className="hidden sm:inline-flex" />
+                <div className="hidden sm:flex">
+                    <PriorityBadge priority={assignment.priority} />
+                </div>
             </div>
 
             <AssignmentCardMobileFooter assignment={assignment} />
