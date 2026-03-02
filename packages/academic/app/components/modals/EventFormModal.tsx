@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { useToast } from "@shared/contexts/ToastContext"
@@ -24,9 +24,9 @@ import {
 
 interface EventFormModalProps {
     onClose: () => void
-    eventId?: string // If provided, modal is in edit mode
+    eventId?: string // If provided, modal is in edit mode for event
     mode?: "default" | "template"
-    templateId?: string
+    templateId?: string // If provided, modal is in edit mode for template
     templateData?: EventTemplate
 }
 
@@ -84,11 +84,14 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
         }
     }, [eventId, events, templateData, templateId, selectedDateString])
 
-    // Load template data for editing
+    // Load template data for editing (only once)
+    const hasLoadedTemplate = useRef(false)
     useEffect(() => {
+        if (hasLoadedTemplate.current) return
         if (templateId && eventTemplates) {
             const template = eventTemplates.find(t => t.id === templateId)
             if (template) {
+                hasLoadedTemplate.current = true
                 setFormData(prev => ({
                     ...prev,
                     templateName: template.templateName,
@@ -118,16 +121,13 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
             showToast("Please enter a template name", "error")
             return
         }
-
         if (!safeData.title.trim()) {
             showToast("Please enter a title", "error")
             return
         }
-
         if (!safeData.date || isNaN(new Date(safeData.date).getTime())) {
             safeData.date = todayString()
         }
-
         if (isTemplateMode) {
             const { date: _removed, ...templateFields } = safeData
             const templatePayload = { ...templateFields, templateName: formData.templateName, kind: "event" as const }

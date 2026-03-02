@@ -34,7 +34,7 @@ interface AssignmentFormModalProps {
     assignmentId?: string // If provided, modal is in edit mode for assignment
     templateId?: string // If provided, modal is in edit mode for template
     mode?: "default" | "template"
-    templateData?: AssignmentTemplate // If provided, pre-fill form with this template data
+    templateData?: AssignmentTemplate
 }
 
 export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
@@ -101,7 +101,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                 title: templateData.title,
                 classId: templateData.classId,
                 description: templateData.description || "",
-                dueDate: selectedDateString || todayString(), // Reset date for new assignment from template
+                dueDate: selectedDateString || todayString(),
                 dueTime: templateData.dueTime || "23:59",
                 priority: templateData.priority,
                 status: templateData.status,
@@ -110,12 +110,15 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
         }
     }, [assignmentId, assignments, templateData, templateId, selectedDateString])
 
-    // Load template data for editing
+    // Load template data for editing (only once on mount)
     const { assignmentTemplates } = useSettings()
+    const hasLoadedTemplate = React.useRef(false)
     useEffect(() => {
+        if (hasLoadedTemplate.current) return
         if (templateId && assignmentTemplates) {
             const template = assignmentTemplates.find(t => t.id === templateId)
             if (template) {
+                hasLoadedTemplate.current = true
                 setFormData(prev => ({
                     ...prev,
                     templateName: template.templateName,
