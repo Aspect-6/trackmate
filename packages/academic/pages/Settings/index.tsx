@@ -83,9 +83,9 @@ const Settings: React.FC = () => {
         getDayTypeForDate
     } = useSchedules()
 
-    const { theme, setTheme, termMode } = useSettings()
+    const { theme, setTheme } = useSettings()
 
-    const { filteredAcademicTerms, getActiveTermForDate } = useAcademicTerms(termMode)
+    const { filteredAcademicTerms, getActiveTermForDate } = useAcademicTerms()
     const { noSchoolPeriods } = useNoSchool()
 
     // Day type for today calculation
