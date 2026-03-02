@@ -82,7 +82,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                 color: templateData.color
             })
         }
-    }, [eventId, events, templateData, templateId])
+    }, [eventId, events, templateData, templateId, selectedDateString])
 
     // Load template data for editing
     useEffect(() => {

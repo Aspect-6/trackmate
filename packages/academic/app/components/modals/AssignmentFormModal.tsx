@@ -108,7 +108,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                 type: templateData.type || ""
             })
         }
-    }, [assignmentId, assignments, templateData, templateId])
+    }, [assignmentId, assignments, templateData, templateId, selectedDateString])
 
     // Load template data for editing
     const { assignmentTemplates } = useSettings()
