@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useState, useEffect } from "react"
 import { X } from "lucide-react"
 import { useModal } from "@/app/contexts/ModalContext"
+import { useCalendarContext } from "@/app/contexts/CalendarContext"
+import { dateToLocalISOString } from "@shared/lib/date"
 import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
 import { useClasses } from "@/app/hooks/entities"
 import { useSelectedDate } from "./hooks/useSelectedDate"
@@ -20,6 +22,7 @@ import "./index.css"
 
 const Calendar: React.FC = () => {
     const { openModal } = useModal()
+    const { setSelectedDateString } = useCalendarContext()
     const { getClassById } = useClasses()
     const { useClassIdsForDate } = useScheduleComponents()
 
@@ -31,6 +34,13 @@ const Calendar: React.FC = () => {
     const openEditEvent = useCallback((id: string) => openModal("edit-event", id), [openModal])
     const openEditNoSchool = useCallback((id: string) => openModal("edit-no-school", id), [openModal])
     const { selectedDate, setSelectedDate, clearSelection } = useSelectedDate()
+
+    // Keep CalendarContext in sync with the calendar's selected date
+    useEffect(() => {
+        setSelectedDateString(selectedDate ? dateToLocalISOString(selectedDate) : null)
+        return () => setSelectedDateString(null)
+    }, [selectedDate, setSelectedDateString])
+
     const { changeMonth, period, month, year, jumpToDate } = useCalendarNavigation(clearSelection)
     const calendarCells = useCalendarGrid({ month, year })
     const sidePanelData = useSidePanel({ selectedDate })

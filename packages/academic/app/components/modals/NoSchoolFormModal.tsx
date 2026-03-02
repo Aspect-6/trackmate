@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
+import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { useNoSchool } from "@/app/hooks/entities"
 import { todayString } from "@shared/lib"
 import { MODALS } from "@/app/styles/colors"
@@ -23,10 +24,11 @@ interface NoSchoolFormModalProps {
 export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, noSchoolId }) => {
     const { noSchoolPeriods, addNoSchool, updateNoSchool } = useNoSchool()
     const { openModal } = useModal()
+    const { selectedDateString } = useCalendarContext()
     const [formData, setFormData] = useState({
         name: "",
-        startDate: todayString(),
-        endDate: todayString()
+        startDate: selectedDateString || todayString(),
+        endDate: selectedDateString || todayString()
     })
 
     const isEditMode = !!noSchoolId

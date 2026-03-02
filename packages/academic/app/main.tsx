@@ -2,6 +2,7 @@ import React from "react"
 import { createRoot } from "react-dom/client"
 import { BrowserRouter } from "react-router-dom"
 import { ModalProvider } from "@/app/contexts/ModalContext"
+import { CalendarProvider } from "@/app/contexts/CalendarContext"
 import { ScheduleComponentsProvider } from "@/app/contexts/ScheduleComponentsContext"
 import { ToastProvider } from "@shared/contexts/ToastContext"
 import { AuthProvider } from "@shared/contexts/AuthContext"
@@ -31,9 +32,11 @@ createRoot(rootElement).render(
 				<AuthProvider>
 					<FirestoreCacheProvider>
 						<ModalProvider>
-							<ScheduleComponentsProvider>
-								<App />
-							</ScheduleComponentsProvider>
+							<CalendarProvider>
+								<ScheduleComponentsProvider>
+									<App />
+								</ScheduleComponentsProvider>
+							</CalendarProvider>
 						</ModalProvider>
 					</FirestoreCacheProvider>
 				</AuthProvider>

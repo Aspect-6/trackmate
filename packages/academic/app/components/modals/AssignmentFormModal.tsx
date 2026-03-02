@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
+import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { useAssignments, useClasses } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useToast } from "@shared/contexts/ToastContext"
@@ -47,6 +48,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
     const { assignments, addAssignment, updateAssignment } = useAssignments()
     const { assignmentTypes, addTemplate, updateTemplate } = useSettings()
     const { openModal } = useModal()
+    const { selectedDateString } = useCalendarContext()
     const { showToast } = useToast()
     const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
     const [formData, setFormData] = useState<{
@@ -64,7 +66,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
         title: "",
         classId: "",
         description: "",
-        dueDate: todayString(),
+        dueDate: selectedDateString || todayString(),
         dueTime: "23:59",
         priority: "Low",
         status: "To Do",
@@ -99,7 +101,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                 title: templateData.title,
                 classId: templateData.classId,
                 description: templateData.description || "",
-                dueDate: todayString(), // Reset date for new assignment from template
+                dueDate: selectedDateString || todayString(), // Reset date for new assignment from template
                 dueTime: templateData.dueTime || "23:59",
                 priority: templateData.priority,
                 status: templateData.status,

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
+import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { useToast } from "@shared/contexts/ToastContext"
 import { useEvents } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
@@ -39,11 +40,12 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
     const { events, addEvent, updateEvent } = useEvents()
     const { eventTemplates, addTemplate, updateTemplate } = useSettings()
     const { openModal } = useModal()
+    const { selectedDateString } = useCalendarContext()
     const { showToast } = useToast()
     const [formData, setFormData] = useState({
         templateName: "",
         title: "",
-        date: todayString(),
+        date: selectedDateString || todayString(),
         startTime: "",
         endTime: "",
         description: "",
@@ -73,7 +75,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
             setFormData({
                 templateName: "",
                 title: templateData.title,
-                date: todayString(),
+                date: selectedDateString || todayString(),
                 startTime: templateData.startTime || "",
                 endTime: templateData.endTime || "",
                 description: templateData.description || "",
