@@ -32,6 +32,22 @@ const Layout: React.FC = () => {
         return () => mediaQuery.removeListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void)
     }, [])
 
+    // Lock body scroll when mobile sidebar overlay is open
+    useEffect(() => {
+        if (!isMobileSidebarOpen) return
+
+        const preventScroll = (e: TouchEvent) => e.preventDefault()
+        document.body.style.overflow = "hidden"
+        document.documentElement.style.overflow = "hidden"
+        document.addEventListener("touchmove", preventScroll, { passive: false })
+
+        return () => {
+            document.body.style.overflow = ""
+            document.documentElement.style.overflow = ""
+            document.removeEventListener("touchmove", preventScroll)
+        }
+    }, [isMobileSidebarOpen])
+
     const isCalendar = location.pathname === PATHS["calendar"]
     const isAssignments = location.pathname === PATHS["my-assignments"]
     const isFixedViewportPage = isCalendar || (isAssignments && isXlViewport)
