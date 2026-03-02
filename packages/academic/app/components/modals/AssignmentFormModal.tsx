@@ -143,11 +143,11 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
 
     // Select a type for an assignment if not set (only for Add Assignment)
     useEffect(() => {
-        if (isEditMode) return
+        if (isEditMode || templateData) return
         if (!formData.type && assignmentTypes.length) {
             setFormData(prev => ({ ...prev, type: assignmentTypes[0]! }))
         }
-    }, [assignmentTypes, formData.type, isEditMode])
+    }, [assignmentTypes, formData.type, isEditMode, templateData])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
