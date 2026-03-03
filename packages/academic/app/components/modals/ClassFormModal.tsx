@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
-import { useClasses, useAcademicTerms } from "@/app/hooks/entities"
+import { useClasses } from "@/app/hooks/entities"
+import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
 import { DASHBOARD, MODALS } from "@/app/styles/colors"
 import {
     ModalContainer,
@@ -8,8 +9,6 @@ import {
     ModalFooter,
     ModalLabel,
     ModalTextInput,
-    ModalSelectInput,
-    ModalSelectInputOption,
     ModalCancelButton,
     ModalDeleteButton,
     ModalSubmitButton,
@@ -26,7 +25,7 @@ interface ClassFormModalProps {
 
 export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId }) => {
     const { classes, addClass, updateClass } = useClasses()
-    const { academicTerms } = useAcademicTerms()
+    const { ClassFormScheduleTab } = useScheduleComponents()
     const { openModal } = useModal()
     const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
     const [formData, setFormData] = useState({
@@ -40,7 +39,6 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
 
     const isEditMode = !!classId
     const focusColor = MODALS.CLASS.PRIMARY_BG
-    const selectedTerm = academicTerms.find(t => t.id === formData.termId)
 
     // Populate form with existing class data in edit mode (only on mount)
     useEffect(() => {
@@ -59,7 +57,7 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
         }
     }, [classId, classes, isEditMode])
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const classData = {
@@ -83,14 +81,6 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
     const handleDelete = () => {
         onClose()
         openModal("delete-class", classId)
-    }
-
-    const handleTermChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setFormData({
-            ...formData,
-            termId: e.target.value,
-            semesterId: "" // Reset semester when term changes
-        })
     }
 
     return (
@@ -158,41 +148,17 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                         </div>
                     </ModalTabPanel>
                     <ModalTabPanel isActive={activeTab === "settings"}>
-                        <div>
-                            <ModalLabel>Academic Term (Optional)</ModalLabel>
-                            <ModalSelectInput
-                                value={formData.termId}
-                                onChange={handleTermChange}
+                        {ClassFormScheduleTab ? (
+                            <ClassFormScheduleTab
+                                formData={formData}
+                                setFormData={(data) => setFormData(prev => ({ ...prev, ...data }))}
                                 focusColor={focusColor}
-                            >
-                                <ModalSelectInputOption value="">No Term Assigned</ModalSelectInputOption>
-                                {academicTerms.map(term => (
-                                    <ModalSelectInputOption key={term.id} value={term.id}>
-                                        {term.name}
-                                    </ModalSelectInputOption>
-                                ))}
-                            </ModalSelectInput>
-                        </div>
-                        {selectedTerm && selectedTerm.semesters.length > 0 && (
-                            <div>
-                                <ModalLabel>Semester (Optional)</ModalLabel>
-                                <ModalSelectInput
-                                    value={formData.semesterId}
-                                    onChange={e => setFormData({ ...formData, semesterId: e.target.value })}
-                                    focusColor={focusColor}
-                                >
-                                    <ModalSelectInputOption value="">Year-long (Both Semesters)</ModalSelectInputOption>
-                                    {selectedTerm.semesters.map(sem => (
-                                        <ModalSelectInputOption key={sem.id} value={sem.id}>
-                                            {sem.name}
-                                        </ModalSelectInputOption>
-                                    ))}
-                                </ModalSelectInput>
-                            </div>
+                            />
+                        ) : (
+                            <p className="text-sm" style={{ color: DASHBOARD.TEXT_TERTIARY }}>
+                                No schedule format is configured. Set one in Settings to assign classes to terms.
+                            </p>
                         )}
-                        <p className="text-xs" style={{ color: DASHBOARD.TEXT_TERTIARY }}>
-                            Classes added to a year-long term will occur every other day, while classes marked for a semester will occur every day for that semester.
-                        </p>
                     </ModalTabPanel>
                 </ModalTabPanelsContainer>
 

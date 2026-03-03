@@ -6,6 +6,7 @@ import type { ScheduleType } from "@/app/types"
 // Note: Importing from pages/ here because ScheduleRenderer is very closely 
 // related to the My Schedule page. Its an acceptable exception to app/pages rule.
 import AlternatingABRenderer from "@/pages/My Schedule/components/scheduleRenderers/AlternatingAB"
+import AlternatingABClassFormScheduleTab from "@/app/components/scheduleComponents/AlternatingABClassFormScheduleTab"
 
 // Import schedule-type-specific hooks
 import { useAlternatingABClassIds } from "@/app/hooks/schedules/useAlternatingABClassIds"
@@ -19,9 +20,20 @@ export interface ClassIdsForDateResult {
     hasClasses: boolean
 }
 
+/**
+ * Props contract for schedule-specific class form tab components.
+ * Each schedule format implements this to render its own Settings tab UI.
+ */
+export interface ClassFormScheduleTabProps {
+    formData: Record<string, string>
+    setFormData: (data: Record<string, string>) => void
+    focusColor: string
+}
+
 interface ScheduleComponents {
     ScheduleRenderer: React.FC<ScheduleRendererProps> | null
     useClassIdsForDate: (date: string) => ClassIdsForDateResult
+    ClassFormScheduleTab: React.FC<ClassFormScheduleTabProps> | null
 }
 
 const useNullClassIds = (): ClassIdsForDateResult => ({
@@ -37,10 +49,12 @@ const COMPONENTS_BY_TYPE: Record<ScheduleType, ScheduleComponents> = {
             const hasClasses = classIds.length > 0 && classIds.some(id => id !== null)
             return { classIds, hasClasses }
         },
+        ClassFormScheduleTab: AlternatingABClassFormScheduleTab,
     },
     "none": {
         ScheduleRenderer: null,
         useClassIdsForDate: useNullClassIds,
+        ClassFormScheduleTab: null,
     }
 }
 
@@ -64,3 +78,4 @@ export const ScheduleComponentsProvider: React.FC<{ children: React.ReactNode }>
  * Hook to access schedule-type-specific components.
  */
 export const useScheduleComponents = () => useContext(ScheduleComponentsContext)
+
