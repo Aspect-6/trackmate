@@ -29,11 +29,11 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
                         key={toast.id}
                         className={`toast-notification toast-${toast.type} ${toast.isHiding ? "hide" : ""}`}
                     >
-                        <div className="flex items-center">
+                        <div className="flex items-center gap-2">
                             {toast.type === "success" ? (
-                                <CheckCircle className="w-5 h-5 mr-2" />
+                                <CheckCircle className="w-5 h-5 flex-shrink-0" />
                             ) : (
-                                <AlertCircle className="w-5 h-5 mr-2" />
+                                <AlertCircle className="w-5 h-5 flex-shrink-0" />
                             )}
                             <span>{toast.message}</span>
                         </div>
