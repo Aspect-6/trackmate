@@ -71,10 +71,12 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
             />
 
             <div
-                className="min-h-0 flex-grow transition-all duration-300 ease-in-out"
+                className="min-h-0 flex-grow"
                 style={{
                     display: "grid",
                     gridTemplateRows: isCollapsed ? "0fr" : "1fr",
+                    transition: "grid-template-rows 0.25s ease-out",
+                    willChange: "grid-template-rows",
                 }}
             >
                 <div className="overflow-hidden" style={{ maxHeight: isMobile || isTablet ? "330px" : undefined }}>

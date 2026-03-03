@@ -31,8 +31,11 @@ const AssignmentColumnHeader: React.FC<AssignmentColumn.HeaderProps> = ({
 
     return (
         <div
-            className={`flex justify-between items-center mb-4 px-2 py-2 transition-colors ${isMobile ? "cursor-pointer" : ""}`}
-            style={{ borderBottom: `1px solid ${isCollapsed ? "transparent" : GLOBAL.HEADER_DIVIDER}` }}
+            className={`flex justify-between items-center mb-4 px-2 py-2 ${isMobile ? "cursor-pointer" : ""}`}
+            style={{
+                borderBottom: `1px solid ${isCollapsed ? "transparent" : GLOBAL.HEADER_DIVIDER}`,
+                transition: "border-color 0.25s ease-out",
+            }}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
             {...(isMobile ? { role: "button", tabIndex: 0 } : {})}
