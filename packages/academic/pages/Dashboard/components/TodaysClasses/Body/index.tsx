@@ -28,11 +28,14 @@ const TodaysClassesBody: React.FC<TodaysClasses.Body.Props> = ({ isMobile, isCol
 
     return (
         <div
-            className="overflow-y-scroll custom-scrollbar transition-max-height duration-300"
+            className="custom-scrollbar"
             style={{
                 maxHeight: isMobile
-                    ? (isCollapsed ? "0" : `min(${contentHeight + 5}px, 11rem)`)
-                    : "17.5rem"
+                    ? (isCollapsed ? "0px" : `min(${contentHeight + 5}px, 11rem)`)
+                    : "17.5rem",
+                overflow: isMobile && isCollapsed ? "hidden" : "auto",
+                transition: "max-height 0.25s ease-out",
+                willChange: "max-height",
             }}
         >
             <div ref={contentRef} className="space-y-2 pr-2">
