@@ -36,11 +36,6 @@ interface ScheduleComponents {
     ClassFormScheduleTab: React.FC<ClassFormScheduleTabProps> | null
 }
 
-const useNullClassIds = (): ClassIdsForDateResult => ({
-    classIds: [],
-    hasClasses: false
-})
-
 const COMPONENTS_BY_TYPE: Record<ScheduleType, ScheduleComponents> = {
     "alternating-ab": {
         ScheduleRenderer: AlternatingABRenderer,
@@ -50,21 +45,16 @@ const COMPONENTS_BY_TYPE: Record<ScheduleType, ScheduleComponents> = {
             return { classIds, hasClasses }
         },
         ClassFormScheduleTab: AlternatingABClassFormScheduleTab,
-    },
-    "none": {
-        ScheduleRenderer: null,
-        useClassIdsForDate: useNullClassIds,
-        ClassFormScheduleTab: null,
     }
 }
 
-const ScheduleComponentsContext = createContext<ScheduleComponents>(COMPONENTS_BY_TYPE["none"])
+const ScheduleComponentsContext = createContext<ScheduleComponents>(null as unknown as ScheduleComponents)
 
 export const ScheduleComponentsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { schedules } = useSchedules()
 
     const components = useMemo(() => {
-        return COMPONENTS_BY_TYPE[schedules.type] || COMPONENTS_BY_TYPE["none"]
+        return COMPONENTS_BY_TYPE[schedules.type]
     }, [schedules.type])
 
     return (
@@ -74,8 +64,4 @@ export const ScheduleComponentsProvider: React.FC<{ children: React.ReactNode }>
     )
 }
 
-/**
- * Hook to access schedule-type-specific components.
- */
 export const useScheduleComponents = () => useContext(ScheduleComponentsContext)
-

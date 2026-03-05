@@ -135,7 +135,7 @@ export interface TermSchedule {
 /**
  * Available schedule rotation types.
  */
-export type ScheduleType = "alternating-ab" | "none"
+export type ScheduleType = "alternating-ab"
 
 /**
  * Represents the type of school day in the schedule rotation.
@@ -166,11 +166,6 @@ export interface AlternatingABData {
 }
 
 /**
- * Configuration data for no schedule (placeholder for future types).
- */
-export interface NoScheduleData { }
-
-/**
  * Top-level schedule storage with type-keyed data.
  */
 export interface Schedules {
@@ -178,8 +173,6 @@ export interface Schedules {
     type: ScheduleType
     /** A/B schedule data (present when type is "alternating-ab") */
     "alternating-ab"?: AlternatingABData
-    /** No schedule data (present when type is "none") */
-    "none"?: NoScheduleData
 }
 
 /**
