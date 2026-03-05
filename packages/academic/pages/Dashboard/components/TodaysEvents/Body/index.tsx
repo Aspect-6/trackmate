@@ -31,7 +31,7 @@ const TodaysEventsBody: React.FC<TodaysEvents.Body.Props> = ({ isMobile, isColla
             className="custom-scrollbar"
             style={{
                 maxHeight: isMobile
-                    ? (isCollapsed ? "0px" : `min(${contentHeight + 5}px, 11rem)`)
+                    ? (isCollapsed ? "0px" : `min(${contentHeight + 5}px, 14.7rem)`)
                     : "17.5rem",
                 overflow: isMobile && isCollapsed ? "hidden" : "auto",
                 transition: "max-height 0.25s ease-out",
