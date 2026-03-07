@@ -21,7 +21,7 @@ const SidebarContainer: React.FC<SidebarContainerProps> = ({
         <nav
             id={isMobile ? "" : "sidebar"}
             className={`flex flex-col ${isMobile
-                ? "fixed inset-0 z-50"
+                ? "fixed inset-0 z-30"
                 : "w-64 flex-shrink-0 border-r sticky top-0 h-dvh py-8 hidden lg:flex"
                 } ${className || ""}`}
             style={{
