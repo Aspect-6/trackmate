@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
+import { useToast } from "@shared/contexts/ToastContext"
 import { useNoSchool } from "@/app/hooks/entities"
 import { todayString } from "@shared/lib"
 import { MODALS } from "@/app/styles/colors"
@@ -25,6 +26,7 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
     const { noSchoolPeriods, addNoSchool, updateNoSchool } = useNoSchool()
     const { openModal } = useModal()
     const { selectedDateString } = useCalendarContext()
+    const { showToast } = useToast()
     const [formData, setFormData] = useState({
         name: "",
         startDate: selectedDateString || todayString(),
@@ -50,6 +52,11 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        if (!formData.name.trim()) {
+            showToast("Please enter a name", "error")
+            return
+        }
 
         const safeData = { ...formData }
         if (!safeData.startDate || isNaN(new Date(safeData.startDate).getTime())) {
@@ -85,7 +92,6 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
                         value={formData.name}
                         onChange={e => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Winter Break"
-                        required
                         focusColor={focusColor}
                     />
                 </div>
@@ -96,7 +102,6 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
                             name="startDate"
                             value={formData.startDate}
                             onChange={e => setFormData({ ...formData, startDate: e.target.value })}
-                            required
                             focusColor={focusColor}
                         />
                     </div>
@@ -106,7 +111,6 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
                             name="endDate"
                             value={formData.endDate}
                             onChange={e => setFormData({ ...formData, endDate: e.target.value })}
-                            required
                             focusColor={focusColor}
                         />
                     </div>

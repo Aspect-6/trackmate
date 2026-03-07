@@ -188,7 +188,6 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                         value={formData.title}
                         onChange={e => setFormData({ ...formData, title: e.target.value })}
                         placeholder="Marching Band Practice"
-                        required
                         focusColor={focusColor}
                     />
                 </div>
@@ -199,7 +198,6 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                             name="date"
                             value={formData.date}
                             onChange={e => setFormData({ ...formData, date: e.target.value })}
-                            required
                             focusColor={focusColor}
                         />
                     </div>

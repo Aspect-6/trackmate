@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
+import { useToast } from "@shared/contexts/ToastContext"
 import { useClasses } from "@/app/hooks/entities"
 import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
 import { DASHBOARD, MODALS } from "@/app/styles/colors"
@@ -27,6 +28,7 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
     const { classes, addClass, updateClass } = useClasses()
     const { ClassFormScheduleTab } = useScheduleComponents()
     const { openModal } = useModal()
+    const { showToast } = useToast()
     const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
     const [formData, setFormData] = useState({
         name: "",
@@ -59,6 +61,11 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        if (!formData.name.trim()) {
+            showToast("Please enter a class name", "error")
+            return
+        }
 
         const classData = {
             name: formData.name,
@@ -107,7 +114,6 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                                 value={formData.name}
                                 onChange={e => setFormData({ ...formData, name: e.target.value })}
                                 placeholder="World History"
-                                required
                                 focusColor={focusColor}
                             />
                         </div>
