@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState } from "react"
 import { useSettings } from "@/app/hooks/useSettings"
 import type { Priority } from "@/app/types"
 import type { ActionBar } from "@/pages/My Assignments/types"
@@ -16,17 +16,6 @@ const ActionBar: React.FC<ActionBar.Props> = ({
 }) => {
     const { assignmentTypes } = useSettings()
     const [isExpanded, setIsExpanded] = useState(false)
-
-    const innerRef = useRef<HTMLDivElement>(null)
-    const [maxHeight, setMaxHeight] = useState<string | number>(0)
-
-    useEffect(() => {
-        if (isExpanded && innerRef.current) {
-            setMaxHeight(innerRef.current.scrollHeight)
-        } else {
-            setMaxHeight(0)
-        }
-    }, [isExpanded])
 
     const toggleFilter = (item: string, currentFilters: string[], setFilters: (v: string[]) => void) => {
         if (currentFilters.includes(item)) {
@@ -85,11 +74,8 @@ const ActionBar: React.FC<ActionBar.Props> = ({
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="Search assignments"
-                className="pl-9 pr-3 py-1.5 text-sm rounded-xl w-full transition-all duration-200 bg-transparent focus:bg-white/5"
-                style={{
-                    color: MY_ASSIGNMENTS.TEXT_PRIMARY,
-                    outline: "none"
-                }}
+                className="pl-9 pr-3 py-1.5 text-sm rounded-xl w-full outline-none transition-all duration-200 bg-transparent focus:bg-white/5"
+                style={{ color: MY_ASSIGNMENTS.TEXT_PRIMARY }}
             />
         </div>
     )
@@ -100,48 +86,60 @@ const ActionBar: React.FC<ActionBar.Props> = ({
                 backgroundColor: MY_ASSIGNMENTS.BACKGROUND_PRIMARY,
                 border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`
             }}>
-            <div className="flex items-center gap-2">
-
-                <div className="flex-1 md:hidden min-w-0">
+            <div className="flex items-center gap-2 md:hidden py-1"
+                style={{
+                    borderBottom: `1px solid ${isExpanded ? "rgba(255,255,255,0.05)" : "transparent"}`,
+                    transition: "border-color 0.25s ease-out",
+                }}
+            >
+                <div className="flex-1 min-w-0">
                     {searchInput("")}
                 </div>
 
                 <button
                     onClick={() => setIsExpanded(!isExpanded)}
-                    className="md:hidden p-2 rounded-xl transition-colors hover:bg-white/5 flex-shrink-0"
+                    className="p-2 rounded-xl transition-colors hover:bg-white/5 flex-shrink-0"
                     style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY }}
                 >
                     {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                 </button>
+            </div>
 
-                <div className="hidden md:flex flex-1 min-w-0 items-center gap-2 overflow-x-scroll no-scrollbar mask-linear-fade py-1">
+            <div className="hidden md:flex items-center gap-2">
+
+                <div className="flex flex-1 min-w-0 items-center gap-2 overflow-x-scroll no-scrollbar mask-linear-fade py-1">
                     {typeChips}
                 </div>
 
-                <div className="hidden md:flex items-center gap-2 flex-shrink-0 mr-1">
+                <div className="flex items-center gap-2 flex-shrink-0 mr-1">
                     <div className="w-px h-4 bg-white/10 flex-shrink-0 mx-1" />
                     {priorityChips}
                     <AllChip />
                 </div>
 
-                <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+                <div className="flex items-center gap-2 flex-shrink-0">
                     <div className="w-px h-6 bg-white/10 flex-shrink-0" />
                     {searchInput("w-64")}
                 </div>
             </div>
 
             <div
-                className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? "opacity-100 mt-2" : "opacity-0 invisible mt-0"}`}
-                style={{ maxHeight: isExpanded ? `${maxHeight}px` : "0px" }}
+                className="md:hidden grid"
+                style={{
+                    gridTemplateRows: isExpanded ? "1fr" : "0fr",
+                    transition: "grid-template-rows 0.25s ease-out",
+                }}
             >
-                <div ref={innerRef} className="flex flex-col gap-3 py-2 border-t border-white/5">
-                    <div className="flex items-center gap-2 overflow-x-auto no-scrollbar mask-linear-fade py-1">
-                        {typeChips}
-                    </div>
+                <div className="overflow-hidden">
+                    <div className="flex flex-col gap-3 py-2">
+                        <div className="flex items-center gap-2 py-1 overflow-x-auto no-scrollbar mask-linear-fade">
+                            {typeChips}
+                        </div>
 
-                    <div className="flex items-center gap-2 flex-wrap pb-1">
-                        {priorityChips}
-                        <AllChip />
+                        <div className="flex items-center gap-2 pb-1 flex-wrap">
+                            {priorityChips}
+                            <AllChip />
+                        </div>
                     </div>
                 </div>
             </div>
