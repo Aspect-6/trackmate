@@ -128,6 +128,10 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
         if (!safeData.date || isNaN(new Date(safeData.date).getTime())) {
             safeData.date = todayString()
         }
+        if (safeData.startTime && safeData.endTime && safeData.endTime < safeData.startTime) {
+            showToast("Start time must be before end time", "error")
+            return
+        }
         if (isTemplateMode) {
             const { date: _removed, ...templateFields } = safeData
             const templatePayload = { ...templateFields, templateName: formData.templateName, kind: "event" as const }

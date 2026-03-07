@@ -168,8 +168,8 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                 ]
             }
         } else {
-            if (termStart >= fallEnd) { showToast("Fall end must be after year start.", "error"); return }
-            if (fallEnd >= springStart) { showToast("Spring start must be after fall end.", "error"); return }
+            if (termStart >= fallEnd) { showToast("Year start must be before Fall end.", "error"); return }
+            if (fallEnd >= springStart) { showToast("Fall end must be before Spring start.", "error"); return }
             if (springStart >= termEnd) { showToast("Spring start must be before year end.", "error"); return }
 
             termData = {

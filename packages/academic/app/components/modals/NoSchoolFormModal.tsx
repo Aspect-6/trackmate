@@ -65,6 +65,10 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
         if (!safeData.endDate || isNaN(new Date(safeData.endDate).getTime())) {
             safeData.endDate = todayString()
         }
+        if (safeData.endDate < safeData.startDate) {
+            showToast("End date cannot be before start date", "error")
+            return
+        }
 
         if (isEditMode) {
             updateNoSchool(noSchoolId, safeData)
