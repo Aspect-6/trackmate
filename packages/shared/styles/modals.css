@@ -186,14 +186,17 @@
     border-radius: 6px;
     cursor: pointer;
     border: 2px solid transparent;
-    transition: all 0.2s ease;
+    transition: none;
+    will-change: transform;
 }
 
 .color-tile:hover {
-    transform: scale(1.1);
-    border-color: var(--border-primary);
+    transition: transform 0.1s ease;
+    transform: scale(0.92);
 }
 
 .color-tile.selected {
+    transition: none;
+    transform: scale(1.1);
     border-color: var(--border-primary);
 }
