@@ -28,6 +28,8 @@ const FloatingMenuButton: React.FC<FloatingMenuButtonProps> = ({
                 backgroundColor: isHovered ? hoverColor : backgroundColor,
                 color: TRACKMATE.TEXT_WHITE,
                 left: leftPosition,
+                transform: "translateZ(0)",
+                willChange: "transform",
             }}
             aria-label={isOpen ? "Close menu" : "Open menu"}
             {...hoverProps}

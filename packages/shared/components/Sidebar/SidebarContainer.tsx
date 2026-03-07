@@ -26,7 +26,10 @@ const SidebarContainer: React.FC<SidebarContainerProps> = ({
                 } ${className || ""}`}
             style={{
                 backgroundColor: backgroundColor,
-                ...(isMobile ? {} : { borderColor: borderColor }),
+                ...(isMobile
+                    ? { transform: "translateZ(0)", willChange: "transform" }
+                    : { borderColor: borderColor }
+                ),
                 ...style
             }}
         >
