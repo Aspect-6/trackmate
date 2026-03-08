@@ -1,54 +1,31 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useEvents } from "@/app/hooks/entities"
+import { useBreakpoints } from "@/app/hooks/ui/useBreakpoints"
 import UpcomingAssignments from "@/pages/Dashboard/components/UpcomingAssignments"
 import TodaysEvents from "@/pages/Dashboard/components/TodaysEvents"
 import TodaysClasses from "@/pages/Dashboard/components/TodaysClasses"
 import "@/pages/Dashboard/index.css"
 
-const MOBILE_BREAKPOINT = "(max-width: 767px)"
-
 const Dashboard: React.FC = () => {
     const { openModal } = useModal()
     const { todaysEvents } = useEvents()
+    const { isMobile } = useBreakpoints()
 
     const openEditEvent = useCallback((id: string) => openModal("edit-event", id), [openModal])
 
-    const [isMobile, setIsMobile] = useState<boolean>(() => {
-        return window.matchMedia(MOBILE_BREAKPOINT).matches
-    })
-    const [isEventsCollapsed, setIsEventsCollapsed] = useState<boolean>(() => {
-        return window.matchMedia(MOBILE_BREAKPOINT).matches
-    })
-    const [isClassesCollapsed, setIsClassesCollapsed] = useState<boolean>(() => {
-        return window.matchMedia(MOBILE_BREAKPOINT).matches
-    })
+    const [isEventsCollapsed, setIsEventsCollapsed] = useState<boolean>(isMobile)
+    const [isClassesCollapsed, setIsClassesCollapsed] = useState<boolean>(isMobile)
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia(MOBILE_BREAKPOINT)
-
-        const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {
-            const matches = "matches" in event ? event.matches : mediaQuery.matches
-            setIsMobile(matches)
-            if (matches) {
-                setIsEventsCollapsed(true)
-                setIsClassesCollapsed(true)
-            } else {
-                setIsEventsCollapsed(false)
-                setIsClassesCollapsed(false)
-            }
+        if (isMobile) {
+            setIsEventsCollapsed(true)
+            setIsClassesCollapsed(true)
+        } else {
+            setIsEventsCollapsed(false)
+            setIsClassesCollapsed(false)
         }
-
-        handleChange(mediaQuery)
-
-        if (typeof mediaQuery.addEventListener === "function") {
-            mediaQuery.addEventListener("change", handleChange as EventListener)
-            return () => mediaQuery.removeEventListener("change", handleChange as EventListener)
-        }
-
-        mediaQuery.addListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void)
-        return () => mediaQuery.removeListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void)
-    }, [])
+    }, [isMobile])
 
     return (
         <div className="dashboard-page flex-1 flex flex-col gap-6 w-full">

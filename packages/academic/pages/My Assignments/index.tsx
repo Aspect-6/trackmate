@@ -1,6 +1,6 @@
 import React, { useState } from "react"
+import { useBreakpoints } from "@/app/hooks/ui/useBreakpoints"
 import { DndContext, DragOverlay } from "@dnd-kit/core"
-import { useMobileDetection } from "@/pages/My Assignments/hooks/useMobileDetection"
 import { useColumnVisibility } from "@/pages/My Assignments/hooks/useColumnVisibility"
 import { useAssignmentDrag } from "@/pages/My Assignments/hooks/useAssignmentDrag"
 import ActionBar from "@/pages/My Assignments/components/ActionBar"
@@ -25,7 +25,7 @@ const MyAssignments: React.FC = () => {
 	const [typeFilter, setTypeFilter] = useState<string[]>([])
 	const [priorityFilter, setPriorityFilter] = useState<string[]>([])
 
-	const { isMobile, isTablet } = useMobileDetection()
+	const { isMobile, isTablet } = useBreakpoints()
 	const { openColumns, toggleColumn } = useColumnVisibility(isMobile)
 
 	const dragEnabled = !isMobile

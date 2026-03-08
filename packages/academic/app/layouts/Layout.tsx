@@ -3,34 +3,14 @@ import { Outlet, useLocation } from "react-router-dom"
 import PageHeader from "@/app/components/PageHeader"
 import Sidebar from "@/app/components/Sidebar"
 import FloatingMenuButton from "@shared/components/FloatingMenuButton"
+import { useBreakpoints } from "@/app/hooks/ui/useBreakpoints"
 import { GLOBAL } from "@/app/styles/colors"
 import { PATHS } from "@/app/config/paths"
 
 const Layout: React.FC = () => {
     const location = useLocation()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
-    const [isXlViewport, setIsXlViewport] = useState<boolean>(() => {
-        return window.matchMedia("(min-width: 1280px)").matches
-    })
-
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(min-width: 1280px)")
-
-        const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {
-            const matches = "matches" in event ? event.matches : mediaQuery.matches
-            setIsXlViewport(matches)
-        }
-
-        handleChange(mediaQuery)
-
-        if (typeof mediaQuery.addEventListener === "function") {
-            mediaQuery.addEventListener("change", handleChange as EventListener)
-            return () => mediaQuery.removeEventListener("change", handleChange as EventListener)
-        }
-
-        mediaQuery.addListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void)
-        return () => mediaQuery.removeListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void)
-    }, [])
+    const { isDesktop } = useBreakpoints()
 
     // Lock body scroll when mobile sidebar overlay is open
     useEffect(() => {
@@ -50,7 +30,7 @@ const Layout: React.FC = () => {
 
     const isCalendar = location.pathname === PATHS["calendar"]
     const isAssignments = location.pathname === PATHS["my-assignments"]
-    const isFixedViewportPage = isCalendar || (isAssignments && isXlViewport)
+    const isFixedViewportPage = isCalendar || (isAssignments && isDesktop)
 
     return (
         <div id="app-container" className={`flex ${isFixedViewportPage ? "h-dvh overflow-hidden" : "min-h-dvh"}`}
