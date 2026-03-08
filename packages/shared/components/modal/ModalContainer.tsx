@@ -2,20 +2,16 @@ import React from "react"
 import { TRACKMATE_MODALS } from "@shared/styles/colors"
 
 export interface ModalContainerProps {
-    children: React.ReactNode
-    bgColor?: string
     className?: string
+    children: React.ReactNode
 }
 
-export const ModalContainer: React.FC<ModalContainerProps> = ({
-    children,
-    bgColor = TRACKMATE_MODALS.BASE.BG,
-    className = "",
-}) => {
+export const ModalContainer: React.FC<ModalContainerProps> = ({ className = "", children }) => {
     return (
         <div
             className={`modal-container ${className}`.trim()}
-            style={{ backgroundColor: bgColor }}
+            style={{ backgroundColor: TRACKMATE_MODALS.BASE.BG }}
+            data-modal-content
         >
             {children}
         </div>
