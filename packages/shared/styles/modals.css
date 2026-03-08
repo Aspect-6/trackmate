@@ -198,5 +198,5 @@
 .color-tile.selected {
     transition: none;
     transform: scale(1.1);
-    border-color: var(--border-primary);
+    border-color: var(--text-tertiary);
 }
