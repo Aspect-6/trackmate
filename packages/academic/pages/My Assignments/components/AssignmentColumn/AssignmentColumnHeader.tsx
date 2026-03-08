@@ -2,7 +2,7 @@ import React from "react"
 import type { AssignmentColumn } from "@/pages/My Assignments/types"
 import type { Status } from "@/app/types"
 import { ChevronDown } from "lucide-react"
-import { MY_ASSIGNMENTS, GLOBAL } from "@/app/styles/colors"
+import { MY_ASSIGNMENTS } from "@/app/styles/colors"
 
 const HEADER_COLORS: Record<Status, string> = {
     "To Do": MY_ASSIGNMENTS.BOARD_HEADER_TEXT_UPCOMING,
@@ -33,7 +33,7 @@ const AssignmentColumnHeader: React.FC<AssignmentColumn.HeaderProps> = ({
         <div
             className={`flex justify-between items-center mb-4 px-2 py-2 ${isMobile ? "cursor-pointer" : ""}`}
             style={{
-                borderBottom: `1px solid ${isCollapsed ? "transparent" : GLOBAL.HEADER_DIVIDER}`,
+                borderBottom: `1px solid ${isCollapsed ? "transparent" : MY_ASSIGNMENTS.HEADER_DIVIDER}`,
                 transition: "border-color 0.25s ease-out",
             }}
             onClick={handleClick}

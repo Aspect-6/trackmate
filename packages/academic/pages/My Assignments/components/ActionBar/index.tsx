@@ -86,12 +86,7 @@ const ActionBar: React.FC<ActionBar.Props> = ({
                 backgroundColor: MY_ASSIGNMENTS.BACKGROUND_PRIMARY,
                 border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`
             }}>
-            <div className="flex items-center gap-2 md:hidden py-1"
-                style={{
-                    borderBottom: `1px solid ${isExpanded ? "rgba(255,255,255,0.05)" : "transparent"}`,
-                    transition: "border-color 0.25s ease-out",
-                }}
-            >
+            <div className="flex items-center gap-2 md:hidden py-1">
                 <div className="flex-1 min-w-0">
                     {searchInput("")}
                 </div>
@@ -104,6 +99,12 @@ const ActionBar: React.FC<ActionBar.Props> = ({
                     {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                 </button>
             </div>
+            <div className="md:hidden mx-2"
+                style={{
+                    borderBottom: `1px solid ${isExpanded ? MY_ASSIGNMENTS.HEADER_DIVIDER : "transparent"}`,
+                    transition: "border-color 0.25s ease-out",
+                }}
+            />
 
             <div className="hidden md:flex items-center gap-2">
 
