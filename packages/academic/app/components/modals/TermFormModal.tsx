@@ -196,7 +196,7 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
     }
 
     return (
-        <ModalContainer className="overflow-y-auto max-h-[90vh]">
+        <ModalContainer className="overflow-y-auto custom-scrollbar max-h-[90vh]">
             <ModalHeader color={MODALS.ACADEMICTERM.HEADING}>
                 {isEditMode ? "Edit Academic Term" : "Add Academic Term"}
             </ModalHeader>

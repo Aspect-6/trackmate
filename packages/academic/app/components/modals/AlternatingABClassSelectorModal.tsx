@@ -82,7 +82,7 @@ export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelecto
                 </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto min-h-0 pr-1 -mr-1">
+            <div className="flex-1 overflow-y-auto custom-scrollbar min-h-0 pr-1 -mr-1">
                 <div className="space-y-3">
                     {availableClasses.length === 0 ? (
                         <div className="flex flex-col items-center justify-center py-12 text-center opacity-60">

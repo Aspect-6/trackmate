@@ -81,7 +81,7 @@ const CalendarSearchResults: React.FC<CalendarSearchResultsProps> = ({ searchQue
     }
 
     return (
-        <div className="flex flex-col gap-2 overflow-y-auto max-h-[calc(100vh-200px)]">
+        <div className="flex flex-col gap-2 overflow-y-auto custom-scrollbar max-h-[calc(100vh-200px)]">
             {results.map((item) => (
                 <SearchResultItem
                     key={`${item.type}-${item.id}`}

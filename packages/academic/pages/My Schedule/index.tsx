@@ -22,7 +22,7 @@ const MySchedule: React.FC = () => {
     return (
         <div className="my-schedule-page flex flex-col">
             <div
-                className="overflow-x-hidden p-6 rounded-xl shadow-md flex flex-col transition-colors overflow-auto"
+                className="overflow-x-hidden p-6 rounded-xl shadow-md flex flex-col transition-colors overflow-auto custom-scrollbar"
                 style={{
                     border: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}`,
                     backgroundColor: MY_SCHEDULE.BACKGROUND_PRIMARY,

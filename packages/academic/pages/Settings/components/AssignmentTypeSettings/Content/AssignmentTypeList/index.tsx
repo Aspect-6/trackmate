@@ -12,7 +12,7 @@ const AssignmentTypeList: React.FC<AssignmentTypeSettings.Content.AssignmentType
     return (
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
             <SortableContext items={items} strategy={verticalListSortingStrategy}>
-                <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+                <div className="space-y-2 max-h-64 overflow-y-auto custom-scrollbar pr-1">
                     {children}
                 </div>
             </SortableContext>

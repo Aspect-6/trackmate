@@ -4,7 +4,7 @@ import { MY_SCHEDULE } from "@/app/styles/colors"
 
 const ScheduleTable: React.FC<AlternatingDaysSchedule.ScheduleTable.Props> = ({ children }) => {
     return (
-        <div className="overflow-x-auto p-1">
+        <div className="overflow-x-auto custom-scrollbar p-1">
             <div
                 className="overflow-x-hidden shadow-sm rounded-lg w-full"
                 style={{
