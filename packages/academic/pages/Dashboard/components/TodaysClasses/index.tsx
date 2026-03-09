@@ -24,7 +24,7 @@ const TodaysClasses: React.FC<TodaysClasses.Props> = ({
 
     return (
         <div
-            className="border p-6 rounded-xl shadow-md dashboard-collapsible"
+            className="border p-6 rounded-xl shadow-md dashboard-collapsible flex flex-col"
             style={{
                 backgroundColor: DASHBOARD.BACKGROUND_PRIMARY,
                 borderColor: DASHBOARD.BORDER_PRIMARY

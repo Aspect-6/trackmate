@@ -1,52 +1,27 @@
-import React, { useEffect, useRef, useState } from "react"
+import React from "react"
 import type { TodaysEvents } from "@/pages/Dashboard/types"
 
 const TodaysEventsBody: React.FC<TodaysEvents.Body.Props> = ({ isMobile, isCollapsed, children }) => {
-    const contentRef = useRef<HTMLDivElement>(null)
-    const [contentHeight, setContentHeight] = useState<number>(0)
-
-    useEffect(() => {
-        if (!isMobile) return
-
-        const computeHeight = () => {
-            if (contentRef.current) {
-                setContentHeight(contentRef.current.scrollHeight)
-            }
-        }
-
-        computeHeight()
-
-        if (typeof ResizeObserver !== "undefined") {
-            const observer = new ResizeObserver(() => computeHeight())
-            if (contentRef.current) observer.observe(contentRef.current)
-            return () => observer.disconnect()
-        }
-
-        window.addEventListener("resize", computeHeight)
-        return () => window.removeEventListener("resize", computeHeight)
-    }, [isMobile, children])
-
     return (
         <div
+            className="flex-1"
             style={{
-                overflow: "hidden",
-                maxHeight: isMobile
-                    ? (isCollapsed ? "0px" : `min(${contentHeight + 5}px, 14.7rem)`)
-                    : "330px",
-                transition: isMobile ? "max-height 0.25s ease-out" : undefined,
-                willChange: isMobile ? "max-height" : undefined,
+                display: isMobile ? "grid" : undefined,
+                gridTemplateRows: isCollapsed ? "0fr" : "1fr",
+                transition: "grid-template-rows 0.25s ease-out",
             }}
         >
-            <div
-                ref={contentRef}
-                className="space-y-2 pr-2 custom-scrollbar"
-                style={{
-                    overflowY: "auto",
-                    maxHeight: isMobile ? undefined : "220px",
-                    overscrollBehavior: "contain",
-                }}
-            >
-                {children}
+            <div className="overflow-hidden h-full">
+                <div
+                    className="space-y-2 pr-2 custom-scrollbar h-full"
+                    style={{
+                        overflowY: "auto",
+                        maxHeight: isMobile ? "14.7rem" : "220px",
+                        overscrollBehavior: "contain",
+                    }}
+                >
+                    {children}
+                </div>
             </div>
         </div>
     )
