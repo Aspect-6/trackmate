@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { useAssignments, useClasses } from "@/app/hooks/entities"
@@ -46,8 +46,8 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
     templateData
 }) => {
     const { classes } = useClasses()
-    const { assignments, addAssignment, updateAssignment } = useAssignments()
-    const { assignmentTypes, addTemplate, updateTemplate } = useSettings()
+    const { addAssignment, updateAssignment, getAssignmentById } = useAssignments()
+    const { assignmentTypes, addTemplate, updateTemplate, getAssignmentTemplateById } = useSettings()
     const { openModal } = useModal()
     const { selectedDateString } = useCalendarContext()
     const { showToast } = useToast()
@@ -69,86 +69,59 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
     const currentTypes = assignmentTypes.length ? assignmentTypes : DEFAULT_ASSIGNMENT_TYPES
     const focusColor = MODALS.ASSIGNMENT.PRIMARY_BG
 
-    // Populate form with existing assignment data in edit mode (only on mount)
+    // Initialize form data once per modal open
+    const hasInitializedForm = useRef(false)
     useEffect(() => {
+        if (hasInitializedForm.current) return
+
         if (assignmentId) {
-            const assignment = assignments.find(a => a.id === assignmentId)
-            if (assignment) {
-                setFormData({
-                    templateName: "",
-                    title: assignment.title,
-                    classId: assignment.classId,
-                    description: assignment.description || "",
-                    dueDate: assignment.dueDate,
-                    dueTime: assignment.dueTime || "23:59",
-                    priority: assignment.priority,
-                    status: assignment.status,
-                    type: assignment.type || ""
-                })
-            }
-        } else if (templateData) {
-            setFormData({
-                templateName: "",
-                title: templateData.title,
-                classId: templateData.classId,
-                description: templateData.description || "",
-                dueDate: selectedDateString || todayString(),
-                dueTime: templateData.dueTime || "23:59",
-                priority: templateData.priority,
-                status: templateData.status,
-                type: templateData.type || ""
-            })
-        }
-    }, [assignmentId, assignments, templateData, templateId, selectedDateString])
+            const assignment = getAssignmentById(assignmentId)
+            if (!assignment) return
 
-    // Load template data for editing (only once on mount)
-    const { assignmentTemplates } = useSettings()
-    const hasLoadedTemplate = React.useRef(false)
-    useEffect(() => {
-        if (hasLoadedTemplate.current) return
-        if (templateId && assignmentTemplates) {
-            const template = assignmentTemplates.find(t => t.id === templateId)
-            if (template) {
-                hasLoadedTemplate.current = true
-                setFormData(prev => ({
-                    ...prev,
-                    templateName: template.templateName,
-                    title: template.title,
-                    classId: template.classId,
-                    description: template.description ?? "",
-                    dueTime: template.dueTime,
-                    priority: template.priority,
-                    status: template.status,
-                    type: template.type
-                }))
-            }
+            setFormData({ templateName: "", ...assignment })
+            hasInitializedForm.current = true
+            return
         }
-    }, [templateId, assignmentTemplates])
 
-    // Select a class for an assignment if not set (only for Add Assignment)
-    useEffect(() => {
-        if (classes.length > 0 && !formData.classId) {
-            const firstClassId = classes[0]?.id || ""
-            if (firstClassId) {
-                setFormData(prev => ({ ...prev, classId: prev.classId || firstClassId }))
-            }
-        }
-    }, [classes, formData.classId])
+        if (templateId) {
+            const template = getAssignmentTemplateById(templateId)
+            if (!template) return
 
-    // Select a type for an assignment if not set (only for Add Assignment)
-    useEffect(() => {
-        if (isEditMode || templateData) return
-        if (!formData.type && assignmentTypes.length) {
-            setFormData(prev => ({ ...prev, type: assignmentTypes[0]! }))
+            setFormData({ ...template, dueDate: selectedDateString || todayString() })
+            hasInitializedForm.current = true
+            return
         }
-    }, [assignmentTypes, formData.type, isEditMode, templateData])
+
+        const initialData = {
+            title: "",
+            classId: "",
+            description: "",
+            dueTime: "23:59",
+            priority: "Low" as Priority,
+            status: "To Do" as Status,
+            type: "" as AssignmentType,
+            ...(templateData ?? {}),
+            templateName: "",
+            dueDate: selectedDateString || todayString(),
+        }
+
+        if (classes.length > 0 && !initialData.classId) {
+            initialData.classId = classes[0]!.id
+        }
+        if (!isEditMode && !templateData && !initialData.type && assignmentTypes.length) {
+            initialData.type = assignmentTypes[0]!
+        }
+
+        setFormData(initialData)
+        hasInitializedForm.current = true
+    }, [assignmentId, templateId, templateData, classes, assignmentTypes, isEditMode, selectedDateString, getAssignmentById, getAssignmentTemplateById, setFormData])
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const validPriorities: Priority[] = ["High", "Medium", "Low"]
         const validStatuses: Status[] = ["To Do", "In Progress", "Done"]
-        const validTypes: AssignmentType[] = currentTypes.length ? currentTypes : DEFAULT_ASSIGNMENT_TYPES
+        const validTypes: AssignmentType[] = currentTypes
 
         const safeData = { ...formData }
 
@@ -163,7 +136,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
         }
 
         if (!safeData.classId && classes.length > 0) {
-            safeData.classId = classes[0]?.id || ""
+            safeData.classId = classes[0]!.id
         }
 
         if (!validPriorities.includes(safeData.priority)) {
@@ -182,9 +155,8 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
             safeData.dueTime = "23:59"
         }
 
-        const fallbackType = validTypes[0] ?? ""
-        // Allow "No Type" explicitly
-        if (!safeData.type || (safeData.type !== "No Type" && !validTypes.includes(safeData.type as AssignmentType))) {
+        const fallbackType = validTypes[0]!
+        if (!validTypes.includes(safeData.type)) {
             safeData.type = fallbackType
         }
 
