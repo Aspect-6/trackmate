@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { useToast } from "@shared/contexts/ToastContext"
 import { useNoSchool } from "@/app/hooks/entities"
+import { useFormFields } from "@/app/hooks/ui/useFormFields"
 import { todayString } from "@shared/lib"
 import { MODALS } from "@/app/styles/colors"
 import {
@@ -27,7 +28,7 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
     const { openModal } = useModal()
     const { selectedDateString } = useCalendarContext()
     const { showToast } = useToast()
-    const [formData, setFormData] = useState({
+    const { formData, setFormData, field } = useFormFields({
         name: "",
         startDate: selectedDateString || todayString(),
         endDate: selectedDateString || todayString()
@@ -39,7 +40,7 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
     // Populate form with existing no school data in edit mode (only on mount)
     useEffect(() => {
         if (isEditMode) {
-            const period = noSchoolPeriods.find((ns: { id: string }) => ns.id === noSchoolId)
+            const period = noSchoolPeriods.find((noSchool) => noSchool.id === noSchoolId)
             if (period) {
                 setFormData({
                     name: period.name,
@@ -50,7 +51,7 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
         }
     }, [isEditMode, noSchoolId, noSchoolPeriods])
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         if (!formData.name.trim()) {
@@ -93,8 +94,7 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
                     <ModalLabel>Reason / Name</ModalLabel>
                     <ModalTextInput
                         name="name"
-                        value={formData.name}
-                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                        {...field("name")}
                         placeholder="Winter Break"
                         focusColor={focusColor}
                     />
@@ -104,8 +104,7 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
                         <ModalLabel>Start Date</ModalLabel>
                         <ModalDateInput
                             name="startDate"
-                            value={formData.startDate}
-                            onChange={e => setFormData({ ...formData, startDate: e.target.value })}
+                            {...field("startDate")}
                             focusColor={focusColor}
                         />
                     </div>
@@ -113,8 +112,7 @@ export const NoSchoolFormModal: React.FC<NoSchoolFormModalProps> = ({ onClose, n
                         <ModalLabel>End Date</ModalLabel>
                         <ModalDateInput
                             name="endDate"
-                            value={formData.endDate}
-                            onChange={e => setFormData({ ...formData, endDate: e.target.value })}
+                            {...field("endDate")}
                             focusColor={focusColor}
                         />
                     </div>

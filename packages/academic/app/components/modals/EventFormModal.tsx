@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { useToast } from "@shared/contexts/ToastContext"
 import { useEvents } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
+import { useFormFields } from "@/app/hooks/ui/useFormFields"
 import { todayString, generateId } from "@shared/lib"
 import type { EventTemplate } from "@/app/types"
 import { MODALS } from "@/app/styles/colors"
@@ -42,7 +43,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
     const { openModal } = useModal()
     const { selectedDateString } = useCalendarContext()
     const { showToast } = useToast()
-    const [formData, setFormData] = useState({
+    const { formData, setFormData, setField, field } = useFormFields({
         templateName: "",
         title: "",
         date: selectedDateString || todayString(),
@@ -105,7 +106,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
         }
     }, [templateId, eventTemplates])
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const safeData = {
@@ -178,8 +179,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                         <ModalLabel>Template Name</ModalLabel>
                         <ModalTextInput
                             name="templateName"
-                            value={formData.templateName}
-                            onChange={e => setFormData({ ...formData, templateName: e.target.value })}
+                            {...field("templateName")}
                             placeholder="Band Practice"
                             focusColor={focusColor}
                         />
@@ -189,8 +189,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                     <ModalLabel>{isTemplateMode ? "Event Title" : "Title"}</ModalLabel>
                     <ModalTextInput
                         name="title"
-                        value={formData.title}
-                        onChange={e => setFormData({ ...formData, title: e.target.value })}
+                        {...field("title")}
                         placeholder="Marching Band Practice"
                         focusColor={focusColor}
                     />
@@ -200,8 +199,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                         <ModalLabel>Date</ModalLabel>
                         <ModalDateInput
                             name="date"
-                            value={formData.date}
-                            onChange={e => setFormData({ ...formData, date: e.target.value })}
+                            {...field("date")}
                             focusColor={focusColor}
                         />
                     </div>
@@ -211,8 +209,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                         <ModalLabel>Start Time (Optional)</ModalLabel>
                         <ModalTimeInput
                             name="startTime"
-                            value={formData.startTime}
-                            onChange={e => setFormData({ ...formData, startTime: e.target.value })}
+                            {...field("startTime")}
                             focusColor={focusColor}
                         />
                     </div>
@@ -220,8 +217,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                         <ModalLabel>End Time (Optional)</ModalLabel>
                         <ModalTimeInput
                             name="endTime"
-                            value={formData.endTime}
-                            onChange={e => setFormData({ ...formData, endTime: e.target.value })}
+                            {...field("endTime")}
                             focusColor={focusColor}
                         />
                     </div>
@@ -232,8 +228,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                     <ModalTextareaInput
                         name="description"
                         rows={2}
-                        value={formData.description}
-                        onChange={e => setFormData({ ...formData, description: e.target.value })}
+                        {...field("description")}
                         maxLength={150}
                         focusColor={focusColor}
                     />
@@ -248,7 +243,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                         {MODALS.EVENT.COLORS.map(color => (
                             <div
                                 key={color}
-                                onClick={() => setFormData({ ...formData, color })}
+                                onClick={() => setField("color", color)}
                                 className={`color-tile ${formData.color === color ? "selected" : ""}`}
                                 style={{ backgroundColor: color }}
                             />

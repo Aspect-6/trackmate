@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { AcademicTerm } from "@/app/types"
 import { useAcademicTerms } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
+import { useFormFields } from "@/app/hooks/ui/useFormFields"
 import { useToast } from "@shared/contexts/ToastContext"
 import { generateId } from "@shared/lib"
 import { GLOBAL, MODALS } from "@/app/styles/colors"
@@ -39,7 +40,7 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
     const focusColor = MODALS.ACADEMICTERM.PRIMARY_BG
 
     // Form state
-    const [formData, setFormData] = useState({
+    const { formData, setFormData, field } = useFormFields({
         name: "",
         termStart: "",
         termEnd: "",
@@ -74,7 +75,7 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
 
     if (isEditMode && !existingTerm) return null
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const { name, termStart, termEnd, fallEnd, springStart, q1End, q2Start, q2End, q3Start, q3End, q4Start } = formData
@@ -216,8 +217,7 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                 <div>
                     <ModalLabel>Term Name</ModalLabel>
                     <ModalTextInput
-                        value={formData.name}
-                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                        {...field("name")}
                         placeholder="2025-2026"
                         focusColor={focusColor}
                     />
@@ -227,16 +227,14 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                     <div>
                         <ModalLabel>Year Start</ModalLabel>
                         <ModalDateInput
-                            value={formData.termStart}
-                            onChange={e => setFormData({ ...formData, termStart: e.target.value })}
+                            {...field("termStart")}
                             focusColor={focusColor}
                         />
                     </div>
                     <div>
                         <ModalLabel>Year End</ModalLabel>
                         <ModalDateInput
-                            value={formData.termEnd}
-                            onChange={e => setFormData({ ...formData, termEnd: e.target.value })}
+                            {...field("termEnd")}
                             focusColor={focusColor}
                         />
                     </div>
@@ -247,34 +245,34 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <ModalLabel>Q1 End</ModalLabel>
-                                <ModalDateInput value={formData.q1End} onChange={e => setFormData({ ...formData, q1End: e.target.value })} focusColor={focusColor} />
+                                <ModalDateInput {...field("q1End")} focusColor={focusColor} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Starts on Year Start</span>
                             </div>
                             <div>
                                 <ModalLabel>Q2 Start</ModalLabel>
-                                <ModalDateInput value={formData.q2Start} onChange={e => setFormData({ ...formData, q2Start: e.target.value })} focusColor={focusColor} />
+                                <ModalDateInput {...field("q2Start")} focusColor={focusColor} />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <ModalLabel>Q2 End</ModalLabel>
-                                <ModalDateInput value={formData.q2End} onChange={e => setFormData({ ...formData, q2End: e.target.value })} focusColor={focusColor} />
+                                <ModalDateInput {...field("q2End")} focusColor={focusColor} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Serves as Fall semester end</span>
                             </div>
                             <div>
                                 <ModalLabel>Q3 Start</ModalLabel>
-                                <ModalDateInput value={formData.q3Start} onChange={e => setFormData({ ...formData, q3Start: e.target.value })} focusColor={focusColor} />
+                                <ModalDateInput {...field("q3Start")} focusColor={focusColor} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Serves as Spring semester start</span>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <ModalLabel>Q3 End</ModalLabel>
-                                <ModalDateInput value={formData.q3End} onChange={e => setFormData({ ...formData, q3End: e.target.value })} focusColor={focusColor} />
+                                <ModalDateInput {...field("q3End")} focusColor={focusColor} />
                             </div>
                             <div>
                                 <ModalLabel>Q4 Start</ModalLabel>
-                                <ModalDateInput value={formData.q4Start} onChange={e => setFormData({ ...formData, q4Start: e.target.value })} focusColor={focusColor} />
+                                <ModalDateInput {...field("q4Start")} focusColor={focusColor} />
                                 <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Ends on Year End</span>
                             </div>
                         </div>
@@ -283,12 +281,12 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <ModalLabel>Fall Semester End</ModalLabel>
-                            <ModalDateInput value={formData.fallEnd} onChange={e => setFormData({ ...formData, fallEnd: e.target.value })} focusColor={focusColor} />
+                            <ModalDateInput {...field("fallEnd")} focusColor={focusColor} />
                             <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Starts on Year Start</span>
                         </div>
                         <div>
                             <ModalLabel>Spring Semester Start</ModalLabel>
-                            <ModalDateInput value={formData.springStart} onChange={e => setFormData({ ...formData, springStart: e.target.value })} focusColor={focusColor} />
+                            <ModalDateInput {...field("springStart")} focusColor={focusColor} />
                             <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Ends on Year End</span>
                         </div>
                     </div>

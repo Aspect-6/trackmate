@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useToast } from "@shared/contexts/ToastContext"
 import { useClasses } from "@/app/hooks/entities"
+import { useFormFields } from "@/app/hooks/ui/useFormFields"
 import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
-import { DASHBOARD, MODALS } from "@/app/styles/colors"
+import { MODALS } from "@/app/styles/colors"
 import {
     ModalContainer,
     ModalHeader,
@@ -30,7 +31,7 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
     const { openModal } = useModal()
     const { showToast } = useToast()
     const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
-    const [formData, setFormData] = useState({
+    const { formData, setFormData, setField, field } = useFormFields({
         name: "",
         color: MODALS.CLASS.COLORS[0]!,
         teacherName: "",
@@ -111,8 +112,7 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                             <ModalLabel>Class Name</ModalLabel>
                             <ModalTextInput
                                 name="name"
-                                value={formData.name}
-                                onChange={e => setFormData({ ...formData, name: e.target.value })}
+                                {...field("name")}
                                 placeholder="World History"
                                 focusColor={focusColor}
                             />
@@ -122,8 +122,7 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                                 <ModalLabel>Instructor Name (Optional)</ModalLabel>
                                 <ModalTextInput
                                     name="teacherName"
-                                    value={formData.teacherName}
-                                    onChange={e => setFormData({ ...formData, teacherName: e.target.value })}
+                                    {...field("teacherName")}
                                     placeholder="Ms. Johnson"
                                     focusColor={focusColor}
                                 />
@@ -132,8 +131,7 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                                 <ModalLabel>Room Number (Optional)</ModalLabel>
                                 <ModalTextInput
                                     name="roomNumber"
-                                    value={formData.roomNumber}
-                                    onChange={e => setFormData({ ...formData, roomNumber: e.target.value })}
+                                    {...field("roomNumber")}
                                     placeholder="101"
                                     focusColor={focusColor}
                                 />
@@ -145,7 +143,7 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                                 {MODALS.CLASS.COLORS.map(color => (
                                     <div
                                         key={color}
-                                        onClick={() => setFormData({ ...formData, color })}
+                                        onClick={() => setField("color", color)}
                                         className={`color-tile ${formData.color === color ? "selected" : ""}`}
                                         style={{ backgroundColor: color }}
                                     />
@@ -154,16 +152,12 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                         </div>
                     </ModalTabPanel>
                     <ModalTabPanel isActive={activeTab === "settings"}>
-                        {ClassFormScheduleTab ? (
+                        {ClassFormScheduleTab && (
                             <ClassFormScheduleTab
                                 formData={formData}
                                 setFormData={(data) => setFormData(prev => ({ ...prev, ...data }))}
                                 focusColor={focusColor}
                             />
-                        ) : (
-                            <p className="text-sm" style={{ color: DASHBOARD.TEXT_TERTIARY }}>
-                                No schedule format is configured. Set one in Settings to assign classes to terms.
-                            </p>
                         )}
                     </ModalTabPanel>
                 </ModalTabPanelsContainer>

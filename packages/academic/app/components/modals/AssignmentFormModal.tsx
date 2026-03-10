@@ -3,6 +3,7 @@ import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { useAssignments, useClasses } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
+import { useFormFields } from "@/app/hooks/ui/useFormFields"
 import { useToast } from "@shared/contexts/ToastContext"
 import { DEFAULT_ASSIGNMENT_TYPES } from "@/app/hooks/useSettings"
 import { todayString, generateId } from "@shared/lib"
@@ -51,26 +52,16 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
     const { selectedDateString } = useCalendarContext()
     const { showToast } = useToast()
     const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
-    const [formData, setFormData] = useState<{
-        templateName: string
-        title: string
-        classId: string
-        description: string
-        dueDate: string
-        dueTime: string
-        priority: Priority
-        status: Status
-        type: AssignmentType
-    }>({
+    const { formData, setFormData, field, fieldWithTransform } = useFormFields({
         templateName: "",
         title: "",
         classId: "",
         description: "",
         dueDate: selectedDateString || todayString(),
         dueTime: "23:59",
-        priority: "Low",
-        status: "To Do",
-        type: ""
+        priority: "Low" as Priority,
+        status: "To Do" as Status,
+        type: "" as AssignmentType
     })
 
     const isEditMode = !!assignmentId || !!templateId
@@ -152,7 +143,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
         }
     }, [assignmentTypes, formData.type, isEditMode, templateData])
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const validPriorities: Priority[] = ["High", "Medium", "Low"]
@@ -254,8 +245,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                 <ModalLabel>Template Name</ModalLabel>
                                 <ModalTextInput
                                     name="templateName"
-                                    value={formData.templateName}
-                                    onChange={e => setFormData({ ...formData, templateName: e.target.value })}
+                                    {...field("templateName")}
                                     placeholder="Algebra Practice Problems"
                                     focusColor={focusColor}
                                 />
@@ -265,8 +255,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                             <ModalLabel>Title</ModalLabel>
                             <ModalTextInput
                                 name="title"
-                                value={formData.title}
-                                onChange={e => setFormData({ ...formData, title: e.target.value })}
+                                {...field("title")}
                                 placeholder="Lesson 2 Practice Problems"
                                 focusColor={focusColor}
                             />
@@ -277,8 +266,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                     <ModalLabel>Class</ModalLabel>
                                     <ModalSelectInput
                                         name="classId"
-                                        value={formData.classId}
-                                        onChange={e => setFormData({ ...formData, classId: e.target.value })}
+                                        {...field("classId")}
                                         required
                                         focusColor={focusColor}
                                     >
@@ -293,8 +281,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                     <ModalLabel>Due Time</ModalLabel>
                                     <ModalTimeInput
                                         name="dueTime"
-                                        value={formData.dueTime}
-                                        onChange={e => setFormData({ ...formData, dueTime: e.target.value || "23:59" })}
+                                        {...fieldWithTransform("dueTime", value => value || "23:59")}
                                         required
                                         focusColor={focusColor}
                                     />
@@ -306,8 +293,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                     <ModalLabel>Class</ModalLabel>
                                     <ModalSelectInput
                                         name="classId"
-                                        value={formData.classId}
-                                        onChange={e => setFormData({ ...formData, classId: e.target.value })}
+                                        {...field("classId")}
                                         required
                                         focusColor={focusColor}
                                     >
@@ -323,8 +309,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                         <ModalLabel>Due Date</ModalLabel>
                                         <ModalDateInput
                                             name="dueDate"
-                                            value={formData.dueDate}
-                                            onChange={e => setFormData({ ...formData, dueDate: e.target.value })}
+                                            {...field("dueDate")}
                                             required
                                             focusColor={focusColor}
                                         />
@@ -333,8 +318,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                         <ModalLabel>Due Time</ModalLabel>
                                         <ModalTimeInput
                                             name="dueTime"
-                                            value={formData.dueTime}
-                                            onChange={e => setFormData({ ...formData, dueTime: e.target.value || "23:59" })}
+                                            {...fieldWithTransform("dueTime", value => value || "23:59")}
                                             required
                                             focusColor={focusColor}
                                         />
@@ -347,8 +331,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                             <ModalTextareaInput
                                 name="description"
                                 rows={2}
-                                value={formData.description}
-                                onChange={e => setFormData({ ...formData, description: e.target.value })}
+                                {...field("description")}
                                 maxLength={150}
                                 focusColor={focusColor}
                             />
@@ -364,8 +347,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                 <ModalLabel>Priority</ModalLabel>
                                 <ModalSelectInput
                                     name="priority"
-                                    value={formData.priority}
-                                    onChange={e => setFormData({ ...formData, priority: e.target.value as Priority })}
+                                    {...field("priority")}
                                     focusColor={focusColor}
                                 >
                                     <ModalSelectInputOption value="Low">Low</ModalSelectInputOption>
@@ -377,8 +359,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                 <ModalLabel>Status</ModalLabel>
                                 <ModalSelectInput
                                     name="status"
-                                    value={formData.status}
-                                    onChange={e => setFormData({ ...formData, status: e.target.value as Status })}
+                                    {...field("status")}
                                     focusColor={focusColor}
                                 >
                                     <ModalSelectInputOption value="To Do">To Do</ModalSelectInputOption>
@@ -391,8 +372,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                             <ModalLabel>Type</ModalLabel>
                             <ModalSelectInput
                                 name="type"
-                                value={formData.type}
-                                onChange={e => setFormData({ ...formData, type: e.target.value as AssignmentType })}
+                                {...field("type")}
                                 focusColor={focusColor}
                             >
                                 {currentTypes.map((type: AssignmentType) => (
