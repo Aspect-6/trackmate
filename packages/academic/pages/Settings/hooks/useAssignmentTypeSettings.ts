@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useAssignments } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
-import { MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core"
+import { useSortableListSensors } from "@/app/hooks/ui/useSortableListSensors"
 import { arrayMove } from "@dnd-kit/sortable"
 
 /**
@@ -19,10 +19,7 @@ export const useAssignmentTypeSettings = () => {
 
     const [newType, setNewType] = useState("")
 
-    const sensors = useSensors(
-        useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
-        useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 8 } })
-    )
+    const sensors = useSortableListSensors()
 
     const handleAdd = () => {
         const success = addAssignmentType(newType)

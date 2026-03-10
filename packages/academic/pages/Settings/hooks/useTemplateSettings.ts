@@ -1,6 +1,6 @@
 import { useModal } from "@/app/contexts/ModalContext"
 import { useSettings } from "@/app/hooks/useSettings"
-import { MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core"
+import { useSortableListSensors } from "@/app/hooks/ui/useSortableListSensors"
 import { arrayMove } from "@dnd-kit/sortable"
 import type { TemplateKind } from "@/app/types"
 
@@ -20,10 +20,7 @@ export const useTemplateSettings = (kind: TemplateKind) => {
     const filteredTemplates = templates.filter(t => t.kind === kind)
 
     // Sensors for drag-and-drop functionality
-    const sensors = useSensors(
-        useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
-        useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 8 } })
-    )
+    const sensors = useSortableListSensors()
 
     const handleAddTemplate = () => {
         const modalName = kind === "assignment" ? "add-assignment" : "add-event"
