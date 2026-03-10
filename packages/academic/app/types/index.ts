@@ -42,8 +42,8 @@ export interface Assignment {
     type: AssignmentType
     /** Timestamp of when the assignment was created */
     createdAt: string
-    /** Optional detailed description or notes */
-    description?: string
+    /** Detailed description or notes */
+    description: string
 }
 
 /**
@@ -80,14 +80,14 @@ export interface Event {
     date: string
     /** Start time in 24-hour format (HH:MM), or null for all-day */
     startTime: string | null
-    /** End time in 24-hour format (HH:MM), or null if not applicable */
+    /** End time in 24-hour format (HH:MM), or null for all-day */
     endTime: string | null
     /** Color code (hex) for the event in the calendar */
     color: string
     /** Timestamp of when the event was created */
     createdAt: string
-    /** Optional description or location details */
-    description?: string
+    /** Detailed description or location details */
+    description: string
 }
 
 /**
@@ -107,10 +107,10 @@ export interface NoSchoolPeriod {
 }
 
 /**
- * Schedule for a single day type (e.g., "A", "B", "Day 1", "Monday").
+ * Schedule for a single day type.
  */
 export interface DaySchedule {
-    /** Label for this day type (e.g., "A", "B") */
+    /** Label for this day type */
     dayLabel: string
     /** Class IDs for each period (null = empty slot) */
     classes: (string | null)[]
