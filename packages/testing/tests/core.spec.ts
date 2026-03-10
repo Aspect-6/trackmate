@@ -1,7 +1,7 @@
 import { assertFails, assertSucceeds } from "@firebase/rules-unit-testing"
 import type { RulesTestEnvironment } from "@firebase/rules-unit-testing"
 import { doc, getDoc, setDoc, deleteDoc } from "firebase/firestore"
-import { getTestEnv, loadAcademicFixtures, TEST_USER_ID, academicFixtures } from "../utils.ts"
+import { getTestEnv, loadAcademicFixtures, cleanupTestEnv, TEST_USER_ID, academicFixtures } from "../utils.ts"
 
 describe("Core Security (Ownership & Verification)", () => {
     let testEnv: RulesTestEnvironment
@@ -115,6 +115,58 @@ describe("Core Security (Ownership & Verification)", () => {
                     deleteDoc(docRef)
                 )
             })
+        })
+    })
+
+    describe("Unauthenticated Access", () => {
+        it("prevents unauthenticated reads", async () => {
+            const db = testEnv.unauthenticatedContext().firestore()
+            await assertFails(
+                getDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`))
+            )
+        })
+
+        it("prevents unauthenticated writes", async () => {
+            const db = testEnv.unauthenticatedContext().firestore()
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`), { items: [] })
+            )
+        })
+    })
+
+    describe("Missing email_verified claim", () => {
+        it("prevents users with no email_verified claim from reading", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {}).firestore()
+            await assertFails(
+                getDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`))
+            )
+        })
+
+        it("prevents users with no email_verified claim from writing", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {}).firestore()
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`), { items: [] })
+            )
+        })
+    })
+
+    describe("Writes outside matched path", () => {
+        it("denies writes to paths outside the academic collection", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true
+            }).firestore()
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/foo/bar`), { foo: "bar" })
+            )
+        })
+
+        it("denies reads to paths outside the academic collection", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true
+            }).firestore()
+            await assertFails(
+                getDoc(doc(db, `users/${TEST_USER_ID}/foo/bar`))
+            )
         })
     })
 })

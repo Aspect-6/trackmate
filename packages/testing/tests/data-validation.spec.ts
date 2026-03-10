@@ -310,4 +310,176 @@ describe("Data Validation (hasValidShape)", () => {
             )
         })
     })
+
+    describe("Type Safety", () => {
+        it("rejects templates as a string instead of list", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                    ...validSettings, templates: "string-instead-of-list"
+                })
+            )
+        })
+
+        it("rejects templates as a map instead of list", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                    ...validSettings, templates: { a: 1 }
+                })
+            )
+        })
+
+        it("rejects assignmentTypes as a string instead of list", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                    ...validSettings, assignmentTypes: "Homework"
+                })
+            )
+        })
+
+        it("rejects assignmentTypes as a map instead of list", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                    ...validSettings, assignmentTypes: { a: 1 }
+                })
+            )
+        })
+    })
+
+    describe("Size Limits", () => {
+        it("rejects items list exceeding 5000 elements", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`), {
+                    items: new Array(5001).fill({ id: "x" })
+                })
+            )
+        })
+
+        it("accepts items list at exactly 5000 elements", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertSucceeds(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`), {
+                    items: new Array(5000).fill({ id: "x" })
+                })
+            )
+        })
+
+        it("rejects templates list exceeding 200 elements", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                    ...validSettings, templates: new Array(201).fill({ templateName: "T" })
+                })
+            )
+        })
+
+        it("accepts templates list at exactly 200 elements", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertSucceeds(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                    ...validSettings, templates: new Array(200).fill({ templateName: "T" })
+                })
+            )
+        })
+
+        it("rejects assignmentTypes list exceeding 200 elements", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                    ...validSettings, assignmentTypes: new Array(201).fill("Type")
+                })
+            )
+        })
+
+        it("accepts assignmentTypes list at exactly 200 elements", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertSucceeds(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                    ...validSettings, assignmentTypes: new Array(200).fill("Type")
+                })
+            )
+        })
+    })
+
+    describe("alternating-ab subobject validation", () => {
+        it("rejects extra keys inside alternating-ab", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
+                    type: "alternating-ab",
+                    "alternating-ab": { termConfigs: {}, terms: {}, foo: "bar" },
+                })
+            )
+        })
+
+        it("rejects alternating-ab value that is not a map", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
+                    type: "alternating-ab",
+                    "alternating-ab": "string-instead-of-map",
+                })
+            )
+        })
+
+        it("rejects missing termConfigs inside alternating-ab", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
+                    type: "alternating-ab",
+                    "alternating-ab": { terms: {} },
+                })
+            )
+        })
+
+        it("rejects missing terms inside alternating-ab", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
+                    type: "alternating-ab",
+                    "alternating-ab": { termConfigs: {} },
+                })
+            )
+        })
+    })
 })

@@ -59,13 +59,18 @@ service cloud.firestore {
 					&& d.keys().hasAll(["theme", "termMode", "templates", "assignmentTypes"])
 					&& d.theme in ["light", "dark"]
 					&& d.termMode in ["Semesters Only", "Semesters With Quarters"]
+					&& d.templates is list
 					&& d.templates.size() <= 200
+					&& d.assignmentTypes is list
 					&& d.assignmentTypes.size() >= 1
 					&& d.assignmentTypes.size() <= 200
 				: docId == "schedules"
 				? d.keys().hasOnly(["type", "alternating-ab"])
 					&& d.keys().hasAll(["type", "alternating-ab"])
 					&& d.type in ["alternating-ab"]
+					&& d["alternating-ab"] is map
+					&& d["alternating-ab"].keys().hasOnly(["termConfigs", "terms"])
+					&& d["alternating-ab"].keys().hasAll(["termConfigs", "terms"])
 					&& d["alternating-ab"].termConfigs is map
 					&& d["alternating-ab"].terms is map
 				: d.keys().hasOnly(["items"])

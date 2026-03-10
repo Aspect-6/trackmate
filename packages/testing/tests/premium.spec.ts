@@ -59,4 +59,69 @@ describe("Premium Features", () => {
             await assertSucceeds(setDoc(doc(db, targetDoc), { items: [] }))
         }
     })
+
+    it("allows standard users to read premium docs (read is not gated on premium)", async () => {
+        const db = testEnv.authenticatedContext(TEST_USER_ID, {
+            email_verified: true
+        }).firestore()
+
+        for (const docName of premiumDocumentNames) {
+            const targetDoc = `users/${TEST_USER_ID}/academic/${docName}`
+            await assertSucceeds(getDoc(doc(db, targetDoc)))
+        }
+    })
+
+    describe("Premium Claim Edge Cases", () => {
+        it("prevents writing premium docs with empty premium object", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true,
+                premium: {}
+            }).firestore()
+
+            for (const docName of premiumDocumentNames) {
+                await assertFails(
+                    setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docName}`), { items: [] })
+                )
+            }
+        })
+
+        it("prevents writing premium docs with { academic: false }", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true,
+                premium: { academic: false }
+            }).firestore()
+
+            for (const docName of premiumDocumentNames) {
+                await assertFails(
+                    setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docName}`), { items: [] })
+                )
+            }
+        })
+
+        it("prevents writing premium docs with wrong product key", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true,
+                premium: { other: true }
+            }).firestore()
+
+            for (const docName of premiumDocumentNames) {
+                await assertFails(
+                    setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docName}`), { items: [] })
+                )
+            }
+        })
+
+        it("prevents writing premium docs when premium is a non-map value", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true,
+                premium: true
+            }).firestore()
+
+            for (const docName of premiumDocumentNames) {
+                await assertFails(
+                    setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docName}`), { items: [] })
+                )
+            }
+        })
+    })
 })
