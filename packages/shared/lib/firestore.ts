@@ -11,24 +11,7 @@ import {
 } from "firebase/firestore"
 import { db } from "./firebase"
 
-/**
- * Firestore path helpers for the TrackMate data structure.
- * 
- * Structure:
- * - Documents (settings, schedules): users/{userId}/{app}/{docName}
- * - Collections (assignments, classes): users/{userId}/{app}/data/{collectionName}/{docId}
- * 
- * The "data" document acts as a container for subcollections, required because
- * Firestore paths must have odd segments for collections, even for documents.
- */
-
 export type AppName = "academic"
-
-
-
-// ============================================================================
-// Path Builders
-// ============================================================================
 
 /**
  * Get the base path for a user's app data.
@@ -102,10 +85,13 @@ export const subscribeToDocument = <T>(
     onError?: (error: Error) => void
 ): Unsubscribe => {
     const docRef = getAppDocRef<T>(userId, app, docName)
-    return onSnapshot(
-        docRef,
+    return onSnapshot(docRef,
         (snapshot) => {
-            onData(snapshot.exists() ? (snapshot.data() as T) : null)
+            if (snapshot.exists()) {
+                onData(snapshot.data() as T)
+            } else if (!snapshot.metadata.fromCache) {
+                onData(null)
+            }
         },
         (error) => {
             console.error(`Firestore subscription error for ${docName}:`, error)
