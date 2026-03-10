@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react"
 import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import { useToast } from "@shared/contexts/ToastContext"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
-import type { Assignment, AssignmentType, ThemeMode, TermMode, Template } from "@/app/types"
+import type { Assignment, AssignmentType, ThemeMode, TermMode, Template, AssignmentTemplate, EventTemplate } from "@/app/types"
 
 export const DEFAULT_ASSIGNMENT_TYPES: AssignmentType[] = [
     "Homework",
@@ -110,7 +110,7 @@ export const useSettings = () => {
         showToast(`Reordered assignment types`, "success")
     }, [setSettings, showToast])
 
-    // Template actions (generic — work for both assignment and event templates)
+    // Template actions
     const addTemplate = useCallback((template: Template) => {
         setSettings(prev => ({
             ...prev,
@@ -118,7 +118,6 @@ export const useSettings = () => {
         }))
         showToast("Template saved", "success")
     }, [setSettings, showToast])
-
     const removeTemplate = useCallback((templateId: string) => {
         setSettings(prev => ({
             ...prev,
@@ -126,7 +125,6 @@ export const useSettings = () => {
         }))
         showToast("Template removed", "success")
     }, [setSettings, showToast])
-
     const updateTemplate = useCallback((templateId: string, updates: Partial<Template>) => {
         setSettings(prev => ({
             ...prev,
@@ -134,10 +132,18 @@ export const useSettings = () => {
         }))
         showToast("Template updated", "success")
     }, [setSettings, showToast])
-
     const reorderTemplates = useCallback((templates: Template[]) => {
         setSettings(prev => ({ ...prev, templates }))
     }, [setSettings])
+    const getAssignmentTemplateById = useCallback((templateId: string) => {
+        return settings.templates.find(t => t.id === templateId && t.kind === "assignment") as AssignmentTemplate | undefined
+    }, [settings.templates])
+    const getEventTemplateById = useCallback((templateId: string) => {
+        return settings.templates.find(t => t.id === templateId && t.kind === "event") as EventTemplate | undefined
+    }, [settings.templates])
+    const getTemplateById = useCallback((templateId: string) => {
+        return settings.templates.find(t => t.id === templateId)
+    }, [settings.templates])
 
     // Filtered template getters
     const allTemplates = settings.templates || []
@@ -167,6 +173,9 @@ export const useSettings = () => {
         addTemplate,
         removeTemplate,
         updateTemplate,
-        reorderTemplates
+        reorderTemplates,
+        getAssignmentTemplateById,
+        getEventTemplateById,
+        getTemplateById
     }
 }
