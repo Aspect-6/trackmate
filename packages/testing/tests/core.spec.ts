@@ -1,7 +1,7 @@
 import { assertFails, assertSucceeds } from "@firebase/rules-unit-testing"
 import type { RulesTestEnvironment } from "@firebase/rules-unit-testing"
 import { doc, getDoc, setDoc, deleteDoc } from "firebase/firestore"
-import { getTestEnv, loadAcademicFixtures, cleanupTestEnv, TEST_USER_ID, academicFixtures } from "../utils.ts"
+import { getTestEnv, loadAcademicFixtures, TEST_USER_ID, academicFixtures } from "../utils.ts"
 
 describe("Core Security (Ownership & Verification)", () => {
     let testEnv: RulesTestEnvironment
