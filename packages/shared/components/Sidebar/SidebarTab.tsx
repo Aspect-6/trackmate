@@ -28,43 +28,45 @@ const SidebarTab: React.FC<SidebarTabProps> = ({
     const { isHovered, hoverProps } = useHover()
     const baseClasses = "w-full flex items-center p-3 rounded-lg font-medium transition duration-150"
 
-    if (to) {
-        return (
-            <NavLink
-                to={to}
-                onClick={onClick}
-                {...hoverProps}
-                style={({ isActive: linkActive }) => {
-                    const active = isActive || linkActive
-                    return {
-                        backgroundColor: active ? accentColor : (isHovered ? hoverColor : "transparent"),
-                        color: active ? undefined : TRACKMATE.TEXT_PRIMARY
-                    }
-                }}
-                className={({ isActive: linkActive }) =>
-                    `${baseClasses} ${(isActive || linkActive) && "active text-white"}`
-                }
-            >
-                <Icon className="w-5 h-5 mr-3" />
-                <span className="flex-grow text-left">{label}</span>
-                {BadgeIcon && <BadgeIcon className="w-3.5 h-3.5 opacity-50 ml-2" />}
-            </NavLink>
-        )
+    const content = () => (
+        <>
+            <Icon className="w-5 h-5 mr-3" />
+            <span className="flex-grow text-left">{label}</span>
+            {BadgeIcon && <BadgeIcon className="w-3.5 h-3.5 opacity-50 ml-2" />}
+        </>
+    )
+
+    const getClassName = (active: boolean) => {
+        return `${baseClasses} ${active ? "active text-white" : ""}`
     }
 
+    const getStyle = (active: boolean) => {
+        return {
+            backgroundColor: active ? accentColor : (isHovered ? hoverColor : "transparent"),
+            color: active ? undefined : TRACKMATE.TEXT_PRIMARY
+        }
+    }
+
+    if (to) return (
+        <NavLink
+            to={to}
+            onClick={onClick}
+            {...hoverProps}
+            style={({ isActive: linkActive }) => getStyle(isActive || linkActive)}
+            className={({ isActive: linkActive }) => getClassName(isActive || linkActive)}
+        >
+            {content()}
+        </NavLink>
+    )
+    
     return (
         <button
             onClick={onClick}
             {...hoverProps}
-            className={`${baseClasses} ${isActive && "text-white"}`}
-            style={{
-                backgroundColor: isActive ? accentColor : (isHovered ? hoverColor : "transparent"),
-                color: !isActive ? TRACKMATE.TEXT_PRIMARY : undefined
-            }}
+            className={getClassName(isActive)}
+            style={getStyle(isActive)}
         >
-            <Icon className="w-5 h-5 mr-3" />
-            <span className="flex-grow text-left">{label}</span>
-            {BadgeIcon && <BadgeIcon className="w-3.5 h-3.5 opacity-50 ml-2" />}
+            {content()}
         </button>
     )
 }
