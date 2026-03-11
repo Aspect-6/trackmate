@@ -1,15 +1,13 @@
 import { useState, useEffect, useRef } from "react"
 import { useAcademicTerms } from "@/app/hooks/entities"
-import { useArrowStyle } from "./useArrowStyle"
-import { getActiveTerm } from "@/app/lib/schedule"
 import { todayString } from "@shared/lib"
+import { getActiveTerm } from "@/app/lib/schedule"
 
 /**
- * Hook for term selection and arrow styling.
+ * Hook for term selection.
  */
 export const useScheduleData = () => {
     const { filteredAcademicTerms } = useAcademicTerms()
-    const arrowStyle = useArrowStyle()
 
     const [selectedTermId, setSelectedTermId] = useState<string | null>(null)
     const selectedTermRef = useRef(selectedTermId)
@@ -38,7 +36,6 @@ export const useScheduleData = () => {
     return {
         selectedTermId,
         setTermId,
-        filteredAcademicTerms,
-        arrowStyle
+        filteredAcademicTerms
     }
 }
