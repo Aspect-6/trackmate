@@ -21,6 +21,7 @@ import {
     ModalDeleteButton,
     ModalSubmitButton,
     ModalCharacterCountDisplay,
+    ModalColorPicker,
 } from "@shared/components/modal"
 
 interface EventFormModalProps {
@@ -237,19 +238,11 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                         max={150}
                     />
                 </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
-                    <div className="color-tile-grid custom-scrollbar-horizontal">
-                        {MODALS.EVENT.COLORS.map(color => (
-                            <div
-                                key={color}
-                                onClick={() => setField("color", color)}
-                                className={`color-tile ${formData.color === color ? "selected" : ""}`}
-                                style={{ backgroundColor: color }}
-                            />
-                        ))}
-                    </div>
-                </div>
+                <ModalColorPicker
+                    colors={MODALS.EVENT.COLORS}
+                    value={formData.color}
+                    onChange={(color) => setField("color", color)}
+                />
 
                 <ModalFooter>
                     {isEditMode && !isTemplateMode && <ModalDeleteButton className="mr-auto" onClick={handleDelete} />}

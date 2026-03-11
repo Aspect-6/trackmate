@@ -18,6 +18,7 @@ import {
     ModalTab,
     ModalTabPanelsContainer,
     ModalTabPanel,
+    ModalColorPicker,
 } from "@shared/components/modal"
 
 interface ClassFormModalProps {
@@ -137,19 +138,11 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
                                 />
                             </div>
                         </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
-                            <div className="color-tile-grid custom-scrollbar-horizontal">
-                                {MODALS.CLASS.COLORS.map(color => (
-                                    <div
-                                        key={color}
-                                        onClick={() => setField("color", color)}
-                                        className={`color-tile ${formData.color === color ? "selected" : ""}`}
-                                        style={{ backgroundColor: color }}
-                                    />
-                                ))}
-                            </div>
-                        </div>
+                        <ModalColorPicker
+                            colors={MODALS.CLASS.COLORS}
+                            value={formData.color}
+                            onChange={(color) => setField("color", color)}
+                        />
                     </ModalTabPanel>
                     <ModalTabPanel isActive={activeTab === "settings"}>
                         {ClassFormScheduleTab && (
