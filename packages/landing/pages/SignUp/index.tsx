@@ -117,6 +117,8 @@ const SignUp: React.FC = () => {
                                 validate: {
                                     hasUppercase: (value) =>
                                         /[A-Z]/.test(value) || "Password must contain at least 1 uppercase letter",
+                                    hasLowercase: (value) =>
+                                        /[a-z]/.test(value) || "Password must contain at least 1 lowercase letter",
                                     hasNumber: (value) =>
                                         /[0-9]/.test(value) || "Password must contain at least 1 number",
                                     hasSpecialChar: (value) =>
