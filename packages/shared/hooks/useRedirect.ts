@@ -1,4 +1,4 @@
-import { useNavigate, NavigateOptions } from "react-router-dom"
+import { useNavigate, NavigateOptions, useLocation } from "react-router-dom"
 
 interface RedirectOptions {
     /**
@@ -27,13 +27,30 @@ interface RedirectOptions {
 export const useRedirect = (options: RedirectOptions = {}) => {
     const { allowCrossApp = false } = options
     const navigate = useNavigate()
+    const location = useLocation()
+
+    const appRoots = ["/academic"]
+    const landingRoots = ["/auth", "/landing", "/account"]
+
+    const getAppRoot = (path: string): string => {
+        if (!path.startsWith("/")) {
+            return ""
+        }
+        if (landingRoots.some((root) => path.startsWith(root))) {
+            return "/landing"
+        }
+        const matchedAppRoot = appRoots.find((root) => path.startsWith(root))
+        return matchedAppRoot ?? ""
+    }
 
     /**
      * Redirects to the specified path.
      * Works like useNavigate but can handle cross-SPA navigation when allowCrossApp is true.
      */
     return (path: string, navigateOptions?: NavigateOptions) => {
-        const isCrossAppPath = path.startsWith("/academic")
+        const currentRoot = getAppRoot(location.pathname)
+        const targetRoot = getAppRoot(path)
+        const isCrossAppPath = currentRoot !== "" && targetRoot !== "" && currentRoot !== targetRoot
 
         if (allowCrossApp && isCrossAppPath) {
             window.location.href = path
