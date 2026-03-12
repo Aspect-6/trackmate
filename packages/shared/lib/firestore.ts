@@ -3,7 +3,6 @@ import {
     getDoc,
     setDoc,
     updateDoc,
-    deleteDoc,
     onSnapshot,
     DocumentReference,
     Unsubscribe,
@@ -98,17 +97,4 @@ export const subscribeToDocument = <T>(
             onError?.(error)
         }
     )
-}
-
-/**
- * Delete a document at the app level.
- * Used for documents like settings, schedules.
- */
-export const deleteDocument = async (
-    userId: string,
-    app: AppName,
-    docName: string
-): Promise<void> => {
-    const docRef = getAppDocRef(userId, app, docName)
-    await deleteDoc(docRef)
 }
