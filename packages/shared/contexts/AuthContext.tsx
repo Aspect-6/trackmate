@@ -8,10 +8,20 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
+    const [isPremium, setIsPremium] = useState(false)
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setUser(user)
+
+            if (user) {
+                const tokenResult = await user.getIdTokenResult()
+                const premium = tokenResult.claims.premium as { academic?: boolean; all?: boolean } | undefined
+                setIsPremium(premium?.academic === true || premium?.all === true)
+            } else {
+                setIsPremium(false)
+            }
+
             setLoading(false)
         })
 
@@ -19,7 +29,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user, loading }}>
+        <AuthContext.Provider value={{ user, loading, isPremium }}>
             {children}
         </AuthContext.Provider>
     )

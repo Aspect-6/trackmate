@@ -1,43 +1,80 @@
 import { useCallback } from "react"
 import { useAuth } from "@shared/contexts/AuthContext"
-import { deleteDocument } from "@shared/lib/firestore"
+import { setDocument } from "@shared/lib/firestore"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
+import { DEFAULT_ASSIGNMENT_TYPES } from "@/app/hooks/useSettings"
+
+/** Empty items document, used to reset entity documents. */
+const EMPTY_ITEMS = { items: [] }
+
+/** Default settings values, matching the shape required by security rules. */
+const DEFAULT_SETTINGS = {
+    theme: "light" as const,
+    termMode: "Semesters Only" as const,
+    assignmentTypes: DEFAULT_ASSIGNMENT_TYPES,
+    templates: []
+}
+
+/** Default schedules values, matching the shape required by security rules. */
+const DEFAULT_SCHEDULES = {
+    type: "alternating-ab" as const,
+    "alternating-ab": {
+        termConfigs: {},
+        terms: {}
+    }
+}
 
 /**
- * Hook for dangerous bulk delete operations.
+ * Hook for dangerous bulk reset operations.
  * Used exclusively in the Settings Danger Zone.
  */
 export const useDangerZone = () => {
-    const { user } = useAuth()
+    const { user, isPremium } = useAuth()
 
     const deleteAllAssignments = useCallback(async (): Promise<void> => {
         if (!user) return
-        await deleteDocument(user.uid, "academic", FIRESTORE_KEYS.ASSIGNMENTS)
+        await Promise.all([
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.ASSIGNMENTS, EMPTY_ITEMS),
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.ASSIGNMENTS_ARCHIVE, EMPTY_ITEMS),
+            ...(isPremium ? [
+                setDocument(user.uid, "academic", FIRESTORE_KEYS.ASSIGNMENTS_PREMIUM, EMPTY_ITEMS),
+                setDocument(user.uid, "academic", FIRESTORE_KEYS.ASSIGNMENTS_PREMIUM_ARCHIVE, EMPTY_ITEMS),
+            ] : []),
+        ])
         window.location.reload()
-    }, [user])
+    }, [user, isPremium])
 
     const deleteAllEvents = useCallback(async (): Promise<void> => {
         if (!user) return
-        await deleteDocument(user.uid, "academic", FIRESTORE_KEYS.EVENTS)
+        await Promise.all([
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.EVENTS, EMPTY_ITEMS),
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.EVENTS_ARCHIVE, EMPTY_ITEMS),
+        ])
         window.location.reload()
     }, [user])
 
     const clearAllData = useCallback(async (): Promise<void> => {
         if (!user) return
 
-        // Delete documents
         await Promise.all([
-            deleteDocument(user.uid, "academic", FIRESTORE_KEYS.ASSIGNMENTS),
-            deleteDocument(user.uid, "academic", FIRESTORE_KEYS.CLASSES),
-            deleteDocument(user.uid, "academic", FIRESTORE_KEYS.EVENTS),
-            deleteDocument(user.uid, "academic", FIRESTORE_KEYS.NO_SCHOOL),
-            deleteDocument(user.uid, "academic", FIRESTORE_KEYS.TERMS),
-            deleteDocument(user.uid, "academic", FIRESTORE_KEYS.SCHEDULES),
-            deleteDocument(user.uid, "academic", FIRESTORE_KEYS.SETTINGS),
+            // Entity documents → empty items
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.ASSIGNMENTS, EMPTY_ITEMS),
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.ASSIGNMENTS_ARCHIVE, EMPTY_ITEMS),
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.CLASSES, EMPTY_ITEMS),
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.EVENTS, EMPTY_ITEMS),
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.EVENTS_ARCHIVE, EMPTY_ITEMS),
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.NO_SCHOOL, EMPTY_ITEMS),
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.TERMS, EMPTY_ITEMS),
+            ...(isPremium ? [
+                setDocument(user.uid, "academic", FIRESTORE_KEYS.ASSIGNMENTS_PREMIUM, EMPTY_ITEMS),
+                setDocument(user.uid, "academic", FIRESTORE_KEYS.ASSIGNMENTS_PREMIUM_ARCHIVE, EMPTY_ITEMS),
+            ] : []),
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.SCHEDULES, DEFAULT_SCHEDULES),
+            setDocument(user.uid, "academic", FIRESTORE_KEYS.SETTINGS, DEFAULT_SETTINGS),
         ])
 
         window.location.reload()
-    }, [user])
+    }, [user, isPremium])
 
     return {
         deleteAllAssignments,

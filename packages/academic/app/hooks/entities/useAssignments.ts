@@ -1,4 +1,5 @@
 import { useMemo, useCallback } from "react"
+import { useAuth } from "@shared/contexts/AuthContext"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useFirestoreWithArchive } from "@/app/hooks/data/useFirestoreWithArchive"
 import { generateId, todayString } from "@shared/lib"
@@ -15,18 +16,43 @@ const isAssignmentArchivable = (a: Assignment) => a.status === "Done"
  * 
  * Automatically archives completed assignments older than 365 days
  * while keeping them accessible to the user seamlessly.
+ * 
+ * For premium users, also reads from premium assignment documents
+ * and merges them into a single unified list.
  */
 export const useAssignments = () => {
-    const [assignments, setAssignments] = useFirestoreWithArchive<Assignment>(
+    const { isPremium } = useAuth()
+
+    const [standardItems, setStandardItems] = useFirestoreWithArchive<Assignment>(
         FIRESTORE_KEYS.ASSIGNMENTS,
         FIRESTORE_KEYS.ASSIGNMENTS_ARCHIVE,
         getAssignmentDate,
         isAssignmentArchivable
     )
+
+    const [premiumItems, setPremiumItems] = useFirestoreWithArchive<Assignment>(
+        FIRESTORE_KEYS.ASSIGNMENTS_PREMIUM,
+        FIRESTORE_KEYS.ASSIGNMENTS_PREMIUM_ARCHIVE,
+        getAssignmentDate,
+        isAssignmentArchivable
+    )
+
     const { assignmentTypes } = useSettings()
+
+    // Merge standard and premium assignments into a single list
+    const assignments = useMemo(() => {
+        if (!isPremium) return standardItems
+        return [...standardItems, ...premiumItems]
+    }, [standardItems, premiumItems, isPremium])
 
     // Counts
     const totalNum = assignments.length
+
+    // Track which IDs live in the premium list for routing updates
+    const premiumIds = useMemo(() => {
+        if (!isPremium) return new Set<string>()
+        return new Set(premiumItems.map(a => a.id))
+    }, [premiumItems, isPremium])
 
     // Filtered views (sorted by due date)
     const activeAssignments = useMemo(() => {
@@ -75,14 +101,22 @@ export const useAssignments = () => {
 
     // Actions
     const addAssignment = useCallback((assignment: Omit<Assignment, "id" | "createdAt">): void => {
-        setAssignments(prev => [...prev, { ...assignment, id: generateId(), createdAt: todayString() }])
-    }, [setAssignments])
+        setStandardItems(prev => [...prev, { ...assignment, id: generateId(), createdAt: todayString() }])
+    }, [setStandardItems])
     const updateAssignment = useCallback((id: string, updates: Partial<Assignment>): void => {
-        setAssignments(prev => prev.map(a => a.id === id ? { ...a, ...updates } : a))
-    }, [setAssignments])
+        if (premiumIds.has(id)) {
+            setPremiumItems(prev => prev.map(a => a.id === id ? { ...a, ...updates } : a))
+        } else {
+            setStandardItems(prev => prev.map(a => a.id === id ? { ...a, ...updates } : a))
+        }
+    }, [setStandardItems, setPremiumItems, premiumIds])
     const deleteAssignment = useCallback((id: string): void => {
-        setAssignments(prev => prev.filter(a => a.id !== id))
-    }, [setAssignments])
+        if (premiumIds.has(id)) {
+            setPremiumItems(prev => prev.filter(a => a.id !== id))
+        } else {
+            setStandardItems(prev => prev.filter(a => a.id !== id))
+        }
+    }, [setStandardItems, setPremiumItems, premiumIds])
     const markAsDone = useCallback((id: string) => {
         return updateAssignment(id, { status: "Done" })
     }, [updateAssignment])

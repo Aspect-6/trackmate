@@ -13,4 +13,6 @@ export interface AuthContextType {
     user: User | null
     /** Whether the initial auth check is in progress */
     loading: boolean
+    /** Whether the current user has a premium subscription (academic or all) */
+    isPremium: boolean
 }

@@ -10,11 +10,15 @@ export const FIRESTORE_KEYS = {
     TERMS: "terms",
     EVENTS: "events",
     NO_SCHOOL: "noSchool",
-    
+
+    // Premium entity documents (require premium claim to write)
+    ASSIGNMENTS_PREMIUM: "assignments-premium",
+    ASSIGNMENTS_PREMIUM_ARCHIVE: "assignments-premium-archive",
+
     // Archive documents (old completed assignments and past events)
     ASSIGNMENTS_ARCHIVE: "assignments-archive",
     EVENTS_ARCHIVE: "events-archive",
-    
+
     // Config documents (single objects)
     SCHEDULES: "schedules",
     SETTINGS: "settings",
