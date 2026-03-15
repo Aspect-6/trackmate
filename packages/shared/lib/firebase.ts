@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app"
 import { getAuth, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
+import { getFunctions } from "firebase/functions"
 import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "firebase/app-check"
 
 export const app = initializeApp({
@@ -20,12 +21,13 @@ if (window.location.hostname === "localhost") {
 }
 
 export const appCheck = initializeAppCheck(app, {
-    provider: new ReCaptchaEnterpriseProvider("6LfiPIosAAAAAO0suQC9IeLUZdczvM8qs6B2mpYA"),
+    provider: new ReCaptchaEnterpriseProvider("6Lc2ooosAAAAAKGJU40sqQOWMu8o4aLj9HJlvAZi"),
     isTokenAutoRefreshEnabled: true
 })
 
 export const auth = getAuth(app)
 export const db = getFirestore(app)
+export const functions = getFunctions(app)
 
 export const googleAuthProvider = new GoogleAuthProvider()
 export const facebookAuthProvider = new FacebookAuthProvider()

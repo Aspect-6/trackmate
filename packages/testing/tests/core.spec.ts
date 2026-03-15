@@ -3,6 +3,9 @@ import type { RulesTestEnvironment } from "@firebase/rules-unit-testing"
 import { doc, getDoc, setDoc, deleteDoc } from "firebase/firestore"
 import { getTestEnv, loadAcademicFixtures, TEST_USER_ID, academicFixtures } from "../utils.ts"
 
+const singleObjectDocs = ["settings", "schedules"]
+const itemsDocs = Object.keys(academicFixtures).filter(d => !singleObjectDocs.includes(d))
+
 describe("Core Security (Ownership & Verification)", () => {
     let testEnv: RulesTestEnvironment
 
@@ -48,8 +51,8 @@ describe("Core Security (Ownership & Verification)", () => {
         }).firestore()
 
         await assertFails(
-            setDoc(doc(db, "users/bob/academic/assignments"), {
-                items: []
+            setDoc(doc(db, "users/bob/academic/settings"), {
+                theme: "dark", termMode: "Semesters Only", templates: [], assignmentTypes: ["Homework"]
             })
         )
     })
@@ -60,8 +63,8 @@ describe("Core Security (Ownership & Verification)", () => {
         }).firestore()
 
         await assertFails(
-            setDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`), {
-                items: []
+            setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                theme: "dark", termMode: "Semesters Only", templates: [], assignmentTypes: ["Homework"]
             })
         )
     })
@@ -93,26 +96,61 @@ describe("Core Security (Ownership & Verification)", () => {
         )
     })
 
-    describe("Document Deletion Protection (all documents under /users/{userId}/academic/{document})", () => {
-        Object.keys(academicFixtures).forEach((docType) => {
-            it(`allows updates but prevents deletion for: ${docType}`, async () => {
+    // Items documents can only be written by the Cloud Function (Admin SDK).
+    // Client writes to items documents are always rejected by security rules.
+    describe("Items Document Write Protection", () => {
+        itemsDocs.forEach((docType) => {
+            it(`rejects client writes to: ${docType}`, async () => {
                 const db = testEnv.authenticatedContext(TEST_USER_ID, {
                     email_verified: true,
                     premium: { academic: true }
                 }).firestore()
 
-                const docRef = doc(db, `users/${TEST_USER_ID}/academic/${docType}`)
-                const payload = docType == "schedules"
-                    ? { type: "alternating-ab" }
-                    : docType == "settings"
-                        ? { theme: "dark" }
-                        : { items: [] }
-
-                await assertSucceeds(
-                    setDoc(docRef, payload, { merge: true })
-                )
                 await assertFails(
-                    deleteDoc(docRef)
+                    setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docType}`), { items: [] })
+                )
+            })
+        })
+    })
+
+    describe("Single-Object Document Writes", () => {
+        it("allows client writes to settings", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true,
+                premium: { academic: true }
+            }).firestore()
+
+            await assertSucceeds(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                    theme: "dark", termMode: "Semesters Only", templates: [], assignmentTypes: ["Homework"]
+                })
+            )
+        })
+
+        it("allows client writes to schedules", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true
+            }).firestore()
+
+            await assertSucceeds(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
+                    type: "alternating-ab",
+                    "alternating-ab": { termConfigs: {}, terms: {} }
+                })
+            )
+        })
+    })
+
+    describe("Document Deletion Protection", () => {
+        Object.keys(academicFixtures).forEach((docType) => {
+            it(`prevents deletion for: ${docType}`, async () => {
+                const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                    email_verified: true,
+                    premium: { academic: true }
+                }).firestore()
+
+                await assertFails(
+                    deleteDoc(doc(db, `users/${TEST_USER_ID}/academic/${docType}`))
                 )
             })
         })
@@ -145,7 +183,9 @@ describe("Core Security (Ownership & Verification)", () => {
         it("prevents users with no email_verified claim from writing", async () => {
             const db = testEnv.authenticatedContext(TEST_USER_ID, {}).firestore()
             await assertFails(
-                setDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`), { items: [] })
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
+                    theme: "dark", termMode: "Semesters Only", templates: [], assignmentTypes: ["Homework"]
+                })
             )
         })
     })

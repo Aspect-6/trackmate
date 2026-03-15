@@ -28,22 +28,8 @@ service cloud.firestore {
 		}
 
 		match /users/{userId}/academic/{document} {
-			function isDocumentOfType(docId, type) {
-				let premiumDocuments = ["assignments-premium", "assignments-premium-archive"];
-				let singleObjectDocuments = ["settings", "schedules"];
-				let allowedDocuments = [
-				"assignments", "assignments-archive", "classes",
-				"events", "events-archive", "noSchool", "terms"
-				].concat(premiumDocuments).concat(singleObjectDocuments);
-
-				return type == "premium"
-				? docId in premiumDocuments
-				: type == "singleObject" 
-				? docId in singleObjectDocuments
-				: type == "allowed" 
-				? docId in allowedDocuments
-				: false
-
+			function isSingleObjectDoc(docId) {
+				return docId in ["settings", "schedules"]
 			}
 			function isSettingsRestrictedUpdate(docId) {
 				return docId == "settings" && (
@@ -73,20 +59,18 @@ service cloud.firestore {
 					&& d["alternating-ab"].keys().hasAll(["termConfigs", "terms"])
 					&& d["alternating-ab"].termConfigs is map
 					&& d["alternating-ab"].terms is map
-				: d.keys().hasOnly(["items"])
-					&& d.items is list
-					&& d.items.size() <= 5000;
+				: false;
 			}
 
 			allow read: if isEmailVerified() && isOwner(userId);
+
+			// Client writes are restricted to single-object documents only
 			allow create, update: if isOwner(userId)
 				&& isEmailVerified()
-				&& isDocumentOfType(document, "allowed")
+				&& isSingleObjectDoc(document)
 				&& hasValidShape(document)
-				&& (
-			(!isDocumentOfType(document, "premium") && !isSettingsRestrictedUpdate(document))
-				|| premiumFor("academic")
-			);
+				&& (!isSettingsRestrictedUpdate(document) || premiumFor("academic"));
+
 			allow delete: if false;
 		}
 	}

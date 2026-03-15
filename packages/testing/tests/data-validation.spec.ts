@@ -18,8 +18,6 @@ const validSchedules = {
     },
 }
 
-const validListDoc = { items: [] }
-
 describe("Data Validation (hasValidShape)", () => {
     let testEnv: RulesTestEnvironment
 
@@ -239,66 +237,6 @@ describe("Data Validation (hasValidShape)", () => {
         })
     })
 
-    describe("List-Based Documents", () => {
-        const listDocTypes = [
-            "assignments", "assignments-archive", "assignments-premium",
-            "assignments-premium-archive", "classes", "events",
-            "events-archive", "noSchool", "terms",
-        ]
-
-        listDocTypes.forEach((docType) => {
-            describe(docType, () => {
-                it(`accepts a valid { items: [] } payload`, async () => {
-                    const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                        email_verified: true, premium: { academic: true },
-                    }).firestore()
-
-                    await assertSucceeds(
-                        setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docType}`), validListDoc)
-                    )
-                })
-
-                it(`rejects extra fields`, async () => {
-                    const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                        email_verified: true, premium: { academic: true },
-                    }).firestore()
-
-                    await assertSucceeds(
-                        setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docType}`), validListDoc)
-                    )
-                    await assertFails(
-                        setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docType}`), { items: [], foo: "bar" })
-                    )
-                })
-
-                it(`rejects missing 'items' field`, async () => {
-                    const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                        email_verified: true, premium: { academic: true },
-                    }).firestore()
-
-                    await assertSucceeds(
-                        setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docType}`), validListDoc)
-                    )
-                    await assertFails(
-                        setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docType}`), { foo: [] })
-                    )
-                })
-
-                it(`rejects 'items' value not of type array`, async () => {
-                    const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                        email_verified: true, premium: { academic: true },
-                    }).firestore()
-                    await assertSucceeds(setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docType}`), validListDoc))
-
-                    await assertFails(
-                        setDoc(doc(db, `users/${TEST_USER_ID}/academic/${docType}`), { items: "foo" })
-                    )
-                })
-            })
-
-        })
-    })
-
     describe("unauthorized document names", () => {
         it("rejects writes to document names not in the allowlist", async () => {
             const db = testEnv.authenticatedContext(TEST_USER_ID, {
@@ -362,28 +300,6 @@ describe("Data Validation (hasValidShape)", () => {
     })
 
     describe("Size Limits", () => {
-        it("rejects items list exceeding 5000 elements", async () => {
-            const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                email_verified: true, premium: { academic: true },
-            }).firestore()
-            await assertFails(
-                setDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`), {
-                    items: new Array(5001).fill({ id: "x" })
-                })
-            )
-        })
-
-        it("accepts items list at exactly 5000 elements", async () => {
-            const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                email_verified: true, premium: { academic: true },
-            }).firestore()
-            await assertSucceeds(
-                setDoc(doc(db, `users/${TEST_USER_ID}/academic/assignments`), {
-                    items: new Array(5000).fill({ id: "x" })
-                })
-            )
-        })
-
         it("rejects templates list exceeding 200 elements", async () => {
             const db = testEnv.authenticatedContext(TEST_USER_ID, {
                 email_verified: true, premium: { academic: true },

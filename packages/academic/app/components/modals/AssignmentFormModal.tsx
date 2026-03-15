@@ -92,6 +92,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
             return
         }
 
+        const { kind: _k, templateName: _tn, ...templateFields } = templateData ?? ({} as Partial<AssignmentTemplate>)
         const initialData = {
             title: "",
             classId: "",
@@ -100,7 +101,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
             priority: "Low" as Priority,
             status: "To Do" as Status,
             type: "" as AssignmentType,
-            ...(templateData ?? {}),
+            ...templateFields,
             templateName: "",
             dueDate: selectedDateString || todayString(),
         }
@@ -174,11 +175,12 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                 addTemplate(newTemplate)
             }
         } else {
+            const { templateName: _, ...assignmentData } = safeData
             if (isEditMode && assignmentId) {
-                updateAssignment(assignmentId, safeData)
+                updateAssignment(assignmentId, assignmentData)
                 showToast("Successfully updated assignment", "success")
             } else {
-                addAssignment(safeData)
+                addAssignment(assignmentData)
                 showToast("Successfully added assignment", "success")
             }
         }

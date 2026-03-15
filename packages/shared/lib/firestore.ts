@@ -8,9 +8,20 @@ import {
     Unsubscribe,
     DocumentData,
 } from "firebase/firestore"
-import { db } from "./firebase"
+import { httpsCallable } from "firebase/functions"
+import { db, functions } from "./firebase"
 
 export type AppName = "academic"
+
+const SINGLE_OBJECT_DOCS = new Set(["settings", "schedules"])
+
+export const isSingleObjectDoc = (key: string): boolean =>
+    SINGLE_OBJECT_DOCS.has(key)
+
+const writeItemsDocFn = httpsCallable<
+    { docName: string; data: { items: unknown[] } },
+    { success: boolean }
+>(functions, "writeItemsDocument")
 
 /**
  * Get the base path for a user's app data.
@@ -48,6 +59,7 @@ export const getDocument = async <T>(
 
 /**
  * Set a document in Firestore (creates or overwrites).
+ * Only used for single-object documents (settings, schedules).
  */
 export const setDocument = async <T extends DocumentData>(
     userId: string,
@@ -57,6 +69,34 @@ export const setDocument = async <T extends DocumentData>(
 ): Promise<void> => {
     const docRef = getAppDocRef(userId, app, docName)
     await setDoc(docRef, data)
+}
+
+/**
+ * Write an items document through the Cloud Function validation gate.
+ * The function validates every item against its schema before writing.
+ */
+export const writeItemsDocument = async (
+    docName: string,
+    data: { items: unknown[] }
+): Promise<void> => {
+    await writeItemsDocFn({ docName, data })
+}
+
+/**
+ * Route a document write to the correct path:
+ * single-object docs go directly to Firestore, items docs go through the Cloud Function.
+ */
+export const writeDocument = async <T extends DocumentData>(
+    userId: string,
+    app: AppName,
+    docName: string,
+    data: T
+): Promise<void> => {
+    if (isSingleObjectDoc(docName)) {
+        await setDocument(userId, app, docName, data)
+    } else {
+        await writeItemsDocument(docName, data as unknown as { items: unknown[] })
+    }
 }
 
 /**

@@ -3,7 +3,7 @@ import { useAuth } from "@shared/contexts/AuthContext"
 import { DocumentData } from "firebase/firestore"
 import {
     subscribeToDocument,
-    setDocument,
+    writeDocument,
     type AppName,
 } from "@shared/lib/firestore"
 import type { CacheEntry, FirestoreCacheContextType } from "@shared/types/FirestoreCacheContext"
@@ -56,7 +56,7 @@ export const FirestoreCacheProvider: React.FC<{ children: React.ReactNode }> = (
                 if (firestoreData !== null) {
                     currentEntry.data = firestoreData
                 } else {
-                    setDocument(user.uid, app, key, initialValue as DocumentData)
+                    writeDocument(user.uid, app, key, initialValue as DocumentData)
                 }
                 currentEntry.loading = false
                 currentEntry.subscribers.forEach(cb => cb())
@@ -98,13 +98,22 @@ export const FirestoreCacheProvider: React.FC<{ children: React.ReactNode }> = (
 
         const cacheKey = getCacheKey(app, key)
         const entry = docCacheRef.current.get(cacheKey) as CacheEntry<T> | undefined
+        const previousData = entry?.data
 
         if (entry) {
             entry.data = value
             entry.subscribers.forEach(cb => cb())
         }
 
-        await setDocument(user.uid, app, key, value)
+        try {
+            await writeDocument(user.uid, app, key, value)
+        } catch (error) {
+            if (entry && previousData !== undefined) {
+                entry.data = previousData as T
+                entry.subscribers.forEach(cb => cb())
+            }
+            throw error
+        }
     }, [user])
 
     const value: FirestoreCacheContextType = {
