@@ -19,7 +19,7 @@ export const isSingleObjectDoc = (key: string): boolean =>
     SINGLE_OBJECT_DOCS.has(key)
 
 const writeItemsDocFn = httpsCallable<
-    { docName: string; data: { items: unknown[] } },
+    { docName: string; payload: { items: unknown[] } },
     { success: boolean }
 >(functions, "writeItemsDocument")
 
@@ -77,9 +77,9 @@ export const setDocument = async <T extends DocumentData>(
  */
 export const writeItemsDocument = async (
     docName: string,
-    data: { items: unknown[] }
+    payload: { items: unknown[] }
 ): Promise<void> => {
-    await writeItemsDocFn({ docName, data })
+    await writeItemsDocFn({ docName, payload })
 }
 
 /**

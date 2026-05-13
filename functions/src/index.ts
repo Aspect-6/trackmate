@@ -57,7 +57,7 @@ const MAX_ITEMS = 5000
 
 interface WriteItemsPayload {
 	docName: string
-	data: { items: unknown[] }
+	payload: { items: unknown[] }
 }
 
 export const writeItemsDocument = onCall({ enforceAppCheck: true }, async (request) => {
@@ -69,7 +69,7 @@ export const writeItemsDocument = onCall({ enforceAppCheck: true }, async (reque
 	}
 
 	const uid = request.auth.uid
-	const { docName, data } = request.data as WriteItemsPayload
+	const { docName, payload } = request.data as WriteItemsPayload
 
 	if (!docName || typeof docName !== "string") {
 		throw new HttpsError("invalid-argument", "Missing or invalid 'docName'.")
@@ -78,13 +78,13 @@ export const writeItemsDocument = onCall({ enforceAppCheck: true }, async (reque
 		throw new HttpsError("invalid-argument", `"${docName}" is not a valid items document.`)
 	}
 
-	if (!data || typeof data !== "object" || !Array.isArray(data.items)) {
+	if (!payload || typeof payload !== "object" || !Array.isArray(payload.items)) {
 		throw new HttpsError("invalid-argument", "Payload must be { items: [...] }.")
 	}
-	if (Object.keys(data).length !== 1) {
+	if (Object.keys(payload).length !== 1) {
 		throw new HttpsError("invalid-argument", "Payload must only contain 'items'.")
 	}
-	if (data.items.length > MAX_ITEMS) {
+	if (payload.items.length > MAX_ITEMS) {
 		throw new HttpsError("invalid-argument", `Items array exceeds limit of ${MAX_ITEMS}.`)
 	}
 
@@ -101,14 +101,14 @@ export const writeItemsDocument = onCall({ enforceAppCheck: true }, async (reque
 		throw new HttpsError("internal", "No schema found for document.")
 	}
 
-	const validationError = validateItems(data.items, schema)
+	const validationError = validateItems(payload.items, schema)
 	if (validationError) {
 		throw new HttpsError("invalid-argument", validationError)
 	}
 
 	try {
 		const docRef = db.doc(`users/${uid}/academic/${docName}`)
-		await docRef.set({ items: data.items })
+		await docRef.set({ items: payload.items })
 		return { success: true }
 	} catch (error) {
 		console.error(`Error writing ${docName} for user ${uid}:`, error)

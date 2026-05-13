@@ -35,8 +35,8 @@ export const ClassSchema = z.object({
 	teacherName: z.string(),
 	roomNumber: z.string(),
 	order: z.number(),
-	termId: z.string().optional(),
-	semesterId: z.string().optional(),
+	termId: z.string().nullable().optional(),
+	semesterId: z.string().nullable().optional(),
 	classDayType: z.enum(["A", "B"]).optional(),
 }).strict()
 
