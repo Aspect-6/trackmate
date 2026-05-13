@@ -1,27 +1,19 @@
+import { useMemo } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useClasses, useSchedules } from "@/app/hooks/entities"
-import type { TermSchedule, SemesterScheduleData, DaySchedule, AlternatingABDayType } from "@/app/types"
+import { createEmptyTermSchedule } from "@/app/hooks/entities/useSchedules"
+import { useSettings } from "@/app/hooks/useSettings"
+import type { TermSchedule, SemesterScheduleData, DaySchedule } from "@/app/types"
 import type { SemesterName, ScheduleDayType } from "@/pages/My Schedule/types"
 
-// Constants
-const createEmptyDay = (label: NonNullable<AlternatingABDayType>): DaySchedule => ({
-    dayLabel: label,
-    classes: [null, null, null, null]
-})
-
-const EMPTY_SEMESTER: SemesterScheduleData = {
-    days: [createEmptyDay("A"), createEmptyDay("B")]
-}
-
-const EMPTY_TERM_SCHEDULE: TermSchedule = {
-    Fall: { ...EMPTY_SEMESTER },
-    Spring: { ...EMPTY_SEMESTER }
-}
-
 // Helpers
-const getScheduleForTerm = (store: Record<string, TermSchedule>, termId: string | null): TermSchedule => {
-    if (!termId) return EMPTY_TERM_SCHEDULE
-    return store[termId] || EMPTY_TERM_SCHEDULE
+const getScheduleForTerm = (
+    store: Record<string, TermSchedule>,
+    termId: string | null,
+    emptyFallback: TermSchedule
+): TermSchedule => {
+    if (!termId) return emptyFallback
+    return store[termId] || emptyFallback
 }
 
 const findDayByLabel = (semester: SemesterScheduleData, label: string): DaySchedule => {
@@ -36,12 +28,15 @@ const findDayByLabel = (semester: SemesterScheduleData, label: string): DaySched
  */
 export const useAlternatingABSchedule = (selectedTermId: string | null) => {
     const { schedules, updateTermSchedule } = useSchedules()
+    const { periodCount: settingsPeriodCount } = useSettings()
     const { openModal } = useModal()
     const { getClassById } = useClasses()
 
-    // Get terms from the alternating-ab data
     const terms = schedules["alternating-ab"]?.terms || {}
-    const currentSchedule = getScheduleForTerm(terms, selectedTermId)
+    const emptyFallback = useMemo(() => {
+        return createEmptyTermSchedule(settingsPeriodCount)
+    }, [settingsPeriodCount])
+    const currentSchedule = getScheduleForTerm(terms, selectedTermId, emptyFallback)
 
     const getScheduleForSemester = (semester: SemesterName): SemesterScheduleData => currentSchedule[semester]
 
@@ -102,6 +97,7 @@ export const useAlternatingABSchedule = (selectedTermId: string | null) => {
     }
 
     return {
+        periodCount: currentSchedule.periodCount,
         getScheduleForSemester,
         handleCellClick,
         handleRemove,

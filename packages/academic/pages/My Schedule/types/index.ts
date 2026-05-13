@@ -14,6 +14,7 @@ export namespace AlternatingDaysSchedule {
 
     export namespace ScheduleTable {
         export interface Props {
+            periodCount: number
             children: React.ReactNode
         }
 

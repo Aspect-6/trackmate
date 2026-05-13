@@ -11,6 +11,7 @@ import AlternatingDaysSchedule, { ScheduleTable, ScheduleTableRow, EmptyCell, Fi
  */
 const AlternatingABRenderer: React.FC<ScheduleRendererProps> = ({ selectedTermId }) => {
     const {
+        periodCount,
         getScheduleForSemester,
         handleCellClick,
         handleRemove,
@@ -21,7 +22,7 @@ const AlternatingABRenderer: React.FC<ScheduleRendererProps> = ({ selectedTermId
         const scheduleData = getScheduleForSemester(semester)
 
         return (
-            <ScheduleTable>
+            <ScheduleTable periodCount={periodCount}>
                 {scheduleData.days.map((daySchedule, dayIndex) => {
                     const isLastRow = dayIndex === scheduleData.days.length - 1
                     const dayType = daySchedule.dayLabel as NonNullable<AlternatingABDayType>

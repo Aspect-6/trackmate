@@ -2,7 +2,9 @@ import React from "react"
 import type { AlternatingDaysSchedule } from "@/pages/My Schedule/types"
 import { MY_SCHEDULE } from "@/app/styles/colors"
 
-const ScheduleTable: React.FC<AlternatingDaysSchedule.ScheduleTable.Props> = ({ children }) => {
+const ScheduleTable: React.FC<AlternatingDaysSchedule.ScheduleTable.Props> = ({ periodCount, children }) => {
+    const periods = Array.from({ length: periodCount }, (_, i) => i + 1)
+
     return (
         <div className="overflow-x-auto custom-scrollbar p-1">
             <div
@@ -31,14 +33,14 @@ const ScheduleTable: React.FC<AlternatingDaysSchedule.ScheduleTable.Props> = ({ 
                             >
                                 Day
                             </th>
-                            {[1, 2, 3, 4].map((period, index) => (
+                            {periods.map((period, index) => (
                                 <th
                                     key={period}
                                     className="p-3 text-center font-semibold text-sm"
                                     style={{
                                         color: MY_SCHEDULE.TEXT_SECONDARY,
                                         borderBottom: `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}`,
-                                        borderRight: index < 3 ? `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` : "none"
+                                        borderRight: index < periodCount - 1 ? `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` : "none"
                                     }}
                                 >
                                     Period {period}

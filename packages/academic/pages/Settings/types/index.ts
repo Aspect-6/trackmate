@@ -238,6 +238,12 @@ export namespace ScheduleSettings {
             }
         }
 
+        export namespace PeriodCountDropdown {
+            export interface Props {
+                className?: string
+            }
+        }
+
         export interface CurrentDayCalculationProps {
             currentDayType: string
         }

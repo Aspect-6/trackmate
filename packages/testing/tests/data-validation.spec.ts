@@ -8,6 +8,7 @@ const validSettings = {
     termMode: "Semesters Only",
     templates: [{ templateName: "Template 1" }],
     assignmentTypes: ["Homework"],
+    periodCount: 4,
 }
 
 const validSchedules = {
@@ -126,6 +127,72 @@ describe("Data Validation (hasValidShape)", () => {
             const { assignmentTypes: _, ...noTypes } = validSettings
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), noTypes)
+            )
+        })
+
+        it("rejects a missing required field (periodCount)", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertSucceeds(setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), validSettings))
+
+            const { periodCount: _, ...noPeriodCount } = validSettings
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), noPeriodCount)
+            )
+        })
+
+        it("accepts periodCount at the lower bound (1)", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertSucceeds(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), { ...validSettings, periodCount: 1 })
+            )
+        })
+
+        it("accepts periodCount at the upper bound (8)", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertSucceeds(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), { ...validSettings, periodCount: 8 })
+            )
+        })
+
+        it("rejects periodCount below the lower bound (0)", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), { ...validSettings, periodCount: 0 })
+            )
+        })
+
+        it("rejects periodCount above the upper bound (9)", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), { ...validSettings, periodCount: 9 })
+            )
+        })
+
+        it("rejects periodCount as a string", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), { ...validSettings, periodCount: "4" })
+            )
+        })
+
+        it("rejects periodCount as a non-integer number", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), { ...validSettings, periodCount: 4.5 })
             )
         })
 

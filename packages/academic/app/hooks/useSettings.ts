@@ -19,11 +19,16 @@ export const DEFAULT_ASSIGNMENT_TYPES: AssignmentType[] = [
     "Other"
 ]
 
+export const MIN_PERIODS = 1
+export const MAX_PERIODS = 8
+export const DEFAULT_PERIOD_COUNT = 4
+
 interface Settings {
     theme: ThemeMode
     termMode: TermMode
     assignmentTypes: AssignmentType[]
     templates: Template[]
+    periodCount: number
 }
 
 // Read initial theme from localStorage to prevent flash
@@ -37,7 +42,8 @@ const DEFAULT_SETTINGS: Settings = {
     theme: getInitialTheme(),
     termMode: "Semesters Only",
     assignmentTypes: DEFAULT_ASSIGNMENT_TYPES,
-    templates: []
+    templates: [],
+    periodCount: DEFAULT_PERIOD_COUNT
 }
 
 export const useSettings = () => {
@@ -58,6 +64,9 @@ export const useSettings = () => {
     }, [setSettings])
     const setTermMode = useCallback((termMode: TermMode) => {
         setSettings(prev => ({ ...prev, termMode }))
+    }, [setSettings])
+    const setPeriodCount = useCallback((periodCount: number) => {
+        setSettings(prev => ({ ...prev, periodCount }))
     }, [setSettings])
 
     // Apply theme to DOM and sync to localStorage
@@ -162,11 +171,13 @@ export const useSettings = () => {
         templates: allTemplates,
         assignmentTemplates,
         eventTemplates,
+        periodCount: settings.periodCount,
 
         // Actions
         setSettings,
         setTheme,
         setTermMode,
+        setPeriodCount,
         addAssignmentType,
         removeAssignmentType,
         reorderAssignmentTypes,

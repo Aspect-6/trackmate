@@ -20,5 +20,6 @@ export default ScheduleSettingsComponent
 export { default as ScheduleSettingsContent } from "./Content"
 export { default as ScheduleTypeDropdown } from "./Content/ScheduleTypeDropdown"
 export { default as ScheduleTypeDropdownOption } from "./Content/ScheduleTypeDropdown/ScheduleTypeDropdownOption"
+export { default as PeriodCountDropdown } from "./Content/PeriodCountDropdown"
 export { default as CurrentDayCalculation } from "./Content/CurrentDayCalculation"
 export { default as SetDayTypeButton } from "./Content/SetDayTypeButton"

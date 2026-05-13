@@ -126,10 +126,15 @@ export interface SemesterScheduleData {
 
 /**
  * Complete schedule data for an academic term (Fall + Spring).
+ * `periodCount` is the number of class periods per day for this specific term's
+ * schedule and is authoritative for rendering — it is intentionally stored
+ * on each TermSchedule so historical schedules render with their original
+ * column count, independent of the user's current setting.
  */
 export interface TermSchedule {
     Fall: SemesterScheduleData
     Spring: SemesterScheduleData
+    periodCount: number
 }
 
 /**

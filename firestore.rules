@@ -41,8 +41,8 @@ service cloud.firestore {
 			function hasValidShape(docId) {
 				let d = request.resource.data;
 				return docId == "settings"
-				? d.keys().hasOnly(["theme", "termMode", "templates", "assignmentTypes"])
-					&& d.keys().hasAll(["theme", "termMode", "templates", "assignmentTypes"])
+				? d.keys().hasOnly(["theme", "termMode", "templates", "assignmentTypes", "periodCount"])
+					&& d.keys().hasAll(["theme", "termMode", "templates", "assignmentTypes", "periodCount"])
 					&& d.theme in ["light", "dark"]
 					&& d.termMode in ["Semesters Only", "Semesters With Quarters"]
 					&& d.templates is list
@@ -50,6 +50,9 @@ service cloud.firestore {
 					&& d.assignmentTypes is list
 					&& d.assignmentTypes.size() >= 1
 					&& d.assignmentTypes.size() <= 200
+					&& d.periodCount is int
+					&& d.periodCount >= 1
+					&& d.periodCount <= 8
 				: docId == "schedules"
 				? d.keys().hasOnly(["type", "alternating-ab"])
 					&& d.keys().hasAll(["type", "alternating-ab"])

@@ -1,5 +1,6 @@
 import { useToast } from "@shared/contexts/ToastContext"
-import { useAssignments, useClasses, useEvents, useNoSchool, useAcademicTerms } from "@/app/hooks/entities"
+import { useAssignments, useClasses, useEvents, useNoSchool, useAcademicTerms, useSchedules } from "@/app/hooks/entities"
+import { useSettings } from "@/app/hooks/useSettings"
 import { useDangerZone } from "@/pages/Settings/hooks/useDangerZone"
 
 export interface DeleteModalConfig {
@@ -17,6 +18,8 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
     const { events, deleteEvent } = useEvents()
     const { noSchoolPeriods: noSchool, deleteNoSchool } = useNoSchool()
     const { academicTerms, deleteAcademicTerm } = useAcademicTerms()
+    const { resetTermSchedule } = useSchedules()
+    const { setPeriodCount } = useSettings()
     const { deleteAllAssignments, deleteAllEvents, clearAllData } = useDangerZone()
     const { showToast } = useToast()
 
@@ -45,6 +48,22 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
             message: "This will permanently delete all assignments, classes, events, schedules, no-school days, and custom assignment types. This action cannot be undone.",
             buttonText: "Delete Everything",
             onDelete: clearAllData
+        }
+    }
+    if (activeModal === "change-period-count") {
+        const newPeriodCount = Number(modalData?.newPeriodCount)
+        const activeTermId = typeof modalData?.activeTermId === "string" ? modalData.activeTermId : ""
+        if (!Number.isFinite(newPeriodCount) || !activeTermId) return null
+
+        return {
+            title: "Change Number of Periods?",
+            message: `Changing the number of periods will clear your current schedule for this academic term. Past schedules won't be affected, and you can re-add your classes for this schedule in under a minute.`,
+            buttonText: `Set to ${newPeriodCount} Period${newPeriodCount === 1 ? "" : "s"}`,
+            onDelete: () => {
+                setPeriodCount(newPeriodCount)
+                resetTermSchedule(activeTermId, newPeriodCount)
+                showToast("Period count updated", "success")
+            }
         }
     }
 

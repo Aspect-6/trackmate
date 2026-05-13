@@ -37,6 +37,7 @@ import ScheduleSettings, {
     ScheduleSettingsContent,
     ScheduleTypeDropdown,
     ScheduleTypeDropdownOption,
+    PeriodCountDropdown,
     CurrentDayCalculation,
     SetDayTypeButton
 } from "@/pages/Settings/components/ScheduleSettings"
@@ -242,6 +243,11 @@ const Settings: React.FC = () => {
                 <ScheduleTypeDropdown className="mb-10">
                     <ScheduleTypeDropdownOption value="alternating-ab">Alternating A/B Days</ScheduleTypeDropdownOption>
                 </ScheduleTypeDropdown>
+
+                <BaseModuleDescription>
+                    Set the number of class periods in your daily schedule.
+                </BaseModuleDescription>
+                <PeriodCountDropdown className="mb-10" />
 
                 <BaseModuleDescription>
                     {schedules.type === "alternating-ab" &&
