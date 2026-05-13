@@ -1,6 +1,5 @@
 import React from "react"
 import { useClasses } from "@/app/hooks/entities"
-import type { SemesterScheduleData } from "@/app/types"
 import type { SemesterName, ScheduleDayType } from "@/pages/My Schedule/types"
 import { ModalCancelButton } from "@shared/components/modal/ModalCancelButton"
 import { BookOpen, Calendar } from "lucide-react"
@@ -14,34 +13,19 @@ interface AlternatingABClassSelectorModalProps {
         periodIndex: number
         termId: string | null
         onSelect: (classId: string | null, isSemesterClass: boolean) => void
-        otherSemesterSchedule: SemesterScheduleData
     }
 }
 
 export const AlternatingABClassSelectorModal: React.FC<AlternatingABClassSelectorModalProps> = ({ onClose, data }) => {
     const { classes } = useClasses()
-    const { semester, dayType, periodIndex, termId, onSelect, otherSemesterSchedule } = data
+    const { semester, dayType, periodIndex, termId, onSelect } = data
 
     const handleSelect = (classId: string, isSemesterClass: boolean) => {
         onSelect(classId, isSemesterClass)
         onClose()
     }
 
-    const otherSemesterClassIds = new Set(
-        otherSemesterSchedule.days.flatMap(day =>
-            day.classes.filter((id): id is string => id !== null)
-        )
-    )
-
-    const availableClasses = classes.filter(classData => {
-        if (!classData.termId || classData.termId !== termId) {
-            return false
-        }
-        if (classData.semesterId && otherSemesterClassIds.has(classData.id)) {
-            return false
-        }
-        return true
-    })
+    const availableClasses = classes.filter(classData => classData.termId === termId)
 
     const dayLabel = dayType === "A" ? "A-Day" : "B-Day"
 
