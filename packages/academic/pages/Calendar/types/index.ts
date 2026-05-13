@@ -139,12 +139,14 @@ export namespace CalendarBody {
                 export interface Props {
                     classes: (string | null)[]
                     getClassById: (id: string) => Class
+                    onClassClick: (id: string) => void
                 }
                 // ======================
                 export interface ClassItemProps {
                     classId: string
                     index: number
                     getClassById: Props["getClassById"]
+                    onClassClick: Props["onClassClick"]
                 }
             }
             export namespace AssignmentList {

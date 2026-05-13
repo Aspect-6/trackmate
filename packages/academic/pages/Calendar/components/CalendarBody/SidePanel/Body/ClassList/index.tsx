@@ -3,7 +3,7 @@ import type { CalendarBody } from "@/pages/Calendar/types"
 import ClassItem from "./ClassItem"
 import { CALENDAR } from "@/app/styles/colors"
 
-const ClassList: React.FC<CalendarBody.SidePanel.Body.ClassList.Props> = ({ classes, getClassById }) => {
+const ClassList: React.FC<CalendarBody.SidePanel.Body.ClassList.Props> = ({ classes, getClassById, onClassClick }) => {
     return (
         <div>
             <h4 className="text-md font-semibold mb-2" style={{ color: CALENDAR.CLASS_HEADING_TEXT }}>Classes</h4>
@@ -11,7 +11,7 @@ const ClassList: React.FC<CalendarBody.SidePanel.Body.ClassList.Props> = ({ clas
                 {classes.map((classId, index) => {
                     if (!classId) return null
                     return (
-                        <ClassItem key={index} classId={classId} index={index} getClassById={getClassById} />
+                        <ClassItem key={index} classId={classId} index={index} getClassById={getClassById} onClassClick={onClassClick} />
                     )
                 })}
             </div>

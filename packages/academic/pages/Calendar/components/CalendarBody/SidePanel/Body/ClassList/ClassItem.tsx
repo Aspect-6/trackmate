@@ -3,7 +3,7 @@ import { useHover } from "@shared/hooks/ui/useHover"
 import type { CalendarBody } from "@/pages/Calendar/types"
 import { CALENDAR } from "@/app/styles/colors"
 
-const ClassItem: React.FC<CalendarBody.SidePanel.Body.ClassList.ClassItemProps> = ({ classId, index, getClassById }) => {
+const ClassItem: React.FC<CalendarBody.SidePanel.Body.ClassList.ClassItemProps> = ({ classId, index, getClassById, onClassClick }) => {
     const { isHovered, hoverProps } = useHover()
 
     const classInfo = getClassById(classId)
@@ -11,7 +11,8 @@ const ClassItem: React.FC<CalendarBody.SidePanel.Body.ClassList.ClassItemProps> 
 
     return (
         <div
-            className="flex items-center justify-between p-3 rounded-lg transition-colors"
+            onClick={() => onClassClick(classId)}
+            className="flex items-center justify-between p-3 rounded-lg cursor-pointer transition-colors"
             style={{
                 border: `1px solid ${CALENDAR.BORDER_PRIMARY}`,
                 borderLeft: `4px solid ${classInfo.color}`,

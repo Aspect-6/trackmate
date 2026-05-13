@@ -31,6 +31,7 @@ const Calendar: React.FC = () => {
     const [selectedItemId, setSelectedItemId] = useState<{ type: "assignment" | "event", id: string } | null>(null)
 
     const openEditAssignment = useCallback((id: string) => openModal("edit-assignment", id), [openModal])
+    const openEditClass = useCallback((id: string) => openModal("edit-class", id), [openModal])
     const openEditEvent = useCallback((id: string) => openModal("edit-event", id), [openModal])
     const openEditNoSchool = useCallback((id: string) => openModal("edit-no-school", id), [openModal])
     const { selectedDate, setSelectedDate, clearSelection } = useSelectedDate()
@@ -137,7 +138,7 @@ const Calendar: React.FC = () => {
         }
 
         if (!hasClasses) return <NoClassesScheduled />
-        return <ClassList classes={classIds} getClassById={getClassById} />
+        return <ClassList classes={classIds} getClassById={getClassById} onClassClick={openEditClass} />
     }
 
     return (
