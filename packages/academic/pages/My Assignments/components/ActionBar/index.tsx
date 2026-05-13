@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useSettings } from "@/app/hooks/useSettings"
 import type { Priority } from "@/app/types"
 import type { ActionBar } from "@/pages/My Assignments/types"
-import { Search, ChevronDown, ChevronUp } from "lucide-react"
+import { Search, ChevronDown } from "lucide-react"
 import FilterChip from "./FilterChip"
 import { MY_ASSIGNMENTS } from "@/app/styles/colors"
 
@@ -96,7 +96,13 @@ const ActionBar: React.FC<ActionBar.Props> = ({
                     className="p-2 rounded-xl transition-colors hover:bg-white/5 flex-shrink-0"
                     style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY }}
                 >
-                    {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                    <ChevronDown
+                        size={20}
+                        style={{
+                            transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                            transition: "transform 0.25s ease-out",
+                        }}
+                    />
                 </button>
             </div>
             <div className="md:hidden mx-2"
