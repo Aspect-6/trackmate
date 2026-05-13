@@ -52,7 +52,7 @@ const ActionBar: React.FC<ActionBar.Props> = ({
         />
     ))
 
-    const AllChip = () => (
+    const allChip = (
         <FilterChip
             label="All"
             isActive={typeFilter.length === 0 && priorityFilter.length === 0}
@@ -121,7 +121,7 @@ const ActionBar: React.FC<ActionBar.Props> = ({
                 <div className="flex items-center gap-2 flex-shrink-0 mr-1">
                     <div className="w-px h-4 bg-white/10 flex-shrink-0 mx-1" />
                     {priorityChips}
-                    <AllChip />
+                    {allChip}
                 </div>
 
                 <div className="flex items-center gap-2 flex-shrink-0">
@@ -145,7 +145,7 @@ const ActionBar: React.FC<ActionBar.Props> = ({
 
                         <div className="flex items-center gap-2 pb-1 flex-wrap">
                             {priorityChips}
-                            <AllChip />
+                            {allChip}
                         </div>
                     </div>
                 </div>

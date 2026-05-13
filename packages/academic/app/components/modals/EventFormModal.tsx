@@ -84,7 +84,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                 color: templateData.color
             })
         }
-    }, [eventId, events, templateData, templateId, selectedDateString])
+    }, [eventId, events, templateData, templateId, selectedDateString, setFormData])
 
     // Load template data for editing (only once)
     const hasLoadedTemplate = useRef(false)
@@ -105,7 +105,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                 }))
             }
         }
-    }, [templateId, eventTemplates])
+    }, [templateId, eventTemplates, setFormData])
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()

@@ -11,7 +11,11 @@ export const useScheduleData = () => {
 
     const [selectedTermId, setSelectedTermId] = useState<string | null>(null)
     const selectedTermRef = useRef(selectedTermId)
-    selectedTermRef.current = selectedTermId
+
+    // Keep the ref in sync
+    useEffect(() => {
+        selectedTermRef.current = selectedTermId
+    }, [selectedTermId])
 
     // Make sure a valid term is always selected when the list of terms changes
     useEffect(() => {
