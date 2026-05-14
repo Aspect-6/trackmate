@@ -8,6 +8,7 @@ import { NoSchoolFormModal } from "@/app/components/modals/NoSchoolFormModal"
 import { TermFormModal } from "@/app/components/modals/TermFormModal"
 import { DeleteConfirmationModal } from "@/app/components/modals/DeleteConfirmationModal"
 import { AlternatingABClassSelectorModal } from "@/app/components/modals/AlternatingABClassSelectorModal"
+import { SemesterClassSelectorModal } from "@/app/components/modals/SemesterClassSelectorModal"
 import { TypeSelectorModal } from "@/app/components/modals/TypeSelectorModal"
 import { KindChooserModal } from "@/app/components/modals/KindChooserModal"
 import { GLOBAL } from "@/app/styles/colors"
@@ -100,9 +101,11 @@ const ModalManager: React.FC = () => {
             case "edit-term":
                 return <TermFormModal onClose={closeModal} termId={modalData} />
 
-            // Other modals
-            case "semester-class-selector":
+            // Schedule cell selectors
+            case "alternating-ab-class-selector":
                 return <AlternatingABClassSelectorModal onClose={closeModal} data={modalData} />
+            case "semester-class-selector":
+                return <SemesterClassSelectorModal onClose={closeModal} data={modalData} />
 
             default:
                 return null

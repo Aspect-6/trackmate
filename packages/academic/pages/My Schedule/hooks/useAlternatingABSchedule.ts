@@ -34,7 +34,7 @@ export const useAlternatingABSchedule = (selectedTermId: string | null) => {
 
     const terms = schedules["alternating-ab"]?.terms || {}
     const emptyFallback = useMemo(() => {
-        return createEmptyTermSchedule(settingsPeriodCount)
+        return createEmptyTermSchedule("alternating-ab", settingsPeriodCount)
     }, [settingsPeriodCount])
     const currentSchedule = getScheduleForTerm(terms, selectedTermId, emptyFallback)
 
@@ -70,11 +70,11 @@ export const useAlternatingABSchedule = (selectedTermId: string | null) => {
             [semester]: { days: newDays }
         }
 
-        updateTermSchedule(selectedTermId, newSchedule)
+        updateTermSchedule(selectedTermId, newSchedule, "alternating-ab")
     }
 
     const handleCellClick = (semester: SemesterName, dayType: ScheduleDayType, periodIndex: number) => {
-        openModal("semester-class-selector", {
+        openModal("alternating-ab-class-selector", {
             semester,
             dayType,
             periodIndex,

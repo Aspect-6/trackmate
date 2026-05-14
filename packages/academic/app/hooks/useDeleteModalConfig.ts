@@ -2,6 +2,10 @@ import { useToast } from "@shared/contexts/ToastContext"
 import { useAssignments, useClasses, useEvents, useNoSchool, useAcademicTerms, useSchedules } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useDangerZone } from "@/pages/Settings/hooks/useDangerZone"
+import type { ScheduleType } from "@/app/types"
+
+const isScheduleType = (v: unknown): v is ScheduleType =>
+    v === "alternating-ab" || v === "semester"
 
 export interface DeleteModalConfig {
     title: string
@@ -53,6 +57,9 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
     if (activeModal === "change-period-count") {
         const newPeriodCount = Number(modalData?.newPeriodCount)
         const activeTermId = typeof modalData?.activeTermId === "string" ? modalData.activeTermId : ""
+        const scheduleType: ScheduleType = isScheduleType(modalData?.scheduleType)
+            ? modalData.scheduleType
+            : "alternating-ab"
         if (!Number.isFinite(newPeriodCount) || !activeTermId) return null
 
         return {
@@ -61,12 +68,11 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
             buttonText: `Set to ${newPeriodCount} Period${newPeriodCount === 1 ? "" : "s"}`,
             onDelete: () => {
                 setPeriodCount(newPeriodCount)
-                resetTermSchedule(activeTermId, newPeriodCount)
+                resetTermSchedule(activeTermId, newPeriodCount, scheduleType)
                 showToast("Period count updated", "success")
             }
         }
     }
-
     // 2. Configuration Map for Single Item Deletes
     const configMap: Record<string, { data: any[], getName: (item: any) => string, action: (id: string) => void, label: string, msg: string, desc?: string }> = {
         "delete-assignment": {

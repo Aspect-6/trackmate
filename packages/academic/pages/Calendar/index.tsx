@@ -3,7 +3,7 @@ import { X } from "lucide-react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { dateToLocalISOString } from "@shared/lib/date"
-import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
+import { useClassIdsForDate } from "@/app/hooks/schedules/useClassIdsForDate"
 import { useClasses } from "@/app/hooks/entities"
 import { useSelectedDate } from "./hooks/useSelectedDate"
 import { useCalendarNavigation } from "./hooks/useCalendarNavigation"
@@ -24,7 +24,6 @@ const Calendar: React.FC = () => {
     const { openModal } = useModal()
     const { setSelectedDateString } = useCalendarContext()
     const { getClassById } = useClasses()
-    const { useClassIdsForDate } = useScheduleComponents()
 
     const [searchQuery, setSearchQuery] = useState("")
     const [showMobileResults, setShowMobileResults] = useState(false)
@@ -221,12 +220,12 @@ const Calendar: React.FC = () => {
                             </CalendarSidePanelHeader>
 
                             <CalendarSidePanelBody>
-                                {sidePanelData?.scheduleType === "alternating-ab" && (
-                                    <DayType noSchoolDay={sidePanelData?.noSchoolDay || undefined} dayType={sidePanelData?.dayType || null} onNoSchoolClick={openEditNoSchool}>
-                                        <NoSchoolInfo noSchoolDay={sidePanelData?.noSchoolDay || undefined} />
+                                <DayType noSchoolDay={sidePanelData?.noSchoolDay || undefined} dayType={sidePanelData?.dayType || null} onNoSchoolClick={openEditNoSchool}>
+                                    <NoSchoolInfo noSchoolDay={sidePanelData?.noSchoolDay || undefined} />
+                                    {sidePanelData?.scheduleType === "alternating-ab" && (
                                         <DayTypeDisplay dayType={sidePanelData?.dayType || null} />
-                                    </DayType>
-                                )}
+                                    )}
+                                </DayType>
                                 {sidePanelData?.dateString && renderClassesSection()}
                                 <AssignmentList assignments={sidePanelData?.dueAssignments || []} getClassById={getClassById} onAssignmentClick={openEditAssignment} />
                                 <EventList events={sidePanelData?.dayEvents || []} onEventClick={openEditEvent} />

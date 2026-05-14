@@ -3,7 +3,7 @@ import { useModal } from "@/app/contexts/ModalContext"
 import { useToast } from "@shared/contexts/ToastContext"
 import { useClasses } from "@/app/hooks/entities"
 import { useFormFields } from "@/app/hooks/ui/useFormFields"
-import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
+import { useScheduleComponentsForTerm } from "@/app/contexts/ScheduleComponentsContext"
 import { MODALS } from "@/app/styles/colors"
 import {
     ModalContainer,
@@ -28,7 +28,6 @@ interface ClassFormModalProps {
 
 export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId }) => {
     const { classes, addClass, updateClass } = useClasses()
-    const { ClassFormScheduleTab } = useScheduleComponents()
     const { openModal } = useModal()
     const { showToast } = useToast()
     const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
@@ -40,6 +39,9 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
         termId: "",
         semesterId: ""
     })
+    // Pick the form Settings tab based on the currently-selected term's
+    // schedule type so each class is configured under its own format.
+    const { ClassFormScheduleTab } = useScheduleComponentsForTerm(formData.termId || null)
 
     const isEditMode = !!classId
     const focusColor = MODALS.CLASS.PRIMARY_BG

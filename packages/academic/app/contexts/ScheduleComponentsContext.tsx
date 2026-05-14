@@ -1,15 +1,15 @@
-import React, { createContext, useContext, useMemo } from "react"
-import { useSchedules } from "@/app/hooks/entities"
+import React, { createContext, useCallback, useContext } from "react"
+import { useAcademicTerms } from "@/app/hooks/entities"
 import type { ScheduleType } from "@/app/types"
 
-// Import schedule-type-specific components
-// Note: Importing from pages/ here because ScheduleRenderer is very closely 
-// related to the My Schedule page. Its an acceptable exception to app/pages rule.
+// Schedule-type-specific renderers and class-form tab components
+// Note: Importing from pages/ here because ScheduleRenderer is very closely
+// related to the My Schedule page. It's an acceptable exception to the
+// app/pages rule.
 import AlternatingABRenderer from "@/pages/My Schedule/components/scheduleRenderers/AlternatingAB"
+import SemesterRenderer from "@/pages/My Schedule/components/scheduleRenderers/Semester"
 import AlternatingABClassFormScheduleTab from "@/app/components/scheduleComponents/AlternatingABClassFormScheduleTab"
-
-// Import schedule-type-specific hooks
-import { useAlternatingABClassIds } from "@/app/hooks/schedules/useAlternatingABClassIds"
+import SemesterClassFormScheduleTab from "@/app/components/scheduleComponents/SemesterClassFormScheduleTab"
 
 export interface ScheduleRendererProps {
     selectedTermId: string | null
@@ -30,38 +30,68 @@ export interface ClassFormScheduleTabProps {
     focusColor: string
 }
 
-interface ScheduleComponents {
-    ScheduleRenderer: React.FC<ScheduleRendererProps> | null
-    useClassIdsForDate: (date: string) => ClassIdsForDateResult
-    ClassFormScheduleTab: React.FC<ClassFormScheduleTabProps> | null
+export interface ScheduleComponents {
+    ScheduleRenderer: React.FC<ScheduleRendererProps>
+    ClassFormScheduleTab: React.FC<ClassFormScheduleTabProps>
 }
 
 const COMPONENTS_BY_TYPE: Record<ScheduleType, ScheduleComponents> = {
     "alternating-ab": {
         ScheduleRenderer: AlternatingABRenderer,
-        useClassIdsForDate: (date: string): ClassIdsForDateResult => {
-            const { classIds } = useAlternatingABClassIds(date)
-            const hasClasses = classIds.length > 0 && classIds.some(id => id !== null)
-            return { classIds, hasClasses }
-        },
         ClassFormScheduleTab: AlternatingABClassFormScheduleTab,
+    },
+    "semester": {
+        ScheduleRenderer: SemesterRenderer,
+        ClassFormScheduleTab: SemesterClassFormScheduleTab,
     }
 }
 
-const ScheduleComponentsContext = createContext<ScheduleComponents>(null as unknown as ScheduleComponents)
+interface ScheduleComponentsContextValue {
+    /** Returns the renderer/tab bundle for a specific schedule format. */
+    getComponentsForType: (type: ScheduleType) => ScheduleComponents
+}
+
+const ScheduleComponentsContext = createContext<ScheduleComponentsContextValue | null>(null)
 
 export const ScheduleComponentsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const { schedules } = useSchedules()
-
-    const components = useMemo(() => {
-        return COMPONENTS_BY_TYPE[schedules.type]
-    }, [schedules.type])
+    const getComponentsForType = useCallback(
+        (type: ScheduleType): ScheduleComponents => COMPONENTS_BY_TYPE[type],
+        []
+    )
 
     return (
-        <ScheduleComponentsContext.Provider value={components}>
+        <ScheduleComponentsContext.Provider value={{ getComponentsForType }}>
             {children}
         </ScheduleComponentsContext.Provider>
     )
 }
 
-export const useScheduleComponents = () => useContext(ScheduleComponentsContext)
+const useScheduleComponentsContext = (): ScheduleComponentsContextValue => {
+    const ctx = useContext(ScheduleComponentsContext)
+    if (!ctx) {
+        throw new Error("useScheduleComponents* must be used inside <ScheduleComponentsProvider>")
+    }
+    return ctx
+}
+
+/**
+ * Returns the renderer/tab bundle for an explicit schedule type. Use this when
+ * the caller already knows which format it wants.
+ */
+export const useScheduleComponentsForType = (type: ScheduleType): ScheduleComponents => {
+    const { getComponentsForType } = useScheduleComponentsContext()
+    return getComponentsForType(type)
+}
+
+/**
+ * Returns the renderer/tab bundle for a specific term, looked up by id. Falls
+ * back to the "alternating-ab" bundle when the term can't be found (e.g. no
+ * term selected yet in the form).
+ */
+export const useScheduleComponentsForTerm = (termId: string | null | undefined): ScheduleComponents => {
+    const { getComponentsForType } = useScheduleComponentsContext()
+    const { academicTerms } = useAcademicTerms()
+    const term = termId ? academicTerms.find(t => t.id === termId) : undefined
+    const type: ScheduleType = term?.scheduleType ?? "alternating-ab"
+    return getComponentsForType(type)
+}

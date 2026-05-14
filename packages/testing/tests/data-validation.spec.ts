@@ -12,9 +12,11 @@ const validSettings = {
 }
 
 const validSchedules = {
-    type: "alternating-ab",
     "alternating-ab": {
         termConfigs: {},
+        terms: {},
+    },
+    "semester": {
         terms: {},
     },
 }
@@ -230,29 +232,6 @@ describe("Data Validation (hasValidShape)", () => {
             )
         })
 
-        it("rejects an invalid schedule type", async () => {
-            const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                email_verified: true, premium: { academic: true },
-            }).firestore()
-            await assertSucceeds(setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), validSchedules))
-
-            await assertFails(
-                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), { ...validSchedules, type: "weekly" })
-            )
-        })
-
-        it("rejects a missing required field (type)", async () => {
-            const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                email_verified: true, premium: { academic: true },
-            }).firestore()
-            await assertSucceeds(setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), validSchedules))
-
-            const { type: _, ...noType } = validSchedules
-            await assertFails(
-                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), noType)
-            )
-        })
-
         it("rejects a missing required field (alternating-ab)", async () => {
             const db = testEnv.authenticatedContext(TEST_USER_ID, {
                 email_verified: true, premium: { academic: true },
@@ -260,7 +239,20 @@ describe("Data Validation (hasValidShape)", () => {
             await assertSucceeds(setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), validSchedules))
 
             await assertFails(
-                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), { type: "alternating-ab" })
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), { "semester": { terms: {} } })
+            )
+        })
+
+        it("rejects a missing required field (semester)", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+            await assertSucceeds(setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), validSchedules))
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
+                    "alternating-ab": { termConfigs: {}, terms: {} },
+                })
             )
         })
 
@@ -283,13 +275,13 @@ describe("Data Validation (hasValidShape)", () => {
 
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
-                    type: "alternating-ab",
                     "alternating-ab": { termConfigs: "foo", terms: {} },
+                    "semester": { terms: {} },
                 })
             )
         })
 
-        it("rejects non-map terms", async () => {
+        it("rejects non-map terms in alternating-ab", async () => {
             const db = testEnv.authenticatedContext(TEST_USER_ID, {
                 email_verified: true, premium: { academic: true },
             }).firestore()
@@ -297,8 +289,8 @@ describe("Data Validation (hasValidShape)", () => {
 
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
-                    type: "alternating-ab",
                     "alternating-ab": { termConfigs: {}, terms: "foo" },
+                    "semester": { terms: {} },
                 })
             )
         })
@@ -420,8 +412,8 @@ describe("Data Validation (hasValidShape)", () => {
 
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
-                    type: "alternating-ab",
                     "alternating-ab": { termConfigs: {}, terms: {}, foo: "bar" },
+                    "semester": { terms: {} },
                 })
             )
         })
@@ -433,8 +425,8 @@ describe("Data Validation (hasValidShape)", () => {
 
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
-                    type: "alternating-ab",
                     "alternating-ab": "string-instead-of-map",
+                    "semester": { terms: {} },
                 })
             )
         })
@@ -446,8 +438,8 @@ describe("Data Validation (hasValidShape)", () => {
 
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
-                    type: "alternating-ab",
                     "alternating-ab": { terms: {} },
+                    "semester": { terms: {} },
                 })
             )
         })
@@ -459,8 +451,62 @@ describe("Data Validation (hasValidShape)", () => {
 
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
-                    type: "alternating-ab",
                     "alternating-ab": { termConfigs: {} },
+                    "semester": { terms: {} },
+                })
+            )
+        })
+    })
+
+    describe("semester subobject validation", () => {
+        it("rejects extra keys inside semester", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
+                    "alternating-ab": { termConfigs: {}, terms: {} },
+                    "semester": { terms: {}, foo: "bar" },
+                })
+            )
+        })
+
+        it("rejects semester value that is not a map", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
+                    "alternating-ab": { termConfigs: {}, terms: {} },
+                    "semester": "string-instead-of-map",
+                })
+            )
+        })
+
+        it("rejects missing terms inside semester", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
+                    "alternating-ab": { termConfigs: {}, terms: {} },
+                    "semester": {},
+                })
+            )
+        })
+
+        it("rejects non-map terms inside semester", async () => {
+            const db = testEnv.authenticatedContext(TEST_USER_ID, {
+                email_verified: true, premium: { academic: true },
+            }).firestore()
+
+            await assertFails(
+                setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
+                    "alternating-ab": { termConfigs: {}, terms: {} },
+                    "semester": { terms: "foo" },
                 })
             )
         })

@@ -5,6 +5,7 @@ import { termScheduleHasClasses } from "@/app/hooks/entities/useSchedules"
 import { useSettings, MIN_PERIODS, MAX_PERIODS } from "@/app/hooks/useSettings"
 import { todayString } from "@shared/lib"
 import type { ScheduleSettings } from "@/pages/Settings/types"
+import type { ScheduleType } from "@/app/types"
 
 const PeriodCountDropdown: React.FC<ScheduleSettings.Content.PeriodCountDropdown.Props> = ({ className }) => {
     const { periodCount, setPeriodCount } = useSettings()
@@ -20,8 +21,9 @@ const PeriodCountDropdown: React.FC<ScheduleSettings.Content.PeriodCountDropdown
         if (!Number.isFinite(next) || next === periodCount) return
 
         const activeTermId = activeTerm?.id
+        const scheduleType: ScheduleType = activeTerm?.scheduleType ?? "alternating-ab"
         const existingTermSchedule = activeTermId
-            ? schedules["alternating-ab"]?.terms?.[activeTermId]
+            ? schedules[scheduleType]?.terms?.[activeTermId]
             : undefined
         const hasClasses = existingTermSchedule
             ? termScheduleHasClasses(existingTermSchedule)
@@ -30,14 +32,15 @@ const PeriodCountDropdown: React.FC<ScheduleSettings.Content.PeriodCountDropdown
         if (hasClasses && activeTermId) {
             openModal("change-period-count", {
                 newPeriodCount: next,
-                activeTermId
+                activeTermId,
+                scheduleType
             })
             return
         }
 
         setPeriodCount(next)
         if (activeTermId && existingTermSchedule) {
-            resetTermSchedule(activeTermId, next)
+            resetTermSchedule(activeTermId, next, scheduleType)
         }
     }
 

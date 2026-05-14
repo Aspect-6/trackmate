@@ -1,6 +1,6 @@
 import React from "react"
 import { useModal } from "@/app/contexts/ModalContext"
-import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
+import { useClassIdsForDate } from "@/app/hooks/schedules/useClassIdsForDate"
 import { useClasses, useNoSchool } from "@/app/hooks/entities"
 import { todayString } from "@shared/lib"
 import type { TodaysClasses } from "@/pages/Dashboard/types"
@@ -15,7 +15,6 @@ const TodaysClasses: React.FC<TodaysClasses.Props> = ({
 }) => {
     const { openModal } = useModal()
     const { getClassById } = useClasses()
-    const { useClassIdsForDate } = useScheduleComponents()
     const { getNoSchoolStatusForDate } = useNoSchool()
 
     const today = todayString()

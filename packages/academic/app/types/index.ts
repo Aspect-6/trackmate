@@ -140,7 +140,7 @@ export interface TermSchedule {
 /**
  * Available schedule rotation types.
  */
-export type ScheduleType = "alternating-ab"
+export type ScheduleType = "alternating-ab" | "semester"
 
 /**
  * Represents the type of school day in the schedule rotation.
@@ -171,13 +171,27 @@ export interface AlternatingABData {
 }
 
 /**
+ * Configuration data specific to the semester schedule.
+ * Each term has one row of classes per semester (Fall and Spring), shown every
+ * weekday of that semester. There is no rotation, so no termConfigs.
+ */
+export interface SemesterData {
+    /** Per-term schedule data for class periods (termId -> schedule) */
+    terms: Record<string, TermSchedule>
+}
+
+/**
  * Top-level schedule storage with type-keyed data.
+ *
+ * The schedule format that drives rendering is read from
+ * `AcademicTerm.scheduleType` per-term, not from this document. Each format's
+ * data lives under its own key.
  */
 export interface Schedules {
-    /** The active schedule type */
-    type: ScheduleType
-    /** A/B schedule data (present when type is "alternating-ab") */
+    /** A/B schedule data (present when any term has type "alternating-ab") */
     "alternating-ab"?: AlternatingABData
+    /** Semester schedule data (present when any term has type "semester") */
+    "semester"?: SemesterData
 }
 
 /**

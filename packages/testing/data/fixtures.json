@@ -217,7 +217,6 @@
         ]
     },
     "schedules": {
-		"type": "alternating-ab",
 		"alternating-ab": {
 			"termConfigs": {
 				"uiku6blmk7qkvcl": {
@@ -230,6 +229,7 @@
 			},
 			"terms": {
 				"uiku6blmk7qkvcl": {
+					"periodCount": 4,
 					"Fall": {
 						"days": [
 							{
@@ -276,6 +276,9 @@
 					}
 				}
 			}
+		},
+		"semester": {
+			"terms": {}
 		}
 	},
 	"settings": {
@@ -292,6 +295,7 @@
 			"Midterm",
 			"Final Exam"
 		],
+		"periodCount": 4,
 		"termMode": "Semesters Only",
 		"theme": "dark",
 		"templates": [

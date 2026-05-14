@@ -52,3 +52,25 @@ export namespace AlternatingDaysSchedule {
         }
     }
 }
+
+export namespace SemesterSchedule {
+    export interface Props {
+        title?: string
+        children: React.ReactNode
+    }
+
+    export namespace ScheduleTable {
+        export interface Props {
+            periodCount: number
+            children: React.ReactNode
+        }
+
+        export namespace Row {
+            export interface Props {
+                isLastRow: boolean
+                semester: SemesterName
+                children: React.ReactNode
+            }
+        }
+    }
+}

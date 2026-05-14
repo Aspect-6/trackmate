@@ -79,7 +79,6 @@ import "./index.css"
 const Settings: React.FC = () => {
     const { openModal } = useModal()
     const {
-        schedules,
         setReferenceDayType,
         getDayTypeForDate
     } = useSchedules()
@@ -242,25 +241,21 @@ const Settings: React.FC = () => {
                 </BaseModuleDescription>
                 <ScheduleTypeDropdown className="mb-10">
                     <ScheduleTypeDropdownOption value="alternating-ab">Alternating A/B Days</ScheduleTypeDropdownOption>
+                    <ScheduleTypeDropdownOption value="semester">Semester</ScheduleTypeDropdownOption>
                 </ScheduleTypeDropdown>
 
                 <BaseModuleDescription>
-                    Set the number of class periods in your daily schedule.
-                </BaseModuleDescription>
-                <PeriodCountDropdown className="mb-10" />
-
-                <BaseModuleDescription>
-                    {schedules.type === "alternating-ab" &&
+                    {activeTermForToday?.scheduleType === "alternating-ab" &&
                         `Manually set the current day type to correct the A/B day rotation.
                         Future days will alternate based on this setting.`
                     }
                 </BaseModuleDescription>
                 <ScheduleSettingsContent>
-                    {schedules.type === "alternating-ab" && (
+                    {activeTermForToday?.scheduleType === "alternating-ab" && (
                         <>
                             <CurrentDayCalculation currentDayType={currentDayType || ""} />
 
-                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mb-10">
                                 <SetDayTypeButton dayType="A" onClick={() => setReferenceDayType("A", activeTermForToday?.id || "")}>
                                     Set Today as A-Day
                                 </SetDayTypeButton>
@@ -271,6 +266,11 @@ const Settings: React.FC = () => {
                         </>
                     )}
                 </ScheduleSettingsContent>
+
+                <BaseModuleDescription>
+                    Set the number of class periods in your daily schedule.
+                </BaseModuleDescription>
+                <PeriodCountDropdown />
             </ScheduleSettings>
 
             <TermSettings>

@@ -1,7 +1,7 @@
 import React from "react"
 import { useHover } from "@shared/hooks/ui/useHover"
 import { useFocus } from "@shared/hooks/ui/useFocus"
-import { useScheduleComponents } from "@/app/contexts/ScheduleComponentsContext"
+import { useScheduleComponentsForTerm } from "@/app/contexts/ScheduleComponentsContext"
 import { useScheduleData } from "./hooks/useScheduleData"
 import { ChevronDown } from "lucide-react"
 import { MY_SCHEDULE } from "@/app/styles/colors"
@@ -14,7 +14,7 @@ const MySchedule: React.FC = () => {
         filteredAcademicTerms
     } = useScheduleData()
 
-    const { ScheduleRenderer } = useScheduleComponents()
+    const { ScheduleRenderer } = useScheduleComponentsForTerm(selectedTermId)
     const { isHovered, hoverProps } = useHover()
     const { isFocused, focusProps } = useFocus()
 

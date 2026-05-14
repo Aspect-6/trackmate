@@ -86,7 +86,7 @@ export const AcademicTermSchema = z.object({
 	startDate: z.string(),
 	endDate: z.string(),
 	termType: z.enum(["Semesters Only", "Semesters With Quarters"]),
-	scheduleType: z.enum(["alternating-ab"]),
+	scheduleType: z.enum(["alternating-ab", "semester"]),
 	semesters: z.array(SemesterSchema),
 }).strict()
 

@@ -2,7 +2,7 @@ import { useCallback } from "react"
 import { useAuth } from "@shared/contexts/AuthContext"
 import { setDocument, writeItemsDocument } from "@shared/lib/firestore"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
-import { DEFAULT_ASSIGNMENT_TYPES } from "@/app/hooks/useSettings"
+import { DEFAULT_ASSIGNMENT_TYPES, DEFAULT_PERIOD_COUNT } from "@/app/hooks/useSettings"
 
 /** Empty items document, used to reset entity documents. */
 const EMPTY_ITEMS = { items: [] as unknown[] }
@@ -12,14 +12,17 @@ const DEFAULT_SETTINGS = {
     theme: "light" as const,
     termMode: "Semesters Only" as const,
     assignmentTypes: DEFAULT_ASSIGNMENT_TYPES,
-    templates: []
+    templates: [],
+    periodCount: DEFAULT_PERIOD_COUNT
 }
 
 /** Default schedules values, matching the shape required by security rules. */
 const DEFAULT_SCHEDULES = {
-    type: "alternating-ab" as const,
     "alternating-ab": {
         termConfigs: {},
+        terms: {}
+    },
+    "semester": {
         terms: {}
     }
 }
