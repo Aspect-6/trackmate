@@ -92,6 +92,9 @@ const Settings: React.FC = () => {
     const today = todayString()
     const activeTermForToday = getActiveTermForDate(today)
     const currentDayType = getDayTypeForDate(today, activeTermForToday, noSchoolPeriods)
+    const activeScheduleType = activeTermForToday?.scheduleType
+    const showAlternatingABScheduleSettings = activeScheduleType === "alternating-ab"
+    const showPeriodCountSettings = activeScheduleType !== "fixed-weekly"
 
     const {
         assignmentTypes,
@@ -239,21 +242,19 @@ const Settings: React.FC = () => {
                 <BaseModuleDescription>
                     Select the kind of class schedule that your institution uses.
                 </BaseModuleDescription>
-                <ScheduleTypeDropdown className="mb-10">
+                <ScheduleTypeDropdown className={showAlternatingABScheduleSettings || showPeriodCountSettings ? "mb-10" : undefined}>
                     <ScheduleTypeDropdownOption value="alternating-ab">Alternating A/B Days</ScheduleTypeDropdownOption>
                     <ScheduleTypeDropdownOption value="semester">Semester</ScheduleTypeDropdownOption>
                     <ScheduleTypeDropdownOption value="fixed-weekly">Fixed Weekly</ScheduleTypeDropdownOption>
                 </ScheduleTypeDropdown>
 
-                <BaseModuleDescription>
-                    {activeTermForToday?.scheduleType === "alternating-ab" &&
-                        `Manually set the current day type to correct the A/B day rotation.
-                        Future days will alternate based on this setting.`
-                    }
-                </BaseModuleDescription>
-                <ScheduleSettingsContent>
-                    {activeTermForToday?.scheduleType === "alternating-ab" && (
-                        <>
+                {showAlternatingABScheduleSettings && (
+                    <>
+                        <BaseModuleDescription>
+                            Manually set the current day type to correct the A/B day rotation.
+                            Future days will alternate based on this setting.
+                        </BaseModuleDescription>
+                        <ScheduleSettingsContent>
                             <CurrentDayCalculation currentDayType={currentDayType || ""} />
 
                             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mb-10">
@@ -264,11 +265,11 @@ const Settings: React.FC = () => {
                                     Set Today as B-Day
                                 </SetDayTypeButton>
                             </div>
-                        </>
-                    )}
-                </ScheduleSettingsContent>
+                        </ScheduleSettingsContent>
+                    </>
+                )}
 
-                {activeTermForToday?.scheduleType !== "fixed-weekly" && (
+                {showPeriodCountSettings && (
                     <>
                         <BaseModuleDescription>
                             Set the number of class periods in your daily schedule.
