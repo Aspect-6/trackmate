@@ -238,6 +238,9 @@ const Settings: React.FC = () => {
 
             <ScheduleSettings>
                 <BaseModuleHeader title="Schedule Settings" />
+                <BaseModuleDescription className="mb-7">
+                    Configure how your schedule is calculated for every day.
+                </BaseModuleDescription>
 
                 <BaseModuleDescription>
                     Select the kind of class schedule that your institution uses.
@@ -284,7 +287,7 @@ const Settings: React.FC = () => {
                     <BaseModuleHeader title="Academic Terms" />
                 </div>
 
-                <BaseModuleDescription className=" mb-7">
+                <BaseModuleDescription className="mb-7">
                     Define your school years and semesters to configure your schedule.
                 </BaseModuleDescription>
 
