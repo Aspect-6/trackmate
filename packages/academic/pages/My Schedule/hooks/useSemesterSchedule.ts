@@ -57,7 +57,8 @@ export const useSemesterSchedule = (selectedTermId: string | null) => {
     }
 
     const handleCellClick = (semester: SemesterName, periodIndex: number) => {
-        openModal("semester-class-selector", {
+        openModal("class-selector", {
+            scheduleType: "semester",
             semester,
             periodIndex,
             termId: selectedTermId,

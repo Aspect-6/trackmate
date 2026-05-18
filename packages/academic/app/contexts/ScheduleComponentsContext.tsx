@@ -8,8 +8,10 @@ import type { ScheduleType } from "@/app/types"
 // app/pages rule.
 import AlternatingABRenderer from "@/pages/My Schedule/components/scheduleRenderers/AlternatingAB"
 import SemesterRenderer from "@/pages/My Schedule/components/scheduleRenderers/Semester"
-import AlternatingABClassFormScheduleTab from "@/app/components/scheduleComponents/AlternatingABClassFormScheduleTab"
-import SemesterClassFormScheduleTab from "@/app/components/scheduleComponents/SemesterClassFormScheduleTab"
+import FixedWeeklyRenderer from "@/pages/My Schedule/components/scheduleRenderers/FixedWeekly"
+import AlternatingABClassFormSettingsTab from "@/app/components/scheduleComponents/AlternatingABClassFormSettingsTab"
+import SemesterClassFormSettingsTab from "@/app/components/scheduleComponents/SemesterClassFormSettingsTab"
+import FixedWeeklyClassFormSettingsTab from "@/app/components/scheduleComponents/FixedWeeklyClassFormSettingsTab"
 
 export interface ScheduleRendererProps {
     selectedTermId: string | null
@@ -24,7 +26,7 @@ export interface ClassIdsForDateResult {
  * Props contract for schedule-specific class form tab components.
  * Each schedule format implements this to render its own Settings tab UI.
  */
-export interface ClassFormScheduleTabProps {
+export interface ClassFormSettingsTabProps {
     formData: Record<string, string>
     setFormData: (data: Record<string, string>) => void
     focusColor: string
@@ -32,17 +34,21 @@ export interface ClassFormScheduleTabProps {
 
 export interface ScheduleComponents {
     ScheduleRenderer: React.FC<ScheduleRendererProps>
-    ClassFormScheduleTab: React.FC<ClassFormScheduleTabProps>
+    ClassFormScheduleTab: React.FC<ClassFormSettingsTabProps>
 }
 
 const COMPONENTS_BY_TYPE: Record<ScheduleType, ScheduleComponents> = {
     "alternating-ab": {
         ScheduleRenderer: AlternatingABRenderer,
-        ClassFormScheduleTab: AlternatingABClassFormScheduleTab,
+        ClassFormScheduleTab: AlternatingABClassFormSettingsTab,
     },
     "semester": {
         ScheduleRenderer: SemesterRenderer,
-        ClassFormScheduleTab: SemesterClassFormScheduleTab,
+        ClassFormScheduleTab: SemesterClassFormSettingsTab,
+    },
+    "fixed-weekly": {
+        ScheduleRenderer: FixedWeeklyRenderer,
+        ClassFormScheduleTab: FixedWeeklyClassFormSettingsTab,
     }
 }
 

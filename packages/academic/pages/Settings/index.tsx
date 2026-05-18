@@ -242,6 +242,7 @@ const Settings: React.FC = () => {
                 <ScheduleTypeDropdown className="mb-10">
                     <ScheduleTypeDropdownOption value="alternating-ab">Alternating A/B Days</ScheduleTypeDropdownOption>
                     <ScheduleTypeDropdownOption value="semester">Semester</ScheduleTypeDropdownOption>
+                    <ScheduleTypeDropdownOption value="fixed-weekly">Fixed Weekly</ScheduleTypeDropdownOption>
                 </ScheduleTypeDropdown>
 
                 <BaseModuleDescription>
@@ -267,10 +268,14 @@ const Settings: React.FC = () => {
                     )}
                 </ScheduleSettingsContent>
 
-                <BaseModuleDescription>
-                    Set the number of class periods in your daily schedule.
-                </BaseModuleDescription>
-                <PeriodCountDropdown />
+                {activeTermForToday?.scheduleType !== "fixed-weekly" && (
+                    <>
+                        <BaseModuleDescription>
+                            Set the number of class periods in your daily schedule.
+                        </BaseModuleDescription>
+                        <PeriodCountDropdown />
+                    </>
+                )}
             </ScheduleSettings>
 
             <TermSettings>

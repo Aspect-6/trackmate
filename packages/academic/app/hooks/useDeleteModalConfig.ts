@@ -5,7 +5,7 @@ import { useDangerZone } from "@/pages/Settings/hooks/useDangerZone"
 import type { ScheduleType } from "@/app/types"
 
 const isScheduleType = (v: unknown): v is ScheduleType =>
-    v === "alternating-ab" || v === "semester"
+    v === "alternating-ab" || v === "semester" || v === "fixed-weekly"
 
 export interface DeleteModalConfig {
     title: string
@@ -68,7 +68,9 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
             buttonText: `Set to ${newPeriodCount} Period${newPeriodCount === 1 ? "" : "s"}`,
             onDelete: () => {
                 setPeriodCount(newPeriodCount)
-                resetTermSchedule(activeTermId, newPeriodCount, scheduleType)
+                if (scheduleType !== "fixed-weekly") {
+                    resetTermSchedule(activeTermId, newPeriodCount, scheduleType)
+                }
                 showToast("Period count updated", "success")
             }
         }

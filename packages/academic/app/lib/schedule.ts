@@ -1,5 +1,16 @@
 import { parseDateLocal, dateToLocalISOString } from "@shared/lib"
-import type { Schedules, AlternatingABDayType, AcademicTerm, NoSchoolPeriod } from "@/app/types"
+import type { Schedules, AlternatingABDayType, AcademicTerm, NoSchoolPeriod, Weekday } from "@/app/types"
+
+export const DEFAULT_FIXED_WEEKLY_WEEKDAYS: Weekday[] = [
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+]
+
+/** Maps a calendar date to a fixed-weekly column; weekends return null. */
+export const weekdayFromDateString = (dateString: string): Weekday | null => {
+    const n = parseDateLocal(dateString).getDay()
+    if (n === 0 || n === 6) return null
+    return DEFAULT_FIXED_WEEKLY_WEEKDAYS[n - 1]!
+}
 
 export const isWeekend = (dateString: string): boolean => {
     const date = parseDateLocal(dateString)

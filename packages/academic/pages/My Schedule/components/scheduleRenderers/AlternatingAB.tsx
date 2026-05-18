@@ -4,9 +4,8 @@ import { useSettings } from "@/app/hooks/useSettings"
 import type { AlternatingABDayType } from "@/app/types"
 import type { SemesterName } from "@/pages/My Schedule/types"
 import type { ScheduleRendererProps } from "@/app/contexts/ScheduleComponentsContext"
-import { Info } from "lucide-react"
 import AlternatingDaysSchedule, { ScheduleTable, ScheduleTableRow, EmptyCell, FilledCell } from "../AlternatingDaysSchedule"
-import { MY_SCHEDULE } from "@/app/styles/colors"
+import PeriodMismatchWarning from "../PeriodMismatchWarning"
 
 /**
  * Renderer for alternating A/B day schedule.
@@ -21,7 +20,6 @@ const AlternatingABRenderer: React.FC<ScheduleRendererProps> = ({ selectedTermId
         getClassById
     } = useAlternatingABSchedule(selectedTermId)
     const { periodCount: settingsPeriodCount } = useSettings()
-    const hasPeriodMismatch = periodCount !== settingsPeriodCount
 
     const renderScheduleTable = (semester: SemesterName) => {
         const scheduleData = getScheduleForSemester(semester)
@@ -63,22 +61,10 @@ const AlternatingABRenderer: React.FC<ScheduleRendererProps> = ({ selectedTermId
 
     return (
         <>
-            {hasPeriodMismatch && (
-                <div
-                    className="flex items-center gap-2 text-sm rounded-lg px-4 py-3 mb-6"
-                    style={{
-                        color: MY_SCHEDULE.PRIORITY_MEDIUM_TEXT,
-                        backgroundColor: MY_SCHEDULE.PRIORITY_MEDIUM_BG,
-                        border: `1px solid ${MY_SCHEDULE.PRIORITY_MEDIUM_BORDER}`,
-                    }}
-                >
-                    <Info className="w-4 h-4 shrink-0" />
-                    <span>
-                        This schedule was created with {periodCount} period{periodCount === 1 ? "" : "s"}, and your current setting is {settingsPeriodCount} period{settingsPeriodCount === 1 ? "" : "s"}.
-                        Updating the number of periods will still work identically.
-                    </span>
-                </div>
-            )}
+            <PeriodMismatchWarning
+                schedulePeriodCount={periodCount}
+                settingsPeriodCount={settingsPeriodCount}
+            />
             <AlternatingDaysSchedule title="Fall Semester">
                 {renderScheduleTable("Fall")}
             </AlternatingDaysSchedule>

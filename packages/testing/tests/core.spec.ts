@@ -52,7 +52,11 @@ describe("Core Security (Ownership & Verification)", () => {
 
         await assertFails(
             setDoc(doc(db, "users/bob/academic/settings"), {
-                theme: "dark", termMode: "Semesters Only", templates: [], assignmentTypes: ["Homework"]
+                theme: "dark",
+                termMode: "Semesters Only",
+                templates: [],
+                assignmentTypes: ["Homework"],
+                periodCount: 4,
             })
         )
     })
@@ -64,7 +68,11 @@ describe("Core Security (Ownership & Verification)", () => {
 
         await assertFails(
             setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
-                theme: "dark", termMode: "Semesters Only", templates: [], assignmentTypes: ["Homework"]
+                theme: "dark",
+                termMode: "Semesters Only",
+                templates: [],
+                assignmentTypes: ["Homework"],
+                periodCount: 4,
             })
         )
     })
@@ -122,7 +130,11 @@ describe("Core Security (Ownership & Verification)", () => {
 
             await assertSucceeds(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
-                    theme: "dark", termMode: "Semesters Only", templates: [], assignmentTypes: ["Homework"]
+                    theme: "dark",
+                    termMode: "Semesters Only",
+                    templates: [],
+                    assignmentTypes: ["Homework"],
+                    periodCount: 4,
                 })
             )
         })
@@ -134,8 +146,9 @@ describe("Core Security (Ownership & Verification)", () => {
 
             await assertSucceeds(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
-                    type: "alternating-ab",
-                    "alternating-ab": { termConfigs: {}, terms: {} }
+                    "alternating-ab": { termConfigs: {}, terms: {} },
+                    "semester": { terms: {} },
+                    "fixed-weekly": { terms: {} },
                 })
             )
         })
@@ -184,7 +197,11 @@ describe("Core Security (Ownership & Verification)", () => {
             const db = testEnv.authenticatedContext(TEST_USER_ID, {}).firestore()
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
-                    theme: "dark", termMode: "Semesters Only", templates: [], assignmentTypes: ["Homework"]
+                    theme: "dark",
+                    termMode: "Semesters Only",
+                    templates: [],
+                    assignmentTypes: ["Homework"],
+                    periodCount: 4,
                 })
             )
         })

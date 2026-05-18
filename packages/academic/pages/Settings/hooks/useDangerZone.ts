@@ -13,7 +13,7 @@ const DEFAULT_SETTINGS = {
     termMode: "Semesters Only" as const,
     assignmentTypes: DEFAULT_ASSIGNMENT_TYPES,
     templates: [],
-    periodCount: DEFAULT_PERIOD_COUNT
+    periodCount: DEFAULT_PERIOD_COUNT,
 }
 
 /** Default schedules values, matching the shape required by security rules. */
@@ -23,6 +23,9 @@ const DEFAULT_SCHEDULES = {
         terms: {}
     },
     "semester": {
+        terms: {}
+    },
+    "fixed-weekly": {
         terms: {}
     }
 }

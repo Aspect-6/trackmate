@@ -5,14 +5,22 @@ import ClassName from "./ClassName"
 import RoomNumber from "./RoomNumber"
 import RemoveButton from "./RemoveButton"
 
-const FilledCell: React.FC<AlternatingDaysSchedule.ScheduleTable.Row.FilledCell.Props> = ({ isLastRow, classData, onRemove }) => {
+const FilledCell: React.FC<AlternatingDaysSchedule.ScheduleTable.Row.FilledCell.Props> = ({
+    isLastRow,
+    classData,
+    onRemove,
+    showColumnDivider,
+    trailingOverlay,
+}) => {
     return (
         <td
-            className="p-3 text-center schedule-cell"
+            className={`p-3 text-center schedule-cell${trailingOverlay ? " relative" : ""}`}
             style={{
-                borderBottom: !isLastRow ? `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` : "none"
+                borderBottom: !isLastRow ? `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` : "none",
+                borderRight: showColumnDivider ? `1px solid ${MY_SCHEDULE.BORDER_PRIMARY}` : undefined,
             }}
         >
+            {trailingOverlay}
             <div
                 className="relative min-h-[72px] flex items-center justify-center rounded-lg px-3 py-2"
                 style={{

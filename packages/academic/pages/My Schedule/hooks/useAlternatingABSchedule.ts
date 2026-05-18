@@ -74,11 +74,12 @@ export const useAlternatingABSchedule = (selectedTermId: string | null) => {
     }
 
     const handleCellClick = (semester: SemesterName, dayType: ScheduleDayType, periodIndex: number) => {
-        openModal("alternating-ab-class-selector", {
+        openModal("class-selector", {
+            scheduleType: "alternating-ab",
             semester,
-            dayType,
             periodIndex,
             termId: selectedTermId,
+            dayLabel: dayType === "A" ? "A-Day" : "B-Day",
             onSelect: (classId: string | null, isSemesterClass: boolean) => {
                 updateCell(semester, dayType, periodIndex, classId, isSemesterClass)
             }

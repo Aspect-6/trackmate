@@ -54,8 +54,8 @@ service cloud.firestore {
 					&& d.periodCount >= 1
 					&& d.periodCount <= 8
 				: docId == "schedules"
-				? d.keys().hasOnly(["alternating-ab", "semester"])
-					&& d.keys().hasAll(["alternating-ab", "semester"])
+				? d.keys().hasOnly(["alternating-ab", "semester", "fixed-weekly"])
+					&& d.keys().hasAll(["alternating-ab", "semester", "fixed-weekly"])
 					&& d["alternating-ab"] is map
 					&& d["alternating-ab"].keys().hasOnly(["termConfigs", "terms"])
 					&& d["alternating-ab"].keys().hasAll(["termConfigs", "terms"])
@@ -65,6 +65,10 @@ service cloud.firestore {
 					&& d["semester"].keys().hasOnly(["terms"])
 					&& d["semester"].keys().hasAll(["terms"])
 					&& d["semester"].terms is map
+					&& d["fixed-weekly"] is map
+					&& d["fixed-weekly"].keys().hasOnly(["terms"])
+					&& d["fixed-weekly"].keys().hasAll(["terms"])
+					&& d["fixed-weekly"].terms is map
 				: false;
 			}
 

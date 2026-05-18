@@ -279,6 +279,9 @@
 		},
 		"semester": {
 			"terms": {}
+		},
+		"fixed-weekly": {
+			"terms": {}
 		}
 	},
 	"settings": {

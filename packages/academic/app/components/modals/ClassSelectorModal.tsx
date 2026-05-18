@@ -1,57 +1,55 @@
 import React from "react"
 import { useAcademicTerms, useClasses } from "@/app/hooks/entities"
 import type { SemesterName } from "@/pages/My Schedule/types"
-import { ModalCancelButton } from "@shared/components/modal/ModalCancelButton"
 import { BookOpen, Calendar } from "lucide-react"
+import { ModalContainer, ModalHeader, ModalFooter, ModalCancelButton } from "@shared/components/modal"
 import { GLOBAL, MODALS } from "@/app/styles/colors"
 
-interface SemesterClassSelectorModalProps {
+interface ClassSelectorModalProps {
     onClose: () => void
     data: {
+        scheduleType: "alternating-ab" | "fixed-weekly" | "semester"
         semester: SemesterName
         periodIndex: number
         termId: string | null
-        onSelect: (classId: string | null) => void
+        dayLabel?: string // "A-Day", "B-Day", "Monday", etc.
+        onSelect: (classId: string | null, isSemesterClass: boolean) => void
     }
 }
 
-/**
- * Class picker for the semester schedule.
- *
- * Semester classes are tied to a single semester (Fall xor Spring), so the
- * list only shows classes belonging to this term whose semester matches the
- * cell's semester. The picker has no day-type concept.
- */
-export const SemesterClassSelectorModal: React.FC<SemesterClassSelectorModalProps> = ({ onClose, data }) => {
+export const ClassSelectorModal: React.FC<ClassSelectorModalProps> = ({ onClose, data }) => {
     const { classes } = useClasses()
     const { academicTerms } = useAcademicTerms()
-    const { semester, periodIndex, termId, onSelect } = data
+    const { scheduleType, semester, periodIndex, termId, dayLabel, onSelect } = data
 
-    const handleSelect = (classId: string) => {
-        onSelect(classId)
+    const handleSelect = (classId: string, isSemesterClass: boolean) => {
+        onSelect(classId, isSemesterClass)
         onClose()
     }
 
     const term = academicTerms.find(t => t.id === termId)
     const matchingSemester = term?.semesters.find(s => s.name === semester)
 
-    const availableClasses = classes.filter(classData =>
-        classData.termId === termId &&
-        classData.semesterId === matchingSemester?.id
-    )
+    const availableClasses = classes.filter(classData => {
+        if (classData.termId !== termId) return false
+        
+        if (scheduleType === "alternating-ab") return true
+        return classData.semesterId === matchingSemester?.id
+    })
+
+    const renderEmptyStateText = () => {
+        if (scheduleType === "alternating-ab") {
+            return "Add classes to this term to see them here"
+        }
+        return `Add a ${semester} class to this term to see it here`
+    }
 
     return (
-        <div
-            className="w-full max-w-md p-6 rounded-2xl flex flex-col max-h-[50vh]"
-            style={{
-                backgroundColor: MODALS.BASE.BG,
-                border: `1px solid ${MODALS.BASE.BORDER}`,
-            }}
-        >
+        <ModalContainer className="flex flex-col max-h-[50vh]">
             <div className="flex-shrink-0 pb-4 mb-3 border-b" style={{ borderColor: GLOBAL.BORDER_SECONDARY }}>
-                <h2 className="text-2xl font-bold mb-4" style={{ color: MODALS.CLASS.HEADING }}>
+                <ModalHeader color={MODALS.CLASS.HEADING}>
                     Select Class
-                </h2>
+                </ModalHeader>
                 <div className="flex flex-wrap items-center gap-2">
                     <div
                         className="px-3 py-1 rounded-md text-sm font-medium flex items-center gap-2 border"
@@ -62,7 +60,11 @@ export const SemesterClassSelectorModal: React.FC<SemesterClassSelectorModalProp
                         }}
                     >
                         <Calendar size={14} className="opacity-60" />
-                        <span>{semester} Semester</span>
+                        <span>
+                            {scheduleType === "alternating-ab" ? `${semester} Semester` : 
+                             scheduleType === "fixed-weekly" ? `${semester} • ${dayLabel}` :
+                             `${semester} Semester`}
+                        </span>
                     </div>
                     <div
                         className="px-3 py-1 rounded-md text-sm font-medium flex items-center gap-2 border"
@@ -72,7 +74,10 @@ export const SemesterClassSelectorModal: React.FC<SemesterClassSelectorModalProp
                             backgroundColor: "transparent"
                         }}
                     >
-                        <span>Period {periodIndex + 1}</span>
+                        <span>
+                            {scheduleType === "alternating-ab" ? `${dayLabel} • Period ${periodIndex + 1}` : 
+                             `Period ${periodIndex + 1}`}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -86,14 +91,14 @@ export const SemesterClassSelectorModal: React.FC<SemesterClassSelectorModalProp
                                 No classes available
                             </p>
                             <p className="text-xs mt-1" style={{ color: GLOBAL.TEXT_TERTIARY }}>
-                                Add a {semester} class to this term to see it here
+                                {renderEmptyStateText()}
                             </p>
                         </div>
                     ) : (
                         availableClasses.map(classData => (
                             <button
                                 key={classData.id}
-                                onClick={() => handleSelect(classData.id)}
+                                onClick={() => handleSelect(classData.id, !!classData.semesterId)}
                                 className="w-full group relative overflow-hidden rounded-xl text-left transition-all duration-200 hover:translate-x-1"
                                 style={{
                                     backgroundColor: GLOBAL.BACKGROUND_PRIMARY,
@@ -110,7 +115,9 @@ export const SemesterClassSelectorModal: React.FC<SemesterClassSelectorModalProp
                                     </div>
                                     <div className="text-sm flex items-center gap-2 opacity-80" style={{ color: GLOBAL.TEXT_SECONDARY }}>
                                         <span className="font-medium opacity-75" style={{ color: GLOBAL.TEXT_PRIMARY }}>
-                                            {semester} Semester
+                                            {scheduleType === "alternating-ab" 
+                                                ? (classData.semesterId ? "Semester" : "Year-long")
+                                                : `${semester} Semester`}
                                         </span>
                                         {(classData.teacherName || classData.roomNumber) && (
                                             <>
@@ -132,9 +139,9 @@ export const SemesterClassSelectorModal: React.FC<SemesterClassSelectorModalProp
                 </div>
             </div>
 
-            <div className="flex-shrink-0 pt-6 mt-2 flex justify-end">
+            <ModalFooter>
                 <ModalCancelButton onClick={onClose} inline={false} className="justify-center" />
-            </div>
-        </div>
+            </ModalFooter>
+        </ModalContainer>
     )
 }

@@ -95,7 +95,8 @@ describe("Settings & Templates Restrictions", () => {
                 theme: "dark",
                 termMode: "Semesters Only",
                 templates: [],
-                assignmentTypes: ["Homework"]
+                assignmentTypes: ["Homework"],
+                periodCount: 4,
             })
         )
     })
@@ -114,7 +115,8 @@ describe("Settings & Templates Restrictions", () => {
                 theme: "dark",
                 termMode: "Semesters Only",
                 templates: [{ templateName: "foo" }],
-                assignmentTypes: ["Homework"]
+                assignmentTypes: ["Homework"],
+                periodCount: 4,
             })
         )
     })

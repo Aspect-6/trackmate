@@ -138,9 +138,19 @@ export interface TermSchedule {
 }
 
 /**
+ * Weekday labels for fixed weekly schedules (Monday–Friday columns).
+ */
+export type Weekday =
+    | "Monday"
+    | "Tuesday"
+    | "Wednesday"
+    | "Thursday"
+    | "Friday"
+
+/**
  * Available schedule rotation types.
  */
-export type ScheduleType = "alternating-ab" | "semester"
+export type ScheduleType = "alternating-ab" | "semester" | "fixed-weekly"
 
 /**
  * Represents the type of school day in the schedule rotation.
@@ -181,6 +191,17 @@ export interface SemesterData {
 }
 
 /**
+ * Configuration data specific to the fixed weekly schedule.
+ * Each term has one column of classes per day (Mon–Fri), showing the same
+ * classes for each weekday of that semester. There is no rotation, so no
+ * termConfigs.
+ */
+export interface FixedWeeklyData {
+    /** Per-term schedule data for class periods (termId -> schedule) */
+    terms: Record<string, TermSchedule>
+}
+
+/**
  * Top-level schedule storage with type-keyed data.
  *
  * The schedule format that drives rendering is read from
@@ -192,6 +213,8 @@ export interface Schedules {
     "alternating-ab"?: AlternatingABData
     /** Semester schedule data (present when any term has type "semester") */
     "semester"?: SemesterData
+    /** Fixed weekly schedule data (present when any term has type "fixed-weekly") */
+    "fixed-weekly"?: FixedWeeklyData
 }
 
 /**

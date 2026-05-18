@@ -1,6 +1,6 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useAcademicTerms } from "@/app/hooks/entities"
-import type { ClassFormScheduleTabProps } from "@/app/contexts/ScheduleComponentsContext"
+import type { ClassFormSettingsTabProps } from "@/app/contexts/ScheduleComponentsContext"
 import {
     ModalLabel,
     ModalSelectInput,
@@ -8,7 +8,14 @@ import {
 } from "@shared/components/modal"
 import { DASHBOARD } from "@/app/styles/colors"
 
-const AlternatingABClassFormScheduleTab: React.FC<ClassFormScheduleTabProps> = ({
+/**
+ * Class form Settings tab for the semester schedule.
+ *
+ * Every class belongs to exactly one semester (Fall xor Spring) since the two
+ * semesters have completely independent rows. There is no "year-long" option.
+ * Default selection is the term's Fall semester.
+ */
+const SemesterClassFormSettingsTab: React.FC<ClassFormSettingsTabProps> = ({
     formData,
     setFormData,
     focusColor,
@@ -16,13 +23,27 @@ const AlternatingABClassFormScheduleTab: React.FC<ClassFormScheduleTabProps> = (
     const { academicTerms } = useAcademicTerms()
     const selectedTerm = academicTerms.find(term => term.id === formData.termId)
 
+    const fallSemesterId = selectedTerm?.semesters.find(s => s.name === "Fall")?.id ?? ""
+
     const handleTermChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const nextTermId = e.target.value
+        const nextTerm = academicTerms.find(t => t.id === nextTermId)
+        const defaultFallId = nextTerm?.semesters.find(s => s.name === "Fall")?.id ?? ""
         setFormData({
             ...formData,
-            termId: e.target.value,
-            semesterId: ""
+            termId: nextTermId,
+            semesterId: nextTermId ? defaultFallId : ""
         })
     }
+
+    // If a term is selected but no semester is, fall back to Fall so the
+    // class always lands in exactly one semester (semester format has no
+    // year-long concept).
+    useEffect(() => {
+        if (formData.termId && !formData.semesterId && fallSemesterId) {
+            setFormData({ ...formData, semesterId: fallSemesterId })
+        }
+    }, [formData, fallSemesterId, setFormData])
 
     return (
         <>
@@ -43,13 +64,12 @@ const AlternatingABClassFormScheduleTab: React.FC<ClassFormScheduleTabProps> = (
             </div>
             {selectedTerm && selectedTerm.semesters.length > 0 && (
                 <div>
-                    <ModalLabel>Semester (Optional)</ModalLabel>
+                    <ModalLabel>Semester</ModalLabel>
                     <ModalSelectInput
-                        value={formData.semesterId}
+                        value={formData.semesterId || fallSemesterId}
                         onChange={e => setFormData({ ...formData, semesterId: e.target.value })}
                         focusColor={focusColor}
                     >
-                        <ModalSelectInputOption value="">Year-long (Both Semesters)</ModalSelectInputOption>
                         {selectedTerm.semesters.map(sem => (
                             <ModalSelectInputOption key={sem.id} value={sem.id}>
                                 {sem.name}
@@ -59,10 +79,10 @@ const AlternatingABClassFormScheduleTab: React.FC<ClassFormScheduleTabProps> = (
                 </div>
             )}
             <p className="text-xs" style={{ color: DASHBOARD.TEXT_TERTIARY }}>
-                Classes added to a year-long term will occur every other day, while classes marked for a semester will occur every day for that semester.
+                Each class will appear in the selected semester&apos;s schedule.
             </p>
         </>
     )
 }
 
-export default AlternatingABClassFormScheduleTab
+export default SemesterClassFormSettingsTab

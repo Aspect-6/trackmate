@@ -1,7 +1,7 @@
 import { useCallback } from "react"
 import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import { todayString } from "@shared/lib"
-import { calculateDayType } from "@/app/lib/schedule"
+import { calculateDayType, DEFAULT_FIXED_WEEKLY_WEEKDAYS } from "@/app/lib/schedule"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Schedules, ScheduleType, TermSchedule, DaySchedule, AlternatingABDayType, AcademicTerm, NoSchoolPeriod, AlternatingABRotationConfig } from "@/app/types"
 
@@ -11,6 +11,9 @@ const DEFAULT_SCHEDULES: Schedules = {
         terms: {}
     },
     "semester": {
+        terms: {}
+    },
+    "fixed-weekly": {
         terms: {}
     }
 }
@@ -30,6 +33,7 @@ export const createEmptyDay = (
  * Build an empty `TermSchedule` for the given schedule format.
  * - alternating-ab: Fall + Spring, each with [A, B] day rows.
  * - semester:       Fall + Spring, each with a single "Daily" row.
+ * - fixed-weekly:   Fall + Spring, columns Mon–Fri, independent of `periodCount`
  */
 export const createEmptyTermSchedule = (
     scheduleType: ScheduleType,
@@ -40,6 +44,16 @@ export const createEmptyTermSchedule = (
             periodCount,
             Fall: { days: [createEmptyDay("A", periodCount), createEmptyDay("B", periodCount)] },
             Spring: { days: [createEmptyDay("A", periodCount), createEmptyDay("B", periodCount)] }
+        }
+    }
+    if (scheduleType === "fixed-weekly") {
+        const rowCount = Math.max(1, periodCount)
+        const list = DEFAULT_FIXED_WEEKLY_WEEKDAYS
+        const days = list.map(w => createEmptyDay(w, rowCount))
+        return {
+            periodCount: rowCount,
+            Fall: { days },
+            Spring: { days: days.map(d => ({ ...d, classes: [...d.classes] })) }
         }
     }
     return {
@@ -76,6 +90,16 @@ const writeTermInto = (
             }
         }
     }
+    if (scheduleType === "fixed-weekly") {
+        const block = prev["fixed-weekly"] ?? { terms: {} }
+        return {
+            ...prev,
+            "fixed-weekly": {
+                ...block,
+                terms: { ...block.terms, [termId]: newTermSchedule }
+            }
+        }
+    }
     const block = prev["semester"] ?? { terms: {} }
     return {
         ...prev,
@@ -91,7 +115,17 @@ const writeTermInto = (
  * Manages the schedule type, A/B day configuration, and per-term schedules.
  */
 export const useSchedules = () => {
-    const [schedules, setSchedules] = useFirestoreDoc<Schedules>(FIRESTORE_KEYS.SCHEDULES, DEFAULT_SCHEDULES)
+    const [schedules, setSchedulesRaw] = useFirestoreDoc<Schedules>(FIRESTORE_KEYS.SCHEDULES, DEFAULT_SCHEDULES)
+
+    const setSchedules = useCallback((
+        valueOrUpdater: Schedules | ((prev: Schedules) => Schedules)
+    ) => {
+        return setSchedulesRaw((prev: Schedules) =>
+            typeof valueOrUpdater === "function"
+                ? (valueOrUpdater as (p: Schedules) => Schedules)(prev)
+                : valueOrUpdater
+        )
+    }, [setSchedulesRaw])
 
     // Actions
     const updateTermSchedule = useCallback((

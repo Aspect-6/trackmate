@@ -39,7 +39,7 @@ const PeriodCountDropdown: React.FC<ScheduleSettings.Content.PeriodCountDropdown
         }
 
         setPeriodCount(next)
-        if (activeTermId && existingTermSchedule) {
+        if (activeTermId && existingTermSchedule && scheduleType !== "fixed-weekly") {
             resetTermSchedule(activeTermId, next, scheduleType)
         }
     }

@@ -28,6 +28,8 @@ export namespace AlternatingDaysSchedule {
             export interface EmptyCellProps {
                 isLastRow: boolean
                 onClick: () => void
+                showColumnDivider?: boolean
+                trailingOverlay?: React.ReactNode
             }
 
             export namespace FilledCell {
@@ -35,6 +37,8 @@ export namespace AlternatingDaysSchedule {
                     isLastRow: boolean
                     classData: Class
                     onRemove: () => void
+                    showColumnDivider?: boolean
+                    trailingOverlay?: React.ReactNode
                 }
 
                 export interface ClassNameProps {
@@ -70,6 +74,45 @@ export namespace SemesterSchedule {
                 isLastRow: boolean
                 semester: SemesterName
                 children: React.ReactNode
+            }
+        }
+    }
+}
+
+export namespace FixedWeeklySchedule {
+    export interface Props {
+        title: string
+        children: React.ReactNode
+    }
+
+    export namespace ScheduleTable {
+        export interface Props {
+            children: React.ReactNode
+        }
+
+        export namespace Row {
+            export interface Props {
+                children: React.ReactNode
+            }
+        }
+
+        export namespace FooterRow {
+            export interface Props {
+                onAddRow: () => void
+                onRemoveLastRow: () => void
+                showRemoveLastRow: boolean
+            }
+        }
+
+        export namespace AddRowButton {
+            export interface Props {
+                onClick: () => void
+            }
+        }
+
+        export namespace RemoveLastRowButton {
+            export interface Props {
+                onClick: () => void
             }
         }
     }
