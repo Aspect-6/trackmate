@@ -1,26 +1,44 @@
 import React from "react"
-import { useAcademicTerms } from "@/app/hooks/entities"
+import { useAcademicTerms, useClasses } from "@/app/hooks/entities"
+import { useModal } from "@/app/contexts/ModalContext"
 import { todayString } from "@shared/lib"
 import { getActiveTerm } from "@/app/lib/schedule"
 import type { ScheduleSettings } from "@/pages/Settings/types"
 import type { ScheduleType } from "@/app/types"
+import type { ClassMigrationModalData } from "@/app/components/modals/ClassMigrationModal"
 import { GLOBAL } from "@/app/styles/colors"
 
 const ScheduleTypeDropdown: React.FC<ScheduleSettings.Content.ScheduleTypeDropdown.Props> = ({ className, children }) => {
     const { academicTerms, updateAcademicTerm } = useAcademicTerms()
+    const { classes } = useClasses()
+    const { openModal } = useModal()
 
     const today = todayString()
     const activeTerm = getActiveTerm(today, academicTerms)
     const currentType: ScheduleType = activeTerm?.scheduleType ?? "alternating-ab"
 
-    // Each schedule format is stored under its own top-level key on the
-    // schedules doc, so switching formats just changes which block the
-    // renderer reads from — no existing data is lost. If the user switches
-    // back later, their previous layout is still there.
+    // Switch schedule formats without erasing each one's data
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         if (!activeTerm) return
         const next = e.target.value as ScheduleType
         if (next === currentType) return
+
+        // When switching away from alternating-ab, check for year-long classes to turn into semester ones
+        if (currentType === "alternating-ab" && next !== "alternating-ab") {
+            const orphanedClasses = classes.filter(c => {
+                return c.termId === activeTerm.id && !c.semesterId
+            })
+
+            if (orphanedClasses.length > 0) {
+                openModal("class-migration", {
+                    orphanedClasses,
+                    semesters: activeTerm.semesters,
+                    onConfirm: () => updateAcademicTerm(activeTerm.id, { scheduleType: next }),
+                } as ClassMigrationModalData)
+                return
+            }
+        }
+
         updateAcademicTerm(activeTerm.id, { scheduleType: next })
     }
 

@@ -8,6 +8,7 @@ import { NoSchoolFormModal } from "@/app/components/modals/NoSchoolFormModal"
 import { TermFormModal } from "@/app/components/modals/TermFormModal"
 import { DeleteConfirmationModal } from "@/app/components/modals/DeleteConfirmationModal"
 import { ClassSelectorModal } from "@/app/components/modals/ClassSelectorModal"
+import { ClassMigrationModal } from "@/app/components/modals/ClassMigrationModal"
 import { TypeSelectorModal } from "@/app/components/modals/TypeSelectorModal"
 import { KindChooserModal } from "@/app/components/modals/KindChooserModal"
 import { GLOBAL } from "@/app/styles/colors"
@@ -103,6 +104,10 @@ const ModalManager: React.FC = () => {
             // Schedule cell selector
             case "class-selector":
                 return <ClassSelectorModal onClose={closeModal} data={modalData} />
+
+            // Schedule type migration
+            case "class-migration":
+                return <ClassMigrationModal onClose={closeModal} data={modalData} />
 
             default:
                 return null

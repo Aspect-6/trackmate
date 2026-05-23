@@ -34,7 +34,7 @@ export const ClassSelectorModal: React.FC<ClassSelectorModalProps> = ({ onClose,
         if (classData.termId !== termId) return false
         
         if (scheduleType === "alternating-ab") return true
-        return classData.semesterId === matchingSemester?.id
+        return classData.semesterId === matchingSemester?.id || !classData.semesterId
     })
 
     const renderEmptyStateText = () => {
