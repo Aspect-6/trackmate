@@ -1,5 +1,5 @@
 import { parseDateLocal, dateToLocalISOString } from "@shared/lib"
-import type { Schedules, AlternatingABDayType, AcademicTerm, NoSchoolPeriod, Weekday } from "@/app/types"
+import type { Schedules, ScheduleType, AlternatingABDayType, AcademicTerm, NoSchoolPeriod, Weekday } from "@/app/types"
 
 export const DEFAULT_FIXED_WEEKLY_WEEKDAYS: Weekday[] = [
     "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
@@ -46,6 +46,10 @@ export const getActiveQuarter = (dateString: string, activeTerm: AcademicTerm) =
         .find(quarter => isWithinPeriod(date, quarter))
 }
 
+export const isAlternatingAB = (type: ScheduleType | undefined): boolean => {
+    return type === "alternating-ab" || type === "alternating-ab-semester"
+}
+
 /**
  * Calculates the A/B day type for a given date string.
  * Pure function independent of React hooks.
@@ -66,9 +70,9 @@ export const calculateDayType = (
 
     // Use the term's schedule type
     const termScheduleType = activeTerm.scheduleType
-    if (termScheduleType !== "alternating-ab") return null
+    if (!isAlternatingAB(termScheduleType)) return null
 
-    const abData = schedules["alternating-ab"]
+    const abData = schedules[termScheduleType as "alternating-ab" | "alternating-ab-semester"]
     if (!abData) return null
 
     if (isWeekend(dateString)) return null

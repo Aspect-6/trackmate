@@ -69,11 +69,11 @@ import DangerZoneSettings, {
 // App info footer import
 import AppInfoFooter from "@/pages/Settings/components/AppInfoFooter"
 // Other imports
-import { Sun, Moon, Download } from "lucide-react"
-import { todayString, formatDate } from "@shared/lib"
-import { SETTINGS } from "@/app/styles/colors"
-import { db, auth } from "@shared/lib/firebase"
 import { collection, getDocs } from "firebase/firestore"
+import { todayString, formatDate, db, auth } from "@shared/lib"
+import { isAlternatingAB } from "@/app/lib/schedule"
+import { Sun, Moon, Download } from "lucide-react"
+import { SETTINGS } from "@/app/styles/colors"
 import "./index.css"
 
 const Settings: React.FC = () => {
@@ -93,7 +93,7 @@ const Settings: React.FC = () => {
     const activeTermForToday = getActiveTermForDate(today)
     const currentDayType = getDayTypeForDate(today, activeTermForToday, noSchoolPeriods)
     const activeScheduleType = activeTermForToday?.scheduleType
-    const showAlternatingABScheduleSettings = activeScheduleType === "alternating-ab"
+    const showAlternatingABScheduleSettings = isAlternatingAB(activeScheduleType)
     const showPeriodCountSettings = activeScheduleType !== "fixed-weekly"
 
     const {
@@ -247,6 +247,7 @@ const Settings: React.FC = () => {
                 </BaseModuleDescription>
                 <ScheduleTypeDropdown className={showAlternatingABScheduleSettings || showPeriodCountSettings ? "mb-10" : undefined}>
                     <ScheduleTypeDropdownOption value="alternating-ab">Alternating A/B Days</ScheduleTypeDropdownOption>
+                    <ScheduleTypeDropdownOption value="alternating-ab-semester">Alternating A/B Days + Semester</ScheduleTypeDropdownOption>
                     <ScheduleTypeDropdownOption value="semester">Semester</ScheduleTypeDropdownOption>
                     <ScheduleTypeDropdownOption value="fixed-weekly">Fixed Weekly</ScheduleTypeDropdownOption>
                 </ScheduleTypeDropdown>
@@ -261,10 +262,10 @@ const Settings: React.FC = () => {
                             <CurrentDayCalculation currentDayType={currentDayType || ""} />
 
                             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mb-10">
-                                <SetDayTypeButton dayType="A" onClick={() => setReferenceDayType("A", activeTermForToday?.id || "")}>
+                                <SetDayTypeButton dayType="A" onClick={() => setReferenceDayType("A", activeTermForToday?.id || "", activeScheduleType!)}>
                                     Set Today as A-Day
                                 </SetDayTypeButton>
-                                <SetDayTypeButton dayType="B" onClick={() => setReferenceDayType("B", activeTermForToday?.id || "")}>
+                                <SetDayTypeButton dayType="B" onClick={() => setReferenceDayType("B", activeTermForToday?.id || "", activeScheduleType!)}>
                                     Set Today as B-Day
                                 </SetDayTypeButton>
                             </div>

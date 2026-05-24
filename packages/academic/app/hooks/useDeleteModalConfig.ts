@@ -5,7 +5,7 @@ import { useDangerZone } from "@/pages/Settings/hooks/useDangerZone"
 import type { ScheduleType } from "@/app/types"
 
 const isScheduleType = (v: unknown): v is ScheduleType =>
-    v === "alternating-ab" || v === "semester" || v === "fixed-weekly"
+    v === "alternating-ab" || v === "alternating-ab-semester" || v === "semester" || v === "fixed-weekly"
 
 export interface DeleteModalConfig {
     title: string
@@ -18,7 +18,7 @@ export interface DeleteModalConfig {
 
 export const useDeleteModalConfig = (activeModal: string | null, modalData: any): DeleteModalConfig | null => {
     const { assignments, deleteAssignment } = useAssignments()
-    const { classes, deleteClass, updateClass } = useClasses()
+    const { classes, deleteClass, updateClasses } = useClasses()
     const { events, deleteEvent } = useEvents()
     const { noSchoolPeriods: noSchool, deleteNoSchool } = useNoSchool()
     const { academicTerms, deleteAcademicTerm } = useAcademicTerms()
@@ -59,7 +59,7 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
         const activeTermId = typeof modalData?.activeTermId === "string" ? modalData.activeTermId : ""
         const scheduleType: ScheduleType = isScheduleType(modalData?.scheduleType)
             ? modalData.scheduleType
-            : "alternating-ab"
+            : "semester"
         if (!Number.isFinite(newPeriodCount) || !activeTermId) return null
 
         return {
@@ -117,9 +117,15 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
             getName: i => i.name,
             action: (id: string) => {
                 // Cascade: unassign classes from this term before deleting
-                classes
-                    .filter(c => c.termId === id)
-                    .forEach(c => updateClass(c.id, { termId: undefined, semesterId: undefined }))
+                const classesToUpdate = classes.filter(c => c.termId === id)
+                if (classesToUpdate.length > 0) {
+                    updateClasses(
+                        classesToUpdate.map(c => ({
+                            id: c.id,
+                            updates: { termId: undefined, semesterId: undefined },
+                        }))
+                    )
+                }
                 deleteAcademicTerm(id)
             },
             label: "Academic Term",

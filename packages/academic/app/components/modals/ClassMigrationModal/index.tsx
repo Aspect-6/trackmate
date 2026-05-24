@@ -27,7 +27,7 @@ interface ClassMigrationModalProps {
 }
 
 export const ClassMigrationModal: React.FC<ClassMigrationModalProps> = ({ onClose, data }) => {
-    const { updateClass } = useClasses()
+    const { updateClasses } = useClasses()
     const { orphanedClasses, semesters, onConfirm } = data
 
     const fallSemester = semesters.find(s => s.name === "Fall")
@@ -46,12 +46,16 @@ export const ClassMigrationModal: React.FC<ClassMigrationModalProps> = ({ onClos
     }
 
     const handleConfirm = () => {
+        const updates: { id: string; updates: Partial<Class> }[] = []
         for (const classItem of orphanedClasses) {
             const chosen = assignments[classItem.id]
             const semester = chosen === "Fall" ? fallSemester : springSemester
             if (semester) {
-                updateClass(classItem.id, { semesterId: semester.id })
+                updates.push({ id: classItem.id, updates: { semesterId: semester.id } })
             }
+        }
+        if (updates.length > 0) {
+            updateClasses(updates)
         }
         onConfirm()
         onClose()

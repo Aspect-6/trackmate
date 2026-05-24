@@ -54,14 +54,19 @@ service cloud.firestore {
 					&& d.periodCount >= 1
 					&& d.periodCount <= 8
 				: docId == "schedules"
-				? d.keys().hasOnly(["alternating-ab", "semester", "fixed-weekly"])
-					&& d.keys().hasAll(["alternating-ab", "semester", "fixed-weekly"])
-					&& d["alternating-ab"] is map
-					&& d["alternating-ab"].keys().hasOnly(["termConfigs", "terms"])
-					&& d["alternating-ab"].keys().hasAll(["termConfigs", "terms"])
-					&& d["alternating-ab"].termConfigs is map
-					&& d["alternating-ab"].terms is map
-					&& d["semester"] is map
+				? d.keys().hasOnly(["alternating-ab", "alternating-ab-semester", "semester", "fixed-weekly"])
+				&& d.keys().hasAll(["alternating-ab", "alternating-ab-semester", "semester", "fixed-weekly"])
+				&& d["alternating-ab"] is map
+				&& d["alternating-ab"].keys().hasOnly(["termConfigs", "terms"])
+				&& d["alternating-ab"].keys().hasAll(["termConfigs", "terms"])
+				&& d["alternating-ab"].termConfigs is map
+				&& d["alternating-ab"].terms is map
+				&& d["alternating-ab-semester"] is map
+				&& d["alternating-ab-semester"].keys().hasOnly(["termConfigs", "terms"])
+				&& d["alternating-ab-semester"].keys().hasAll(["termConfigs", "terms"])
+				&& d["alternating-ab-semester"].termConfigs is map
+				&& d["alternating-ab-semester"].terms is map
+				&& d["semester"] is map
 					&& d["semester"].keys().hasOnly(["terms"])
 					&& d["semester"].keys().hasAll(["terms"])
 					&& d["semester"].terms is map

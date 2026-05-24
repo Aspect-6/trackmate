@@ -277,6 +277,10 @@
 				}
 			}
 		},
+		"alternating-ab-semester": {
+			"termConfigs": {},
+			"terms": {}
+		},
 		"semester": {
 			"terms": {}
 		},

@@ -16,6 +16,10 @@ const validSchedules = {
         termConfigs: {},
         terms: {},
     },
+    "alternating-ab-semester": {
+        termConfigs: {},
+        terms: {},
+    },
     "semester": {
         terms: {},
     },
@@ -255,6 +259,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: {}, terms: {} },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "fixed-weekly": { terms: {} },
                 })
             )
@@ -269,6 +274,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: {}, terms: {} },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": { terms: {} },
                 })
             )
@@ -294,6 +300,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: "foo", terms: {} },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": { terms: {} },
                     "fixed-weekly": { terms: {} },
                 })
@@ -309,6 +316,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: {}, terms: "foo" },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": { terms: {} },
                     "fixed-weekly": { terms: {} },
                 })
@@ -433,6 +441,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: {}, terms: {}, foo: "bar" },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": { terms: {} },
                     "fixed-weekly": { terms: {} },
                 })
@@ -447,6 +456,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": "string-instead-of-map",
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": { terms: {} },
                     "fixed-weekly": { terms: {} },
                 })
@@ -461,6 +471,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { terms: {} },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": { terms: {} },
                     "fixed-weekly": { terms: {} },
                 })
@@ -475,6 +486,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: {} },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": { terms: {} },
                     "fixed-weekly": { terms: {} },
                 })
@@ -491,6 +503,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: {}, terms: {} },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": { terms: {}, foo: "bar" },
                     "fixed-weekly": { terms: {} },
                 })
@@ -505,6 +518,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: {}, terms: {} },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": "string-instead-of-map",
                     "fixed-weekly": { terms: {} },
                 })
@@ -519,6 +533,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: {}, terms: {} },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": {},
                     "fixed-weekly": { terms: {} },
                 })
@@ -533,6 +548,7 @@ describe("Data Validation (hasValidShape)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: {}, terms: {} },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": { terms: "foo" },
                     "fixed-weekly": { terms: {} },
                 })

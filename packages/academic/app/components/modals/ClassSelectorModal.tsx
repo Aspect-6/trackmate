@@ -1,5 +1,6 @@
 import React from "react"
 import { useAcademicTerms, useClasses } from "@/app/hooks/entities"
+import { isAlternatingAB } from "@/app/lib/schedule"
 import type { SemesterName } from "@/pages/My Schedule/types"
 import { BookOpen, Calendar } from "lucide-react"
 import { ModalContainer, ModalHeader, ModalFooter, ModalCancelButton } from "@shared/components/modal"
@@ -8,7 +9,7 @@ import { GLOBAL, MODALS } from "@/app/styles/colors"
 interface ClassSelectorModalProps {
     onClose: () => void
     data: {
-        scheduleType: "alternating-ab" | "fixed-weekly" | "semester"
+        scheduleType: "alternating-ab" | "alternating-ab-semester" | "fixed-weekly" | "semester"
         semester: SemesterName
         periodIndex: number
         termId: string | null
@@ -33,12 +34,19 @@ export const ClassSelectorModal: React.FC<ClassSelectorModalProps> = ({ onClose,
     const availableClasses = classes.filter(classData => {
         if (classData.termId !== termId) return false
         
-        if (scheduleType === "alternating-ab") return true
+        // Year-long only AB: show only year-long classes
+        if (scheduleType === "alternating-ab") return !classData.semesterId
+        // Mixed AB: show all classes for this term
+        if (scheduleType === "alternating-ab-semester") return true
+        // Semester / Fixed Weekly: show matching semester + year-long
         return classData.semesterId === matchingSemester?.id || !classData.semesterId
     })
 
     const renderEmptyStateText = () => {
         if (scheduleType === "alternating-ab") {
+            return "Add year-long classes to this term to see them here"
+        }
+        if (scheduleType === "alternating-ab-semester") {
             return "Add classes to this term to see them here"
         }
         return `Add a ${semester} class to this term to see it here`
@@ -61,7 +69,7 @@ export const ClassSelectorModal: React.FC<ClassSelectorModalProps> = ({ onClose,
                     >
                         <Calendar size={14} className="opacity-60" />
                         <span>
-                            {scheduleType === "alternating-ab" ? `${semester} Semester` : 
+                            {isAlternatingAB(scheduleType) ? `${semester} Semester` : 
                              scheduleType === "fixed-weekly" ? `${semester} • ${dayLabel}` :
                              `${semester} Semester`}
                         </span>
@@ -75,7 +83,7 @@ export const ClassSelectorModal: React.FC<ClassSelectorModalProps> = ({ onClose,
                         }}
                     >
                         <span>
-                            {scheduleType === "alternating-ab" ? `${dayLabel} • Period ${periodIndex + 1}` : 
+                            {isAlternatingAB(scheduleType) ? `${dayLabel} • Period ${periodIndex + 1}` : 
                              `Period ${periodIndex + 1}`}
                         </span>
                     </div>
@@ -115,7 +123,7 @@ export const ClassSelectorModal: React.FC<ClassSelectorModalProps> = ({ onClose,
                                     </div>
                                     <div className="text-sm flex items-center gap-2 opacity-80" style={{ color: GLOBAL.TEXT_SECONDARY }}>
                                         <span className="font-medium opacity-75" style={{ color: GLOBAL.TEXT_PRIMARY }}>
-                                            {scheduleType === "alternating-ab" 
+                                            {isAlternatingAB(scheduleType)
                                                 ? (classData.semesterId ? "Semester" : "Year-long")
                                                 : `${semester} Semester`}
                                         </span>

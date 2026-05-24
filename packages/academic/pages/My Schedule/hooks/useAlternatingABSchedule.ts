@@ -3,7 +3,7 @@ import { useModal } from "@/app/contexts/ModalContext"
 import { useClasses, useSchedules } from "@/app/hooks/entities"
 import { createEmptyTermSchedule } from "@/app/hooks/entities/useSchedules"
 import { useSettings } from "@/app/hooks/useSettings"
-import type { TermSchedule, SemesterScheduleData, DaySchedule } from "@/app/types"
+import type { ScheduleType, TermSchedule, SemesterScheduleData, DaySchedule } from "@/app/types"
 import type { SemesterName, ScheduleDayType } from "@/pages/My Schedule/types"
 
 // Helpers
@@ -26,16 +26,17 @@ const findDayByLabel = (semester: SemesterScheduleData, label: string): DaySched
  * Hook for alternating A/B schedule operations.
  * Provides schedule data access and cell manipulation functions.
  */
-export const useAlternatingABSchedule = (selectedTermId: string | null) => {
+export const useAlternatingABSchedule = (selectedTermId: string | null, scheduleType: ScheduleType) => {
     const { schedules, updateTermSchedule } = useSchedules()
     const { periodCount: settingsPeriodCount } = useSettings()
     const { openModal } = useModal()
     const { getClassById } = useClasses()
 
-    const terms = schedules["alternating-ab"]?.terms || {}
+    const storageKey = scheduleType as "alternating-ab" | "alternating-ab-semester"
+    const terms = schedules[storageKey]?.terms || {}
     const emptyFallback = useMemo(() => {
-        return createEmptyTermSchedule("alternating-ab", settingsPeriodCount)
-    }, [settingsPeriodCount])
+        return createEmptyTermSchedule(scheduleType, settingsPeriodCount)
+    }, [scheduleType, settingsPeriodCount])
     const currentSchedule = getScheduleForTerm(terms, selectedTermId, emptyFallback)
 
     const getScheduleForSemester = (semester: SemesterName): SemesterScheduleData => currentSchedule[semester]
@@ -70,12 +71,12 @@ export const useAlternatingABSchedule = (selectedTermId: string | null) => {
             [semester]: { days: newDays }
         }
 
-        updateTermSchedule(selectedTermId, newSchedule, "alternating-ab")
+        updateTermSchedule(selectedTermId, newSchedule, scheduleType)
     }
 
     const handleCellClick = (semester: SemesterName, dayType: ScheduleDayType, periodIndex: number) => {
         openModal("class-selector", {
-            scheduleType: "alternating-ab",
+            scheduleType,
             semester,
             periodIndex,
             termId: selectedTermId,

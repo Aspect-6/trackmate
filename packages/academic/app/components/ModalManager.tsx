@@ -9,6 +9,7 @@ import { TermFormModal } from "@/app/components/modals/TermFormModal"
 import { DeleteConfirmationModal } from "@/app/components/modals/DeleteConfirmationModal"
 import { ClassSelectorModal } from "@/app/components/modals/ClassSelectorModal"
 import { ClassMigrationModal } from "@/app/components/modals/ClassMigrationModal"
+import { ClassYearlongMigrationModal } from "@/app/components/modals/ClassYearlongMigrationModal"
 import { TypeSelectorModal } from "@/app/components/modals/TypeSelectorModal"
 import { KindChooserModal } from "@/app/components/modals/KindChooserModal"
 import { GLOBAL } from "@/app/styles/colors"
@@ -108,6 +109,8 @@ const ModalManager: React.FC = () => {
             // Schedule type migration
             case "class-migration":
                 return <ClassMigrationModal onClose={closeModal} data={modalData} />
+            case "class-yearlong-migration":
+                return <ClassYearlongMigrationModal onClose={closeModal} data={modalData} />
 
             default:
                 return null

@@ -18,7 +18,7 @@ const AlternatingABRenderer: React.FC<ScheduleRendererProps> = ({ selectedTermId
         handleCellClick,
         handleRemove,
         getClassById
-    } = useAlternatingABSchedule(selectedTermId)
+    } = useAlternatingABSchedule(selectedTermId, "alternating-ab-semester")
     const { periodCount: settingsPeriodCount } = useSettings()
 
     const renderScheduleTable = (semester: SemesterName) => {

@@ -3,6 +3,7 @@ import { X } from "lucide-react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { dateToLocalISOString } from "@shared/lib/date"
+import { isAlternatingAB } from "@/app/lib/schedule"
 import { useClassIdsForDate } from "@/app/hooks/schedules/useClassIdsForDate"
 import { useClasses } from "@/app/hooks/entities"
 import { useSelectedDate } from "./hooks/useSelectedDate"
@@ -222,7 +223,7 @@ const Calendar: React.FC = () => {
                             <CalendarSidePanelBody>
                                 <DayType noSchoolDay={sidePanelData?.noSchoolDay || undefined} dayType={sidePanelData?.dayType || null} onNoSchoolClick={openEditNoSchool}>
                                     <NoSchoolInfo noSchoolDay={sidePanelData?.noSchoolDay || undefined} />
-                                    {sidePanelData?.scheduleType === "alternating-ab" && (
+                                    {isAlternatingAB(sidePanelData?.scheduleType) && (
                                         <DayTypeDisplay dayType={sidePanelData?.dayType || null} />
                                     )}
                                 </DayType>

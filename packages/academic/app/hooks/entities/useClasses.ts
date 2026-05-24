@@ -60,6 +60,16 @@ export const useClasses = () => {
         setClasses(prev => prev.map(c => c.id === id ? { ...c, ...updates } : c))
     }, [setClasses])
 
+    const updateClasses = useCallback((updates: { id: string; updates: Partial<Class> }[]): void => {
+        setClasses(prev => {
+            const updatesMap = new Map(updates.map(update => [update.id, update.updates]))
+            return prev.map(classItem => {
+                const update = updatesMap.get(classItem.id)
+                return update ? { ...classItem, ...update } : classItem
+            })
+        })
+    }, [setClasses])
+
     const deleteClass = useCallback((id: string): void => {
         setClasses(prev => prev.filter(c => c.id !== id))
     }, [setClasses])
@@ -87,6 +97,7 @@ export const useClasses = () => {
         // Actions
         addClass,
         updateClass,
+        updateClasses,
         deleteClass,
         reorderClasses
     }

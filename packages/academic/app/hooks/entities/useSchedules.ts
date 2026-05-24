@@ -1,12 +1,16 @@
 import { useCallback } from "react"
 import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import { todayString } from "@shared/lib"
-import { calculateDayType, DEFAULT_FIXED_WEEKLY_WEEKDAYS } from "@/app/lib/schedule"
+import { calculateDayType, isAlternatingAB, DEFAULT_FIXED_WEEKLY_WEEKDAYS } from "@/app/lib/schedule"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Schedules, ScheduleType, TermSchedule, DaySchedule, AlternatingABDayType, AcademicTerm, NoSchoolPeriod, AlternatingABRotationConfig } from "@/app/types"
 
 const DEFAULT_SCHEDULES: Schedules = {
     "alternating-ab": {
+        termConfigs: {},
+        terms: {}
+    },
+    "alternating-ab-semester": {
         termConfigs: {},
         terms: {}
     },
@@ -39,7 +43,7 @@ export const createEmptyTermSchedule = (
     scheduleType: ScheduleType,
     periodCount: number
 ): TermSchedule => {
-    if (scheduleType === "alternating-ab") {
+    if (isAlternatingAB(scheduleType)) {
         return {
             periodCount,
             Fall: { days: [createEmptyDay("A", periodCount), createEmptyDay("B", periodCount)] },
@@ -80,11 +84,12 @@ const writeTermInto = (
     termId: string,
     newTermSchedule: TermSchedule
 ): Schedules => {
-    if (scheduleType === "alternating-ab") {
-        const block = prev["alternating-ab"] ?? { termConfigs: {}, terms: {} }
+    if (isAlternatingAB(scheduleType)) {
+        const key = scheduleType as "alternating-ab" | "alternating-ab-semester"
+        const block = prev[key] ?? { termConfigs: {}, terms: {} }
         return {
             ...prev,
-            "alternating-ab": {
+            [key]: {
                 ...block,
                 terms: { ...block.terms, [termId]: newTermSchedule }
             }
@@ -160,16 +165,17 @@ export const useSchedules = () => {
      * Sets or overrides the day type for today within a specific term's config.
      * If the term has no existing config, one is initialized.
      */
-    const setReferenceDayType = useCallback((type: NonNullable<AlternatingABDayType>, activeTermId: string): void => {
-        if (!activeTermId) return
+    const setReferenceDayType = useCallback((type: NonNullable<AlternatingABDayType>, activeTermId: string, scheduleType: ScheduleType): void => {
+        if (!activeTermId || !isAlternatingAB(scheduleType)) return
         const today = todayString()
+        const key = scheduleType as "alternating-ab" | "alternating-ab-semester"
         setSchedules(prev => {
-            const abData = prev["alternating-ab"]
+            const abData = prev[key]
             if (!abData) return prev
             const existingConfig = abData.termConfigs[activeTermId] || { startDayType: type, overrides: {} }
             return {
                 ...prev,
-                "alternating-ab": {
+                [key]: {
                     ...abData,
                     termConfigs: {
                         ...abData.termConfigs,
@@ -189,8 +195,9 @@ export const useSchedules = () => {
     /**
      * Gets the rotation config for a specific term.
      */
-    const getTermRotationConfig = useCallback((termId: string): AlternatingABRotationConfig | undefined => {
-        const abData = schedules["alternating-ab"]
+    const getTermRotationConfig = useCallback((termId: string, scheduleType: ScheduleType): AlternatingABRotationConfig | undefined => {
+        if (!isAlternatingAB(scheduleType)) return undefined
+        const abData = schedules[scheduleType as "alternating-ab" | "alternating-ab-semester"]
         if (!abData) return undefined
         return abData.termConfigs[termId]
     }, [schedules])

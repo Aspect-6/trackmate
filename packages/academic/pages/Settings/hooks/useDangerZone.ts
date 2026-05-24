@@ -22,6 +22,10 @@ const DEFAULT_SCHEDULES = {
         termConfigs: {},
         terms: {}
     },
+    "alternating-ab-semester": {
+        termConfigs: {},
+        terms: {}
+    },
     "semester": {
         terms: {}
     },

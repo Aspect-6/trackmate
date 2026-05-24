@@ -7,9 +7,11 @@ import type { ScheduleType } from "@/app/types"
 // related to the My Schedule page. It's an acceptable exception to the
 // app/pages rule.
 import AlternatingABRenderer from "@/pages/My Schedule/components/scheduleRenderers/AlternatingAB"
+import AlternatingABYearLongRenderer from "@/pages/My Schedule/components/scheduleRenderers/AlternatingABYearLong"
 import SemesterRenderer from "@/pages/My Schedule/components/scheduleRenderers/Semester"
 import FixedWeeklyRenderer from "@/pages/My Schedule/components/scheduleRenderers/FixedWeekly"
 import AlternatingABClassFormSettingsTab from "@/app/components/scheduleComponents/AlternatingABClassFormSettingsTab"
+import AlternatingABYearLongClassFormSettingsTab from "@/app/components/scheduleComponents/AlternatingABYearLongClassFormSettingsTab"
 import SemesterClassFormSettingsTab from "@/app/components/scheduleComponents/SemesterClassFormSettingsTab"
 import FixedWeeklyClassFormSettingsTab from "@/app/components/scheduleComponents/FixedWeeklyClassFormSettingsTab"
 
@@ -39,6 +41,10 @@ export interface ScheduleComponents {
 
 const COMPONENTS_BY_TYPE: Record<ScheduleType, ScheduleComponents> = {
     "alternating-ab": {
+        ScheduleRenderer: AlternatingABYearLongRenderer,
+        ClassFormScheduleTab: AlternatingABYearLongClassFormSettingsTab,
+    },
+    "alternating-ab-semester": {
         ScheduleRenderer: AlternatingABRenderer,
         ClassFormScheduleTab: AlternatingABClassFormSettingsTab,
     },
@@ -98,6 +104,6 @@ export const useScheduleComponentsForTerm = (termId: string | null | undefined):
     const { getComponentsForType } = useScheduleComponentsContext()
     const { academicTerms } = useAcademicTerms()
     const term = termId ? academicTerms.find(t => t.id === termId) : undefined
-    const type: ScheduleType = term?.scheduleType ?? "alternating-ab"
+    const type: ScheduleType = term?.scheduleType ?? "semester"
     return getComponentsForType(type)
 }

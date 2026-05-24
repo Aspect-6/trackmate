@@ -21,7 +21,7 @@ const PeriodCountDropdown: React.FC<ScheduleSettings.Content.PeriodCountDropdown
         if (!Number.isFinite(next) || next === periodCount) return
 
         const activeTermId = activeTerm?.id
-        const scheduleType: ScheduleType = activeTerm?.scheduleType ?? "alternating-ab"
+        const scheduleType: ScheduleType = activeTerm?.scheduleType ?? "semester"
         const existingTermSchedule = activeTermId
             ? schedules[scheduleType]?.terms?.[activeTermId]
             : undefined

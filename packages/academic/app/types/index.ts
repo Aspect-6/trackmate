@@ -150,7 +150,7 @@ export type Weekday =
 /**
  * Available schedule rotation types.
  */
-export type ScheduleType = "alternating-ab" | "semester" | "fixed-weekly"
+export type ScheduleType = "alternating-ab" | "alternating-ab-semester" | "semester" | "fixed-weekly"
 
 /**
  * Represents the type of school day in the schedule rotation.
@@ -211,6 +211,8 @@ export interface FixedWeeklyData {
 export interface Schedules {
     /** A/B schedule data (present when any term has type "alternating-ab") */
     "alternating-ab"?: AlternatingABData
+    /** A/B + semester schedule data (present when any term has type "alternating-ab-semester") */
+    "alternating-ab-semester"?: AlternatingABData
     /** Semester schedule data (present when any term has type "semester") */
     "semester"?: SemesterData
     /** Fixed weekly schedule data (present when any term has type "fixed-weekly") */

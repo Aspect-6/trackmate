@@ -147,6 +147,7 @@ describe("Core Security (Ownership & Verification)", () => {
             await assertSucceeds(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/schedules`), {
                     "alternating-ab": { termConfigs: {}, terms: {} },
+                    "alternating-ab-semester": { termConfigs: {}, terms: {} },
                     "semester": { terms: {} },
                     "fixed-weekly": { terms: {} },
                 })

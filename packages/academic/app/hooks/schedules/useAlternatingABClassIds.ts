@@ -27,7 +27,8 @@ export const useAlternatingABClassIds = (date: string) => {
     if (!semester) return { classIds: [] }
 
     // Get the schedule data for this term
-    const termSchedule = schedules["alternating-ab"]?.terms[activeTerm.id]
+    const storageKey = activeTerm.scheduleType === "alternating-ab-semester" ? "alternating-ab-semester" : "alternating-ab"
+    const termSchedule = schedules[storageKey]?.terms[activeTerm.id]
     if (!termSchedule) return { classIds: [] }
 
     const semesterData = termSchedule[semester]
