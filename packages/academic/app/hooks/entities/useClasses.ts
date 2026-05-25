@@ -14,10 +14,9 @@ export const useClasses = () => {
     const { showToast } = useToast()
 
     // Sort classes by order field
-    const classes = useMemo(() => 
-        [...rawClasses].sort((a, b) => a.order - b.order),
-        [rawClasses]
-    )
+    const classes = useMemo(() => {
+        return [...rawClasses].sort((a, b) => a.order - b.order)
+    }, [rawClasses])
 
     // Counts
     const totalNum = classes.length
