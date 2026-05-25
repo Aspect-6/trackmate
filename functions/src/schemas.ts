@@ -38,6 +38,7 @@ export const ClassSchema = z.object({
 	termId: z.string().nullable().optional(),
 	semesterId: z.string().nullable().optional(),
 	classDayType: z.enum(["A", "B"]).optional(),
+	isArchived: z.boolean(),
 }).strict()
 
 // ── Event ───────────────────────────────────────────────────────────────
@@ -88,6 +89,7 @@ export const AcademicTermSchema = z.object({
 	termType: z.enum(["Semesters Only", "Semesters With Quarters"]),
 	scheduleType: z.enum(["alternating-ab", "alternating-ab-semester", "semester", "fixed-weekly"]),
 	semesters: z.array(SemesterSchema),
+	hasAutoArchived: z.boolean(),
 }).strict()
 
 // ── Document to Schema mapping ───────────────────────────────────────────

@@ -12,6 +12,7 @@ import { ClassMigrationModal } from "@/app/components/modals/ClassMigrationModal
 import { ClassYearlongMigrationModal } from "@/app/components/modals/ClassYearlongMigrationModal"
 import { TypeSelectorModal } from "@/app/components/modals/TypeSelectorModal"
 import { KindChooserModal } from "@/app/components/modals/KindChooserModal"
+import { AutoArchiveModal } from "@/app/components/modals/AutoArchiveModal"
 import { GLOBAL } from "@/app/styles/colors"
 
 const ModalManager: React.FC = () => {
@@ -101,6 +102,8 @@ const ModalManager: React.FC = () => {
                 return <TermFormModal onClose={closeModal} />
             case "edit-term":
                 return <TermFormModal onClose={closeModal} termId={modalData} />
+            case "auto-archive-notification":
+                return <AutoArchiveModal onClose={closeModal} termName={modalData?.termName} />
 
             // Schedule cell selector
             case "class-selector":

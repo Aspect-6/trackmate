@@ -83,7 +83,7 @@ export const ClassFormModal: React.FC<ClassFormModalProps> = ({ onClose, classId
         if (isEditMode) {
             updateClass(classId, classData)
         } else {
-            const success = addClass(classData)
+            const success = addClass({ ...classData, isArchived: false })
             if (!success) return
         }
         onClose()

@@ -66,6 +66,8 @@ export interface Class {
     semesterId?: string
     /** Order index for manual sorting (lower is earlier) */
     order: number
+    /** Whether the class is archived */
+    isArchived: boolean
 }
 
 /**
@@ -263,6 +265,8 @@ export interface AcademicTerm {
     /** The schedule rotation type for this term */
     scheduleType: ScheduleType
     semesters: Semester[]
+    /** Whether the term has triggered auto-archiving of its classes */
+    hasAutoArchived: boolean
 }
 
 /**

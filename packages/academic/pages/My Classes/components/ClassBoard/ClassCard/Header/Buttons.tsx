@@ -1,17 +1,36 @@
 import React from "react"
 import { useHover } from "@shared/hooks/ui/useHover"
 import type { ClassBoard } from "@/pages/My Classes/types"
-import { Trash2, Edit2 } from "lucide-react"
+import { Trash2, Edit2, Archive, ArchiveRestore } from "lucide-react"
 import { MY_CLASSES } from "@/app/styles/colors"
 import { useClassCard } from "@/pages/My Classes/hooks/useClassCard"
 
-const ClassCardButtons: React.FC<ClassBoard.Card.Header.ButtonsProps> = ({ onEdit, onDelete }) => {
+const ClassCardButtons: React.FC<ClassBoard.Card.Header.ButtonsProps> = ({ onEdit, onDelete, onToggleArchive, isArchived }) => {
+    const { isHovered: isArchiveHovered, hoverProps: archiveHoverProps } = useHover()
     const { isHovered: isEditHovered, hoverProps: editHoverProps } = useHover()
     const { isHovered: isDeleteHovered, hoverProps: deleteHoverProps } = useHover()
     const { isHovered: isCardHovered } = useClassCard()
 
     return (
         <div className={`flex space-x-2 ml-4 transition-opacity opacity-100 ${isCardHovered ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
+            <button
+                onClick={onToggleArchive}
+                className="p-1"
+                title={isArchived ? "Unarchive Class" : "Archive Class"}
+                {...archiveHoverProps}
+            >
+                {isArchived ? (
+                    <ArchiveRestore
+                        className="w-4 h-4 transition-colors duration-100"
+                        style={{ color: isArchiveHovered ? MY_CLASSES.TEXT_PRIMARY : MY_CLASSES.TEXT_SECONDARY }}
+                    />
+                ) : (
+                    <Archive
+                        className="w-4 h-4 transition-colors duration-100"
+                        style={{ color: isArchiveHovered ? MY_CLASSES.TEXT_PRIMARY : MY_CLASSES.TEXT_SECONDARY }}
+                    />
+                )}
+            </button>
             <button
                 onClick={onEdit}
                 className="p-1"

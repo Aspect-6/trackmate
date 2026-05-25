@@ -6,6 +6,7 @@ export namespace ClassBoard {
         onReorder: (classes: Class[]) => void
         onAddClass: () => void
         openEditClass: (id: string) => void
+        onToggleArchive: (id: string, currentStatus: boolean) => void
     }
     // ======================
 
@@ -39,6 +40,8 @@ export namespace ClassBoard {
             export interface ButtonsProps {
                 onEdit: () => void
                 onDelete: () => void
+                onToggleArchive: () => void
+                isArchived: boolean
             }
         }
 

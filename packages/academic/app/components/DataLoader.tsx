@@ -1,5 +1,6 @@
 import React from "react"
 import { useSettings } from "@/app/hooks/useSettings"
+import { useAutoArchiver } from "@/app/hooks/useAutoArchiver"
 import { GLOBAL } from "@/app/styles/colors"
 
 interface DataLoaderProps {
@@ -12,6 +13,7 @@ interface DataLoaderProps {
  */
 const DataLoader: React.FC<DataLoaderProps> = ({ children }) => {
     const { loading } = useSettings()
+    useAutoArchiver()
 
     if (loading) {
         return (

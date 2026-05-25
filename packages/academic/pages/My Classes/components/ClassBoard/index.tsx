@@ -23,7 +23,7 @@ import ClassCardContainer from "./ClassCard/ClassCardContainer"
 import ClassCardHeader, { ClassCardTitle, ClassCardButtons } from "./ClassCard/Header"
 import ClassCardBody, { ClassCardInstructor, ClassCardRoom, ClassCardColor, ClassCardTerm } from "./ClassCard/Body"
 
-const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass, openEditClass }) => {
+const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass, openEditClass, onToggleArchive }) => {
     const { openModal } = useModal()
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -69,6 +69,8 @@ const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass
                                         <ClassCardButtons
                                             onEdit={() => openEditClass(classInfo.id)}
                                             onDelete={() => openModal("delete-class", classInfo.id)}
+                                            onToggleArchive={() => onToggleArchive(classInfo.id, classInfo.isArchived)}
+                                            isArchived={classInfo.isArchived}
                                         />
                                     </ClassCardHeader>
                                     <ClassCardBody>
