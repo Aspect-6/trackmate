@@ -1,5 +1,6 @@
 export { useAssignments } from "./useAssignments"
 export { useClasses } from "./useClasses"
+export { useVisibleAssignments } from "./useVisibleAssignments"
 export { useEvents } from "./useEvents"
 export { useNoSchool } from "./useNoSchool"
 export { useAcademicTerms } from "./useAcademicTerms"

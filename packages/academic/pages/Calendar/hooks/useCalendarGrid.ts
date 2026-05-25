@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { useAssignments, useEvents, useNoSchool } from "@/app/hooks/entities"
+import { useVisibleAssignments, useEvents, useNoSchool } from "@/app/hooks/entities"
 import { todayString } from "@shared/lib"
 import type { UseCalendar } from "@/pages/Calendar/types"
 
@@ -13,7 +13,7 @@ interface UseCalendarGridProps {
  * Generates an array of cells representing days and empty slots for a month view.
  */
 export const useCalendarGrid = ({ month, year }: UseCalendarGridProps) => {
-    const { getAssignmentsForDate } = useAssignments()
+    const { getAssignmentsForDate } = useVisibleAssignments()
     const { getEventsForDate } = useEvents()
     const { getNoSchoolStatusForDate } = useNoSchool()
 

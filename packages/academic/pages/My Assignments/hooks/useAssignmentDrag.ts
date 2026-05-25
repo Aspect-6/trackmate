@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react"
-import { useAssignments } from "@/app/hooks/entities/useAssignments"
+import { useVisibleAssignments } from "@/app/hooks/entities"
 import { Status } from "@/app/types"
 import {
     closestCenter,
@@ -18,7 +18,7 @@ import { sortableKeyboardCoordinates } from "@dnd-kit/sortable"
 const COLUMN_IDS: Status[] = ["To Do", "In Progress", "Done"]
 
 export const useAssignmentDrag = (dragEnabled: boolean, isTablet: boolean) => {
-    const { getAssignmentById, updateAssignment } = useAssignments()
+    const { getAssignmentById, updateAssignment } = useVisibleAssignments()
 
     const [activeAssignmentId, setActiveAssignmentId] = useState<string | null>(null)
     const [overId, setOverId] = useState<string | null>(null)

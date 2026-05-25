@@ -1,7 +1,7 @@
 import React, { useMemo } from "react"
 import { useDroppable } from "@dnd-kit/core"
 import { useClasses } from "@/app/hooks/entities/useClasses"
-import { useAssignments } from "@/app/hooks/entities/useAssignments"
+import { useVisibleAssignments } from "@/app/hooks/entities/useVisibleAssignments"
 import type { AssignmentColumn } from "@/pages/My Assignments/types"
 import AssignmentColumnBody from "./Body"
 import AssignmentColumnHeader from "./AssignmentColumnHeader"
@@ -22,7 +22,7 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
     priorityFilter = [],
 }) => {
     const { getClassById } = useClasses()
-    const { getAssignmentsByStatus } = useAssignments()
+    const { getAssignmentsByStatus } = useVisibleAssignments()
 
     const isCollapsed = isMobile && !isOpen
 

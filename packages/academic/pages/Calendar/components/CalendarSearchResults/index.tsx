@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { useAssignments, useEvents, useClasses } from "@/app/hooks/entities"
+import { useVisibleAssignments, useEvents, useClasses } from "@/app/hooks/entities"
 import { formatEventTimeRange } from "@/app/lib/utils"
 import SearchResultItem from "./SearchResultItem"
 import NoResults from "./NoResults"
@@ -12,7 +12,7 @@ interface CalendarSearchResultsProps {
 }
 
 const CalendarSearchResults: React.FC<CalendarSearchResultsProps> = ({ searchQuery, onSelectDate, month, year }) => {
-    const { assignments } = useAssignments()
+    const { assignments } = useVisibleAssignments()
     const { events } = useEvents()
     const { getClassById } = useClasses()
 

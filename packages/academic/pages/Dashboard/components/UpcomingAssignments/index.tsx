@@ -1,11 +1,11 @@
 import React from "react"
-import { useAssignments } from "@/app/hooks/entities"
+import { useVisibleAssignments } from "@/app/hooks/entities"
 import AssignmentCard from "./AssignmentCard"
 import NoUpcomingAssignments from "./NoUpcomingAssignments"
 import { DASHBOARD } from "@/app/styles/colors"
 
 const UpcomingAssignments: React.FC = () => {
-    const { activeAssignments } = useAssignments()
+    const { activeAssignments } = useVisibleAssignments()
 
     // Get first 3 active assignments
     const assignmentsToShow = activeAssignments.slice(0, 3)

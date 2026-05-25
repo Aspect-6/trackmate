@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { useAssignments, useEvents, useNoSchool, useSchedules, useAcademicTerms } from "@/app/hooks/entities"
+import { useVisibleAssignments, useEvents, useNoSchool, useSchedules, useAcademicTerms } from "@/app/hooks/entities"
 import { dateToLocalISOString, formatDate } from "@shared/lib"
 import { getActiveTerm } from "@/app/lib/schedule"
 
@@ -14,7 +14,7 @@ interface UseSidePanelProps {
 export const useSidePanel = ({ selectedDate }: UseSidePanelProps) => {
     const { getDayTypeForDate } = useSchedules()
     const { academicTerms } = useAcademicTerms()
-    const { getAssignmentsForDate } = useAssignments()
+    const { getAssignmentsForDate } = useVisibleAssignments()
     const { getEventsForDate } = useEvents()
     const { noSchoolPeriods, getNoSchoolStatusForDate } = useNoSchool()
 
