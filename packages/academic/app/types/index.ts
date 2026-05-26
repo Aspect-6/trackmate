@@ -23,6 +23,17 @@ export type ThemeMode = "light" | "dark"
 /**
  * Represents a single school assignment.
  */
+export interface Subtask {
+    id: string
+    title: string
+    dueDate: string
+    dueTime: string
+    status: Status
+}
+
+/**
+ * Represents a single (parent) school assignment.
+ */
 export interface Assignment {
     /** Unique identifier for the assignment */
     id: string
@@ -32,18 +43,20 @@ export interface Assignment {
     dueDate: string
     /** The due time in 24-hour format (HH:MM) */
     dueTime: string
-    /** The priority level of the assignment */
-    priority: Priority
+    /** The priority level of the assignment (missing for subtasks in UI models) */
+    priority?: Priority
     /** The current completion status */
     status: Status
     /** The ID of the class this assignment belongs to */
     classId: string
-    /** The assignment category/type */
-    type: AssignmentType
+    /** The assignment category/type (missing for subtasks in UI models) */
+    type?: AssignmentType
     /** Timestamp of when the assignment was created */
     createdAt: string
-    /** Detailed description or notes */
-    description: string
+    /** Detailed description or notes (missing for subtasks in UI models) */
+    description?: string
+    /** Nested subtasks for parent assignments */
+    subtasks?: Subtask[]
 }
 
 /**

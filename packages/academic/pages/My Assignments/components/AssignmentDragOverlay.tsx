@@ -1,6 +1,7 @@
 import React from "react"
 import { useAssignments } from "@/app/hooks/entities/useAssignments"
 import { useClasses } from "@/app/hooks/entities/useClasses"
+import { isSubtaskDisplayId } from "@/app/lib/subtaskIds"
 import type { AssignmentType } from "@/app/types"
 import type { AssignmentDragOverlayProps } from "@/pages/My Assignments/types"
 import { formatDateRelative, formatTime } from "@shared/lib"
@@ -17,7 +18,12 @@ export const AssignmentDragOverlay: React.FC<AssignmentDragOverlayProps> = ({ as
 	const className = linkedClass.name
 
 	const examTypes: AssignmentType[] = ["Quiz", "Test", "Midterm", "Final Exam"]
-	const dateLabel = examTypes.includes(assignment.type) ? "On" : "Due"
+	const isSubtask = isSubtaskDisplayId(assignmentId)
+	const dateLabel = isSubtask
+		? "Due"
+		: assignment.type && examTypes.includes(assignment.type)
+			? "On"
+			: "Due"
 	const showTime = assignment.dueTime && assignment.dueTime !== "23:59"
 
 	return (
@@ -58,7 +64,9 @@ export const AssignmentDragOverlay: React.FC<AssignmentDragOverlayProps> = ({ as
 						{dateLabel}: {formatDateRelative("short", assignment.dueDate)}
 						{showTime && ` at ${formatTime(assignment.dueTime)}`}
 					</span>
-					<PriorityBadge priority={assignment.priority} className="px-2 py-0.5" />
+					{!isSubtask && assignment.priority && (
+						<PriorityBadge priority={assignment.priority} className="px-2 py-0.5" />
+					)}
 				</div>
 			</div>
 		</div>

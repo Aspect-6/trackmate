@@ -10,6 +10,14 @@ export type Schema = z.ZodTypeAny
 
 // ── Assignment ──────────────────────────────────────────────────────────
 
+const SubtaskSchema = z.object({
+	id: z.string(),
+	title: z.string().max(150),
+	dueDate: z.string(),
+	dueTime: z.string(),
+	status: z.enum(["To Do", "In Progress", "Done"]),
+}).strict()
+
 export const AssignmentSchema = z.object({
 	id: z.string(),
 	title: z.string().max(150),
@@ -21,10 +29,13 @@ export const AssignmentSchema = z.object({
 	type: z.string(),
 	createdAt: z.string(),
 	description: z.string().max(150),
+	subtasks: z.array(SubtaskSchema).max(2).optional(),
 }).strict()
 
 // Premium assignments use the same schema for now, but will be updated in the future
-export const PremiumAssignmentSchema = AssignmentSchema
+export const PremiumAssignmentSchema = AssignmentSchema.extend({
+	subtasks: z.array(SubtaskSchema).min(3).max(40),
+}).strict()
 
 // ── Class ───────────────────────────────────────────────────────────────
 

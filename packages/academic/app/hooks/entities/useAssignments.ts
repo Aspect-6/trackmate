@@ -3,8 +3,20 @@ import { useAuth } from "@shared/contexts/AuthContext"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useFirestoreWithArchive } from "@/app/hooks/data/useFirestoreWithArchive"
 import { generateId, todayString } from "@shared/lib"
-import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
+import { isSubtaskDisplayId } from "@/app/lib/subtaskIds"
 import type { Assignment, Status } from "@/app/types"
+import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
+import {
+    type AssignmentStoreSetters,
+    type SubtaskPatch,
+    assignmentPartialToSubtaskPatch,
+    flattenAssignmentsForDisplay,
+    getSubtaskCount,
+    isPremiumTargetForSubtaskCount,
+    routeAssignmentUpdate,
+    runUpdateParent,
+    runUpdateSubtask,
+} from "@/app/lib/assignments"
 
 // Archive completed assignments older than 365 days
 const getAssignmentDate = (a: Assignment) => a.dueDate
@@ -13,10 +25,10 @@ const isAssignmentArchivable = (a: Assignment) => a.status === "Done"
 /**
  * Hook for accessing and working with assignments.
  * Provides filtered views, lookup functions, and CRUD operations.
- * 
+ *
  * Automatically archives completed assignments older than 365 days
  * while keeping them accessible to the user seamlessly.
- * 
+ *
  * For premium users, also reads from premium assignment documents
  * and merges them into a single unified list.
  */
@@ -39,20 +51,23 @@ export const useAssignments = () => {
 
     const { assignmentTypes } = useSettings()
 
-    // Merge standard and premium assignments into a single list
-    const assignments = useMemo(() => {
+    const storeSetters: AssignmentStoreSetters = useMemo(() => {
+        return { setStandardItems, setPremiumItems }
+    }, [setStandardItems, setPremiumItems])
+
+    const parentAssignments = useMemo(() => {
         if (!isPremium) return standardItems
         return [...standardItems, ...premiumItems]
     }, [standardItems, premiumItems, isPremium])
 
-    // Counts
-    const totalNum = assignments.length
-
-    // Track which IDs live in the premium list for routing updates
-    const premiumIds = useMemo(() => {
+    const premiumParentIds = useMemo(() => {
         if (!isPremium) return new Set<string>()
         return new Set(premiumItems.map(a => a.id))
     }, [premiumItems, isPremium])
+
+    const assignments = useMemo(() => (
+        flattenAssignmentsForDisplay(parentAssignments)
+    ), [parentAssignments])
 
     // Filtered views (sorted by due date)
     const activeAssignments = useMemo(() => {
@@ -100,23 +115,62 @@ export const useAssignments = () => {
     }, [assignments])
 
     // Actions
+    const updateSubtask = useCallback((
+        parentId: string,
+        subtaskId: string,
+        patch: SubtaskPatch
+    ): void => {
+        runUpdateSubtask(parentId, subtaskId, patch, premiumParentIds, storeSetters)
+    }, [premiumParentIds, storeSetters])
+
+    const updateParent = useCallback((
+        parentId: string,
+        updates: Partial<Assignment>
+    ): void => {
+        runUpdateParent(parentId, updates, premiumParentIds, storeSetters)
+    }, [premiumParentIds, storeSetters])
+
     const addAssignment = useCallback((assignment: Omit<Assignment, "id" | "createdAt">): void => {
-        setStandardItems(prev => [...prev, { ...assignment, id: generateId(), createdAt: todayString() }])
-    }, [setStandardItems])
-    const updateAssignment = useCallback((id: string, updates: Partial<Assignment>): void => {
-        if (premiumIds.has(id)) {
-            setPremiumItems(prev => prev.map(a => a.id === id ? { ...a, ...updates } : a))
-        } else {
-            setStandardItems(prev => prev.map(a => a.id === id ? { ...a, ...updates } : a))
+        const id = generateId()
+        const createdAt = todayString()
+
+        const nextParent: Assignment = {
+            ...assignment,
+            id,
+            createdAt,
+            subtasks: assignment.subtasks ?? [],
         }
-    }, [setStandardItems, setPremiumItems, premiumIds])
+
+        const writePremium = isPremiumTargetForSubtaskCount(getSubtaskCount(nextParent))
+
+        if (writePremium) {
+            setPremiumItems(prev => [...prev, nextParent])
+        } else {
+            setStandardItems(prev => [...prev, nextParent])
+        }
+    }, [setStandardItems, setPremiumItems])
+
+    const updateAssignment = useCallback((id: string, updates: Partial<Assignment>): void => {
+        const routed = routeAssignmentUpdate(id)
+        if (routed.kind === "subtask") {
+            updateSubtask(routed.parentId, routed.subtaskId, assignmentPartialToSubtaskPatch(updates))
+        } else if (routed.kind === "parent") {
+            updateParent(routed.parentId, updates)
+        }
+    }, [updateSubtask, updateParent])
+
     const deleteAssignment = useCallback((id: string): void => {
-        if (premiumIds.has(id)) {
+        // For now, only parent deletion is supported by the existing UI.
+        if (isSubtaskDisplayId(id)) return
+
+        const isInPremiumDoc = premiumParentIds.has(id)
+        if (isInPremiumDoc) {
             setPremiumItems(prev => prev.filter(a => a.id !== id))
         } else {
             setStandardItems(prev => prev.filter(a => a.id !== id))
         }
-    }, [setStandardItems, setPremiumItems, premiumIds])
+    }, [setStandardItems, setPremiumItems, premiumParentIds])
+
     const markAsDone = useCallback((id: string) => {
         return updateAssignment(id, { status: "Done" })
     }, [updateAssignment])
@@ -127,7 +181,7 @@ export const useAssignments = () => {
         assignmentTypes,
 
         // Counts
-        totalNum,
+        totalNum: assignments.length,
 
         // Filtered views
         activeAssignments,
@@ -149,6 +203,8 @@ export const useAssignments = () => {
         // Actions
         addAssignment,
         updateAssignment,
+        updateSubtask,
+        updateParent,
         deleteAssignment,
         markAsDone,
     }

@@ -87,7 +87,7 @@ export namespace CalendarBody {
                     onClick: (id: string) => void;
                 }
             }
-            export type MobileDot = { id: string; color: string };
+            export type MobileDot = { id: string; color: string; filled: boolean };
             export interface MobileDotsProps {
                 dots: MobileDot[];
             }

@@ -30,7 +30,7 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
         const query = searchQuery.toLowerCase().trim()
         return getAssignmentsByStatus(status)
             .filter((item) => {
-                const className = getClassById(item.classId)?.name.toLowerCase() || ""
+                const className = getClassById(item.classId).name.toLowerCase()
                 const matchesSearch =
                     !query ||
                     item.title.toLowerCase().includes(query) ||
@@ -38,7 +38,7 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
                     (item.description?.toLowerCase().includes(query) ?? false)
                 const matchesType = typeFilter.length === 0 || typeFilter.includes(item.type || "")
                 const matchesPriority =
-                    priorityFilter.length === 0 || priorityFilter.includes(item.priority)
+                    priorityFilter.length === 0 || (item.priority ? priorityFilter.includes(item.priority) : false)
                 return matchesSearch && matchesType && matchesPriority
             })
             .toSorted((a, b) =>

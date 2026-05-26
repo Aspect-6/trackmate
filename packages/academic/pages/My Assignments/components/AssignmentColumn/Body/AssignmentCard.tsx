@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useSortable } from "@dnd-kit/sortable"
 import { useHover } from "@shared/hooks/ui/useHover"
+import { isSubtaskDisplayId } from "@/app/lib/subtaskIds"
 import type { AssignmentType } from "@/app/types"
 import type { AssignmentColumn } from "@/pages/My Assignments/types"
 import { formatDateRelative, formatTime } from "@shared/lib"
@@ -31,8 +32,13 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
         return () => window.removeEventListener("mouseup", handleGlobalMouseUp)
     }, [isLeftClicking])
 
+    const isSubtask = isSubtaskDisplayId(assignment.id)
     const examTypes: AssignmentType[] = ["Quiz", "Test", "Midterm", "Final Exam"]
-    const dateLabel = examTypes.includes(assignment.type) ? "On" : "Due"
+    const dateLabel = isSubtask
+        ? "Due"
+        : assignment.type && examTypes.includes(assignment.type)
+            ? "On"
+            : "Due"
     const showTime = assignment.dueTime && assignment.dueTime !== "23:59"
 
     const cardDragHandlers = dragEnabled && !isTablet ? listeners : undefined
@@ -52,7 +58,9 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
                 opacity: isDragging ? 0.4 : 1,
                 transition: "background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)",
             }}
-            onClick={() => onClick(assignment.id)}
+            onClick={() => {
+                if (!isSubtask) onClick(assignment.id)
+            }}
             {...hoverProps}
             {...cardDragHandlers}
             onMouseDown={(e) => {
@@ -94,7 +102,9 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
                         {dateLabel}: {formatDateRelative("short", assignment.dueDate)}
                         {showTime && ` at ${formatTime(assignment.dueTime)}`}
                     </span>
-                    <PriorityBadge priority={assignment.priority} className="px-2 py-0.5" />
+                    {!isSubtask && assignment.priority && (
+                        <PriorityBadge priority={assignment.priority} className="px-2 py-0.5" />
+                    )}
                 </div>
             </div>
         </div>

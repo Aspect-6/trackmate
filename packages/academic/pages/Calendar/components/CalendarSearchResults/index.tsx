@@ -35,9 +35,10 @@ const CalendarSearchResults: React.FC<CalendarSearchResultsProps> = ({ searchQue
             if (isEventSearch) return false
 
             const className = getClassById(assignment.classId)?.name || ""
+            const assignmentType = assignment.type?.toLowerCase() ?? ""
             return (
                 assignment.title.toLowerCase().includes(query) ||
-                assignment.type.toLowerCase().includes(query) ||
+                assignmentType.includes(query) ||
                 className.toLowerCase().includes(query) ||
                 (assignment.description?.toLowerCase().includes(query) ?? false)
             )
@@ -60,7 +61,7 @@ const CalendarSearchResults: React.FC<CalendarSearchResultsProps> = ({ searchQue
                 id: a.id,
                 title: a.title,
                 date: a.dueDate,
-                subtext: getClassById(a.classId)?.name || a.type,
+                    subtext: getClassById(a.classId).name,
                 color: getClassById(a.classId)?.color
             })),
             ...filteredEvents.map(e => ({

@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useAssignments, useClasses } from "@/app/hooks/entities"
 import { useHover } from "@shared/hooks/ui/useHover"
+import { isSubtaskDisplayId } from "@/app/lib/subtaskIds"
 import type { UpcomingAssignments } from "@/pages/Dashboard/types"
 import PriorityBadge from "@/app/components/PriorityBadge"
 import StatusButton from "./StatusButton"
@@ -16,6 +17,7 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
     const { isHovered, hoverProps } = useHover()
     const [isCompleting, setIsCompleting] = useState(false)
     const classInfo = getClassById(assignment.classId)
+    const isSubtask = isSubtaskDisplayId(assignment.id)
 
     // Handle case where class data hasn't loaded yet
     if (!classInfo) return null
@@ -41,7 +43,9 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
 
     return (
         <div
-            onClick={() => openModal("edit-assignment", assignment.id)}
+            onClick={() => {
+                if (!isSubtask) openModal("edit-assignment", assignment.id)
+            }}
             className="flex flex-col gap-3 p-3 sm:p-4 rounded-xl shadow-md cursor-pointer transition-colors"
             style={{
                 backgroundColor: isHovered ? DASHBOARD.BACKGROUND_SECONDARY : DASHBOARD.BACKGROUND_PRIMARY,
@@ -67,7 +71,7 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
                 </AssignmentDetails>
 
                 <div className="hidden sm:flex">
-                    <PriorityBadge priority={assignment.priority} />
+                    {!isSubtask && assignment.priority && <PriorityBadge priority={assignment.priority} />}
                 </div>
             </div>
 

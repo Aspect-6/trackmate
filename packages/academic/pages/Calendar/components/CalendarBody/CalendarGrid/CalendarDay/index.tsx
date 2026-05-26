@@ -1,4 +1,5 @@
 import React, { useMemo } from "react"
+import { isSubtaskDisplayId } from "@/app/lib/subtaskIds"
 import type { CalendarBody } from "@/pages/Calendar/types"
 import CalendarDayContainer from "./CalendarDayContainer"
 import CalendarDayNumber from "./CalendarDayNumber"
@@ -25,8 +26,12 @@ const CalendarDay: React.FC<CalendarBody.Grid.Day.Props> = ({
     }, [assignments])
 
     const mobileDots = [
-        ...sortedAssignments.map(a => ({ id: `assignment-${a.id}`, color: getClassColor(a.classId) })),
-        ...events.map(e => ({ id: `event-${e.id}`, color: e.color }))
+        ...sortedAssignments.map(a => ({
+            id: `assignment-${a.id}`,
+            color: getClassColor(a.classId),
+            filled: !isSubtaskDisplayId(a.id),
+        })),
+        ...events.map(e => ({ id: `event-${e.id}`, color: e.color, filled: true }))
     ]
 
     return (

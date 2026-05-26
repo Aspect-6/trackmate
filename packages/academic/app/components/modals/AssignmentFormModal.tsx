@@ -78,7 +78,17 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
             const assignment = getAssignmentById(assignmentId)
             if (!assignment) return
 
-            setFormData({ templateName: "", ...assignment })
+            setFormData({
+                templateName: "",
+                title: assignment.title,
+                classId: assignment.classId,
+                description: assignment.description ?? "",
+                dueDate: assignment.dueDate,
+                dueTime: assignment.dueTime,
+                priority: assignment.priority ?? ("Low" as Priority),
+                status: assignment.status,
+                type: assignment.type ?? "",
+            })
             hasInitializedForm.current = true
             return
         }
@@ -87,7 +97,13 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
             const template = getAssignmentTemplateById(templateId)
             if (!template) return
 
-            setFormData({ ...template, dueDate: selectedDateString || todayString() })
+            setFormData({
+                ...template,
+                dueDate: selectedDateString || todayString(),
+                description: template.description ?? "",
+                priority: template.priority ?? ("Low" as Priority),
+                type: template.type ?? "",
+            })
             hasInitializedForm.current = true
             return
         }

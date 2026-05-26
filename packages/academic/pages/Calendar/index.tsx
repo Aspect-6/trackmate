@@ -98,10 +98,10 @@ const Calendar: React.FC = () => {
                 if (isAssignmentSearch) return true
                 if (isEventSearch) return false
 
-                const className = getClassById(assignment.classId)?.name || ""
+                const className = getClassById(assignment.classId).name
                 return (
                     assignment.title.toLowerCase().includes(query) ||
-                    assignment.type.toLowerCase().includes(query) ||
+                    (assignment.type?.toLowerCase().includes(query) ?? false) ||
                     className.toLowerCase().includes(query) ||
                     (assignment.description?.toLowerCase().includes(query) ?? false)
                 )

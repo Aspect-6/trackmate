@@ -6,7 +6,14 @@ const CalendarDayMobileDots: React.FC<CalendarBody.Grid.Day.MobileDotsProps> = (
     return (
         <div className="flex flex-wrap gap-1 mb-1 md:hidden">
             {dots.map(dot => (
-                <span key={dot.id} className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: dot.color }} />
+                <span
+                    key={dot.id}
+                    className="w-2.5 h-2.5 rounded-full"
+                    style={{
+                        backgroundColor: dot.filled ? dot.color : "transparent",
+                        border: dot.filled ? "none" : `1px solid ${dot.color}`,
+                    }}
+                />
             ))}
         </div>
     )

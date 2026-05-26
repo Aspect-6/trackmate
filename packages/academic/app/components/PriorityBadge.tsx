@@ -3,11 +3,13 @@ import type { Priority } from "@/app/types"
 import { GLOBAL } from "@/app/styles/colors"
 
 interface PriorityBadgeProps {
-    priority: Priority | "Done"
+    priority?: Priority | "Done"
     className?: string
 }
 
 const PriorityBadge: React.FC<PriorityBadgeProps> = ({ priority, className }) => {
+    if (!priority) return null
+
     const getPriorityStyles = (priorityLevel: string) => {
         const p = priorityLevel.toLowerCase()
 
