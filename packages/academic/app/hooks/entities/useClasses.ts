@@ -10,7 +10,7 @@ import type { Class } from "@/app/types"
  * Provides filtered views, lookup functions, and CRUD operations.
  */
 export const useClasses = () => {
-    const [rawClasses, setClasses] = useFirestoreItems<Class>(FIRESTORE_KEYS.CLASSES)
+    const [rawClasses, setClasses, { loading }] = useFirestoreItems<Class>(FIRESTORE_KEYS.CLASSES)
     const { showToast } = useToast()
 
     // Sort classes by order field
@@ -82,6 +82,7 @@ export const useClasses = () => {
     return {
         // Raw data
         classes,
+        loading,
 
         // Counts
         totalNum,

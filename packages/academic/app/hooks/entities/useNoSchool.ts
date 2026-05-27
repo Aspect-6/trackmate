@@ -9,7 +9,7 @@ import type { NoSchoolPeriod } from "@/app/types"
  * Provides filtered views, lookup functions, and CRUD operations.
  */
 export const useNoSchool = () => {
-    const [noSchoolPeriods, setNoSchoolPeriods] = useFirestoreItems<NoSchoolPeriod>(FIRESTORE_KEYS.NO_SCHOOL)
+    const [noSchoolPeriods, setNoSchoolPeriods, { loading }] = useFirestoreItems<NoSchoolPeriod>(FIRESTORE_KEYS.NO_SCHOOL)
 
     // Indexed by date (expands date ranges into individual dates)
     const noSchoolByDate = useMemo(() => noSchoolPeriods.reduce<Record<string, NoSchoolPeriod>>((acc, period) => {
@@ -47,6 +47,7 @@ export const useNoSchool = () => {
     return {
         // Raw data
         noSchoolPeriods,
+        loading,
 
         // Indexed data
         noSchoolByDate,

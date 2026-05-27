@@ -1,22 +1,21 @@
 import React, { useEffect, useRef, useState } from "react"
+import { useAuth } from "@shared/contexts/AuthContext"
+import { useToast } from "@shared/contexts/ToastContext"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { useAssignments, useClasses } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useFormFields } from "@/app/hooks/ui/useFormFields"
-import { useToast } from "@shared/contexts/ToastContext"
 import { DEFAULT_ASSIGNMENT_TYPES } from "@/app/hooks/useSettings"
 import { todayString, generateId } from "@shared/lib"
-import { AssignmentType, Priority, Status, AssignmentTemplate } from "@/app/types"
-import { MODALS } from "@/app/styles/colors"
+import { parseSubtaskDisplayId } from "@/app/lib/subtaskIds"
+import type { AssignmentType, Priority, Status, AssignmentTemplate, Subtask } from "@/app/types"
 import {
     ModalContainer,
     ModalHeader,
     ModalFooter,
     ModalLabel,
     ModalTextInput,
-    ModalDateInput,
-    ModalTimeInput,
     ModalTextareaInput,
     ModalSelectInput,
     ModalSelectInputOption,
@@ -29,6 +28,11 @@ import {
     ModalTabPanel,
     ModalCharacterCountDisplay,
 } from "@shared/components/modal"
+import ClassSelectDropdown from "./ClassSelectDropdown"
+import DueDateTimeRow from "./DueDateTimeRow"
+import DueTimeField from "./DueTimeField"
+import SubtasksSection from "./SubtasksSection"
+import { MODALS } from "@/app/styles/colors"
 
 interface AssignmentFormModalProps {
     onClose: () => void
@@ -36,23 +40,33 @@ interface AssignmentFormModalProps {
     templateId?: string // If provided, modal is in edit mode for template
     mode?: "default" | "template"
     templateData?: AssignmentTemplate
+    focusSubtaskId?: string // If provided, modal will open to Settings tab initially
 }
+
+const resolveParentId = (id: string): string =>
+    parseSubtaskDisplayId(id)?.parentId ?? id
 
 export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
     onClose,
     assignmentId,
     templateId,
     mode = "default",
-    templateData
+    templateData,
+    focusSubtaskId,
 }) => {
+    const { isPremium } = useAuth()
     const { classes } = useClasses()
-    const { addAssignment, updateAssignment, getAssignmentById } = useAssignments()
+    const { addAssignment, updateParent, getParentAssignmentById } = useAssignments()
     const { assignmentTypes, addTemplate, updateTemplate, getAssignmentTemplateById } = useSettings()
     const { openModal } = useModal()
     const { selectedDateString } = useCalendarContext()
     const { showToast } = useToast()
-    const [activeTab, setActiveTab] = useState<"details" | "settings">("details")
-    const { formData, setFormData, field, fieldWithTransform } = useFormFields({
+    const [activeTab, setActiveTab] = useState<"details" | "settings">(
+        focusSubtaskId ? "settings" : "details"
+    )
+    const [subtasks, setSubtasks] = useState<Subtask[]>([])
+    const maxSubtasks = isPremium ? 40 : 2
+    const { formData, setFormData, field } = useFormFields({
         templateName: "",
         title: "",
         classId: "",
@@ -61,7 +75,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
         dueTime: "23:59",
         priority: "Low" as Priority,
         status: "To Do" as Status,
-        type: "" as AssignmentType
+        type: "" as AssignmentType,
     })
 
     const isEditMode = !!assignmentId || !!templateId
@@ -75,20 +89,21 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
         if (hasInitializedForm.current) return
 
         if (assignmentId) {
-            const assignment = getAssignmentById(assignmentId)
-            if (!assignment) return
+            const parent = getParentAssignmentById(assignmentId)
+            if (!parent) return
 
             setFormData({
                 templateName: "",
-                title: assignment.title,
-                classId: assignment.classId,
-                description: assignment.description ?? "",
-                dueDate: assignment.dueDate,
-                dueTime: assignment.dueTime,
-                priority: assignment.priority ?? ("Low" as Priority),
-                status: assignment.status,
-                type: assignment.type ?? "",
+                title: parent.title,
+                classId: parent.classId,
+                description: parent.description ?? "",
+                dueDate: parent.dueDate,
+                dueTime: parent.dueTime,
+                priority: parent.priority ?? ("Low" as Priority),
+                status: parent.status,
+                type: parent.type ?? "",
             })
+            setSubtasks(parent.subtasks ?? [])
             hasInitializedForm.current = true
             return
         }
@@ -131,7 +146,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
 
         setFormData(initialData)
         hasInitializedForm.current = true
-    }, [assignmentId, templateId, templateData, classes, assignmentTypes, isEditMode, selectedDateString, getAssignmentById, getAssignmentTemplateById, setFormData])
+    }, [assignmentId, templateId, templateData, classes, assignmentTypes, isEditMode, selectedDateString, getParentAssignmentById, getAssignmentTemplateById, setFormData])
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -177,6 +192,31 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
             safeData.type = fallbackType
         }
 
+        let normalizedSubtasks: Subtask[] = []
+        if (!isTemplateMode) {
+            for (const subtask of subtasks) {
+                if (!subtask.title.trim()) {
+                    showToast("Please enter a title for each subtask", "error")
+                    setActiveTab("settings")
+                    return
+                }
+                const dueDate = subtask.dueDate && !isNaN(new Date(subtask.dueDate).getTime())
+                    ? subtask.dueDate
+                    : safeData.dueDate
+                const dueTime = subtask.dueTime && typeof subtask.dueTime === "string"
+                    ? subtask.dueTime
+                    : safeData.dueTime
+
+                normalizedSubtasks.push({
+                    id: subtask.id || generateId(),
+                    title: subtask.title.trim(),
+                    dueDate,
+                    dueTime,
+                    status: subtask.status,
+                })
+            }
+        }
+
         if (isTemplateMode) {
             const { dueDate: _removed, ...templateFields } = safeData
             const templatePayload = { ...templateFields, templateName: safeData.templateName, kind: "assignment" as const }
@@ -186,17 +226,18 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                 const newTemplate: AssignmentTemplate = {
                     ...templatePayload,
                     id: generateId(),
-                    createdAt: todayString()
+                    createdAt: todayString(),
                 }
                 addTemplate(newTemplate)
             }
         } else {
             const { templateName: _, ...assignmentData } = safeData
+            const payload = { ...assignmentData, subtasks: normalizedSubtasks }
             if (isEditMode && assignmentId) {
-                updateAssignment(assignmentId, assignmentData)
+                updateParent(resolveParentId(assignmentId), payload)
                 showToast("Successfully updated assignment", "success")
             } else {
-                addAssignment(assignmentData)
+                addAssignment(payload)
                 showToast("Successfully added assignment", "success")
             }
         }
@@ -205,8 +246,8 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
 
     const handleDelete = () => {
         onClose()
-        if (!isTemplateMode) {
-            openModal("delete-assignment", assignmentId)
+        if (!isTemplateMode && assignmentId) {
+            openModal("delete-assignment", resolveParentId(assignmentId))
         }
     }
 
@@ -252,68 +293,33 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                         </div>
                         {isTemplateMode ? (
                             <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <ModalLabel>Class</ModalLabel>
-                                    <ModalSelectInput
-                                        name="classId"
-                                        {...field("classId")}
-                                        required
-                                        focusColor={focusColor}
-                                    >
-                                        {classes.map(c => (
-                                            <ModalSelectInputOption key={c.id} value={c.id}>
-                                                {c.name}
-                                            </ModalSelectInputOption>
-                                        ))}
-                                    </ModalSelectInput>
-                                </div>
-                                <div>
-                                    <ModalLabel>Due Time</ModalLabel>
-                                    <ModalTimeInput
-                                        name="dueTime"
-                                        {...fieldWithTransform("dueTime", value => value || "23:59")}
-                                        required
-                                        focusColor={focusColor}
-                                    />
-                                </div>
+                                <ClassSelectDropdown
+                                    classes={classes}
+                                    value={formData.classId}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, classId: e.target.value }))}
+                                    focusColor={focusColor}
+                                />
+                                <DueTimeField
+                                    value={formData.dueTime}
+                                    onChange={(value) => setFormData(prev => ({ ...prev, dueTime: value || "23:59" }))}
+                                    focusColor={focusColor}
+                                />
                             </div>
                         ) : (
                             <>
-                                <div>
-                                    <ModalLabel>Class</ModalLabel>
-                                    <ModalSelectInput
-                                        name="classId"
-                                        {...field("classId")}
-                                        required
-                                        focusColor={focusColor}
-                                    >
-                                        {classes.map(c => (
-                                            <ModalSelectInputOption key={c.id} value={c.id}>
-                                                {c.name}
-                                            </ModalSelectInputOption>
-                                        ))}
-                                    </ModalSelectInput>
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <ModalLabel>Due Date</ModalLabel>
-                                        <ModalDateInput
-                                            name="dueDate"
-                                            {...field("dueDate")}
-                                            required
-                                            focusColor={focusColor}
-                                        />
-                                    </div>
-                                    <div>
-                                        <ModalLabel>Due Time</ModalLabel>
-                                        <ModalTimeInput
-                                            name="dueTime"
-                                            {...fieldWithTransform("dueTime", value => value || "23:59")}
-                                            required
-                                            focusColor={focusColor}
-                                        />
-                                    </div>
-                                </div>
+                                <ClassSelectDropdown
+                                    classes={classes}
+                                    value={formData.classId}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, classId: e.target.value }))}
+                                    focusColor={focusColor}
+                                />
+                                <DueDateTimeRow
+                                    dueDate={formData.dueDate}
+                                    onChangeDueDate={(value) => setFormData(prev => ({ ...prev, dueDate: value }))}
+                                    dueTime={formData.dueTime}
+                                    onChangeDueTime={(value) => setFormData(prev => ({ ...prev, dueTime: value || "23:59" }))}
+                                    focusColor={focusColor}
+                                />
                             </>
                         )}
                         <div>
@@ -372,6 +378,17 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                 ))}
                             </ModalSelectInput>
                         </div>
+                        {!isTemplateMode && (
+                            <SubtasksSection
+                                subtasks={subtasks}
+                                onChange={setSubtasks}
+                                maxCount={maxSubtasks}
+                                focusColor={focusColor}
+                                defaultDueDate={formData.dueDate}
+                                defaultDueTime={formData.dueTime}
+                                focusSubtaskId={focusSubtaskId}
+                            />
+                        )}
                     </ModalTabPanel>
                 </ModalTabPanelsContainer>
 

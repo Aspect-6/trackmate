@@ -5,6 +5,7 @@ export interface ModalTextInputProps {
     value?: string
     defaultValue?: string
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void
     placeholder?: string
     required?: boolean
     focusColor?: string
@@ -16,6 +17,7 @@ export const ModalTextInput: React.FC<ModalTextInputProps> = ({
     value,
     defaultValue,
     onChange,
+    onFocus,
     placeholder,
     required,
     focusColor,
@@ -28,6 +30,7 @@ export const ModalTextInput: React.FC<ModalTextInputProps> = ({
             value={value}
             defaultValue={defaultValue}
             onChange={onChange}
+            onFocus={onFocus}
             placeholder={placeholder}
             required={required}
             className={`modal-input ${className}`.trim()}

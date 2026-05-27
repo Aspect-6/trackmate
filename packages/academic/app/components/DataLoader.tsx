@@ -1,5 +1,6 @@
 import React from "react"
 import { useSettings } from "@/app/hooks/useSettings"
+import { useClasses, useEvents, useNoSchool } from "@/app/hooks/entities"
 import { useAutoArchiver } from "@/app/hooks/useAutoArchiver"
 import { GLOBAL } from "@/app/styles/colors"
 
@@ -12,10 +13,13 @@ interface DataLoaderProps {
  * This prevents the flash of default/empty state on initial load.
  */
 const DataLoader: React.FC<DataLoaderProps> = ({ children }) => {
-    const { loading } = useSettings()
+    const { loading: settingsLoading } = useSettings()
+    const { loading: classesLoading } = useClasses()
+    const { loading: eventsLoading } = useEvents()
+    const { loading: noSchoolLoading } = useNoSchool()
     useAutoArchiver()
 
-    if (loading) {
+    if (settingsLoading || classesLoading || eventsLoading || noSchoolLoading) {
         return (
             <div className="flex flex-1 items-center justify-center">
                 <div 

@@ -3,6 +3,7 @@ import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useClasses } from "@/app/hooks/entities/useClasses"
 import { useVisibleAssignments } from "@/app/hooks/entities/useVisibleAssignments"
+import { getEditAssignmentModalData } from "@/app/lib/subtaskIds"
 import type { AssignmentColumn } from "@/pages/My Assignments/types"
 import AssignmentCard from "./AssignmentCard"
 import DragPlaceholder from "./DragPlaceholder"
@@ -44,7 +45,7 @@ const AssignmentColumnBody: React.FC<AssignmentColumn.Body.Props> = ({
         }
     }
 
-    const handleClick = (id: string) => openModal("edit-assignment", id)
+    const handleClick = (id: string) => openModal("edit-assignment", getEditAssignmentModalData(id))
 
     return (
         <div

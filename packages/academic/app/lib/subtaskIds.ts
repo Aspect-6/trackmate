@@ -16,3 +16,17 @@ export const parseSubtaskDisplayId = (id: string): { parentId: string; subtaskId
     return { parentId, subtaskId }
 }
 
+export type EditAssignmentModalData = {
+    assignmentId: string
+    focusSubtaskId?: string
+}
+
+export const getEditAssignmentModalData = (id: string): EditAssignmentModalData => {
+    const parsed = parseSubtaskDisplayId(id)
+    if (!parsed) return { assignmentId: id }
+    return {
+        assignmentId: parsed.parentId,
+        focusSubtaskId: parsed.subtaskId,
+    }
+}
+

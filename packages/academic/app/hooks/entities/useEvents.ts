@@ -16,7 +16,7 @@ const isEventArchivable = (e: Event) => e.date < todayString() // Only archive p
  * while keeping them accessible to the user seamlessly.
  */
 export const useEvents = () => {
-    const [events, setEvents] = useFirestoreWithArchive<Event>(
+    const [events, setEvents, { loading }] = useFirestoreWithArchive<Event>(
         FIRESTORE_KEYS.EVENTS,
         FIRESTORE_KEYS.EVENTS_ARCHIVE,
         getEventDate,
@@ -93,6 +93,7 @@ export const useEvents = () => {
     return {
         // Raw data
         events,
+        loading,
 
         // Counts
         totalNum,

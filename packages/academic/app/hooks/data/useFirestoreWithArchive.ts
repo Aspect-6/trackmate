@@ -17,8 +17,8 @@ export function useFirestoreWithArchive<T extends { id: string }>(
 ) {
     const initialDoc = useMemo(() => ({ items: [] as T[] }), [])
 
-    const [activeDoc, setActiveDoc] = useCachedFirestoreDoc<{ items: T[] }>("academic", activeKey, initialDoc)
-    const [archiveDoc, setArchiveDoc] = useCachedFirestoreDoc<{ items: T[] }>("academic", archiveKey, initialDoc)
+    const [activeDoc, setActiveDoc, activeMeta] = useCachedFirestoreDoc<{ items: T[] }>("academic", activeKey, initialDoc)
+    const [archiveDoc, setArchiveDoc, archiveMeta] = useCachedFirestoreDoc<{ items: T[] }>("academic", archiveKey, initialDoc)
 
     const rawItems = useMemo(() => {
         const active = activeDoc.items || []
@@ -69,5 +69,5 @@ export function useFirestoreWithArchive<T extends { id: string }>(
         ])
     }, [activeDoc.items, archiveDoc.items, getItemDate, isArchivable, setActiveDoc, setArchiveDoc])
 
-    return [items, setItems] as const
+    return [items, setItems, { loading: activeMeta.loading || archiveMeta.loading, error: activeMeta.error || archiveMeta.error }] as const
 }

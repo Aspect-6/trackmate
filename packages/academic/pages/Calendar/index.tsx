@@ -2,15 +2,15 @@ import React, { useCallback, useMemo, useState, useEffect } from "react"
 import { X } from "lucide-react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
-import { dateToLocalISOString } from "@shared/lib/date"
-import { isAlternatingAB } from "@/app/lib/schedule"
 import { useClassIdsForDate } from "@/app/hooks/schedules/useClassIdsForDate"
 import { useClasses } from "@/app/hooks/entities"
 import { useSelectedDate } from "./hooks/useSelectedDate"
 import { useCalendarNavigation } from "./hooks/useCalendarNavigation"
 import { useCalendarGrid } from "./hooks/useCalendarGrid"
 import { useSidePanel } from "./hooks/useSidePanel"
-import { CALENDAR } from "@/app/styles/colors"
+import { dateToLocalISOString } from "@shared/lib/date"
+import { isAlternatingAB } from "@/app/lib/schedule"
+import { getEditAssignmentModalData } from "@/app/lib/subtaskIds"
 import CalendarHeader, { PrevButton, NextButton, MonthTitle, CalendarSearchInput } from "./components/CalendarHeader"
 import CalendarSearchResults from "./components/CalendarSearchResults"
 import CalendarBody from "./components/CalendarBody"
@@ -18,7 +18,7 @@ import CalendarGrid, { CalendarGridDayHeader, CalendarDay, CalendarGridEmptyDay 
 import CalendarSidePanel, { DayType, AssignmentList, EventList, NoSchoolInfo, DayTypeDisplay, CalendarSidePanelHeader, CalendarSidePanelBody, DateDisplay, CloseButton } from "./components/CalendarBody/SidePanel"
 import ClassList from "./components/CalendarBody/SidePanel/Body/ClassList"
 import NoClassesScheduled from "./components/CalendarBody/SidePanel/Body/ClassList/NoClassesScheduled"
-
+import { CALENDAR } from "@/app/styles/colors"
 import "./index.css"
 
 const Calendar: React.FC = () => {
@@ -30,7 +30,7 @@ const Calendar: React.FC = () => {
     const [showMobileResults, setShowMobileResults] = useState(false)
     const [selectedItemId, setSelectedItemId] = useState<{ type: "assignment" | "event", id: string } | null>(null)
 
-    const openEditAssignment = useCallback((id: string) => openModal("edit-assignment", id), [openModal])
+    const openEditAssignment = useCallback((id: string) => openModal("edit-assignment", getEditAssignmentModalData(id)), [openModal])
     const openEditClass = useCallback((id: string) => openModal("edit-class", id), [openModal])
     const openEditEvent = useCallback((id: string) => openModal("edit-event", id), [openModal])
     const openEditNoSchool = useCallback((id: string) => openModal("edit-no-school", id), [openModal])

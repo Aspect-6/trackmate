@@ -76,8 +76,18 @@ const ModalManager: React.FC = () => {
             // Assignment modals
             case "add-assignment":
                 return <AssignmentFormModal onClose={closeModal} {...(modalData && typeof modalData === "object" ? modalData : {})} />
-            case "edit-assignment":
-                return <AssignmentFormModal onClose={closeModal} assignmentId={modalData?.assignmentId ?? modalData} />
+            case "edit-assignment": {
+                const editData = modalData && typeof modalData === "object"
+                    ? modalData
+                    : { assignmentId: modalData }
+                return (
+                    <AssignmentFormModal
+                        onClose={closeModal}
+                        assignmentId={editData.assignmentId}
+                        focusSubtaskId={editData.focusSubtaskId}
+                    />
+                )
+            }
 
             // Class modals
             case "add-class":

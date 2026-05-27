@@ -3,7 +3,7 @@ import { useAuth } from "@shared/contexts/AuthContext"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useFirestoreWithArchive } from "@/app/hooks/data/useFirestoreWithArchive"
 import { generateId, todayString } from "@shared/lib"
-import { isSubtaskDisplayId } from "@/app/lib/subtaskIds"
+import { isSubtaskDisplayId, parseSubtaskDisplayId } from "@/app/lib/subtaskIds"
 import type { Assignment, Status } from "@/app/types"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import {
@@ -104,6 +104,11 @@ export const useAssignments = () => {
     const getAssignmentById = useCallback((id: string) => {
         return assignments.find(assignment => assignment.id === id) ?? null
     }, [assignments])
+    const getParentAssignmentById = useCallback((id: string) => {
+        const parsed = parseSubtaskDisplayId(id)
+        const parentId = parsed?.parentId ?? id
+        return parentAssignments.find(assignment => assignment.id === parentId) ?? null
+    }, [parentAssignments])
     const getAssignmentsForDate = useCallback((date: string) => {
         return assignmentsByDate[date] ?? []
     }, [assignmentsByDate])
@@ -196,6 +201,7 @@ export const useAssignments = () => {
 
         // Lookup functions
         getAssignmentById,
+        getParentAssignmentById,
         getAssignmentsForDate,
         getAssignmentsByStatus,
         getAssignmentsByClass,
