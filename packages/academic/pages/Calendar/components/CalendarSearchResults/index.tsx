@@ -35,12 +35,14 @@ const CalendarSearchResults: React.FC<CalendarSearchResultsProps> = ({ searchQue
             if (isEventSearch) return false
 
             const className = getClassById(assignment.classId)?.name || ""
-            const assignmentType = assignment.type?.toLowerCase() ?? ""
+            const assignmentType = assignment.kind === "parent"
+                ? (assignment.type?.toLowerCase() ?? "")
+                : ""
             return (
                 assignment.title.toLowerCase().includes(query) ||
                 assignmentType.includes(query) ||
                 className.toLowerCase().includes(query) ||
-                (assignment.description?.toLowerCase().includes(query) ?? false)
+                (assignment.kind === "parent" ? (assignment.description?.toLowerCase().includes(query) ?? false) : false)
             )
         })
 

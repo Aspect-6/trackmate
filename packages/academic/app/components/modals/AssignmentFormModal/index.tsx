@@ -227,6 +227,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                     ...templatePayload,
                     id: generateId(),
                     createdAt: todayString(),
+                    subtasks: []
                 }
                 addTemplate(newTemplate)
             }
@@ -384,8 +385,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                 onChange={setSubtasks}
                                 maxCount={maxSubtasks}
                                 focusColor={focusColor}
-                                defaultDueDate={formData.dueDate}
-                                defaultDueTime={formData.dueTime}
                                 focusSubtaskId={focusSubtaskId}
                             />
                         )}

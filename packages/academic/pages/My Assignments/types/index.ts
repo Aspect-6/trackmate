@@ -1,4 +1,4 @@
-import { Assignment, Status, Class } from "@/app/types"
+import { RenderableAssignment, Status, Class } from "@/app/types"
 
 export namespace ActionBar {
 	export interface Props {
@@ -33,6 +33,7 @@ export namespace AssignmentColumn {
 		searchQuery?: string
 		typeFilter?: string[]
 		priorityFilter?: string[]
+		searchMatchedParentIds?: ReadonlySet<string>
 	}
 	// ====================== 
 
@@ -49,7 +50,7 @@ export namespace AssignmentColumn {
 	export namespace Body {
 		export interface Props {
 			status: Status
-			items: Assignment[]
+			items: RenderableAssignment[]
 			droppableRef: (node: HTMLElement | null) => void
 			isOver: boolean
 			isMobile: boolean
@@ -61,7 +62,7 @@ export namespace AssignmentColumn {
 		// ====================== 
 
 		export interface AssignmentCardProps {
-			assignment: Assignment
+			assignment: RenderableAssignment
 			classInfo: Class
 			dragEnabled: boolean
 			isTablet: boolean

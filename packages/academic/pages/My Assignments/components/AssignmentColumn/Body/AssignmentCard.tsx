@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useSortable } from "@dnd-kit/sortable"
 import { useHover } from "@shared/hooks/ui/useHover"
-import { isSubtaskDisplayId } from "@/app/lib/subtaskIds"
-import type { AssignmentType } from "@/app/types"
+import type { AssignmentType, SubtaskRenderableAssignment } from "@/app/types"
 import type { AssignmentColumn } from "@/pages/My Assignments/types"
 import { formatDateRelative, formatTime } from "@shared/lib"
 import { GripVertical } from "lucide-react"
@@ -32,11 +31,12 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
         return () => window.removeEventListener("mouseup", handleGlobalMouseUp)
     }, [isLeftClicking])
 
-    const isSubtask = isSubtaskDisplayId(assignment.id)
+    const isSubtask = assignment.kind === "subtask"
     const examTypes: AssignmentType[] = ["Quiz", "Test", "Midterm", "Final Exam"]
+    const assignmentType = assignment.kind === "parent" ? assignment.type : undefined
     const dateLabel = isSubtask
         ? "Due"
-        : assignment.type && examTypes.includes(assignment.type)
+        : assignmentType && examTypes.includes(assignmentType)
             ? "On"
             : "Due"
     const showTime = assignment.dueTime && assignment.dueTime !== "23:59"
@@ -44,13 +44,15 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
     const cardDragHandlers = dragEnabled && !isTablet ? listeners : undefined
     const gripDragHandlers = dragEnabled ? listeners : undefined
 
+    const subtaskParentTitle = isSubtask ? (assignment as SubtaskRenderableAssignment).parentTitle : undefined
+
     return (
         <div
             ref={setNodeRef}
-            className={`p-4 rounded-lg shadow-md overflow-hidden transition-all flex gap-3 ${dragEnabled && !isTablet ? "cursor-grab active:cursor-grabbing select-none" : "cursor-pointer"}`}
+            className={`${isSubtask ? "p-3" : "p-4"} rounded-lg shadow-md overflow-hidden transition-all flex gap-3 ${dragEnabled && !isTablet ? "cursor-grab active:cursor-grabbing select-none" : "cursor-pointer"}`}
             style={{
                 border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`,
-                borderLeft: `4px solid ${classInfo.color}`,
+                borderLeft: `${isSubtask ? 2 : 4}px solid ${classInfo.color}`,
                 backgroundColor: isHovered
                     ? MY_ASSIGNMENTS.BACKGROUND_SECONDARY
                     : MY_ASSIGNMENTS.BACKGROUND_PRIMARY,
@@ -86,12 +88,24 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
                 >
                     {assignment.title}
                 </p>
-                <p
-                    className="text-xs font-semibold mb-2"
-                    style={{ color: classInfo.color }}
-                >
-                    {classInfo.name}
-                </p>
+                <div className={`flex items-start justify-between gap-3 ${isSubtask ? "mb-1.5" : "mb-2"}`}>
+                    <p
+                        className={`text-xs font-semibold min-w-0 ${isSubtask && subtaskParentTitle ? "basis-1/2 whitespace-normal break-words" : "basis-full"}`}
+                        style={{ color: classInfo.color }}
+                        title={classInfo.name}
+                    >
+                        {classInfo.name}
+                    </p>
+                    {isSubtask && subtaskParentTitle ? (
+                        <p
+                            className="font-medium basis-1/2 min-w-0 text-right whitespace-normal break-words"
+                            style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY, fontSize: "10px" }}
+                            title={subtaskParentTitle}
+                        >
+                            {subtaskParentTitle}
+                        </p>
+                    ) : null}
+                </div>
                 <div className="flex justify-between items-center">
                     <span
                         className="text-xs font-medium"

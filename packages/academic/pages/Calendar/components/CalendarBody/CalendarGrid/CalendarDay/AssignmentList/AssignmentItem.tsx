@@ -1,7 +1,6 @@
 import React from "react"
 import type { CalendarBody } from "@/pages/Calendar/types"
 import { useHover } from "@shared/hooks/ui/useHover"
-import { isSubtaskDisplayId } from "@/app/lib/subtaskIds"
 import { CALENDAR } from "@/app/styles/colors"
 
 const AssignmentItem: React.FC<CalendarBody.Grid.Day.AssignmentList.AssignmentItemProps> = ({ assignment, color, onClick }) => {
@@ -9,7 +8,7 @@ const AssignmentItem: React.FC<CalendarBody.Grid.Day.AssignmentList.AssignmentIt
     if (!color) return null
 
     const isDone = assignment.status === "Done"
-    const isSubtask = isSubtaskDisplayId(assignment.id)
+    const isSubtask = assignment.kind === "subtask"
 
     return (
         <div

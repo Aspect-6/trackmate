@@ -1,4 +1,4 @@
-import { Assignment, Event, NoSchoolPeriod, Class } from "@/app/types";
+import { RenderableAssignment, Event, NoSchoolPeriod, Class } from "@/app/types";
 
 // Components
 export namespace CalendarHeader {
@@ -39,7 +39,7 @@ export namespace CalendarBody {
                 isToday: boolean;
                 isSelected: boolean;
                 noSchool?: NoSchoolPeriod;
-                assignments: Assignment[];
+                assignments: RenderableAssignment[];
                 events: Event[];
                 onSelectDate: (date: Date) => void;
                 onAssignmentClick: (id: string) => void;
@@ -64,13 +64,13 @@ export namespace CalendarBody {
             }
             export namespace AssignmentList {
                 export interface Props {
-                    assignments: Assignment[];
+                    assignments: RenderableAssignment[];
                     getClassColor: (classId: string) => string;
                     onAssignmentClick: (id: string) => void;
                 }
                 // ======================
                 export interface AssignmentItemProps {
-                    assignment: Assignment;
+                    assignment: RenderableAssignment;
                     color: string;
                     onClick: (id: string) => void;
                 }
@@ -151,13 +151,13 @@ export namespace CalendarBody {
             }
             export namespace AssignmentList {
                 export interface Props {
-                    assignments: Assignment[]
+                    assignments: RenderableAssignment[]
                     getClassById: (id: string) => Class
                     onAssignmentClick: (id: string) => void
                 }
                 // ======================
                 export interface AssignmentItemProps {
-                    assignment: Assignment
+                    assignment: RenderableAssignment
                     getClassById: Props["getClassById"]
                     onAssignmentClick: Props["onAssignmentClick"]
                 }
@@ -185,7 +185,7 @@ export namespace UseSidePanel {
         noSchoolDay: NoSchoolPeriod | undefined
         dayType: "A" | "B" | null
         scheduleType: string | undefined
-        dueAssignments: Assignment[]
+        dueAssignments: RenderableAssignment[]
         dayEvents: Event[]
     }
 }
@@ -205,7 +205,7 @@ export namespace UseCalendar {
         dateString: string;
         isToday: boolean;
         noSchool: NoSchoolPeriod | undefined;
-        assignments: Assignment[];
+        assignments: RenderableAssignment[];
         events: Event[];
     }
     export type CalendarCell = EmptyCalendarCell | DayCalendarCell;

@@ -4,7 +4,7 @@ import { useSettings } from "@/app/hooks/useSettings"
 import { useFirestoreWithArchive } from "@/app/hooks/data/useFirestoreWithArchive"
 import { generateId, todayString } from "@shared/lib"
 import { isSubtaskDisplayId, parseSubtaskDisplayId } from "@/app/lib/subtaskIds"
-import type { Assignment, Status } from "@/app/types"
+import type { Assignment, RenderableAssignment, Status } from "@/app/types"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import {
     type AssignmentStoreSetters,
@@ -91,7 +91,7 @@ export const useAssignments = () => {
 
     // Indexed by date
     const assignmentsByDate = useMemo(() => {
-        return assignments.reduce<Record<string, Assignment[]>>((acc, assignment) => {
+        return assignments.reduce<Record<string, RenderableAssignment[]>>((acc, assignment) => {
             if (assignment.dueDate) {
                 if (!acc[assignment.dueDate]) acc[assignment.dueDate] = []
                 acc[assignment.dueDate]!.push(assignment)
@@ -182,6 +182,7 @@ export const useAssignments = () => {
 
     return {
         // Raw data
+        parentAssignments,
         assignments,
         assignmentTypes,
 

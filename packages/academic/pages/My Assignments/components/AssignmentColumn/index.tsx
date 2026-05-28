@@ -20,6 +20,7 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
     searchQuery = "",
     typeFilter = [],
     priorityFilter = [],
+    searchMatchedParentIds,
 }) => {
     const { getClassById } = useClasses()
     const { getAssignmentsByStatus } = useVisibleAssignments()
@@ -30,15 +31,27 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
         const query = searchQuery.toLowerCase().trim()
         return getAssignmentsByStatus(status)
             .filter((item) => {
+                if (item.kind === "subtask" && searchMatchedParentIds?.has(item.parentId)) {
+                    return true
+                }
+
                 const className = getClassById(item.classId).name.toLowerCase()
-                const matchesSearch =
-                    !query ||
+                const matchesSearch = !query ||
                     item.title.toLowerCase().includes(query) ||
                     className.includes(query) ||
-                    (item.description?.toLowerCase().includes(query) ?? false)
-                const matchesType = typeFilter.length === 0 || typeFilter.includes(item.type || "")
-                const matchesPriority =
-                    priorityFilter.length === 0 || (item.priority ? priorityFilter.includes(item.priority) : false)
+                    (item.kind === "parent"
+                        ? (item.description?.toLowerCase().includes(query) ?? false)
+                        : false)
+                const matchesType = typeFilter.length === 0 ||
+                    (item.kind === "parent"
+                        ? typeFilter.includes(item.type || "")
+                        : false)
+                const matchesPriority = priorityFilter.length === 0 ||
+                    (item.kind === "parent"
+                        ? (item.priority
+                            ? priorityFilter.includes(item.priority)
+                            : false)
+                        : false)
                 return matchesSearch && matchesType && matchesPriority
             })
             .toSorted((a, b) =>
@@ -46,7 +59,7 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
                     ? b.dueDate.localeCompare(a.dueDate)
                     : a.dueDate.localeCompare(b.dueDate)
             )
-    }, [getAssignmentsByStatus, status, searchQuery, typeFilter, priorityFilter, getClassById])
+    }, [getAssignmentsByStatus, status, searchQuery, typeFilter, priorityFilter, searchMatchedParentIds, getClassById])
 
     const totalCount = items.length
 

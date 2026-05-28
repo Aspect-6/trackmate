@@ -15,7 +15,7 @@ export const useAssignmentTypeSettings = () => {
         reorderAssignmentTypes
     } = useSettings()
 
-    const { assignments } = useAssignments()
+    const { parentAssignments } = useAssignments()
 
     const [newType, setNewType] = useState("")
 
@@ -27,7 +27,7 @@ export const useAssignmentTypeSettings = () => {
     }
 
     const handleRemove = (type: string) => {
-        removeAssignmentType(type, assignments)
+        removeAssignmentType(type, parentAssignments)
     }
 
     const handleDragEnd = (event: any) => {

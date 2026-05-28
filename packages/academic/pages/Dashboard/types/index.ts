@@ -1,4 +1,4 @@
-import { Assignment, Class, Status, Event, NoSchoolPeriod } from "@/app/types"
+import { RenderableAssignment, Class, Status, Event, NoSchoolPeriod } from "@/app/types"
 
 export namespace TodaysEvents {
     export interface Props {
@@ -80,12 +80,12 @@ export namespace TodaysClasses {
 export namespace UpcomingAssignments {
     export namespace AssignmentCard {
         export interface Props {
-            assignment: Assignment
+            assignment: RenderableAssignment
         }
         // ======================
 
         export interface MobileFooterProps {
-            assignment: Assignment
+            assignment: RenderableAssignment
         }
         export interface StatusButtonProps {
             status: string
@@ -110,7 +110,7 @@ export namespace UpcomingAssignments {
                     assignmentClass: Class
                 }
                 export interface AssignmentDetailsDueProps {
-                    assignment: Assignment
+                    assignment: RenderableAssignment
                 }
             }
         }

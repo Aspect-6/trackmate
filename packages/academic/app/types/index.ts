@@ -21,18 +21,23 @@ export type AssignmentType = string
 export type ThemeMode = "light" | "dark"
 
 /**
- * Represents a single school assignment.
+ * Represents a subtask of a parent assignment.
  */
 export interface Subtask {
+    /** Unique identifier for the subtask */
     id: string
+    /** The title or name of the subtask */
     title: string
+    /** The due date in ISO format (YYYY-MM-DD) */
     dueDate: string
+    /** The due time in 24-hour format (HH:MM) */
     dueTime: string
+    /** The current completion status */
     status: Status
 }
 
 /**
- * Represents a single (parent) school assignment.
+ * Represents a single (parent) assignment.
  */
 export interface Assignment {
     /** Unique identifier for the assignment */
@@ -56,8 +61,31 @@ export interface Assignment {
     /** Detailed description or notes (missing for subtasks in UI models) */
     description?: string
     /** Nested subtasks for parent assignments */
-    subtasks?: Subtask[]
+    subtasks: Subtask[]
 }
+
+/**
+ * UI-only render model for assignment-like items shown in lists.
+ * Parents and subtasks are distinct shapes (subtasks are not Assignments).
+ */
+export interface ParentRenderableAssignment extends Assignment {
+    kind: "parent"
+}
+
+export interface SubtaskRenderableAssignment {
+    kind: "subtask"
+    id: string
+    title: string
+    dueDate: string
+    dueTime: string
+    status: Status
+    classId: string
+    createdAt: string
+    parentId: string
+    parentTitle: string
+}
+
+export type RenderableAssignment = ParentRenderableAssignment | SubtaskRenderableAssignment
 
 /**
  * Represents a school class or course.

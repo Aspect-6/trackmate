@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { useModal } from "@/app/contexts/ModalContext"
-import { useAssignments, useClasses } from "@/app/hooks/entities"
 import { useHover } from "@shared/hooks/ui/useHover"
-import { getEditAssignmentModalData, isSubtaskDisplayId } from "@/app/lib/subtaskIds"
+import { useAssignments, useClasses } from "@/app/hooks/entities"
+import { getEditAssignmentModalData } from "@/app/lib/subtaskIds"
 import type { UpcomingAssignments } from "@/pages/Dashboard/types"
 import PriorityBadge from "@/app/components/PriorityBadge"
 import StatusButton from "./StatusButton"
@@ -17,9 +17,7 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
     const { isHovered, hoverProps } = useHover()
     const [isCompleting, setIsCompleting] = useState(false)
     const classInfo = getClassById(assignment.classId)
-    const isSubtask = isSubtaskDisplayId(assignment.id)
 
-    // Handle case where class data hasn't loaded yet
     if (!classInfo) return null
 
     const handleStatusUpdate = (e: React.MouseEvent) => {
@@ -69,7 +67,7 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
                 </AssignmentDetails>
 
                 <div className="hidden sm:flex">
-                    {!isSubtask && assignment.priority && <PriorityBadge priority={assignment.priority} />}
+                    {(assignment.kind === "parent" && assignment.priority) && <PriorityBadge priority={assignment.priority} />}
                 </div>
             </div>
 

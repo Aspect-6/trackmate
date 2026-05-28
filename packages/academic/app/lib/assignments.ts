@@ -1,4 +1,4 @@
-import type { Assignment, Status, Subtask } from "@/app/types"
+import type { Assignment, RenderableAssignment, Status, Subtask } from "@/app/types"
 import { makeSubtaskDisplayId, parseSubtaskDisplayId } from "@/app/lib/subtaskIds"
 
 /** Fields that can be updated on a nested subtask. */
@@ -29,23 +29,23 @@ export const computeParentStatusFromSubtasks = (
     return "In Progress"
 }
 
-export const flattenAssignmentsForDisplay = (parents: Assignment[]): Assignment[] => {
-    const flat: Assignment[] = []
+export const flattenAssignmentsForDisplay = (parents: Assignment[]): RenderableAssignment[] => {
+    const flat: RenderableAssignment[] = []
 
     for (const parent of parents) {
-        flat.push(parent)
+        flat.push({ ...parent, kind: "parent" })
 
         for (const st of normalizeSubtasks(parent)) {
             flat.push({
+                kind: "subtask",
                 id: makeSubtaskDisplayId(parent.id, st.id),
                 title: st.title,
                 dueDate: st.dueDate,
                 dueTime: st.dueTime,
                 status: st.status,
                 classId: parent.classId,
-                priority: undefined,
-                type: undefined,
-                description: undefined,
+                parentId: parent.id,
+                parentTitle: parent.title,
                 createdAt: parent.createdAt,
             })
         }

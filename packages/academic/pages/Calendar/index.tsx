@@ -100,10 +100,14 @@ const Calendar: React.FC = () => {
 
                 const className = getClassById(assignment.classId).name
                 return (
-                    assignment.title.toLowerCase().includes(query) ||
-                    (assignment.type?.toLowerCase().includes(query) ?? false) ||
-                    className.toLowerCase().includes(query) ||
-                    (assignment.description?.toLowerCase().includes(query) ?? false)
+                    assignment.title.toLowerCase().includes(query)
+                        || (assignment.kind === "parent"
+                            ? (assignment.type?.toLowerCase().includes(query) ?? false)
+                            : false)
+                        || className.toLowerCase().includes(query)
+                        || (assignment.kind === "parent"
+                                ? (assignment.description?.toLowerCase().includes(query) ?? false)
+                                : false)
                 )
             })
 

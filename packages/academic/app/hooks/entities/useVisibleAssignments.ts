@@ -1,4 +1,5 @@
 import { useMemo } from "react"
+import type { Status } from "@/app/types"
 import { useAssignments } from "./useAssignments"
 import { useClasses } from "./useClasses"
 
@@ -46,7 +47,7 @@ export const useVisibleAssignments = () => {
             // Override lookup functions to use the filtered views
             getAssignmentById: (id: string) => assignments.find(a => a.id === id) ?? null,
             getAssignmentsForDate: (date: string) => assignmentsByDate[date] ?? [],
-            getAssignmentsByStatus: (status: any) => assignments.filter(a => a.status === status),
+            getAssignmentsByStatus: (status: Status) => assignments.filter(a => a.status === status),
             getAssignmentsByClass: (classId: string) => assignments.filter(a => a.classId === classId)
         }
     }, [assignmentsState, archivedClassIds])

@@ -1,6 +1,5 @@
 import React from "react"
 import { useHover } from "@shared/hooks/ui/useHover"
-import { isSubtaskDisplayId } from "@/app/lib/subtaskIds"
 import type { CalendarBody } from "@/pages/Calendar/types"
 import PriorityBadge from "@/app/components/PriorityBadge"
 import { CALENDAR } from "@/app/styles/colors"
@@ -11,7 +10,7 @@ const AssignmentItem: React.FC<CalendarBody.SidePanel.Body.AssignmentList.Assign
     const classColor = linkedClass.color
     const className = linkedClass.name
     const isDone = assignment.status === "Done"
-    const isSubtask = isSubtaskDisplayId(assignment.id)
+    const isSubtask = assignment.kind === "subtask"
 
     return (
         <div
@@ -30,7 +29,7 @@ const AssignmentItem: React.FC<CalendarBody.SidePanel.Body.AssignmentList.Assign
                 <span style={{ color: isDone ? CALENDAR.TEXT_SECONDARY : classColor }}>{className}</span>
                 {(isDone || !isSubtask) && (
                     <PriorityBadge
-                        priority={isDone ? "Done" : assignment.priority}
+                        priority={isDone ? "Done" : (assignment.kind === "parent" ? assignment.priority : "Low")}
                         className="px-2 py-0.5"
                     />
                 )}

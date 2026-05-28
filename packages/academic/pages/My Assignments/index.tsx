@@ -3,6 +3,7 @@ import { useBreakpoints } from "@/app/hooks/ui/useBreakpoints"
 import { DndContext, DragOverlay } from "@dnd-kit/core"
 import { useColumnVisibility } from "@/pages/My Assignments/hooks/useColumnVisibility"
 import { useAssignmentDrag } from "@/pages/My Assignments/hooks/useAssignmentDrag"
+import { useSearchMatchedParentIds } from "@/pages/My Assignments/hooks/useSearchMatchedParentIds"
 import ActionBar from "@/pages/My Assignments/components/ActionBar"
 import AssignmentColumn from "@/pages/My Assignments/components/AssignmentColumn"
 import AssignmentDragOverlay from "@/pages/My Assignments/components/AssignmentDragOverlay"
@@ -40,6 +41,12 @@ const MyAssignments: React.FC = () => {
 		overId,
 	} = useAssignmentDrag(dragEnabled, isTablet)
 
+	const searchMatchedParentIds = useSearchMatchedParentIds(
+		searchQuery,
+		typeFilter,
+		priorityFilter
+	)
+
 	return (
 		<div className={`flex flex-col ${!isMobile && !isTablet ? "flex-1 min-h-0" : ""}`}>
 			<ActionBar
@@ -74,6 +81,7 @@ const MyAssignments: React.FC = () => {
 							searchQuery={searchQuery}
 							typeFilter={typeFilter}
 							priorityFilter={priorityFilter}
+							searchMatchedParentIds={searchMatchedParentIds}
 						/>
 					))}
 				</div>

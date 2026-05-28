@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { generateId } from "@shared/lib"
+import { generateId, todayString } from "@shared/lib"
 import type { Status, Subtask } from "@/app/types"
 import { ModalLabel } from "@shared/components/modal"
 import AddSubtaskButton from "./AddSubtaskButton"
@@ -11,8 +11,6 @@ export interface SubtasksSectionProps {
     onChange: (subtasks: Subtask[]) => void
     maxCount: number
     focusColor: string
-    defaultDueDate: string
-    defaultDueTime: string
     focusSubtaskId?: string
 }
 
@@ -21,8 +19,6 @@ const SubtasksSection: React.FC<SubtasksSectionProps> = ({
     onChange,
     maxCount,
     focusColor,
-    defaultDueDate,
-    defaultDueTime,
     focusSubtaskId,
 }) => {
     const [expandedId, setExpandedId] = useState<string | null>(null)
@@ -44,8 +40,8 @@ const SubtasksSection: React.FC<SubtasksSectionProps> = ({
             {
                 id: newId,
                 title: "",
-                dueDate: defaultDueDate,
-                dueTime: defaultDueTime,
+                dueDate: todayString(),
+                dueTime: "23:59",
                 status: "To Do" as Status,
             },
         ])
