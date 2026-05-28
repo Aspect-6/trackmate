@@ -3,7 +3,7 @@ import { useAuth } from "@shared/contexts/AuthContext"
 import { useToast } from "@shared/contexts/ToastContext"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
-import { useAssignments, useClasses } from "@/app/hooks/entities"
+import { useAssignments, useClasses, useAcademicTerms } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useFormFields } from "@/app/hooks/ui/useFormFields"
 import { DEFAULT_ASSIGNMENT_TYPES } from "@/app/hooks/useSettings"
@@ -55,7 +55,8 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
     focusSubtaskId,
 }) => {
     const { isPremium } = useAuth()
-    const { classes } = useClasses()
+    const { classes, getClassById } = useClasses()
+    const { getTermById } = useAcademicTerms()
     const { addAssignment, updateParent, getParentAssignmentById } = useAssignments()
     const { assignmentTypes, addTemplate, updateTemplate, getAssignmentTemplateById } = useSettings()
     const { openModal } = useModal()
@@ -170,6 +171,23 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
         if (!safeData.classId && classes.length > 0) {
             safeData.classId = classes[0]!.id
         }
+
+        const targetClass = getClassById(safeData.classId)
+        if (targetClass.termId) {
+            const term = getTermById(targetClass.termId)
+            const termStart = new Date(term.startDate)
+            const termEnd = new Date(term.endDate)
+            const dueDate = new Date(safeData.dueDate)
+            if (dueDate < termStart) {
+                showToast(`Due date cannot be before the term (${term.name}) begins`, "error")
+                return
+            }
+            if (dueDate > termEnd) {
+                showToast(`Due date cannot be after the term (${term.name}) ends`, "error")
+                return
+            }
+        }
+
 
         if (!validPriorities.includes(safeData.priority)) {
             safeData.priority = "Low"

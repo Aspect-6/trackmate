@@ -29,13 +29,12 @@ export const useAcademicTerms = () => {
     }, {}), [academicTerms])
 
     // Lookup functions
-    const getTermById = useCallback((id: string): AcademicTerm | undefined => {
-        return academicTerms.find(term => term.id === id)
+    const getTermById = useCallback((id: string): AcademicTerm => {
+        return academicTerms.find(term => term.id === id) as AcademicTerm
     }, [academicTerms])
 
-    const getSemesterById = useCallback((termId: string, semesterId: string): Semester | undefined => {
-        const term = academicTerms.find(t => t.id === termId)
-        return term?.semesters.find(s => s.id === semesterId)
+    const getSemesterById = useCallback((termId: string, semesterId: string): Semester => {
+        return getTermById(termId).semesters.find(s => s.id === semesterId) as Semester
     }, [academicTerms])
 
     const getTermDisplay = useCallback((termId: string | undefined, semesterId?: string): string => {
