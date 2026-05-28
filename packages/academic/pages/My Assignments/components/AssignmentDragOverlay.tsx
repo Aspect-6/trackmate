@@ -34,7 +34,7 @@ export const AssignmentDragOverlay: React.FC<AssignmentDragOverlayProps> = ({ as
 			style={{
 				backgroundColor: MY_ASSIGNMENTS.BACKGROUND_PRIMARY,
 				border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`,
-				borderLeft: `${isSubtask ? 2 : 4}px solid ${classColor}`,
+				borderLeft: `${isSubtask ? 2.5 : 4}px solid ${classColor}`,
 				pointerEvents: "none",
 				opacity: 0.9,
 			}}

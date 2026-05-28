@@ -49,7 +49,7 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
             style={{
                 backgroundColor: isHovered ? DASHBOARD.BACKGROUND_SECONDARY : DASHBOARD.BACKGROUND_PRIMARY,
                 border: `1px solid ${DASHBOARD.BORDER_PRIMARY}`,
-                borderLeft: `${isSubtask ? 2 : 4}px solid ${classInfo.color}`,
+                borderLeft: `${isSubtask ? 2.5 : 4}px solid ${classInfo.color}`,
             }}
             {...hoverProps}
         >

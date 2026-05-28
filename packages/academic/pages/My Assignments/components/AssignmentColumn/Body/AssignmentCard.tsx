@@ -52,7 +52,7 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
             className={`${isSubtask ? "p-2.5 gap-2.5" : "p-4 gap-3"} rounded-lg shadow-md overflow-hidden transition-all flex ${dragEnabled && !isTablet ? "cursor-grab active:cursor-grabbing select-none" : "cursor-pointer"}`}
             style={{
                 border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`,
-                borderLeft: `${isSubtask ? 2 : 4}px solid ${classInfo.color}`,
+                borderLeft: `${isSubtask ? 2.5 : 4}px solid ${classInfo.color}`,
                 backgroundColor: isHovered
                     ? MY_ASSIGNMENTS.BACKGROUND_SECONDARY
                     : MY_ASSIGNMENTS.BACKGROUND_PRIMARY,
