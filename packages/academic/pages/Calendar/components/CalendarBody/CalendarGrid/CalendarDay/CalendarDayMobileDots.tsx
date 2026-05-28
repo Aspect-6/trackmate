@@ -13,7 +13,7 @@ const CalendarDayMobileDots: React.FC<CalendarBody.Grid.Day.MobileDotsProps> = (
                         key={id}
                         className="w-2.5 h-2.5 rounded-full"
                         style={{
-                            backgroundColor: filled ? color : color.replace(/^hsl\(/, "hsla(").replace(/\)$/, ", 0.55)"),
+                            backgroundColor: filled ? color : color.replace(/^hsl\(/, "hsla(").replace(/\)$/, ", 0.4)"),
                             border: filled ? "none" : `1px solid ${color}`,
                         }}
                     />
