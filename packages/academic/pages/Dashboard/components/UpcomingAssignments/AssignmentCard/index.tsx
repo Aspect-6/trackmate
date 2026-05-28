@@ -20,6 +20,9 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
 
     if (!classInfo) return null
 
+    const isSubtask = assignment.kind === "subtask"
+    const subtaskParentTitle = isSubtask ? assignment.parentTitle : undefined
+
     const handleStatusUpdate = (e: React.MouseEvent) => {
         e.stopPropagation()
 
@@ -42,32 +45,46 @@ const AssignmentCard: React.FC<UpcomingAssignments.AssignmentCard.Props> = ({ as
     return (
         <div
             onClick={() => openModal("edit-assignment", getEditAssignmentModalData(assignment.id))}
-            className="flex flex-col gap-3 p-3 sm:p-4 rounded-xl shadow-md cursor-pointer transition-colors"
+            className={`flex flex-col rounded-xl shadow-md cursor-pointer transition-colors ${isSubtask ? "gap-2 p-3" : "gap-3 p-3 sm:p-4"}`}
             style={{
                 backgroundColor: isHovered ? DASHBOARD.BACKGROUND_SECONDARY : DASHBOARD.BACKGROUND_PRIMARY,
                 border: `1px solid ${DASHBOARD.BORDER_PRIMARY}`,
-                borderLeft: `4px solid ${classInfo.color}`,
+                borderLeft: `${isSubtask ? 2 : 4}px solid ${classInfo.color}`,
             }}
             {...hoverProps}
         >
-            <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+            <div className={`flex items-start sm:items-center ${isSubtask ? "gap-2 sm:gap-3" : "gap-3 sm:gap-4"}`}>
                 <StatusButton
                     status={assignment.status}
                     isCompleting={isCompleting}
                     onClick={handleStatusUpdate}
                 />
 
-                <AssignmentDetails>
-                    <AssignmentDetailsTitle status={assignment.status}>{assignment.title}</AssignmentDetailsTitle>
+                <div className="min-w-0 flex-1">
+                    <AssignmentDetails>
+                        <AssignmentDetailsTitle status={assignment.status} compact={isSubtask}>
+                            {assignment.title}
+                        </AssignmentDetailsTitle>
 
-                    <AssignmentDetailsBody>
-                        <AssignmentDetailsClass assignmentClass={classInfo} />
-                        <AssignmentDetailsDue assignment={assignment} />
-                    </AssignmentDetailsBody>
-                </AssignmentDetails>
+                        <AssignmentDetailsBody compact={isSubtask}>
+                            <AssignmentDetailsClass assignmentClass={classInfo} />
+                            <AssignmentDetailsDue assignment={assignment} />
+                        </AssignmentDetailsBody>
+                    </AssignmentDetails>
+                </div>
 
-                <div className="hidden sm:flex">
-                    {(assignment.kind === "parent" && assignment.priority) && <PriorityBadge priority={assignment.priority} />}
+                <div className="hidden sm:flex shrink-0 min-w-0 max-w-1/2 justify-end">
+                    {assignment.kind === "parent" && assignment.priority ? (
+                        <PriorityBadge priority={assignment.priority} />
+                    ) : subtaskParentTitle ? (
+                        <p
+                            className="text-xs text-right font-medium whitespace-normal break-words"
+                            style={{ color: DASHBOARD.TEXT_SECONDARY }}
+                            title={subtaskParentTitle}
+                        >
+                            {subtaskParentTitle}
+                        </p>
+                    ) : null}
                 </div>
             </div>
 

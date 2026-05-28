@@ -100,10 +100,12 @@ export namespace UpcomingAssignments {
             export interface TitleProps {
                 status: Status
                 children: React.ReactNode
+                compact?: boolean
             }
             export namespace Body {
                 export interface Props {
                     children: React.ReactNode
+                    compact?: boolean
                 }
                 // ======================
                 export interface AssignmentDetailsClassProps {

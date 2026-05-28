@@ -48,7 +48,7 @@ const StatusButton: React.FC<UpcomingAssignments.AssignmentCard.StatusButtonProp
             aria-label={title}
         >
             <Icon
-                className={`w-6 h-6 transition-colors duration-200 ${className}`.trim()}
+                className={`w-6 h-6 transition-colors duration-200 ${className ?? ""}`.trim()}
                 style={{ color: isHovered ? hoverColor : color }}
                 {...hoverProps}
             />
