@@ -15,9 +15,8 @@ const AssignmentItem: React.FC<CalendarBody.Grid.Day.AssignmentList.AssignmentIt
             className={`calendar-assignment ${isDone && !isSubtask ? "saturate-70" : ""}`}
             style={{
                 backgroundColor: isSubtask ? color.replace(/^hsl\(/, "hsla(").replace(/\)$/, ", 0.55)") : color,
-                boxShadow: isSubtask ? `inset 0 0 0 1px ${color}` : "none",
-                border: isSubtask ? `1px solid ${color}` : "none",
-                color: isSubtask ? CALENDAR.TEXT_PRIMARY : CALENDAR.TEXT_WHITE,
+                boxShadow: isSubtask ? `inset 0 0 0 2px ${color}` : "none",
+                color: CALENDAR.TEXT_WHITE,
                 opacity: isHovered ? (isDone ? 0.5 : 0.85) : (isDone ? 0.6 : 1),
             }}
             onClick={(e) => { e.stopPropagation(); onClick(assignment.id) }}
