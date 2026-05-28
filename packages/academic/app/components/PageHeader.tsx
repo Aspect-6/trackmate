@@ -1,15 +1,19 @@
 import React from "react"
 import { useLocation } from "react-router-dom"
-import { Plus } from "lucide-react"
+import { useToast } from "@shared/contexts/ToastContext"
 import { useModal } from "@/app/contexts/ModalContext"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { useHeaderAction } from "@/app/hooks/ui/useHeaderAction"
+import { useClasses } from "@/app/hooks/entities"
+import { Plus } from "lucide-react"
 import { getRouteByPath, DEFAULT_ROUTE } from "@/app/config/paths"
 import { GLOBAL } from "@/app/styles/colors"
-import { useHeaderAction } from "@/app/hooks/ui/useHeaderAction"
-import { useHover } from "@shared/hooks/ui/useHover"
 
 const PageHeader: React.FC = () => {
     const location = useLocation()
     const { openModal } = useModal()
+    const { showToast } = useToast()
+    const { totalNum: totalClasses } = useClasses()
 
     const currentRoute = getRouteByPath(location.pathname) ?? DEFAULT_ROUTE
 
@@ -24,7 +28,12 @@ const PageHeader: React.FC = () => {
                 {currentRoute.title}
             </h1>
             <button
-                onClick={() => openModal(addButton.modal)}
+                onClick={() => {
+                    if (totalClasses === 0) {
+                        showToast("Add a class first before adding assignments", "error")
+                        return
+                    } else { openModal(addButton.modal) }
+                }}
                 className="flex items-center py-2 px-3 sm:px-4 border border-transparent rounded-lg shadow-sm text-xs sm:text-sm font-medium text-white transition duration-150 ease-in-out whitespace-nowrap flex-shrink-0"
                 style={{ backgroundColor: isAddHovered ? addButton.bgHover : addButton.bg }}
                 {...addHoverProps}

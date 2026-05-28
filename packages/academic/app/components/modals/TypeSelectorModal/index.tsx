@@ -1,4 +1,6 @@
 import React from "react"
+import { useToast } from "@shared/contexts/ToastContext"
+import { useClasses } from "@/app/hooks/entities"
 import { FileText, BookOpen, X, Calendar } from "lucide-react"
 import {
     ModalContainer,
@@ -15,13 +17,21 @@ interface TypeSelectorModalProps {
 }
 
 export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, openModal }) => {
+    const { showToast } = useToast()
+    const { totalNum: totalClasses } = useClasses()
+
     return (
         <ModalContainer>
             <ModalHeader color={GLOBAL.ADDITEM_HEADER_TEXT}>What would you like to add?</ModalHeader>
 
             <div className="space-y-3 py-2">
                 <OptionButton
-                    onClick={() => openModal("assignment-kind-chooser")}
+                    onClick={() => {
+                        if (totalClasses === 0) {
+                            showToast("Add a class first before adding assignments", "error")
+                            return
+                        } else { openModal("assignment-kind-chooser") }
+                    }}
                     icon={<FileText className="w-5 h-5" />}
                     label="Assignment"
                     bg={GLOBAL.ASSIGNMENT_BUTTON_BG}
