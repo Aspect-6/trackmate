@@ -30,7 +30,7 @@ export const AssignmentDragOverlay: React.FC<AssignmentDragOverlayProps> = ({ as
 
 	return (
 		<div
-			className={`${isSubtask ? "p-3" : "p-4"} rounded-lg shadow-md overflow-hidden flex gap-3 cursor-grabbing`}
+			className={`${isSubtask ? "p-2.5 gap-2.5" : "p-4 gap-3"} rounded-lg shadow-md overflow-hidden flex cursor-grabbing`}
 			style={{
 				backgroundColor: MY_ASSIGNMENTS.BACKGROUND_PRIMARY,
 				border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`,
@@ -63,7 +63,7 @@ export const AssignmentDragOverlay: React.FC<AssignmentDragOverlayProps> = ({ as
 					{isSubtask && subtaskParentTitle ? (
 						<p
 							className="font-medium basis-1/2 min-w-0 text-right whitespace-normal break-words"
-							style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY, fontSize: "10px" }}
+							style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY, fontSize: "11px" }}
 							title={subtaskParentTitle}
 						>
 							{subtaskParentTitle}

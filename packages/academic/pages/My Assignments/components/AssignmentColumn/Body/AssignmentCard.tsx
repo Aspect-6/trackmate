@@ -49,7 +49,7 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
     return (
         <div
             ref={setNodeRef}
-            className={`${isSubtask ? "p-3" : "p-4"} rounded-lg shadow-md overflow-hidden transition-all flex gap-3 ${dragEnabled && !isTablet ? "cursor-grab active:cursor-grabbing select-none" : "cursor-pointer"}`}
+            className={`${isSubtask ? "p-2.5 gap-2.5" : "p-4 gap-3"} rounded-lg shadow-md overflow-hidden transition-all flex ${dragEnabled && !isTablet ? "cursor-grab active:cursor-grabbing select-none" : "cursor-pointer"}`}
             style={{
                 border: `1px solid ${MY_ASSIGNMENTS.BORDER_PRIMARY}`,
                 borderLeft: `${isSubtask ? 2 : 4}px solid ${classInfo.color}`,
@@ -99,7 +99,7 @@ const AssignmentCard: React.FC<AssignmentColumn.Body.AssignmentCardProps> = ({
                     {isSubtask && subtaskParentTitle ? (
                         <p
                             className="font-medium basis-1/2 min-w-0 text-right whitespace-normal break-words"
-                            style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY, fontSize: "10px" }}
+                            style={{ color: MY_ASSIGNMENTS.TEXT_SECONDARY, fontSize: "11px" }}
                             title={subtaskParentTitle}
                         >
                             {subtaskParentTitle}
