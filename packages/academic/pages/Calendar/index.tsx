@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useState, useEffect } from "react"
-import { X } from "lucide-react"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useCalendarContext } from "@/app/contexts/CalendarContext"
 import { useClassIdsForDate } from "@/app/hooks/schedules/useClassIdsForDate"
@@ -11,6 +10,8 @@ import { useSidePanel } from "./hooks/useSidePanel"
 import { dateToLocalISOString } from "@shared/lib/date"
 import { isAlternatingAB } from "@/app/lib/schedule"
 import { getEditAssignmentModalData } from "@/app/lib/subtaskIds"
+import type { AlternatingABDayType } from "@/app/types"
+import { X } from "lucide-react"
 import CalendarHeader, { PrevButton, NextButton, MonthTitle, CalendarSearchInput } from "./components/CalendarHeader"
 import CalendarSearchResults from "./components/CalendarSearchResults"
 import CalendarBody from "./components/CalendarBody"
@@ -34,6 +35,7 @@ const Calendar: React.FC = () => {
     const openEditClass = useCallback((id: string) => openModal("edit-class", id), [openModal])
     const openEditEvent = useCallback((id: string) => openModal("edit-event", id), [openModal])
     const openEditNoSchool = useCallback((id: string) => openModal("edit-no-school", id), [openModal])
+    const openEditDayType = useCallback((dayType: NonNullable<AlternatingABDayType>, date: string) => openModal("edit-day-type", { dayType, date }), [openModal])
     const { selectedDate, setSelectedDate, clearSelection } = useSelectedDate()
 
     // Keep CalendarContext in sync with the calendar's selected date
@@ -225,7 +227,13 @@ const Calendar: React.FC = () => {
                             </CalendarSidePanelHeader>
 
                             <CalendarSidePanelBody>
-                                <DayType noSchoolDay={sidePanelData?.noSchoolDay || undefined} dayType={sidePanelData?.dayType || null} onNoSchoolClick={openEditNoSchool}>
+                                <DayType
+                                    noSchoolDay={sidePanelData?.noSchoolDay || undefined}
+                                    dayType={sidePanelData?.dayType || null}
+                                    onNoSchoolClick={openEditNoSchool}
+                                    onDayTypeClick={openEditDayType}
+                                    date={sidePanelData?.date}
+                                >
                                     <NoSchoolInfo noSchoolDay={sidePanelData?.noSchoolDay || undefined} />
                                     {isAlternatingAB(sidePanelData?.scheduleType) && (
                                         <DayTypeDisplay dayType={sidePanelData?.dayType || null} />

@@ -7,6 +7,7 @@ import { EventFormModal } from "@/app/components/modals/EventFormModal"
 import { NoSchoolFormModal } from "@/app/components/modals/NoSchoolFormModal"
 import { TermFormModal } from "@/app/components/modals/TermFormModal"
 import { DeleteConfirmationModal } from "@/app/components/modals/DeleteConfirmationModal"
+import { EditDayTypeModal } from "@/app/components/modals/EditDayTypeModal"
 import { ClassSelectorModal } from "@/app/components/modals/ClassSelectorModal"
 import { ClassMigrationModal } from "@/app/components/modals/ClassMigrationModal"
 import { ClassYearlongMigrationModal } from "@/app/components/modals/ClassYearlongMigrationModal"
@@ -115,11 +116,11 @@ const ModalManager: React.FC = () => {
             case "auto-archive-notification":
                 return <AutoArchiveModal onClose={closeModal} termName={modalData?.termName} />
 
-            // Schedule cell selector
+            // Schedule
+            case "edit-day-type":
+                return <EditDayTypeModal onClose={closeModal} data={modalData} />
             case "class-selector":
                 return <ClassSelectorModal onClose={closeModal} data={modalData} />
-
-            // Schedule type migration
             case "class-migration":
                 return <ClassMigrationModal onClose={closeModal} data={modalData} />
             case "class-yearlong-migration":

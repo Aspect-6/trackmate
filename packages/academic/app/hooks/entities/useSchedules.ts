@@ -1,6 +1,5 @@
 import { useCallback } from "react"
 import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
-import { todayString } from "@shared/lib"
 import { calculateDayType, isAlternatingAB, DEFAULT_FIXED_WEEKLY_WEEKDAYS } from "@/app/lib/schedule"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { Schedules, ScheduleType, TermSchedule, DaySchedule, AlternatingABDayType, AcademicTerm, NoSchoolPeriod, AlternatingABRotationConfig } from "@/app/types"
@@ -165,9 +164,8 @@ export const useSchedules = () => {
      * Sets or overrides the day type for today within a specific term's config.
      * If the term has no existing config, one is initialized.
      */
-    const setReferenceDayType = useCallback((type: NonNullable<AlternatingABDayType>, activeTermId: string, scheduleType: ScheduleType): void => {
+    const setReferenceDayType = useCallback((type: NonNullable<AlternatingABDayType>, activeTermId: string, scheduleType: ScheduleType, date: string): void => {
         if (!activeTermId || !isAlternatingAB(scheduleType)) return
-        const today = todayString()
         const key = scheduleType as "alternating-ab" | "alternating-ab-semester"
         setSchedules(prev => {
             const abData = prev[key]
@@ -183,7 +181,7 @@ export const useSchedules = () => {
                             ...existingConfig,
                             overrides: {
                                 ...existingConfig.overrides,
-                                [today]: type
+                                [date]: type
                             }
                         }
                     }

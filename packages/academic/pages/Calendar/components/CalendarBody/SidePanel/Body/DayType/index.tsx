@@ -1,23 +1,27 @@
 import React from "react"
 import { useHover } from "@shared/hooks/ui/useHover"
+import { dateToLocalISOString } from "@shared/lib"
 import type { CalendarBody } from "@/pages/Calendar/types"
 import { CALENDAR } from "@/app/styles/colors"
 
-const DayType: React.FC<CalendarBody.SidePanel.Body.DayType.Props> = ({ noSchoolDay, dayType, onNoSchoolClick, children }) => {
+const DayType: React.FC<CalendarBody.SidePanel.Body.DayType.Props> = ({ noSchoolDay, dayType, onNoSchoolClick, onDayTypeClick, date, children }) => {
     const { isHovered, hoverProps } = useHover()
     if (!noSchoolDay && !dayType) return null
 
-    const isInteractive = Boolean(noSchoolDay && onNoSchoolClick)
+    const handleClick = () => {
+        if (noSchoolDay) onNoSchoolClick?.(noSchoolDay.id)
+        else if (dayType && date) onDayTypeClick?.(dayType, dateToLocalISOString(date))
+    }
 
     return (
         <div
             id="day-type-info"
-            className={`mb-4 p-3 rounded-lg${isInteractive ? " cursor-pointer transition-colors" : ""}`}
+            className={`mb-4 p-3 rounded-lg cursor-pointer transition-colors`}
             style={{
                 border: `1px solid ${CALENDAR.BORDER_PRIMARY}`,
-                backgroundColor: isInteractive && isHovered ? CALENDAR.ITEM_BG_HOVER : CALENDAR.ITEM_BG
+                backgroundColor: isHovered ? CALENDAR.ITEM_BG_HOVER : CALENDAR.ITEM_BG
             }}
-            onClick={() => isInteractive && onNoSchoolClick!(noSchoolDay!.id)}
+            onClick={() => handleClick()}
             {...hoverProps}
         >
             {children}

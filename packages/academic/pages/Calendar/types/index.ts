@@ -1,4 +1,4 @@
-import { RenderableAssignment, Event, NoSchoolPeriod, Class } from "@/app/types";
+import { RenderableAssignment, Event, NoSchoolPeriod, Class, AlternatingABDayType } from "@/app/types";
 
 // Components
 export namespace CalendarHeader {
@@ -123,8 +123,10 @@ export namespace CalendarBody {
             export namespace DayType {
                 export interface Props {
                     noSchoolDay?: NoSchoolPeriod
-                    dayType: "A" | "B" | null
+                    dayType: AlternatingABDayType
                     onNoSchoolClick?: (id: string) => void
+                    onDayTypeClick?: (dayType: NonNullable<AlternatingABDayType>, date: string) => void
+                    date: Date | undefined
                     children?: React.ReactNode
                 }
                 // ======================
