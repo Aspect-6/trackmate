@@ -499,7 +499,6 @@ type Status = "To Do" | "In Progress" | "Done"
 type AssignmentType = string  // User-configurable
 type DayType = "A" | "B" | null
 type ThemeMode = "light" | "dark"
-type TermMode = "Semesters Only" | "Semesters With Quarters"
 type ScheduleType = "alternating-ab" | "none"
 ```
 
@@ -557,21 +556,12 @@ interface AcademicTerm {
     name: string
     startDate: string
     endDate: string
-    termType: TermMode
     semesters: Semester[]
 }
 
 interface Semester {
     id: string
     name: "Fall" | "Spring"
-    startDate: string
-    endDate: string
-    quarters?: Quarter[]
-}
-
-interface Quarter {
-    id: string
-    name: "Q1" | "Q2" | "Q3" | "Q4"
     startDate: string
     endDate: string
 }
@@ -826,7 +816,7 @@ manualChunks: {
 - **Theme Settings** - Light/Dark mode toggle
 - **Assignment Types** - Drag-and-drop reordering, add/remove types
 - **Schedule Settings** - Schedule type, A/B day correction
-- **Term Settings** - Academic term management (semesters/quarters)
+- **Term Settings** - Academic term management
 - **Danger Zone** - Bulk delete operations
 
 ### 13.7 Authentication (Landing)

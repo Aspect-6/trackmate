@@ -178,29 +178,8 @@ export namespace TermSettings {
                         name: string
                         startDate: string
                         endDate: string
-                        /** Quarters to display (only shown if provided) */
-                        quarters?: Array<{
-                            id: string
-                            name: string
-                            startDate: string
-                            endDate: string
-                        }>
                     }
                 }
-            }
-        }
-
-        export namespace TermModeDropdown {
-            export interface Props {
-                className?: string
-                children: React.ReactNode
-                /** Map of option values to their description messages */
-                messages: Record<import("@/app/types").TermMode, string>
-            }
-            // ======================
-            export interface OptionProps {
-                value: string
-                children: React.ReactNode
             }
         }
 

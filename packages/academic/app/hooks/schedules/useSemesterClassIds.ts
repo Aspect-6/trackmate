@@ -2,7 +2,6 @@ import { useSchedules, useAcademicTerms, useNoSchool } from "@/app/hooks/entitie
 import {
     getActiveTerm,
     getActiveSemester,
-    getActiveQuarter,
     getNoSchoolPeriod,
     isWeekend
 } from "@/app/lib/schedule"
@@ -13,10 +12,10 @@ import type { Semester } from "@/app/types"
  */
 export const useSemesterClassIds = (date: string) => {
     const { schedules } = useSchedules()
-    const { filteredAcademicTerms } = useAcademicTerms()
+    const { academicTerms } = useAcademicTerms()
     const { noSchoolPeriods } = useNoSchool()
 
-    const activeTerm = getActiveTerm(date, filteredAcademicTerms)
+    const activeTerm = getActiveTerm(date, academicTerms)
     if (!activeTerm) return { classIds: [] }
 
     if (isWeekend(date)) return { classIds: [] }
@@ -25,10 +24,6 @@ export const useSemesterClassIds = (date: string) => {
     const activeSemester = getActiveSemester(date, activeTerm)
     const semester = activeSemester?.name as Semester["name"] | undefined
     if (!semester) return { classIds: [] }
-
-    if (activeTerm.termType === "Semesters With Quarters" && !getActiveQuarter(date, activeTerm)) {
-        return { classIds: [] }
-    }
 
     const termSchedule = schedules["semester"]?.terms[activeTerm.id]
     if (!termSchedule) return { classIds: [] }

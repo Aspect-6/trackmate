@@ -7,7 +7,7 @@ import { getActiveTerm } from "@/app/lib/schedule"
  * Hook for term selection.
  */
 export const useScheduleData = () => {
-    const { filteredAcademicTerms } = useAcademicTerms()
+    const { academicTerms } = useAcademicTerms()
 
     const [selectedTermId, setSelectedTermId] = useState<string | null>(null)
     const selectedTermRef = useRef(selectedTermId)
@@ -20,26 +20,26 @@ export const useScheduleData = () => {
     // Make sure a valid term is always selected when the list of terms changes
     useEffect(() => {
         const isCurrentSelectionValid = selectedTermRef.current !== null &&
-            filteredAcademicTerms.some(term => term.id === selectedTermRef.current)
+            academicTerms.some(term => term.id === selectedTermRef.current)
 
         if (isCurrentSelectionValid) return
 
-        const currentTerm = getActiveTerm(todayString(), filteredAcademicTerms)
+        const currentTerm = getActiveTerm(todayString(), academicTerms)
 
         if (currentTerm) {
             setSelectedTermId(currentTerm.id)
-        } else if (filteredAcademicTerms.length > 0 && filteredAcademicTerms[0]) {
-            setSelectedTermId(filteredAcademicTerms[0].id)
+        } else if (academicTerms.length > 0 && academicTerms[0]) {
+            setSelectedTermId(academicTerms[0].id)
         } else {
             setSelectedTermId(null)
         }
-    }, [filteredAcademicTerms])
+    }, [academicTerms])
 
     const setTermId = (termId: string | null) => { setSelectedTermId(termId) }
 
     return {
         selectedTermId,
         setTermId,
-        filteredAcademicTerms
+        academicTerms
     }
 }

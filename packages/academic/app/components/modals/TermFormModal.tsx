@@ -1,7 +1,6 @@
 import React, { useEffect } from "react"
 import { AcademicTerm } from "@/app/types"
 import { useAcademicTerms } from "@/app/hooks/entities"
-import { useSettings } from "@/app/hooks/useSettings"
 import { useFormFields } from "@/app/hooks/ui/useFormFields"
 import { useToast } from "@shared/contexts/ToastContext"
 import { generateId } from "@shared/lib"
@@ -24,18 +23,12 @@ interface TermFormModalProps {
 
 export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId }) => {
     const { academicTerms, addAcademicTerm, updateAcademicTerm } = useAcademicTerms()
-    const { termMode } = useSettings()
     const { showToast } = useToast()
 
     const isEditMode = !!termId
     const existingTerm = isEditMode ? academicTerms.find(t => t.id === termId) : null
     const fallSemester = existingTerm?.semesters?.find(s => s.name === "Fall")
     const springSemester = existingTerm?.semesters?.find(s => s.name === "Spring")
-
-    // Determine if we're using quarters mode
-    const isQuartersMode = isEditMode
-        ? existingTerm?.termType === "Semesters With Quarters"
-        : termMode === "Semesters With Quarters"
 
     const focusColor = MODALS.ACADEMICTERM.PRIMARY_BG
 
@@ -46,12 +39,6 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
         termEnd: "",
         fallEnd: "",
         springStart: "",
-        q1End: "",
-        q2Start: "",
-        q2End: "",
-        q3Start: "",
-        q3End: "",
-        q4Start: "",
     })
 
     // Populate form with existing term data in edit mode (only on mount)
@@ -63,12 +50,6 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                 termEnd: existingTerm.endDate || "",
                 fallEnd: fallSemester?.endDate || "",
                 springStart: springSemester?.startDate || "",
-                q1End: fallSemester?.quarters?.find(q => q.name === "Q1")?.endDate || "",
-                q2Start: fallSemester?.quarters?.find(q => q.name === "Q2")?.startDate || "",
-                q2End: fallSemester?.endDate || "",
-                q3Start: springSemester?.startDate || "",
-                q3End: springSemester?.quarters?.find(q => q.name === "Q3")?.endDate || "",
-                q4Start: springSemester?.quarters?.find(q => q.name === "Q4")?.startDate || "",
             })
         }
     }, [existingTerm, fallSemester, springSemester, isEditMode, setFormData])
@@ -78,23 +59,15 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        const { name, termStart, termEnd, fallEnd, springStart, q1End, q2Start, q2End, q3Start, q3End, q4Start } = formData
+        const { name, termStart, termEnd, fallEnd, springStart } = formData
 
         if (!name || !termStart || !termEnd) {
             showToast("All fields are required.", "error")
             return
         }
-
-        if (isQuartersMode) {
-            if (!q1End || !q2Start || !q2End || !q3Start || !q3End || !q4Start) {
-                showToast("All fields are required.", "error")
-                return
-            }
-        } else {
-            if (!fallEnd || !springStart) {
-                showToast("All fields are required.", "error")
-                return
-            }
+        if (!fallEnd || !springStart) {
+            showToast("All fields are required.", "error")
+            return
         }
 
         // Check for duplicate name
@@ -128,65 +101,22 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
             return
         }
 
-        let termData: Omit<AcademicTerm, "id">
+        if (termStart >= fallEnd) { showToast("Year start must be before Fall end.", "error"); return }
+        if (fallEnd >= springStart) { showToast("Fall end must be before Spring start.", "error"); return }
+        if (springStart >= termEnd) { showToast("Spring start must be before year end.", "error"); return }
 
-        if (isQuartersMode) {
-            if (q1End <= termStart) { showToast("Q1 end must be after year start.", "error"); return }
-            if (q2Start <= q1End) { showToast("Q2 start must be after Q1 end.", "error"); return }
-            if (q2End <= q2Start) { showToast("Q2 end must be after Q2 start.", "error"); return }
-            if (q3Start <= q2End) { showToast("Q3 start must be after Q2 end.", "error"); return }
-            if (q3End <= q3Start) { showToast("Q3 end must be after Q3 start.", "error"); return }
-            if (q4Start <= q3End) { showToast("Q4 start must be after Q3 end.", "error"); return }
-            if (q4Start >= termEnd) { showToast("Q4 start must be before year end.", "error"); return }
-
-            termData = {
-                name,
-                startDate: termStart,
-                endDate: termEnd,
-                termType: "Semesters With Quarters",
-                scheduleType: existingTerm?.scheduleType ?? "semester",
-                hasAutoArchived: existingTerm?.hasAutoArchived ?? (newEnd < new Date()),
-                semesters: [
-                    {
-                        id: fallSemester?.id || generateId(),
-                        name: "Fall",
-                        startDate: termStart,
-                        endDate: q2End,
-                        quarters: [
-                            { id: fallSemester?.quarters?.[0]?.id || generateId(), name: "Q1", startDate: termStart, endDate: q1End },
-                            { id: fallSemester?.quarters?.[1]?.id || generateId(), name: "Q2", startDate: q2Start, endDate: q2End }
-                        ]
-                    },
-                    {
-                        id: springSemester?.id || generateId(),
-                        name: "Spring",
-                        startDate: q3Start,
-                        endDate: termEnd,
-                        quarters: [
-                            { id: springSemester?.quarters?.[0]?.id || generateId(), name: "Q3", startDate: q3Start, endDate: q3End },
-                            { id: springSemester?.quarters?.[1]?.id || generateId(), name: "Q4", startDate: q4Start, endDate: termEnd }
-                        ]
-                    }
-                ]
-            }
-        } else {
-            if (termStart >= fallEnd) { showToast("Year start must be before Fall end.", "error"); return }
-            if (fallEnd >= springStart) { showToast("Fall end must be before Spring start.", "error"); return }
-            if (springStart >= termEnd) { showToast("Spring start must be before year end.", "error"); return }
-
-            termData = {
-                name,
-                startDate: termStart,
-                endDate: termEnd,
-                termType: "Semesters Only",
-                scheduleType: existingTerm?.scheduleType ?? "semester",
-                hasAutoArchived: existingTerm?.hasAutoArchived ?? (newEnd < new Date()),
-                semesters: [
-                    { id: fallSemester?.id || generateId(), name: "Fall", startDate: termStart, endDate: fallEnd },
-                    { id: springSemester?.id || generateId(), name: "Spring", startDate: springStart, endDate: termEnd }
-                ]
-            }
+        let termData: Omit<AcademicTerm, "id"> = {
+            name,
+            startDate: termStart,
+            endDate: termEnd,
+            scheduleType: existingTerm?.scheduleType ?? "semester",
+            hasAutoArchived: existingTerm?.hasAutoArchived ?? (newEnd < new Date()),
+            semesters: [
+                { id: fallSemester?.id || generateId(), name: "Fall", startDate: termStart, endDate: fallEnd },
+                { id: springSemester?.id || generateId(), name: "Spring", startDate: springStart, endDate: termEnd }
+            ]
         }
+
 
         if (isEditMode) {
             updateAcademicTerm(termId, termData)
@@ -207,9 +137,7 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
             {!isEditMode && (
                 <>
                     <div className="text-sm my-4 text-left" style={{ color: GLOBAL.TEXT_TERTIARY }}>
-                        {termMode === "Semesters Only"
-                            ? "Add a term with Fall and Spring semesters."
-                            : "Add a term with four quarters with two quarters for the Fall and Spring semesters each."}
+                        Add a term with Fall and Spring semesters.
                     </div>
                     <div className="width-full"><div className="border-t mb-4" style={{ borderColor: GLOBAL.BORDER_PRIMARY }}></div></div>
                 </>
@@ -242,57 +170,18 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                     </div>
                 </div>
 
-                {isQuartersMode ? (
-                    <>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <ModalLabel>Q1 End</ModalLabel>
-                                <ModalDateInput {...field("q1End")} focusColor={focusColor} />
-                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Starts on Year Start</span>
-                            </div>
-                            <div>
-                                <ModalLabel>Q2 Start</ModalLabel>
-                                <ModalDateInput {...field("q2Start")} focusColor={focusColor} />
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <ModalLabel>Q2 End</ModalLabel>
-                                <ModalDateInput {...field("q2End")} focusColor={focusColor} />
-                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Serves as Fall semester end</span>
-                            </div>
-                            <div>
-                                <ModalLabel>Q3 Start</ModalLabel>
-                                <ModalDateInput {...field("q3Start")} focusColor={focusColor} />
-                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Serves as Spring semester start</span>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <ModalLabel>Q3 End</ModalLabel>
-                                <ModalDateInput {...field("q3End")} focusColor={focusColor} />
-                            </div>
-                            <div>
-                                <ModalLabel>Q4 Start</ModalLabel>
-                                <ModalDateInput {...field("q4Start")} focusColor={focusColor} />
-                                <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Ends on Year End</span>
-                            </div>
-                        </div>
-                    </>
-                ) : (
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <ModalLabel>Fall Semester End</ModalLabel>
-                            <ModalDateInput {...field("fallEnd")} focusColor={focusColor} />
-                            <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Starts on Year Start</span>
-                        </div>
-                        <div>
-                            <ModalLabel>Spring Semester Start</ModalLabel>
-                            <ModalDateInput {...field("springStart")} focusColor={focusColor} />
-                            <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Ends on Year End</span>
-                        </div>
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <ModalLabel>Fall Semester End</ModalLabel>
+                        <ModalDateInput {...field("fallEnd")} focusColor={focusColor} />
+                        <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Starts on Year Start</span>
                     </div>
-                )}
+                    <div>
+                        <ModalLabel>Spring Semester Start</ModalLabel>
+                        <ModalDateInput {...field("springStart")} focusColor={focusColor} />
+                        <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Ends on Year End</span>
+                    </div>
+                </div>
 
                 <ModalFooter>
                     <ModalCancelButton onClick={onClose} />

@@ -53,7 +53,6 @@ describe("Core Security (Ownership & Verification)", () => {
         await assertFails(
             setDoc(doc(db, "users/bob/academic/settings"), {
                 theme: "dark",
-                termMode: "Semesters Only",
                 templates: [],
                 assignmentTypes: ["Homework"],
                 periodCount: 4,
@@ -69,7 +68,6 @@ describe("Core Security (Ownership & Verification)", () => {
         await assertFails(
             setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
                 theme: "dark",
-                termMode: "Semesters Only",
                 templates: [],
                 assignmentTypes: ["Homework"],
                 periodCount: 4,
@@ -131,7 +129,6 @@ describe("Core Security (Ownership & Verification)", () => {
             await assertSucceeds(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
                     theme: "dark",
-                    termMode: "Semesters Only",
                     templates: [],
                     assignmentTypes: ["Homework"],
                     periodCount: 4,
@@ -199,7 +196,6 @@ describe("Core Security (Ownership & Verification)", () => {
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), {
                     theme: "dark",
-                    termMode: "Semesters Only",
                     templates: [],
                     assignmentTypes: ["Homework"],
                     periodCount: 4,

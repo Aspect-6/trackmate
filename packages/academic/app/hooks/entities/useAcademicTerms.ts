@@ -1,6 +1,5 @@
 import { useMemo, useCallback } from "react"
 import { useFirestoreItems } from "@/app/hooks/data/useFirestore"
-import { useSettings } from "@/app/hooks/useSettings"
 import { generateId } from "@shared/lib"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 import type { AcademicTerm, Semester } from "@/app/types"
@@ -10,17 +9,10 @@ import type { AcademicTerm, Semester } from "@/app/types"
  * Provides filtered views, lookup functions, and CRUD operations.
  */
 export const useAcademicTerms = () => {
-    const { termMode } = useSettings()
     const [academicTerms, setAcademicTerms] = useFirestoreItems<AcademicTerm>(FIRESTORE_KEYS.TERMS)
 
-    // Computed: filter terms by current termMode
-    const filteredAcademicTerms = useMemo(() => {
-        return academicTerms.filter(term => term.termType === termMode)
-    }, [academicTerms, termMode])
-
-    // Counts
+    // Count
     const totalNum = academicTerms.length
-    const filteredNum = filteredAcademicTerms.length
 
     // Indexed by id for quick lookups
     const termsById = useMemo(() => academicTerms.reduce<Record<string, AcademicTerm>>((acc, term) => {
@@ -88,11 +80,9 @@ export const useAcademicTerms = () => {
     return {
         // Raw data
         academicTerms,
-        filteredAcademicTerms,
 
-        // Counts
+        // Count
         totalNum,
-        filteredNum,
 
         // Indexed data
         termsById,

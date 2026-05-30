@@ -263,25 +263,6 @@ export interface Schedules {
 }
 
 /**
- * The term mode determines whether an institution uses semesters only or quarters.
- */
-export type TermMode = "Semesters Only" | "Semesters With Quarters"
-
-/**
- * Represents a quarter within an academic term (quarters mode only).
- */
-export interface Quarter {
-    /** Unique identifier for the quarter */
-    id: string
-    /** Quarter name (Q1, Q2, Q3, Q4) */
-    name: "Q1" | "Q2" | "Q3" | "Q4"
-    /** The start date in ISO format (YYYY-MM-DD) */
-    startDate: string
-    /** The end date in ISO format (YYYY-MM-DD) */
-    endDate: string
-}
-
-/**
  * Represents a semester within an academic term.
  */
 export interface Semester {
@@ -289,8 +270,6 @@ export interface Semester {
     name: "Fall" | "Spring"
     startDate: string
     endDate: string
-    /** The quarters within this semester (only present in quarters mode) */
-    quarters?: Quarter[]
 }
 
 /**
@@ -301,8 +280,6 @@ export interface AcademicTerm {
     name: string
     startDate: string
     endDate: string
-    /** The type of term (semesters-only or quarters) */
-    termType: TermMode
     /** The schedule rotation type for this term */
     scheduleType: ScheduleType
     semesters: Semester[]

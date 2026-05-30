@@ -77,19 +77,11 @@ export const NoSchoolPeriodSchema = z.object({
 
 // ── AcademicTerm ───────────────────────────────────────────────────────
 
-const QuarterSchema = z.object({
-	id: z.string(),
-	name: z.enum(["Q1", "Q2", "Q3", "Q4"]),
-	startDate: z.string(),
-	endDate: z.string(),
-}).strict()
-
 const SemesterSchema = z.object({
 	id: z.string(),
 	name: z.enum(["Fall", "Spring"]),
 	startDate: z.string(),
 	endDate: z.string(),
-	quarters: z.array(QuarterSchema).optional(),
 }).strict()
 
 export const AcademicTermSchema = z.object({
@@ -97,7 +89,6 @@ export const AcademicTermSchema = z.object({
 	name: z.string(),
 	startDate: z.string(),
 	endDate: z.string(),
-	termType: z.enum(["Semesters Only", "Semesters With Quarters"]),
 	scheduleType: z.enum(["alternating-ab", "alternating-ab-semester", "semester", "fixed-weekly"]),
 	semesters: z.array(SemesterSchema),
 	hasAutoArchived: z.boolean(),

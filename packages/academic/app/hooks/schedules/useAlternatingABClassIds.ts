@@ -8,11 +8,11 @@ import type { Semester } from "@/app/types"
  */
 export const useAlternatingABClassIds = (date: string) => {
     const { schedules, getDayTypeForDate } = useSchedules()
-    const { filteredAcademicTerms } = useAcademicTerms()
+    const { academicTerms } = useAcademicTerms()
     const { noSchoolPeriods } = useNoSchool()
 
     // Find the active term for this date
-    const activeTerm = getActiveTerm(date, filteredAcademicTerms)
+    const activeTerm = getActiveTerm(date, academicTerms)
 
     if (!activeTerm) return { classIds: [] }
 

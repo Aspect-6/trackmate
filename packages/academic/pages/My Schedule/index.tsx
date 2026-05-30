@@ -11,7 +11,7 @@ const MySchedule: React.FC = () => {
     const {
         selectedTermId,
         setTermId,
-        filteredAcademicTerms
+        academicTerms
     } = useScheduleData()
 
     const { ScheduleRenderer } = useScheduleComponentsForTerm(selectedTermId)
@@ -44,8 +44,8 @@ const MySchedule: React.FC = () => {
                                 {...hoverProps}
                                 {...focusProps}
                             >
-                                {filteredAcademicTerms.length === 0 && <option value="">no terms available</option>}
-                                {filteredAcademicTerms.length > 0 && filteredAcademicTerms.map(term => (
+                                {academicTerms.length === 0 && <option value="">no terms available</option>}
+                                {academicTerms.length > 0 && academicTerms.map(term => (
                                     <option key={term.id} value={term.id}>
                                         {term.name}
                                     </option>
@@ -71,7 +71,7 @@ const MySchedule: React.FC = () => {
                         style={{ color: MY_SCHEDULE.TEXT_TERTIARY }}
                     >
                         <p className="text-lg">
-                            {filteredAcademicTerms.length === 0
+                            {academicTerms.length === 0
                                 ? "Add an academic term in Settings to get started."
                                 : "Select an academic term to view and edit your schedule."}
                         </p>

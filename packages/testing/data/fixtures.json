@@ -303,7 +303,6 @@
 			"Final Exam"
 		],
 		"periodCount": 4,
-		"termMode": "Semesters Only",
 		"theme": "dark",
 		"templates": [
 			{
@@ -368,8 +367,7 @@
 						"startDate": "2026-01-07"
 					}
 				],
-				"startDate": "2025-08-06",
-				"termType": "Semesters Only"
+				"startDate": "2025-08-06"
 			}
 		]
 	}

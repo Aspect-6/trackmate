@@ -44,8 +44,6 @@ import ScheduleSettings, {
 // Term settings imports
 import TermSettings, {
     TermSettingsContent,
-    TermModeDropdown,
-    TermModeDropdownOption,
     TermList,
     TermItem,
     TermItemHeader,
@@ -85,7 +83,7 @@ const Settings: React.FC = () => {
 
     const { theme, setTheme } = useSettings()
 
-    const { filteredAcademicTerms, getActiveTermForDate } = useAcademicTerms()
+    const { academicTerms, getActiveTermForDate } = useAcademicTerms()
     const { noSchoolPeriods } = useNoSchool()
 
     // Day type for today calculation
@@ -296,26 +294,17 @@ const Settings: React.FC = () => {
                     <BaseModuleDescription>
                         Select the kind of academic terms your institution uses.
                     </BaseModuleDescription>
-                    <TermModeDropdown
-                        messages={{
-                            "Semesters Only": "Fall and Spring semesters",
-                            "Semesters With Quarters": "Four quarters (Q1-Q4) split into Fall and Spring semesters"
-                        }}
-                    >
-                        <TermModeDropdownOption value="Semesters Only">Semesters Only</TermModeDropdownOption>
-                        <TermModeDropdownOption value="Semesters With Quarters">Semesters With Quarters</TermModeDropdownOption>
-                    </TermModeDropdown>
                 </div>
 
                 <TermSettingsContent>
-                    {filteredAcademicTerms.length === 0 ? (
+                    {academicTerms.length === 0 ? (
                         <NoTermsYetButton>
                             No academic terms yet. Click to add term.
                         </NoTermsYetButton>
                     ) : (
                         <>
                             <TermList>
-                                {filteredAcademicTerms.map((term) => (
+                                {academicTerms.map((term) => (
                                     <TermItem key={term.id}>
                                         <TermItemHeader>
                                             <div className="flex flex-col gap-1">
@@ -333,19 +322,11 @@ const Settings: React.FC = () => {
                                                 name="Fall"
                                                 startDate={term.semesters.find(sem => sem.name === "Fall")!.startDate}
                                                 endDate={term.semesters.find(sem => sem.name === "Fall")!.endDate}
-                                                quarters={term.termType === "Semesters With Quarters"
-                                                    ? term.semesters.find(sem => sem.name === "Fall")!.quarters
-                                                    : undefined
-                                                }
                                             />
                                             <TermItemBodySemester
                                                 name="Spring"
                                                 startDate={term.semesters.find(sem => sem.name === "Spring")!.startDate}
                                                 endDate={term.semesters.find(sem => sem.name === "Spring")!.endDate}
-                                                quarters={term.termType === "Semesters With Quarters"
-                                                    ? term.semesters.find(sem => sem.name === "Spring")!.quarters
-                                                    : undefined
-                                                }
                                             />
                                         </TermItemBody>
                                     </TermItem>

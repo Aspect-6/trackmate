@@ -10,8 +10,8 @@ import type { ClassIdsForDateResult } from "@/app/contexts/ScheduleComponentsCon
  * the active term's `scheduleType`
  */
 export const useClassIdsForDate = (date: string): ClassIdsForDateResult => {
-    const { filteredAcademicTerms } = useAcademicTerms()
-    const activeTerm = date ? getActiveTerm(date, filteredAcademicTerms) : undefined
+    const { academicTerms } = useAcademicTerms()
+    const activeTerm = date ? getActiveTerm(date, academicTerms) : undefined
 
     const abResult = useAlternatingABClassIds(date)
     const semResult = useSemesterClassIds(date)

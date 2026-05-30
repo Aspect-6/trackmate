@@ -10,7 +10,6 @@ const EMPTY_ITEMS = { items: [] as unknown[] }
 /** Default settings values, matching the shape required by security rules. */
 const DEFAULT_SETTINGS = {
     theme: "light" as const,
-    termMode: "Semesters Only" as const,
     assignmentTypes: DEFAULT_ASSIGNMENT_TYPES,
     templates: [],
     periodCount: DEFAULT_PERIOD_COUNT,

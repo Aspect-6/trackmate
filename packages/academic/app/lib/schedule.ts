@@ -39,13 +39,6 @@ export const getActiveSemester = (dateString: string, activeTerm: AcademicTerm) 
     return activeTerm.semesters.find(semester => isWithinPeriod(date, semester))
 }
 
-export const getActiveQuarter = (dateString: string, activeTerm: AcademicTerm) => {
-    const date = parseDateLocal(dateString)
-    return activeTerm.semesters
-        .flatMap(semester => semester.quarters || [])
-        .find(quarter => isWithinPeriod(date, quarter))
-}
-
 export const isAlternatingAB = (type: ScheduleType | undefined): boolean => {
     return type === "alternating-ab" || type === "alternating-ab-semester"
 }
@@ -79,7 +72,6 @@ export const calculateDayType = (
     if (getNoSchoolPeriod(dateString, noSchoolPeriods)) return null
 
     if (!getActiveSemester(dateString, activeTerm)) return null
-    if (activeTerm.termType === "Semesters With Quarters" && !getActiveQuarter(dateString, activeTerm)) return null
 
     // Get term-specific rotation config, or use default (assumes term starts on "A" day)
     const rotationConfig = abData.termConfigs?.[activeTerm.id] ?? {

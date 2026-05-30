@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react"
 import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import { useToast } from "@shared/contexts/ToastContext"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
-import type { Assignment, AssignmentType, ThemeMode, TermMode, Template, AssignmentTemplate, EventTemplate } from "@/app/types"
+import type { Assignment, AssignmentType, ThemeMode, Template, AssignmentTemplate, EventTemplate } from "@/app/types"
 
 export const DEFAULT_ASSIGNMENT_TYPES: AssignmentType[] = [
     "Homework",
@@ -25,7 +25,6 @@ export const DEFAULT_PERIOD_COUNT = 4
 
 interface Settings {
     theme: ThemeMode
-    termMode: TermMode
     assignmentTypes: AssignmentType[]
     templates: Template[]
     periodCount: number
@@ -40,7 +39,6 @@ const getInitialTheme = (): ThemeMode => {
 
 const DEFAULT_SETTINGS: Settings = {
     theme: getInitialTheme(),
-    termMode: "Semesters Only",
     assignmentTypes: DEFAULT_ASSIGNMENT_TYPES,
     templates: [],
     periodCount: DEFAULT_PERIOD_COUNT
@@ -61,9 +59,6 @@ export const useSettings = () => {
     // Update settings actions
     const setTheme = useCallback((theme: ThemeMode) => {
         setSettings(prev => ({ ...prev, theme }))
-    }, [setSettings])
-    const setTermMode = useCallback((termMode: TermMode) => {
-        setSettings(prev => ({ ...prev, termMode }))
     }, [setSettings])
     const setPeriodCount = useCallback((periodCount: number) => {
         setSettings(prev => ({ ...prev, periodCount }))
@@ -166,7 +161,6 @@ export const useSettings = () => {
         // Each setting
         settings,
         theme: settings.theme,
-        termMode: settings.termMode,
         assignmentTypes: settings.assignmentTypes,
         templates: allTemplates,
         assignmentTemplates,
@@ -176,7 +170,6 @@ export const useSettings = () => {
         // Actions
         setSettings,
         setTheme,
-        setTermMode,
         setPeriodCount,
         addAssignmentType,
         removeAssignmentType,

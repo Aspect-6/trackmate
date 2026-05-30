@@ -93,7 +93,6 @@ describe("Settings & Templates Restrictions", () => {
         await assertSucceeds(
             setDoc(doc(db, settingsPath), {
                 theme: "dark",
-                termMode: "Semesters Only",
                 templates: [],
                 assignmentTypes: ["Homework"],
                 periodCount: 4,
@@ -113,7 +112,6 @@ describe("Settings & Templates Restrictions", () => {
         await assertFails(
             setDoc(doc(db, settingsPath), {
                 theme: "dark",
-                termMode: "Semesters Only",
                 templates: [{ templateName: "foo" }],
                 assignmentTypes: ["Homework"],
                 periodCount: 4,

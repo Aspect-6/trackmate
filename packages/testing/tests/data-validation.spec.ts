@@ -5,7 +5,6 @@ import { getTestEnv, loadAcademicFixtures, TEST_USER_ID } from "../utils.ts"
 
 const validSettings = {
     theme: "dark",
-    termMode: "Semesters Only",
     templates: [{ templateName: "Template 1" }],
     assignmentTypes: ["Homework"],
     periodCount: 4,
@@ -60,15 +59,6 @@ describe("Data Validation (hasValidShape)", () => {
             )
         })
 
-        it("accepts termMode = 'Semesters With Quarters'", async () => {
-            const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                email_verified: true, premium: { academic: true },
-            }).firestore()
-            await assertSucceeds(
-                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), { ...validSettings, termMode: "Semesters With Quarters" })
-            )
-        })
-
         it("rejects an invalid theme value", async () => {
             const db = testEnv.authenticatedContext(TEST_USER_ID, {
                 email_verified: true, premium: { academic: true },
@@ -77,17 +67,6 @@ describe("Data Validation (hasValidShape)", () => {
 
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), { ...validSettings, theme: "foo" })
-            )
-        })
-
-        it("rejects an invalid termMode value", async () => {
-            const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                email_verified: true, premium: { academic: true },
-            }).firestore()
-            await assertSucceeds(setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), validSettings))
-
-            await assertFails(
-                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), { ...validSettings, termMode: "foo" })
             )
         })
 
@@ -100,18 +79,6 @@ describe("Data Validation (hasValidShape)", () => {
             const { theme: _, ...noTheme } = validSettings
             await assertFails(
                 setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), noTheme)
-            )
-        })
-
-        it("rejects a missing required field (termMode)", async () => {
-            const db = testEnv.authenticatedContext(TEST_USER_ID, {
-                email_verified: true, premium: { academic: true },
-            }).firestore()
-            await assertSucceeds(setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), validSettings))
-
-            const { termMode: _, ...noTermMode } = validSettings
-            await assertFails(
-                setDoc(doc(db, `users/${TEST_USER_ID}/academic/settings`), noTermMode)
             )
         })
 
