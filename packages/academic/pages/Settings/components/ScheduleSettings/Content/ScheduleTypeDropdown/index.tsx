@@ -2,7 +2,7 @@ import React from "react"
 import { useAcademicTerms, useClasses } from "@/app/hooks/entities"
 import { useModal } from "@/app/contexts/ModalContext"
 import { todayString } from "@shared/lib"
-import { getActiveTerm, isAlternatingAB } from "@/app/lib/schedule"
+import { isAlternatingAB } from "@/app/lib/schedule"
 import type { ScheduleSettings } from "@/pages/Settings/types"
 import type { ScheduleType } from "@/app/types"
 import type { ClassMigrationModalData } from "@/app/components/modals/ClassMigrationModal"
@@ -10,12 +10,12 @@ import type { ClassYearlongMigrationModalData } from "@/app/components/modals/Cl
 import { GLOBAL } from "@/app/styles/colors"
 
 const ScheduleTypeDropdown: React.FC<ScheduleSettings.Content.ScheduleTypeDropdown.Props> = ({ className, children }) => {
-    const { academicTerms, updateAcademicTerm } = useAcademicTerms()
+    const { updateAcademicTerm, getActiveTermForDate } = useAcademicTerms()
     const { classes } = useClasses()
     const { openModal } = useModal()
 
     const today = todayString()
-    const activeTerm = getActiveTerm(today, academicTerms)
+    const activeTerm = getActiveTermForDate(today)
     const currentType: ScheduleType = activeTerm?.scheduleType ?? "semester"
 
     // Switch schedule formats without erasing each one's data
