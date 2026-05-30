@@ -11,6 +11,8 @@ import type { AcademicTerm, Semester } from "@/app/types"
 export const useAcademicTerms = () => {
     const [academicTerms, setAcademicTerms] = useFirestoreItems<AcademicTerm>(FIRESTORE_KEYS.TERMS)
 
+    academicTerms.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
+
     // Count
     const totalNum = academicTerms.length
 
