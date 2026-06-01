@@ -105,7 +105,7 @@ export const CanvasInitialMappingModal: React.FC<CanvasInitialMappingModalProps>
                         >
                             <option value="IGNORE">Do Not Sync</option>
                             <option value="CREATE_NEW">+ Create New Class</option>
-                            <optgroup label="Existing Classes">
+                            <optgroup label={getTermById(data.termId)?.name || "Classes in Term"}>
                                 {classes.filter(c => c.termId === data.termId).map(c => (
                                     <option key={c.id} value={c.id}>{c.name}</option>
                                 ))}
