@@ -39,7 +39,7 @@ const TemplateItem: React.FC<TemplateItemProps> = ({ template, kind, onSelect })
                     className="p-2 rounded-lg transition-colors"
                     style={{
                         backgroundColor: GLOBAL.BACKGROUND_BLACK_05,
-                        color: isHovered ? GLOBAL.TEXT_SECONDARY : GLOBAL.TEXT_TERTIARY,
+                        color: isHovered ? GLOBAL.TEXT_PRIMARY : GLOBAL.TEXT_SECONDARY,
                     }}
                 >
                     {kind === "assignment" ? <FileText size={18} /> : <Calendar size={18} />}
