@@ -36,7 +36,7 @@ const Tab: React.FC<TabProps> = ({
                     : isHovered
                         ? TRACKMATE.BACKGROUND_QUATERNARY
                         : "transparent",
-                borderBottom: `${(isActive || !isHovered) ? "3px" : "2px"} solid ${(isActive || isHovered) ? "currentColor" : "transparent"}`,
+                borderBottom: `${(isActive || !isHovered) ? "3px" : "2px"} solid ${(isActive || isHovered) ? TRACKMATE.TEXT_TERTIARY : "transparent"}`,
                 marginBottom: "-1px",
                 borderTopLeftRadius: "0.75rem",
                 borderTopRightRadius: "0.75rem",

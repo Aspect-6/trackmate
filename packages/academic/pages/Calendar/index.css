@@ -19,8 +19,8 @@
     --calendar-no-school-bg: var(--background-primary);
     --calendar-no-school-pattern: repeating-linear-gradient(
         140deg,
-        hsla(210, 21%, 63%, 0.14) 0px,
-        hsla(210, 21%, 63%, 0.14) 12px,
+        hsla(210, 10%, 63%, 0.14) 0px,
+        hsla(210, 10%, 63%, 0.14) 12px,
         transparent 12px,
         transparent 24px
     );

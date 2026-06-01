@@ -52,7 +52,6 @@ export namespace CalendarBody {
                 year: number;
                 month: number;
                 day: number;
-                isToday?: boolean;
                 isSelected?: boolean;
                 noSchool?: NoSchoolPeriod | undefined;
                 onSelectDate: (d: Date) => void;
@@ -61,6 +60,7 @@ export namespace CalendarBody {
             export interface NumberProps {
                 day: number;
                 noSchool?: NoSchoolPeriod | undefined;
+                isToday: boolean;
             }
             export namespace AssignmentList {
                 export interface Props {

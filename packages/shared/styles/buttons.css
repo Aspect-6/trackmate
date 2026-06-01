@@ -1,7 +1,7 @@
 :root.light {
     /* Common buttons */
-    --cancel-button-bg: hsl(215, 20%, 83%);
-    --cancel-button-bg-hover: hsl(215, 20%, 76%);
+    --cancel-button-bg: hsl(215, 10%, 83%);
+    --cancel-button-bg-hover: hsl(215, 10%, 76%);
     --cancel-button-border: hsl(215, 20%, 78%);
 
     --delete-button-bg: hsl(0, 72%, 51%);

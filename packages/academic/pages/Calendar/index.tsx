@@ -192,7 +192,7 @@ const Calendar: React.FC = () => {
 
                     <CalendarBody>
                         <CalendarGrid>
-                            <CalendarGridDayHeader backgroundColor={CALENDAR.BACKGROUND_SECONDARY} textColor={CALENDAR.TEXT_SECONDARY} />
+                            <CalendarGridDayHeader backgroundColor={CALENDAR.BACKGROUND_PRIMARY} textColor={CALENDAR.TEXT_SECONDARY} />
 
                             {filteredCalendarCells.map((cell) => {
                                 if (cell.type === "empty") {

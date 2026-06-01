@@ -43,7 +43,7 @@ const StatusButton: React.FC<UpcomingAssignments.AssignmentCard.StatusButtonProp
         <button
             type="button"
             onClick={onClick}
-            className="group/status focus:outline-none transition-all flex-shrink-0 rounded-full p-1 hover:bg-neutral-500/5 active:scale-90"
+            className="group/status focus:outline-none transition-all flex-shrink-0 rounded-full p-1 active:scale-90"
             title={title}
             aria-label={title}
         >

@@ -9,7 +9,7 @@ const CalendarSidePanel: React.FC<CalendarBody.SidePanel.Props> = ({ date, child
         <div
             id="calendar-side-panel"
             className="absolute inset-0 md:inset-y-0 md:right-0 md:left-auto w-full md:w-80 border shadow-2xl overflow-y-auto custom-scrollbar z-20 flex flex-col p-4 md:rounded-none"
-            style={{ backgroundColor: CALENDAR.BACKGROUND_SECONDARY, borderColor: CALENDAR.BORDER_PRIMARY }}
+            style={{ backgroundColor: CALENDAR.BACKGROUND_PRIMARY, borderColor: CALENDAR.BORDER_PRIMARY }}
         >
             {children}
         </div>

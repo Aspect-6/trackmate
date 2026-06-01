@@ -34,8 +34,8 @@ const CalendarDay: React.FC<CalendarBody.Grid.Day.Props> = ({
     ]
 
     return (
-        <CalendarDayContainer year={year} month={month} day={day} isToday={isToday} isSelected={isSelected} noSchool={noSchool} onSelectDate={onSelectDate}>
-            <CalendarDayNumber day={day} noSchool={noSchool} />
+        <CalendarDayContainer year={year} month={month} day={day} isSelected={isSelected} noSchool={noSchool} onSelectDate={onSelectDate}>
+            <CalendarDayNumber day={day} noSchool={noSchool} isToday={isToday} />
 
             <CalendarDayMobileDots dots={mobileDots} />
 

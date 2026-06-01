@@ -3,7 +3,7 @@ import { useHover } from "@shared/hooks/ui/useHover"
 import type { CalendarBody } from "@/pages/Calendar/types"
 import { CALENDAR } from "@/app/styles/colors"
 
-const CalendarDayContainer: React.FC<CalendarBody.Grid.Day.ContainerProps> = ({ year, month, day, isToday, isSelected, noSchool, onSelectDate, children }) => {
+const CalendarDayContainer: React.FC<CalendarBody.Grid.Day.ContainerProps> = ({ year, month, day, isSelected, noSchool, onSelectDate, children }) => {
     const { isHovered, hoverProps } = useHover()
 
     return (
@@ -12,9 +12,9 @@ const CalendarDayContainer: React.FC<CalendarBody.Grid.Day.ContainerProps> = ({ 
             className="border-r border-b p-2 overflow-y-auto no-scrollbar relative cursor-pointer transition-colors"
             style={{
                 borderColor: CALENDAR.BORDER_PRIMARY,
-                backgroundColor: isHovered ? CALENDAR.BACKGROUND_TERTIARY : (noSchool ? CALENDAR.NO_SCHOOL_BG : undefined),
+                backgroundColor: isHovered ? CALENDAR.BACKGROUND_SECONDARY : (noSchool ? CALENDAR.NO_SCHOOL_BG : undefined),
                 backgroundImage: noSchool ? CALENDAR.NO_SCHOOL_PATTERN : undefined,
-                boxShadow: (isToday || isSelected) ? `inset 0 0 0 2px ${CALENDAR.GLOBAL_ACCENT}` : undefined
+                boxShadow: isSelected ? `inset 0 0 0 2px ${CALENDAR.GLOBAL_ACCENT}` : undefined
             }}
             {...hoverProps}
         >
