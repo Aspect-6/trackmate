@@ -19,7 +19,7 @@ const CanvasIntegrationSettingsComponent: React.FC<CanvasIntegrationSettings.Pro
 export default CanvasIntegrationSettingsComponent
 
 export { default as CanvasIntegrationContent } from "./Content"
-export { default as ConnectionForm, ConnectionInput, ConnectionDropdown, ConnectionButton } from "./Content/ConnectionForm"
+export { default as ConnectionForm, ConnectionInput, ConnectionButton } from "./Content/ConnectionForm"
 export { default as SyncStatus } from "./Content/SyncStatus"
 export { default as SyncNowButton } from "./Content/SyncNowButton"
 export { default as CourseMappingTable } from "./Content/CourseMappingTable"

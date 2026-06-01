@@ -7,7 +7,6 @@ import type { ScheduleSettings } from "@/pages/Settings/types"
 import type { ScheduleType } from "@/app/types"
 import type { ClassMigrationModalData } from "@/app/components/modals/ClassMigrationModal"
 import type { ClassYearlongMigrationModalData } from "@/app/components/modals/ClassYearlongMigrationModal"
-import { GLOBAL } from "@/app/styles/colors"
 
 const ScheduleTypeDropdown: React.FC<ScheduleSettings.Content.ScheduleTypeDropdown.Props> = ({ className, children }) => {
     const { updateAcademicTerm, getActiveTermForDate } = useAcademicTerms()
@@ -59,13 +58,7 @@ const ScheduleTypeDropdown: React.FC<ScheduleSettings.Content.ScheduleTypeDropdo
         updateAcademicTerm(activeTerm.id, { scheduleType: next })
     }
 
-    if (!activeTerm) {
-        return (
-            <div className={className}>
-                <span style={{ color: GLOBAL.TEXT_TERTIARY }}>No active term</span>
-            </div>
-        )
-    }
+    if (!activeTerm) return null
 
     return (
         <div className={className}>

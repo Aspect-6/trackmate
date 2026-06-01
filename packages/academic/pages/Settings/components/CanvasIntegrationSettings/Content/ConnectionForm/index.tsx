@@ -12,5 +12,4 @@ const ConnectionForm: React.FC<CanvasIntegrationSettings.Content.ConnectionForm.
 export default ConnectionForm
 
 export { default as ConnectionInput } from "./ConnectionInput"
-export { default as ConnectionDropdown } from "./ConnectionDropdown"
 export { default as ConnectionButton } from "./ConnectionButton"

@@ -13,11 +13,10 @@ export const useCanvasIntegrationSettings = () => {
     const [isSyncing, setIsSyncing] = useState(false)
     
     const [icsUrl, setIcsUrl] = useState("")
-    const [termId, setTermId] = useState("")
     
     const integration = settings.canvasIntegration
 
-    const handleAnalyze = async () => {
+    const handleAnalyze = async (termId: string) => {
         if (!icsUrl || !termId) return
         setIsAnalyzing(true)
         setAnalyzeError(null)
@@ -63,8 +62,6 @@ export const useCanvasIntegrationSettings = () => {
         updateCourseMappings,
         removeCanvasIntegration,
         icsUrl,
-        setIcsUrl,
-        termId,
-        setTermId
+        setIcsUrl
     }
 }

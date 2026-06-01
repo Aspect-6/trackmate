@@ -61,7 +61,6 @@ import CanvasIntegrationSettings, {
     CanvasIntegrationContent,
     ConnectionForm,
     ConnectionInput,
-    ConnectionDropdown,
     ConnectionButton,
     SyncStatus,
     CourseMappingTable,
@@ -155,9 +154,7 @@ const Settings: React.FC = () => {
         updateCourseMappings,
         removeCanvasIntegration,
         icsUrl,
-        setIcsUrl,
-        termId,
-        setTermId
+        setIcsUrl
     } = useCanvasIntegrationSettings()
 
     return (
@@ -269,43 +266,49 @@ const Settings: React.FC = () => {
                     Configure how your schedule is calculated for every day.
                 </BaseModuleDescription>
 
-                <BaseModuleDescription>
-                    Select the kind of class schedule that your institution uses.
-                </BaseModuleDescription>
-                <ScheduleTypeDropdown className={showAlternatingABScheduleSettings || showPeriodCountSettings ? "mb-10" : undefined}>
-                    <ScheduleTypeDropdownOption value="alternating-ab">Alternating A/B Days</ScheduleTypeDropdownOption>
-                    <ScheduleTypeDropdownOption value="alternating-ab-semester">Alternating A/B Days + Semester</ScheduleTypeDropdownOption>
-                    <ScheduleTypeDropdownOption value="semester">Semester</ScheduleTypeDropdownOption>
-                    <ScheduleTypeDropdownOption value="fixed-weekly">Fixed Weekly</ScheduleTypeDropdownOption>
-                </ScheduleTypeDropdown>
-
-                {showAlternatingABScheduleSettings && (
+                {!activeTermForToday ? (
+                    <span style={{ color: SETTINGS.TEXT_TERTIARY }}>No active term. Must be in an active term to use this feature.</span>
+                ) : (
                     <>
                         <BaseModuleDescription>
-                            Manually set the current day type to correct the A/B day rotation.
-                            Future days will alternate based on this setting.
+                            Select the kind of class schedule that your institution uses.
                         </BaseModuleDescription>
-                        <ScheduleSettingsContent>
-                            <CurrentDayCalculation currentDayType={currentDayType || ""} />
+                        <ScheduleTypeDropdown className={showAlternatingABScheduleSettings || showPeriodCountSettings ? "mb-10" : undefined}>
+                            <ScheduleTypeDropdownOption value="alternating-ab">Alternating A/B Days</ScheduleTypeDropdownOption>
+                            <ScheduleTypeDropdownOption value="alternating-ab-semester">Alternating A/B Days + Semester</ScheduleTypeDropdownOption>
+                            <ScheduleTypeDropdownOption value="semester">Semester</ScheduleTypeDropdownOption>
+                            <ScheduleTypeDropdownOption value="fixed-weekly">Fixed Weekly</ScheduleTypeDropdownOption>
+                        </ScheduleTypeDropdown>
 
-                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mb-10">
-                                <SetDayTypeButton dayType="A" onClick={() => setReferenceDayType("A", activeTermForToday?.id || "", activeScheduleType!, todayString())}>
-                                    Set Today as A-Day
-                                </SetDayTypeButton>
-                                <SetDayTypeButton dayType="B" onClick={() => setReferenceDayType("B", activeTermForToday?.id || "", activeScheduleType!, todayString())}>
-                                    Set Today as B-Day
-                                </SetDayTypeButton>
-                            </div>
-                        </ScheduleSettingsContent>
-                    </>
-                )}
+                        {showAlternatingABScheduleSettings && (
+                            <>
+                                <BaseModuleDescription>
+                                    Manually set the current day type to correct the A/B day rotation.
+                                    Future days will alternate based on this setting.
+                                </BaseModuleDescription>
+                                <ScheduleSettingsContent>
+                                    <CurrentDayCalculation currentDayType={currentDayType || ""} />
 
-                {showPeriodCountSettings && (
-                    <>
-                        <BaseModuleDescription>
-                            Set the number of class periods in your daily schedule.
-                        </BaseModuleDescription>
-                        <PeriodCountDropdown />
+                                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mb-10">
+                                        <SetDayTypeButton dayType="A" onClick={() => setReferenceDayType("A", activeTermForToday.id, activeScheduleType!, todayString())}>
+                                            Set Today as A-Day
+                                        </SetDayTypeButton>
+                                        <SetDayTypeButton dayType="B" onClick={() => setReferenceDayType("B", activeTermForToday.id, activeScheduleType!, todayString())}>
+                                            Set Today as B-Day
+                                        </SetDayTypeButton>
+                                    </div>
+                                </ScheduleSettingsContent>
+                            </>
+                        )}
+
+                        {showPeriodCountSettings && (
+                            <>
+                                <BaseModuleDescription>
+                                    Set the number of class periods in your daily schedule.
+                                </BaseModuleDescription>
+                                <PeriodCountDropdown />
+                            </>
+                        )}
                     </>
                 )}
             </ScheduleSettings>
@@ -372,20 +375,22 @@ const Settings: React.FC = () => {
 
                 <CanvasIntegrationContent>
                     {!integration ? (
-                        <ConnectionForm>
-                            <BaseModuleDescription className="!mb-0">Canvas ICS URL</BaseModuleDescription>
-                            <ConnectionInput value={icsUrl} onChange={setIcsUrl} />
-                            <BaseModuleDescription className="!mb-0">Academic Term</BaseModuleDescription>
-                            <ConnectionDropdown value={termId} onChange={setTermId} />
-                            {analyzeError && <div className="text-red-500 text-sm">{analyzeError}</div>}
-                            <ConnectionButton
-                                onClick={handleAnalyze}
-                                disabled={!icsUrl || !termId}
-                                isAnalyzing={isAnalyzing}
-                            >
-                                Analyze Feed
-                            </ConnectionButton>
-                        </ConnectionForm>
+                        !activeTermForToday ? (
+                            <span style={{ color: SETTINGS.TEXT_TERTIARY }}>No active term. Must be in an active term to use this feature.</span>
+                        ) : (
+                            <ConnectionForm>
+                                <BaseModuleDescription className="!mb-0">Canvas ICS URL</BaseModuleDescription>
+                                <ConnectionInput value={icsUrl} onChange={setIcsUrl} />
+                                {analyzeError && <div className="text-red-500 text-sm">{analyzeError}</div>}
+                                <ConnectionButton
+                                    onClick={() => handleAnalyze(activeTermForToday.id)}
+                                    disabled={!icsUrl}
+                                    isAnalyzing={isAnalyzing}
+                                >
+                                    Analyze Feed
+                                </ConnectionButton>
+                            </ConnectionForm>
+                        )
                     ) : (
                         <>
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-2 mt-2">

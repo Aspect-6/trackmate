@@ -6,7 +6,6 @@ import { useSettings, MIN_PERIODS, MAX_PERIODS } from "@/app/hooks/useSettings"
 import { todayString } from "@shared/lib"
 import type { ScheduleType } from "@/app/types"
 import type { ScheduleSettings } from "@/pages/Settings/types"
-import { GLOBAL } from "@/app/styles/colors"
 
 const PeriodCountDropdown: React.FC<ScheduleSettings.Content.PeriodCountDropdown.Props> = ({ className }) => {
     const { periodCount, setPeriodCount } = useSettings()
@@ -15,13 +14,7 @@ const PeriodCountDropdown: React.FC<ScheduleSettings.Content.PeriodCountDropdown
     const { openModal } = useModal()
 
     const activeTerm = getActiveTermForDate(todayString())
-    if (!activeTerm) {
-        return (
-            <div className={className}>
-                <span style={{ color: GLOBAL.TEXT_TERTIARY }}>No active term</span>
-            </div>
-        )
-    }
+    if (!activeTerm) return null
 
     const options = Array.from({ length: MAX_PERIODS - MIN_PERIODS + 1 }, (_, i) => i + MIN_PERIODS)
 
