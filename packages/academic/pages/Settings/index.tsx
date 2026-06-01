@@ -315,12 +315,8 @@ const Settings: React.FC = () => {
                     <BaseModuleHeader title="Academic Terms" />
                 </div>
 
-                <BaseModuleDescription className="mb-7">
-                    Define your school years and semesters to configure your schedule.
-                </BaseModuleDescription>
-
                 <BaseModuleDescription className="mb-4">
-                    Select the kind of academic terms your institution uses.
+                    Define your school years and semesters to configure your schedule.
                 </BaseModuleDescription>
 
                 <TermSettingsContent>
