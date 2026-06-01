@@ -1,8 +1,8 @@
 import React from "react"
 import type { TodaysEvents } from "@/pages/Dashboard/types"
-import { DASHBOARD } from "@/app/styles/colors"
 import TodaysEventsHeader from "./TodaysEventsHeader"
 import TodaysEventsBody, { EventList, NoEventsScheduled } from "./Body"
+import { DASHBOARD } from "@/app/styles/colors"
 
 const TodaysEvents: React.FC<TodaysEvents.Props> = ({
     events,

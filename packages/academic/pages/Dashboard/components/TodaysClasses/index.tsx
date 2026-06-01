@@ -4,9 +4,9 @@ import { useClassIdsForDate } from "@/app/hooks/schedules/useClassIdsForDate"
 import { useClasses, useNoSchool } from "@/app/hooks/entities"
 import { todayString } from "@shared/lib"
 import type { TodaysClasses } from "@/pages/Dashboard/types"
-import { DASHBOARD } from "@/app/styles/colors"
 import TodaysClassesHeader from "./TodaysClassesHeader"
 import TodaysClassesBody, { ClassList, NoClassesScheduled, NoSchool } from "./Body"
+import { DASHBOARD } from "@/app/styles/colors"
 
 const TodaysClasses: React.FC<TodaysClasses.Props> = ({
     isMobile,
