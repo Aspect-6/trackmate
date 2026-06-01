@@ -35,7 +35,10 @@ const AssignmentColumn: React.FC<AssignmentColumn.Props> = ({
                     return true
                 }
 
-                const className = getClassById(item.classId).name.toLowerCase()
+                const classInfo = getClassById(item.classId)
+                if (!classInfo) return false
+
+                const className = classInfo.name.toLowerCase()
                 const matchesSearch = !query ||
                     item.title.toLowerCase().includes(query) ||
                     className.includes(query) ||
