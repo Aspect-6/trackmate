@@ -112,20 +112,22 @@ const ActionBar: React.FC<ActionBar.Props> = ({
                 }}
             />
 
-            <div className="hidden md:flex items-center gap-2">
-
-                <div className="flex flex-1 min-w-0 items-center gap-2 overflow-x-scroll no-scrollbar mask-linear-fade py-1">
+            <div className="hidden md:flex items-center gap-1">
+                <div className="flex items-center gap-2 flex-shrink-0">
+                    {allChip}
+                    <div className="w-px h-6 flex-shrink-0 ml-1 mr-2" style={{ borderLeft: `1px solid ${MY_ASSIGNMENTS.BORDER_SECONDARY}`}} />
+                </div>
+                <div className="flex flex-1 min-w-0 items-center gap-2 pl-1 overflow-x-scroll no-scrollbar mask-linear-fade py-1">
                     {typeChips}
                 </div>
 
                 <div className="flex items-center gap-2 flex-shrink-0 mr-1">
-                    <div className="w-px h-4 bg-white/10 flex-shrink-0 mx-1" />
+                    <div className="w-px h-6 flex-shrink-0 mx-1" style={{ borderLeft: `1px solid ${MY_ASSIGNMENTS.BORDER_SECONDARY}`}} />
                     {priorityChips}
-                    {allChip}
                 </div>
 
                 <div className="flex items-center gap-2 flex-shrink-0">
-                    <div className="w-px h-6 bg-white/10 flex-shrink-0" />
+                    <div className="w-px h-6 flex-shrink-0" style={{ borderLeft: `1px solid ${MY_ASSIGNMENTS.BORDER_SECONDARY}`}} />
                     {searchInput("w-64")}
                 </div>
             </div>
