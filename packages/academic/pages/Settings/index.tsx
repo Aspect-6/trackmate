@@ -267,7 +267,7 @@ const Settings: React.FC = () => {
                 </BaseModuleDescription>
 
                 {!activeTermForToday ? (
-                    <span style={{ color: SETTINGS.TEXT_TERTIARY }}>No active term. Must be in an active term to use this feature.</span>
+                    <span style={{ color: SETTINGS.TEXT_TERTIARY }}>Must be in an active academic term to use this feature.</span>
                 ) : (
                     <>
                         <BaseModuleDescription>
@@ -376,7 +376,7 @@ const Settings: React.FC = () => {
                 <CanvasIntegrationContent>
                     {!integration ? (
                         !activeTermForToday ? (
-                            <span style={{ color: SETTINGS.TEXT_TERTIARY }}>No active term. Must be in an active term to use this feature.</span>
+                            <span style={{ color: SETTINGS.TEXT_TERTIARY }}>Must be in an active academic term to use this feature.</span>
                         ) : (
                             <ConnectionForm>
                                 <BaseModuleDescription className="!mb-0">Canvas ICS URL</BaseModuleDescription>
