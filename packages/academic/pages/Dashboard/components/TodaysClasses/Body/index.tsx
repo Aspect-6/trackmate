@@ -9,6 +9,7 @@ const TodaysClassesBody: React.FC<TodaysClasses.Body.Props> = ({ isMobile, isCol
                 display: isMobile ? "grid" : undefined,
                 gridTemplateRows: isCollapsed ? "0fr" : "1fr",
                 transition: "grid-template-rows 0.25s ease-out",
+                maxHeight: isMobile ? "14.7rem" : "275px",
             }}
         >
             <div className="overflow-hidden h-full">
@@ -16,7 +17,6 @@ const TodaysClassesBody: React.FC<TodaysClasses.Body.Props> = ({ isMobile, isCol
                     className="space-y-2 pr-2 custom-scrollbar h-full"
                     style={{
                         overflowY: "auto",
-                        maxHeight: isMobile ? "14.7rem" : "275px",
                         overscrollBehavior: "contain",
                     }}
                 >
