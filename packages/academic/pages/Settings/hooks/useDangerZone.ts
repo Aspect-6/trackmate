@@ -1,8 +1,8 @@
 import { useCallback } from "react"
 import { useAuth } from "@shared/contexts/AuthContext"
-import { setDocument, writeItemsDocument } from "@shared/lib/firestore"
+import { setDocument, writeItemsDocument, getDocument } from "@shared/lib/firestore"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
-import { DEFAULT_ASSIGNMENT_TYPES, DEFAULT_PERIOD_COUNT } from "@/app/hooks/useSettings"
+import { DEFAULT_ASSIGNMENT_TYPES, DEFAULT_PERIOD_COUNT, useSettings } from "@/app/hooks/useSettings"
 
 /** Empty items document, used to reset entity documents. */
 const EMPTY_ITEMS = { items: [] as unknown[] }
@@ -40,18 +40,39 @@ const DEFAULT_SCHEDULES = {
 export const useDangerZone = () => {
     const { user, isPremium } = useAuth()
 
+    const { addDeletedCanvasUids } = useSettings()
+
+    const collectAndSaveCanvasUids = async (docs: string[]): Promise<void> => {
+        if (!user) return
+        const allCanvasUids: string[] = []
+        for (const doc of docs) {
+            const data = await getDocument<{ items: any[] }>(user.uid, "academic", doc)
+            if (data?.items) {
+                const uids = data.items.filter(i => i.canvasUid).map(i => i.canvasUid)
+                allCanvasUids.push(...uids)
+            }
+        }
+        if (allCanvasUids.length > 0) {
+            addDeletedCanvasUids(allCanvasUids)
+        }
+    }
+
     const deleteAllAssignments = useCallback(async (): Promise<void> => {
         if (!user) return
-        await Promise.all([
-            writeItemsDocument(FIRESTORE_KEYS.ASSIGNMENTS, EMPTY_ITEMS),
-            writeItemsDocument(FIRESTORE_KEYS.ASSIGNMENTS_ARCHIVE, EMPTY_ITEMS),
-            ...(isPremium ? [
-                writeItemsDocument(FIRESTORE_KEYS.ASSIGNMENTS_PREMIUM, EMPTY_ITEMS),
-                writeItemsDocument(FIRESTORE_KEYS.ASSIGNMENTS_PREMIUM_ARCHIVE, EMPTY_ITEMS),
-            ] : []),
-        ])
+        const docsToClear = [
+            FIRESTORE_KEYS.ASSIGNMENTS,
+            FIRESTORE_KEYS.ASSIGNMENTS_ARCHIVE,
+            ...(isPremium ? [FIRESTORE_KEYS.ASSIGNMENTS_PREMIUM, FIRESTORE_KEYS.ASSIGNMENTS_PREMIUM_ARCHIVE] : [])
+        ]
+        
+        // Save canvas uids so they don't sync back
+        await collectAndSaveCanvasUids(docsToClear)
+
+        await Promise.all(
+            docsToClear.map(doc => writeItemsDocument(doc, EMPTY_ITEMS))
+        )
         window.location.reload()
-    }, [user, isPremium])
+    }, [user, isPremium, addDeletedCanvasUids])
 
     const deleteAllEvents = useCallback(async (): Promise<void> => {
         if (!user) return

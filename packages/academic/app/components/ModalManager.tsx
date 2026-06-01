@@ -14,6 +14,9 @@ import { ClassYearlongMigrationModal } from "@/app/components/modals/ClassYearlo
 import { TypeSelectorModal } from "@/app/components/modals/TypeSelectorModal"
 import { KindChooserModal } from "@/app/components/modals/KindChooserModal"
 import { AutoArchiveModal } from "@/app/components/modals/AutoArchiveModal"
+import { CanvasInitialMappingModal } from "@/app/components/modals/CanvasInitialMappingModal"
+import { CanvasAutoCreatedClassesModal } from "@/app/components/modals/CanvasAutoCreatedClassesModal"
+import { CanvasMappedClassDeleteAbortedModal } from "@/app/components/modals/CanvasMappedClassDeleteAbortedModal"
 import { GLOBAL } from "@/app/styles/colors"
 
 const ModalManager: React.FC = () => {
@@ -125,6 +128,14 @@ const ModalManager: React.FC = () => {
                 return <ClassMigrationModal onClose={closeModal} data={modalData} />
             case "class-yearlong-migration":
                 return <ClassYearlongMigrationModal onClose={closeModal} data={modalData} />
+
+            // Canvas
+            case "canvas-initial-mapping":
+                return <CanvasInitialMappingModal onClose={closeModal} data={modalData} />
+            case "canvas-auto-created-classes":
+                return <CanvasAutoCreatedClassesModal onClose={closeModal} classes={modalData} />
+            case "canvas-mapped-class-delete-aborted":
+                return <CanvasMappedClassDeleteAbortedModal onClose={closeModal} />
 
             default:
                 return null

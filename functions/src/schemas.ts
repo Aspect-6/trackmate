@@ -1,7 +1,6 @@
 /**
  * Runtime schema definitions for Firestore items document validation.
- * These mirror the TypeScript interfaces in packages/academic/app/types/
- * but are checkable at runtime (TS interfaces are erased at compile time).
+ * These mirror the TypeScript interfaces in packages/academic/app/types.
  */
 
 import { z } from "zod"
@@ -30,6 +29,13 @@ export const AssignmentSchema = z.object({
 	createdAt: z.string(),
 	description: z.string().max(150),
 	subtasks: z.array(SubtaskSchema).max(2).optional(),
+	canvasUid: z.string().optional(),
+	canvasOriginal: z.object({
+		title: z.string(),
+		dueDate: z.string(),
+		dueTime: z.string(),
+		description: z.string(),
+	}).optional(),
 }).strict()
 
 // Premium assignments use the same schema for now, but will be updated in the future

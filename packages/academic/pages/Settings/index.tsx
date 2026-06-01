@@ -56,6 +56,19 @@ import TermSettings, {
     AddTermButton,
     NoTermsYetButton
 } from "@/pages/Settings/components/TermSettings"
+// Canvas integration imports
+import CanvasIntegrationSettings, {
+    CanvasIntegrationContent,
+    ConnectionForm,
+    ConnectionInput,
+    ConnectionDropdown,
+    ConnectionButton,
+    SyncStatus,
+    CourseMappingTable,
+    DisconnectButton,
+    SyncNowButton
+} from "@/pages/Settings/components/CanvasIntegrationSettings"
+import { useCanvasIntegrationSettings } from "@/pages/Settings/hooks/useCanvasIntegrationSettings"
 // Danger zone settings imports
 import DangerZoneSettings, {
     DangerZoneBadge,
@@ -130,6 +143,22 @@ const Settings: React.FC = () => {
     const activeSensors = isAssignmentTab ? assignmentTemplateSensors : eventTemplateSensors
     const activeDragEnd = isAssignmentTab ? handleAssignmentTemplateDragEnd : handleEventTemplateDragEnd
     const activeAddTemplate = isAssignmentTab ? handleAddAssignmentTemplate : handleAddEventTemplate
+
+    const {
+        integration,
+        isAnalyzing,
+        analyzeError,
+        isSyncing,
+        handleAnalyze,
+        handleSyncNow,
+        setCanvasEnabled,
+        updateCourseMappings,
+        removeCanvasIntegration,
+        icsUrl,
+        setIcsUrl,
+        termId,
+        setTermId
+    } = useCanvasIntegrationSettings()
 
     return (
         <div className="w-full max-w-2xl mx-auto">
@@ -335,6 +364,69 @@ const Settings: React.FC = () => {
                     )}
                 </TermSettingsContent>
             </TermSettings>
+
+            <CanvasIntegrationSettings>
+                <div className="flex items-center justify-between mb-4">
+                    <BaseModuleHeader title="Canvas Integration" />
+                </div>
+
+                <BaseModuleDescription className="mb-7">
+                    Automatically sync assignments from your live Canvas Calendar into TrackMate.
+                </BaseModuleDescription>
+
+                <CanvasIntegrationContent>
+                    {!integration ? (
+                        <ConnectionForm>
+                            <BaseModuleDescription className="!mb-0">Canvas ICS URL</BaseModuleDescription>
+                            <ConnectionInput value={icsUrl} onChange={setIcsUrl} />
+                            <BaseModuleDescription className="!mb-0">Academic Term</BaseModuleDescription>
+                            <ConnectionDropdown value={termId} onChange={setTermId} />
+                            {analyzeError && <div className="text-red-500 text-sm">{analyzeError}</div>}
+                            <ConnectionButton
+                                onClick={handleAnalyze}
+                                disabled={!icsUrl || !termId}
+                                isAnalyzing={isAnalyzing}
+                            >
+                                Analyze Feed
+                            </ConnectionButton>
+                        </ConnectionForm>
+                    ) : (
+                        <>
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-2 mt-2">
+                                <SyncStatus
+                                    enabled={integration.enabled}
+                                    onToggleEnabled={setCanvasEnabled}
+                                    lastSyncAt={integration.lastSyncAt}
+                                    lastSyncStatus={integration.lastSyncStatus}
+                                    lastSyncError={integration.lastSyncError}
+                                />
+                                <SyncNowButton
+                                    onSyncNow={handleSyncNow}
+                                    isSyncing={isSyncing}
+                                />
+                            </div>
+
+                            <BaseModuleDescription className="!mb-0">
+                                Map each of your Canvas courses to a currently existing TrackMate class.
+                            </BaseModuleDescription>
+                            <CourseMappingTable
+                                termId={integration.termId}
+                                mappings={integration.courseMappings}
+                                onMappingChange={(idx, newClassId) => {
+                                    const newMappings = [...integration.courseMappings]
+                                    const target = newMappings[idx]
+                                    if (target) {
+                                        target.classId = newClassId
+                                        updateCourseMappings(newMappings)
+                                    }
+                                }}
+                            />
+
+                            <DisconnectButton onDisconnect={removeCanvasIntegration} />
+                        </>
+                    )}
+                </CanvasIntegrationContent>
+            </CanvasIntegrationSettings>
 
             <DangerZoneSettings>
                 <div className="flex items-start justify-between mb-3 gap-3 flex-wrap">

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react"
 import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import { useToast } from "@shared/contexts/ToastContext"
 import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
-import type { Assignment, AssignmentType, ThemeMode, Template, AssignmentTemplate, EventTemplate } from "@/app/types"
+import type { Assignment, AssignmentType, ThemeMode, Template, AssignmentTemplate, EventTemplate, CanvasIntegration, CanvasCourseMapping } from "@/app/types"
 
 export const DEFAULT_ASSIGNMENT_TYPES: AssignmentType[] = [
     "Homework",
@@ -28,6 +28,7 @@ interface Settings {
     assignmentTypes: AssignmentType[]
     templates: Template[]
     periodCount: number
+    canvasIntegration: CanvasIntegration | null
 }
 
 // Read initial theme from localStorage to prevent flash
@@ -41,7 +42,8 @@ const DEFAULT_SETTINGS: Settings = {
     theme: getInitialTheme(),
     assignmentTypes: DEFAULT_ASSIGNMENT_TYPES,
     templates: [],
-    periodCount: DEFAULT_PERIOD_COUNT
+    periodCount: DEFAULT_PERIOD_COUNT,
+    canvasIntegration: null
 }
 
 export const useSettings = () => {
@@ -149,6 +151,46 @@ export const useSettings = () => {
         return settings.templates.find(t => t.id === templateId)
     }, [settings.templates])
 
+    // Canvas Integration Actions
+    const setCanvasIntegration = useCallback((config: CanvasIntegration) => {
+        setSettings(prev => ({ ...prev, canvasIntegration: config }))
+    }, [setSettings])
+    
+    const updateCourseMappings = useCallback((mappings: CanvasCourseMapping[]) => {
+        setSettings(prev => prev.canvasIntegration ? {
+            ...prev,
+            canvasIntegration: { ...prev.canvasIntegration, courseMappings: mappings }
+        } : prev)
+    }, [setSettings])
+    
+    const removeCanvasIntegration = useCallback(() => {
+        setSettings(prev => ({ ...prev, canvasIntegration: null }))
+    }, [setSettings])
+    
+    const setCanvasEnabled = useCallback((enabled: boolean) => {
+        setSettings(prev => prev.canvasIntegration ? {
+            ...prev,
+            canvasIntegration: { ...prev.canvasIntegration, enabled }
+        } : prev)
+    }, [setSettings])
+    
+    const clearAutoCreatedClasses = useCallback(() => {
+        setSettings(prev => prev.canvasIntegration ? {
+            ...prev,
+            canvasIntegration: { ...prev.canvasIntegration, newlyAutoCreatedClasses: [] }
+        } : prev)
+    }, [setSettings])
+    
+    const addDeletedCanvasUids = useCallback(async (uids: string[]) => {
+        await setSettings(prev => prev.canvasIntegration ? {
+            ...prev,
+            canvasIntegration: {
+                ...prev.canvasIntegration,
+                deletedCanvasUids: [...new Set([...(prev.canvasIntegration.deletedCanvasUids || []), ...uids])]
+            }
+        } : prev)
+    }, [setSettings])
+
     // Filtered template getters
     const allTemplates = settings.templates || []
     const assignmentTemplates = allTemplates.filter(t => t.kind === "assignment")
@@ -166,6 +208,7 @@ export const useSettings = () => {
         assignmentTemplates,
         eventTemplates,
         periodCount: settings.periodCount,
+        canvasIntegration: settings.canvasIntegration,
 
         // Actions
         setSettings,
@@ -180,6 +223,12 @@ export const useSettings = () => {
         reorderTemplates,
         getAssignmentTemplateById,
         getEventTemplateById,
-        getTemplateById
+        getTemplateById,
+        setCanvasIntegration,
+        updateCourseMappings,
+        removeCanvasIntegration,
+        setCanvasEnabled,
+        clearAutoCreatedClasses,
+        addDeletedCanvasUids,
     }
 }

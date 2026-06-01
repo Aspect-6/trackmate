@@ -18,6 +18,7 @@ export { ModalTextareaInput } from "./ModalTextareaInput"
 export { ModalColorPicker } from "./ModalColorPicker"
 export { ModalSelectInput } from "./ModalSelectInput"
 export { ModalSelectInputOption } from "./ModalSelectInputOption"
+export { ModalToggleSwitch } from "./ModalToggleSwitch"
 
 // Buttons
 export { ModalSubmitButton } from "./ModalSubmitButton"

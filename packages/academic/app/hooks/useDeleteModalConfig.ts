@@ -1,4 +1,5 @@
 import { useToast } from "@shared/contexts/ToastContext"
+import { useModal } from "@/app/contexts/ModalContext"
 import { useAssignments, useClasses, useEvents, useNoSchool, useAcademicTerms, useSchedules } from "@/app/hooks/entities"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useDangerZone } from "@/pages/Settings/hooks/useDangerZone"
@@ -23,13 +24,17 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
     const { noSchoolPeriods: noSchool, deleteNoSchool } = useNoSchool()
     const { academicTerms, deleteAcademicTerm } = useAcademicTerms()
     const { resetTermSchedule } = useSchedules()
-    const { setPeriodCount } = useSettings()
+    const { settings, setPeriodCount, addDeletedCanvasUids } = useSettings()
     const { deleteAllAssignments, deleteAllEvents, clearAllData } = useDangerZone()
     const { showToast } = useToast()
+    const { openModal } = useModal()
 
     if (!activeModal) return null
 
-    // 1. Handle Bulk Deletes and Special Actions
+    // Handle Bulk Deletes and Special Actions
+    if (activeModal === "delete-confirmation") {
+        return modalData as DeleteModalConfig
+    }
     if (activeModal === "delete-assignments") {
         return {
             title: "Delete All Assignments?",
@@ -75,12 +80,19 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
             }
         }
     }
-    // 2. Configuration Map for Single Item Deletes
-    const configMap: Record<string, { data: any[], getName: (item: any) => string, action: (id: string) => void, label: string, msg: string, desc?: string }> = {
+
+    // Configuration Map for Single Item Deletes
+    const configMap: Record<string, { data: any[], getName: (item: any) => string, action: (id: string) => boolean | void, label: string, msg: string, desc?: string }> = {
         "delete-assignment": {
             data: assignments,
             getName: i => i.title,
-            action: deleteAssignment,
+            action: (id: string) => {
+                const a = assignments.find(item => item.id === id)
+                if (a && a.kind === "parent" && a.canvasUid) {
+                    addDeletedCanvasUids([a.canvasUid])
+                }
+                deleteAssignment(id)
+            },
             label: "Assignment",
             msg: "Successfully deleted assignment"
         },
@@ -88,6 +100,12 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
             data: classes,
             getName: i => i.name,
             action: (id: string) => {
+                const isMapped = settings.canvasIntegration?.courseMappings.some(m => m.classId === id)
+                if (isMapped) {
+                    openModal("canvas-mapped-class-delete-aborted")
+                    return false
+                }
+
                 // Cascade: delete all assignments for this class first
                 assignments
                     .filter(a => a.classId === id)
@@ -146,8 +164,11 @@ export const useDeleteModalConfig = (activeModal: string | null, modalData: any)
         description: config.desc,
         buttonText: `Delete ${config.label === "No School Period" ? "Period" : config.label.split(" ").pop() || config.label}`,
         onDelete: () => {
-            config.action(modalData)
-            showToast(config.msg, "success")
+            const result = config.action(modalData)
+            if (result !== false) {
+                showToast(config.msg, "success")
+            }
+            return result
         }
     }
 }

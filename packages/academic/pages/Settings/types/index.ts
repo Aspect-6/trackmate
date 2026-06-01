@@ -234,6 +234,66 @@ export namespace ScheduleSettings {
     }
 }
 
+// CanvasIntegrationSettings namespace
+export namespace CanvasIntegrationSettings {
+    export interface Props {
+        children: React.ReactNode
+    }
+    // ======================
+
+    export namespace Content {
+        export interface Props {
+            children: React.ReactNode
+        }
+        // ======================
+        
+        export namespace ConnectionForm {
+            export interface Props {
+                children: React.ReactNode
+            }
+            export interface InputProps {
+                value: string
+                onChange: (value: string) => void
+            }
+            export interface DropdownProps {
+                value: string
+                onChange: (value: string) => void
+            }
+            export interface ButtonProps {
+                onClick: () => void
+                disabled: boolean
+                isAnalyzing: boolean
+                children: React.ReactNode
+            }
+        }
+        
+        export interface SyncStatusProps {
+            enabled: boolean
+            onToggleEnabled: (enabled: boolean) => void
+            lastSyncAt: string | null
+            lastSyncStatus: string
+            lastSyncError: string | null
+        }
+        
+        export interface SyncNowButtonProps {
+            onSyncNow: () => void
+            isSyncing: boolean
+        }
+
+        export namespace CourseMappingTable {
+            export interface Props {
+                termId: string
+                mappings: { canvasCourseName: string, classId: string }[]
+                onMappingChange: (index: number, newClassId: string) => void
+            }
+        }
+
+        export interface DisconnectButtonProps {
+            onDisconnect: () => void
+        }
+    }
+}
+
 // DangerZone namespace
 export namespace DangerZone {
     export interface Props {

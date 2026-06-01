@@ -34,5 +34,7 @@ module.exports = {
 		"max-len": "off",
 		"eol-last": "off",
 		"import/no-unresolved": 0,
+		"import/namespace": "off",
+		"@typescript-eslint/no-empty-interface": "off",
 	},
 }

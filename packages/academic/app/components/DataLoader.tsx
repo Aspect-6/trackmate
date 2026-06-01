@@ -2,6 +2,7 @@ import React from "react"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useClasses, useEvents, useNoSchool } from "@/app/hooks/entities"
 import { useAutoArchiver } from "@/app/hooks/useAutoArchiver"
+import { useCanvasSyncNotifier } from "@/app/hooks/useCanvasSyncNotifier"
 import { GLOBAL } from "@/app/styles/colors"
 
 interface DataLoaderProps {
@@ -18,6 +19,7 @@ const DataLoader: React.FC<DataLoaderProps> = ({ children }) => {
     const { loading: eventsLoading } = useEvents()
     const { loading: noSchoolLoading } = useNoSchool()
     useAutoArchiver()
+    useCanvasSyncNotifier()
 
     if (settingsLoading || classesLoading || eventsLoading || noSchoolLoading) {
         return (

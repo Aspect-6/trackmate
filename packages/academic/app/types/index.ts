@@ -62,6 +62,15 @@ export interface Assignment {
     description?: string
     /** Nested subtasks for parent assignments */
     subtasks: Subtask[]
+    /** Canvas ICS UID — used to deduplicate synced assignments */
+    canvasUid?: string
+    /** Snapshot of the values as last fetched from Canvas */
+    canvasOriginal?: {
+        title: string
+        dueDate: string
+        dueTime: string
+        description: string
+    }
 }
 
 /**
@@ -312,3 +321,36 @@ export interface EventTemplate extends Omit<Event, "date"> {
  * Union type for all template kinds.
  */
 export type Template = AssignmentTemplate | EventTemplate
+
+/**
+ * Canvas integration types
+ */
+export interface CanvasCourseMapping {
+    /** The course name exactly as it appears in [brackets] in the ICS SUMMARY */
+    canvasCourseName: string
+    /** The TrackMate class ID this course maps to */
+    classId: string
+}
+
+export interface CanvasIntegration {
+    /** The Canvas ICS calendar feed URL */
+    icsUrl: string
+    /** The academic term this sync is linked to */
+    termId: string
+    /** Course name → class ID mappings */
+    courseMappings: CanvasCourseMapping[]
+    /** ISO timestamp of last successful sync */
+    lastSyncAt: string | null
+    /** Status of the last sync attempt */
+    lastSyncStatus: "success" | "error" | "never"
+    /** Error message if last sync failed */
+    lastSyncError: string | null
+    /** Whether auto-sync is enabled */
+    enabled: boolean
+    /** List of class IDs that were automatically created during the last sync to show the user */
+    newlyAutoCreatedClasses: string[]
+    /** Array of canvasUids that the user manually deleted, preventing the sync engine from recreating them */
+    deletedCanvasUids: string[]
+    /** The user's timezone string for computing precise due dates */
+    timezone: string
+}

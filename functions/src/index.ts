@@ -115,3 +115,5 @@ export const writeItemsDocument = onCall({ enforceAppCheck: true }, async (reque
 		throw new HttpsError("internal", "Failed to write document.")
 	}
 })
+
+export * from "./syncCanvasCalendars.js"

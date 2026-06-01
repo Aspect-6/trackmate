@@ -16,7 +16,7 @@ interface DeleteConfirmationModalProps {
     description?: string
     message?: string
     buttonText?: string
-    onDelete: () => void
+    onDelete: () => boolean | void
 }
 
 export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
@@ -29,8 +29,10 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
     onDelete
 }) => {
     const handleDelete = () => {
-        onDelete()
-        onClose()
+        const result = onDelete()
+        if (result !== false) {
+            onClose()
+        }
     }
 
     return (
