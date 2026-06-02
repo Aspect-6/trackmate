@@ -404,6 +404,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                                 maxCount={maxSubtasks}
                                 focusColor={focusColor}
                                 focusSubtaskId={focusSubtaskId}
+                                onAttemptPremiumAdd={!isPremium ? () => openModal("premium-upgrade", { title: "Upgrade to Add More Subtasks" }, { stack: true }) : undefined}
                             />
                         )}
                     </ModalTabPanel>

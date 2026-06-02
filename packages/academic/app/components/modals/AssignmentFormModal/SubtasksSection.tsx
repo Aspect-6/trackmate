@@ -12,6 +12,7 @@ export interface SubtasksSectionProps {
     maxCount: number
     focusColor: string
     focusSubtaskId?: string
+    onAttemptPremiumAdd?: () => void
 }
 
 const SubtasksSection: React.FC<SubtasksSectionProps> = ({
@@ -20,6 +21,7 @@ const SubtasksSection: React.FC<SubtasksSectionProps> = ({
     maxCount,
     focusColor,
     focusSubtaskId,
+    onAttemptPremiumAdd,
 }) => {
     const [expandedId, setExpandedId] = useState<string | null>(null)
     const atLimit = subtasks.length >= maxCount
@@ -33,7 +35,12 @@ const SubtasksSection: React.FC<SubtasksSectionProps> = ({
     }, [subtasks, expandedId])
 
     const handleAdd = () => {
-        if (atLimit) return
+        if (atLimit) {
+            if (onAttemptPremiumAdd) {
+                onAttemptPremiumAdd()
+            }
+            return
+        }
         const newId = generateId()
         onChange([
             ...subtasks,
@@ -61,9 +68,9 @@ const SubtasksSection: React.FC<SubtasksSectionProps> = ({
             <div className="flex items-center justify-between gap-2">
                 <ModalLabel className="!mb-0">Subtasks</ModalLabel>
                 <div className="flex items-center gap-2 shrink-0">
-                    <AddSubtaskButton onClick={handleAdd} disabled={atLimit} maxCount={maxCount} />
+                    <AddSubtaskButton onClick={handleAdd} disabled={atLimit && !onAttemptPremiumAdd} maxCount={maxCount} />
                     <span className="text-xs font-medium tabular-nums" style={{ color: GLOBAL.TEXT_SECONDARY }}>
-                        {subtasks.length}/{maxCount}
+                        {subtasks.length}/{40}
                     </span>
                 </div>
             </div>

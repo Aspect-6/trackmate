@@ -17,21 +17,23 @@ import { AutoArchiveModal } from "@/app/components/modals/AutoArchiveModal"
 import { CanvasInitialMappingModal } from "@/app/components/modals/CanvasInitialMappingModal"
 import { CanvasAutoCreatedClassesModal } from "@/app/components/modals/CanvasAutoCreatedClassesModal"
 import { CanvasMappedClassDeleteAbortedModal } from "@/app/components/modals/CanvasMappedClassDeleteAbortedModal"
+import { PremiumUpgradeModal } from "@/app/components/modals/PremiumUpgradeModal"
 import { GLOBAL } from "@/app/styles/colors"
 
 const ModalManager: React.FC = () => {
     const {
         activeModal,
-        modalData,
+        modalData: topModalData,
+        modalStack,
         closeModal,
         openModal
     } = useModal()
 
-    const deleteConfig = useDeleteModalConfig(activeModal, modalData)
+    const deleteConfig = useDeleteModalConfig(activeModal, topModalData)
     const backdropRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        if (!activeModal) return
+        if (modalStack.length === 0) return
 
         document.body.style.overflow = "hidden"
 
@@ -48,13 +50,14 @@ const ModalManager: React.FC = () => {
             document.body.style.overflow = ""
             document.removeEventListener("touchmove", handleTouchMove)
         }
-    }, [activeModal])
+    }, [modalStack.length])
 
-    if (!activeModal) return null
+    if (modalStack.length === 0) return null
 
-    const renderModalContent = () => {
+    const renderModalContent = (modalName: string, modalData: any) => {
         // Handle Delete Modals
-        if (deleteConfig) {
+        // deleteConfig will only be populated if activeModal (the topmost modal) is a delete modal
+        if (deleteConfig && modalName === activeModal) {
             return (
                 <DeleteConfirmationModal
                     onClose={closeModal}
@@ -68,7 +71,7 @@ const ModalManager: React.FC = () => {
             )
         }
 
-        switch (activeModal) {
+        switch (modalName) {
             case "type-selector":
                 return <TypeSelectorModal onClose={closeModal} openModal={openModal} />
 
@@ -137,23 +140,33 @@ const ModalManager: React.FC = () => {
             case "canvas-mapped-class-delete-aborted":
                 return <CanvasMappedClassDeleteAbortedModal onClose={closeModal} />
 
+            // Premium
+            case "premium-upgrade":
+                return <PremiumUpgradeModal onClose={closeModal} title={modalData?.title} />
+
             default:
                 return null
         }
     }
 
     return (
-        <div
-            ref={backdropRef}
-            className="fixed inset-0 flex items-center justify-center p-4 z-50"
-            style={{
-                backgroundColor: GLOBAL.MODAL_BACKDROP,
-                touchAction: "none",
-                overscrollBehavior: "none",
-            }}
-        >
-            {renderModalContent()}
-        </div>
+        <>
+            {modalStack.map((entry, index) => (
+                <div
+                    key={`${entry.name}-${index}`}
+                    ref={index === modalStack.length - 1 ? backdropRef : undefined}
+                    className="fixed inset-0 flex items-center justify-center p-4"
+                    style={{
+                        backgroundColor: GLOBAL.MODAL_BACKDROP,
+                        touchAction: "none",
+                        overscrollBehavior: "none",
+                        zIndex: 50 + index,
+                    }}
+                >
+                    {renderModalContent(entry.name, entry.data)}
+                </div>
+            ))}
+        </>
     )
 }
 

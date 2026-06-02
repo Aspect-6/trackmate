@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useToast } from "@shared/contexts/ToastContext"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useSettings } from "@/app/hooks/useSettings"
 import { httpsCallable } from "firebase/functions"
@@ -7,6 +8,7 @@ import { functions } from "@shared/lib/firebase"
 export const useCanvasIntegrationSettings = () => {
     const { settings, setCanvasEnabled, updateCourseMappings, removeCanvasIntegration } = useSettings()
     const { openModal } = useModal()
+    const { showToast } = useToast()
     
     const [isAnalyzing, setIsAnalyzing] = useState(false)
     const [analyzeError, setAnalyzeError] = useState<string | null>(null)
@@ -17,7 +19,18 @@ export const useCanvasIntegrationSettings = () => {
     const integration = settings.canvasIntegration
 
     const handleAnalyze = async (termId: string) => {
-        if (!icsUrl || !termId) return
+        if (!icsUrl) {
+            showToast("Please enter a valid ICS URL", "error")
+            return
+        } else if (!icsUrl.endsWith(".ics") || !icsUrl.includes("/feeds/calendars/")) {
+            showToast("Please enter a valid ICS URL", "error")
+            return
+        }
+
+        if (!termId) {
+            showToast("Must be in an active term to use this feature", "error")
+            return
+        }
         setIsAnalyzing(true)
         setAnalyzeError(null)
         try {

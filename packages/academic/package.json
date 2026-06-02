@@ -1,6 +1,6 @@
 {
 	"name": "trackmate-academic",
-	"version": "0.23.14",
+	"version": "0.24.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite --host",
