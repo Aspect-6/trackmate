@@ -1,4 +1,5 @@
 import React from "react"
+import { useBreakpoints } from "@/app/hooks/ui/useBreakpoints"
 import { useAcademicTerms } from "@/app/hooks/entities"
 import { formatDate } from "@shared/lib"
 import { BaseModuleHeader, BaseModuleDescription } from "@/pages/Settings/components/BaseModule"
@@ -16,6 +17,7 @@ import { SETTINGS } from "@/app/styles/colors"
 
 const TermSettingsComponent: React.FC = () => {
     const { academicTerms } = useAcademicTerms()
+    const { isMobile } = useBreakpoints()
 
     return (
         <div
@@ -36,7 +38,9 @@ const TermSettingsComponent: React.FC = () => {
             <div className="flex flex-col gap-4">
                 {academicTerms.length === 0 ? (
                     <NoTermsYetButton>
-                        No academic terms yet. Click to add term.
+                        No academic terms yet.
+                        {isMobile ? <br /> : " "}
+                        Click to add one.
                     </NoTermsYetButton>
                 ) : (
                     <>

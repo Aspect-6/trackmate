@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useBreakpoints } from "@/app/hooks/ui/useBreakpoints"
 import { useTemplateSettings } from "@/pages/Settings/hooks/useTemplateSettings"
 import { TabSwitcher, Tab } from "@shared/components/TabSwitcher"
 import { BaseModuleHeader, BaseModuleDescription } from "@/pages/Settings/components/BaseModule"
@@ -35,6 +36,8 @@ const TemplateSettings: React.FC = () => {
     const activeDragEnd = isAssignmentTab ? handleAssignmentTemplateDragEnd : handleEventTemplateDragEnd
     const activeAddTemplate = isAssignmentTab ? handleAddAssignmentTemplate : handleAddEventTemplate
 
+    const { isMobile } = useBreakpoints()
+
     return (
         <div
             className="settings-card p-5 sm:p-6 rounded-xl shadow-md mb-6 space-y-4"
@@ -63,7 +66,9 @@ const TemplateSettings: React.FC = () => {
             <div className="flex flex-col gap-4">
                 {activeTemplates.length === 0 ? (
                     <NoTemplatesYetButton onClick={activeAddTemplate}>
-                        No {activeTemplateTab} templates yet. Click to add one.
+                        No {activeTemplateTab} templates yet.
+                        {isMobile ? <br /> : " "}
+                        Click to add one.
                     </NoTemplatesYetButton>
                 ) : (
                     <>
