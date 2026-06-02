@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react"
-import { User, onAuthStateChanged } from "firebase/auth"
+import { User, onIdTokenChanged } from "firebase/auth"
 import { auth } from "@shared/lib"
 import type { AuthContextType, AuthProviderProps } from "@shared/types/AuthContext"
 
@@ -11,7 +11,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [isPremium, setIsPremium] = useState(false)
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        const unsubscribe = onIdTokenChanged(auth, async (user) => {
             setUser(user)
 
             if (user) {
