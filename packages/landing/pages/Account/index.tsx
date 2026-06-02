@@ -12,6 +12,7 @@ import ProfileSection from "./components/ProfileSection"
 import LinkedAccountsSection from "./components/LinkedAccountsSection"
 import SecuritySection from "./components/SecuritySection"
 import DataSection from "./components/DataSection"
+import PlansSection from "./components/PlansSection"
 import { BRAND_NAME } from "@shared/config/brand"
 import { ACCOUNT } from "@/app/styles/colors"
 
@@ -25,7 +26,7 @@ const Account: React.FC = () => {
 
     // Initialize active section from URL or default to "profile"
     const tabParam = searchParams.get("tab")
-    const validSections: ActiveSection[] = ["profile", "linked", "security", "data"]
+    const validSections: ActiveSection[] = ["profile", "linked", "security", "data", "plans"]
     const initialSection = (tabParam && validSections.includes(tabParam as ActiveSection))
         ? (tabParam as ActiveSection)
         : "profile"
@@ -82,8 +83,6 @@ const Account: React.FC = () => {
 
     return (
         <div id="account-container" className="min-h-dvh flex flex-col lg:flex-row" style={{ backgroundColor: ACCOUNT.BACKGROUND_PRIMARY }}>
-
-
             <AccountSidebar
                 activeSection={activeSection}
                 onSectionChange={setActiveSection}
@@ -114,6 +113,7 @@ const Account: React.FC = () => {
                 {activeSection === "linked" && <LinkedAccountsSection />}
                 {activeSection === "security" && <SecuritySection />}
                 {activeSection === "data" && <DataSection />}
+                {activeSection === "plans" && <PlansSection />}
             </main>
         </div>
     )

@@ -1,6 +1,6 @@
 {
 	"name": "trackmate-landing",
-	"version": "0.16.16",
+	"version": "0.17.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite --host",
@@ -12,7 +12,7 @@
 	"type": "module",
 	"homepage": "https://trackmate.co/landing",
 	"dependencies": {
-		"react-hook-form": "^7.71.1"		
+		"react-hook-form": "^7.71.1"
 	},
 	"devDependencies": {}
 }

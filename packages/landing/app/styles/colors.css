@@ -7,6 +7,11 @@
     --focus-color: hsl(var(--landing-accent-hsl));
     --focus-color-70: hsla(var(--landing-accent-hsl), 0.7);
     --focus-color-30: hsla(var(--landing-accent-hsl), 0.3);
+
+    --academic-accent-hue: 158;
+    --academic-accent-hsl: var(--academic-accent-hue), 60%, 31%;
+    --academic-accent: hsl(var(--academic-accent-hsl));
+    --academic-button-hover: hsla(var(--academic-accent-hsl), 0.8);
 }
 
 :root.dark {

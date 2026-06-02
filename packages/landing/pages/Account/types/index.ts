@@ -1,6 +1,6 @@
 import { User } from "firebase/auth"
 
-export type ActiveSection = "profile" | "linked" | "security" | "data"
+export type ActiveSection = "profile" | "linked" | "security" | "data" | "plans"
 
 export namespace Account {
     export interface Props { }
@@ -161,6 +161,33 @@ export namespace DataSection {
                 onConfirmDelete: () => void
                 onCancelDelete: () => void
             }
+        }
+    }
+}
+
+export namespace PlansSection {
+    export interface Props { }
+    // ======================
+    export namespace Content {
+        export interface Props { }
+        export interface HeaderProps {
+            productName: string
+            productDescription: string
+            isPremium: boolean
+            accentColor: string
+        }
+        export interface BodyProps {
+            isPremium: boolean
+            children: React.ReactNode
+        }
+        export interface FooterProps {
+            isPremium: boolean
+            accentColor: string
+            accentColorHover: string
+            onClick: () => void
+        }
+        export interface UpgradeBenefitProps {
+            benefit: string
         }
     }
 }

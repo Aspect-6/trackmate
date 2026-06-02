@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import type { AccountSidebar, ActiveSection } from "@/pages/Account/types"
-import { ArrowLeft, User, Link2, Lock, Database, LogOut } from "lucide-react"
+import { ArrowLeft, User, Link2, Lock, Database, LogOut, CreditCard } from "lucide-react"
 import { SidebarTab } from "@shared/components/Sidebar"
 import { ACCOUNT } from "@/app/styles/colors"
 
@@ -9,6 +9,7 @@ const navItems: Array<{ id: ActiveSection; label: string; icon: typeof User }> =
     { id: "linked", label: "Linked Accounts", icon: Link2 },
     { id: "security", label: "Security", icon: Lock },
     { id: "data", label: "Your Data", icon: Database },
+    { id: "plans", label: "Your Plans", icon: CreditCard },
 ]
 
 const SidebarNav: React.FC<AccountSidebar.SidebarNavProps> = ({

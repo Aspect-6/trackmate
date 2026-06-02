@@ -1,5 +1,5 @@
 import React from "react"
-import { useToast } from "@shared/contexts/ToastContext"
+import { useRedirect } from "@shared/hooks/useRedirect"
 import { GLOBAL } from "@/app/styles/colors"
 import {
     ModalContainer,
@@ -20,10 +20,11 @@ export const PremiumUpgradeModal: React.FC<PremiumUpgradeModalProps> = ({
     onClose, 
     title = "Upgrade to Premium" 
 }) => {
-    const { showToast } = useToast()
+    const redirect = useRedirect({ allowCrossApp: true })
 
     const handleUpgrade = () => {
-        showToast("Upgrading...", "success")
+        redirect("/account?tab=plans")
+        onClose()
     }
 
     return (
@@ -44,8 +45,8 @@ export const PremiumUpgradeModal: React.FC<PremiumUpgradeModalProps> = ({
                 <ModalSubmitButton
                     type="button"
                     onClick={handleUpgrade}
-                    bgColor={GLOBAL.GLOBAL_ACCENT}
-                    bgColorHover={GLOBAL.GLOBAL_ACCENT}
+                    bgColor={GLOBAL.ADDITEM_BUTTON_BG}
+                    bgColorHover={GLOBAL.ADDITEM_BUTTON_BG_HOVER}
                     textColor={GLOBAL.TEXT_WHITE}
                 >
                     Upgrade

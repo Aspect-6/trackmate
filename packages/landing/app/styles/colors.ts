@@ -35,5 +35,9 @@ export const ACCOUNT = {
     DANGER_ZONE_BG_PATTERN: "var(--danger-zone-bg-pattern)",
     DANGER_ZONE_BORDER: "var(--danger-zone-border)",
     DANGER_ZONE_CONFIRM_DELETE_SHADOW: "var(--danger-zone-confirm-delete-shadow)",
+
+    // Plan Colors
+    ACADEMIC_ACCENT: "var(--academic-accent)",
+    ACADEMIC_BUTTON_HOVER: "var(--academic-button-hover)",
 }
 
