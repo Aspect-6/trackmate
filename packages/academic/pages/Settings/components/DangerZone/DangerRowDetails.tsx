@@ -1,0 +1,14 @@
+import React from "react"
+import type { DangerZone } from "@/pages/Settings/types"
+import { SETTINGS } from "@/app/styles/colors"
+
+const DangerZoneRowDetails: React.FC<DangerZone.DangerRowDetailsProps> = ({ title, children }) => {
+    return (
+        <div className="flex flex-col gap-0.5">
+            <p className="font-bold text-base" style={{ color: SETTINGS.TEXT_PRIMARY }}>{title}</p>
+            <p className="text-[0.95rem] leading-[1.35]" style={{ color: SETTINGS.TEXT_SECONDARY }}>{children}</p>
+        </div>
+    )
+}
+
+export default DangerZoneRowDetails

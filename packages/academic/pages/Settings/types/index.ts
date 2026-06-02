@@ -17,110 +17,60 @@ export namespace BaseSettingsModule {
 
 // ThemeSettings namespace
 export namespace ThemeSettings {
-    export interface Props {
-        children: React.ReactNode
-    }
-    // ======================
-
-    export namespace Content {
-        export interface Props {
-            children: React.ReactNode
-        }
-        // ======================
-        export interface ThemeButtonProps {
-            label: string
-            description: string
-            Icon: LucideIcon
-            active: boolean
-            onClick: () => void
-        }
+    export interface ThemeButtonProps {
+        label: string
+        description: string
+        Icon: LucideIcon
+        active: boolean
+        onClick: () => void
     }
 }
 
 // AssignmentTypeSettings namespace
 export namespace AssignmentTypeSettings {
-    export interface Props {
+    export interface AssignmentTypeListProps {
+        sensors: SensorDescriptor<SensorOptions>[]
+        onDragEnd: (event: DragEndEvent) => void
+        items: string[]
         children: React.ReactNode
     }
-    // ======================
-
-    export namespace Content {
-        export interface Props {
-            children: React.ReactNode
-        }
-        // ======================
-
-        export namespace AssignmentTypeList {
-            export interface Props {
-                sensors: SensorDescriptor<SensorOptions>[]
-                onDragEnd: (event: DragEndEvent) => void
-                items: string[]
-                children: React.ReactNode
-            }
-            // ======================
-            export interface AssignmentTypeListRowProps {
-                type: AssignmentType
-                isFirst: boolean
-                isLast: boolean
-                isOnly: boolean
-                onMoveUp: () => void
-                onMoveDown: () => void
-                onRemove: () => void
-            }
-        }
-        export namespace AddTypeForm {
-            export interface Props {
-                children: React.ReactNode
-            }
-            // ======================
-
-            export interface AddTypeInputProps {
-                value: string
-                onChange: (value: string) => void
-                placeholder?: string
-            }
-            export interface AddTypeButtonProps {
-                onClick: () => void
-                children: React.ReactNode
-            }
-        }
+    export interface AssignmentTypeListRowProps {
+        type: AssignmentType
+        isFirst: boolean
+        isLast: boolean
+        isOnly: boolean
+        onMoveUp: () => void
+        onMoveDown: () => void
+        onRemove: () => void
+    }
+    export interface AddTypeInputProps {
+        value: string
+        onChange: (value: string) => void
+        placeholder?: string
+    }
+    export interface AddTypeButtonProps {
+        onClick: () => void
+        children: React.ReactNode
     }
 }
 
 // TemplateSettings namespace
 export namespace TemplateSettings {
-    export interface Props {
+    export interface TemplateListProps {
+        sensors: SensorDescriptor<SensorOptions>[]
+        onDragEnd: (event: DragEndEvent) => void
+        items: string[]
         children: React.ReactNode
     }
-    // ======================
-
-    export namespace Content {
-        export interface Props {
-            children: React.ReactNode
-        }
-        // ======================
-
-        export namespace TemplateList {
-            export interface Props {
-                sensors: SensorDescriptor<SensorOptions>[]
-                onDragEnd: (event: DragEndEvent) => void
-                items: string[]
-                children: React.ReactNode
-            }
-            // ======================
-            export interface TemplateRowProps {
-                template: Template
-                onEdit: () => void
-                onRemove: () => void
-            }
-        }
-
-        export interface NoTemplatesYetButtonProps {
-            onClick: () => void
-            children: React.ReactNode
-        }
+    export interface TemplateListRowProps {
+        template: Template
+        onEdit: () => void
+        onRemove: () => void
     }
-
+    export interface NoTemplatesYetButtonProps {
+        onClick: () => void
+        children: React.ReactNode
+    }
     export interface AddTemplateButtonProps {
         onClick: () => void
         children: React.ReactNode
@@ -129,202 +79,125 @@ export namespace TemplateSettings {
 
 // TermSettings namespace
 export namespace TermSettings {
-    export interface Props {
-        children: React.ReactNode
-    }
-    // ======================
-
-    export namespace Content {
+    export namespace TermItem {
         export interface Props {
             children: React.ReactNode
         }
         // ======================
-
-        export namespace TermList {
+        export namespace Header {
             export interface Props {
                 children: React.ReactNode
             }
             // ======================
-            export namespace TermItem {
-                export interface Props {
-                    children: React.ReactNode
-                }
-                // ======================
-                export namespace Header {
-                    export interface Props {
-                        children: React.ReactNode
-                    }
-                    // ======================
-                    export interface NameProps {
-                        children: React.ReactNode
-                    }
-                    export interface DatesProps {
-                        children: React.ReactNode
-                    }
-                    export interface EditButtonProps {
-                        term: AcademicTerm
-                    }
-                    export interface DeleteButtonProps {
-                        term: AcademicTerm
-                    }
-                }
-
-                export namespace Body {
-                    export interface Props {
-                        children: React.ReactNode
-                    }
-                    // ======================
-                    export interface SemesterProps {
-                        name: string
-                        startDate: string
-                        endDate: string
-                    }
-                }
+            export interface NameProps {
+                children: React.ReactNode
+            }
+            export interface DatesProps {
+                children: React.ReactNode
+            }
+            export interface EditButtonProps {
+                term: AcademicTerm
+            }
+            export interface DeleteButtonProps {
+                term: AcademicTerm
             }
         }
 
-        export interface NoTermsYetButtonProps {
-            children: React.ReactNode
+        export namespace Body {
+            export interface Props {
+                children: React.ReactNode
+            }
+            // ======================
+            export interface SemesterProps {
+                name: string
+                startDate: string
+                endDate: string
+            }
         }
-        export interface AddTermButtonProps {
-            children: React.ReactNode
-        }
+    }
+
+    export interface NoTermsYetButtonProps {
+        children: React.ReactNode
+    }
+    export interface AddTermButtonProps {
+        children: React.ReactNode
     }
 }
 
 // ScheduleSettings namespace
 export namespace ScheduleSettings {
-    export interface Props {
-        children: React.ReactNode
-    }
-    // ======================
-
-    export namespace Content {
+    export namespace ScheduleTypeDropdown {
         export interface Props {
+            className?: string
             children: React.ReactNode
         }
         // ======================
-
-        export namespace ScheduleTypeDropdown {
-            export interface Props {
-                className?: string
-                children: React.ReactNode
-            }
-            // ======================
-            export interface OptionProps {
-                value: string
-                children: React.ReactNode
-            }
-        }
-
-        export namespace PeriodCountDropdown {
-            export interface Props {
-                className?: string
-            }
-        }
-
-        export interface CurrentDayCalculationProps {
-            currentDayType: string
-        }
-        export interface SetDayTypeButtonProps {
-            dayType: NonNullable<AlternatingABDayType>
-            onClick: () => void
+        export interface OptionProps {
+            value: string
             children: React.ReactNode
         }
+    }
+
+    export interface PeriodCountDropdownProps {
+        className?: string
+    }
+    export interface CurrentDayCalculationProps {
+        currentDayType: string
+    }
+    export interface SetDayTypeButtonProps {
+        dayType: NonNullable<AlternatingABDayType>
+        onClick: () => void
+        children: React.ReactNode
     }
 }
 
 // CanvasIntegrationSettings namespace
 export namespace CanvasIntegrationSettings {
-    export interface Props {
+    export interface ConnectionInputProps {
+        value: string
+        onChange: (value: string) => void
+    }
+    export interface ConnectionButtonProps {
+        onClick: () => void
+        disabled: boolean
+        isAnalyzing: boolean
         children: React.ReactNode
     }
-    // ======================
-
-    export namespace Content {
-        export interface Props {
-            children: React.ReactNode
-        }
-        // ======================
-        
-        export namespace ConnectionForm {
-            export interface Props {
-                children: React.ReactNode
-            }
-            export interface InputProps {
-                value: string
-                onChange: (value: string) => void
-            }
-            export interface DropdownProps {
-                value: string
-                onChange: (value: string) => void
-            }
-            export interface ButtonProps {
-                onClick: () => void
-                disabled: boolean
-                isAnalyzing: boolean
-                children: React.ReactNode
-            }
-        }
-        
-        export interface SyncStatusProps {
-            enabled: boolean
-            onToggleEnabled: (enabled: boolean) => void
-            lastSyncAt: string | null
-            lastSyncStatus: string
-            lastSyncError: string | null
-        }
-        
-        export interface SyncNowButtonProps {
-            onSyncNow: () => void
-            isSyncing: boolean
-        }
-
-        export namespace CourseMappingTable {
-            export interface Props {
-                termId: string
-                mappings: { canvasCourseName: string, classId: string }[]
-                onMappingChange: (index: number, newClassId: string) => void
-            }
-        }
-
-        export interface DisconnectButtonProps {
-            onDisconnect: () => void
-        }
+    export interface SyncStatusProps {
+        enabled: boolean
+        onToggleEnabled: (enabled: boolean) => void
+        lastSyncAt: string | null
+        lastSyncStatus: string
+        lastSyncError: string | null
+    }
+    export interface SyncNowButtonProps {
+        onSyncNow: () => void
+        isSyncing: boolean
+    }
+    export interface CourseMappingTableProps {
+        termId: string
+        mappings: { canvasCourseName: string, classId: string }[]
+        onMappingChange: (index: number, newClassId: string) => void
+    }
+    export interface DisconnectButtonProps {
+        onDisconnect: () => void
     }
 }
 
 // DangerZone namespace
 export namespace DangerZone {
-    export interface Props {
-        children: React.ReactNode
-    }
-    // ======================
-
     export interface BadgeProps {
         children: React.ReactNode
     }
-
-    export namespace Content {
-        export interface Props {
-            children: React.ReactNode
-        }
-        // ======================
-
-        export namespace DangerRow {
-            export interface Props {
-                children: React.ReactNode
-            }
-            // ======================
-
-            export interface DetailsProps {
-                title: string
-                children: React.ReactNode
-            }
-            export interface ButtonProps {
-                onClick: () => void
-                children: React.ReactNode
-            }
-        }
+    export interface DangerRowProps {
+        children: React.ReactNode
+    }
+    export interface DangerRowDetailsProps {
+        title: string
+        children: React.ReactNode
+    }
+    export interface DangerRowButtonProps {
+        onClick: () => void
+        children: React.ReactNode
     }
 }
