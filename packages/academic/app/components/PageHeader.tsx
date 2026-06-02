@@ -29,7 +29,7 @@ const PageHeader: React.FC = () => {
             </h1>
             <button
                 onClick={() => {
-                    if (totalClasses === 0) {
+                    if (addButton.modal === "add-assignment" && totalClasses === 0) {
                         showToast("Add a class first before adding assignments", "error")
                         return
                     } else { openModal(addButton.modal) }
