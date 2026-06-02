@@ -33,7 +33,7 @@ const TermSettingsComponent: React.FC = () => {
                 Define your school years and semesters to configure your schedule.
             </BaseModuleDescription>
 
-            <div className="space-y-4">
+            <div className="flex flex-col gap-4">
                 {academicTerms.length === 0 ? (
                     <NoTermsYetButton>
                         No academic terms yet. Click to add term.

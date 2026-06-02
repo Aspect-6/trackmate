@@ -45,7 +45,7 @@ const CanvasIntegrationSettingsComponent: React.FC = () => {
                 Automatically sync assignments from your live Canvas Calendar into TrackMate.
             </BaseModuleDescription>
 
-            <div className="space-y-4">
+            <div className="flex flex-col gap-4">
                 {!integration ? (
                     !activeTermForToday ? (
                         <span style={{ color: SETTINGS.TEXT_TERTIARY }}>Must be in an active academic term to use this feature.</span>
