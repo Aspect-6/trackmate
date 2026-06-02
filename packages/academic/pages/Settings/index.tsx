@@ -1,15 +1,15 @@
 import React, { useState, useCallback } from "react"
-import ThemeSettings from "@/pages/Settings/components/ThemeSettings"
-import AssignmentTypeSettings from "@/pages/Settings/components/AssignmentTypeSettings"
-import TemplateSettings from "@/pages/Settings/components/TemplateSettings"
-import ScheduleSettings from "@/pages/Settings/components/ScheduleSettings"
-import TermSettings from "@/pages/Settings/components/TermSettings"
-import CanvasIntegrationSettings from "@/pages/Settings/components/CanvasIntegrationSettings"
-import DangerZoneSettings from "@/pages/Settings/components/DangerZone"
-import AppInfoFooter from "@/pages/Settings/components/AppInfoFooter"
 import { collection, getDocs } from "firebase/firestore"
 import { db, auth } from "@shared/lib"
 import { Download } from "lucide-react"
+import ThemeSettings from "@/pages/Settings/components/ThemeSettings"
+import AssignmentTypeSettings from "@/pages/Settings/components/AssignmentTypeSettings"
+import TemplateSettings from "@/pages/Settings/components/TemplateSettings"
+import TermSettings from "@/pages/Settings/components/TermSettings"
+import ScheduleSettings from "@/pages/Settings/components/ScheduleSettings"
+import CanvasIntegrationSettings from "@/pages/Settings/components/CanvasIntegrationSettings"
+import DangerZoneSettings from "@/pages/Settings/components/DangerZone"
+import AppInfoFooter from "@/pages/Settings/components/AppInfoFooter"
 import "./index.css"
 
 const Settings: React.FC = () => {
@@ -21,9 +21,9 @@ const Settings: React.FC = () => {
 
             <TemplateSettings />
 
-            <ScheduleSettings />
-
             <TermSettings />
+
+            <ScheduleSettings />
 
             <CanvasIntegrationSettings />
 
