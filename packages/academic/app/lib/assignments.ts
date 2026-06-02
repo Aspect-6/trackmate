@@ -1,4 +1,4 @@
-import type { Assignment, RenderableAssignment, Status, Subtask } from "@/app/types"
+import type { Assignment, RenderableAssignment, Subtask } from "@/app/types"
 import { makeSubtaskDisplayId, parseSubtaskDisplayId } from "@/app/lib/subtaskIds"
 
 /** Fields that can be updated on a nested subtask. */
@@ -16,18 +16,6 @@ export const normalizeSubtasks = (a: Assignment): NonNullable<Assignment["subtas
 export const getSubtaskCount = (a: Assignment): number => a.subtasks?.length ?? 0
 
 export const isPremiumTargetForSubtaskCount = (count: number): boolean => count >= 3
-
-export const computeParentStatusFromSubtasks = (
-    currentParentStatus: Status,
-    subtasks: NonNullable<Assignment["subtasks"]>
-): Status => {
-    const allToDo = subtasks.length > 0 && subtasks.every(s => s.status === "To Do")
-    const allDone = subtasks.length > 0 && subtasks.every(s => s.status === "Done")
-
-    if (currentParentStatus === "Done" && allDone) return "Done"
-    if (allToDo) return "To Do"
-    return "In Progress"
-}
 
 export const flattenAssignmentsForDisplay = (parents: Assignment[]): RenderableAssignment[] => {
     const flat: RenderableAssignment[] = []
@@ -65,32 +53,6 @@ export const assignmentPartialToSubtaskPatch = (updates: Partial<Assignment>): S
     return patch
 }
 
-export const applyParentStatusRules = (
-    parent: Assignment,
-    updates: Partial<Assignment>,
-    nextSubtasks: NonNullable<Assignment["subtasks"]>
-): { nextSubtasks: NonNullable<Assignment["subtasks"]>; nextStatus: Status } => {
-    const updatesStatus = updates.status
-    let subtasks = nextSubtasks
-
-    const isExplicitDone = updatesStatus === "Done"
-    if (isExplicitDone) {
-        subtasks = subtasks.map(s => ({ ...s, status: "Done" as const }))
-    }
-
-    const baseParentStatus = isExplicitDone
-        ? "Done"
-        : (parent.status === "Done" ? "In Progress" : (updatesStatus ?? parent.status))
-
-    const constrainedStatus = subtasks.length === 0
-        ? (updatesStatus ?? parent.status)
-        : computeParentStatusFromSubtasks(baseParentStatus, subtasks)
-
-    const nextStatus: Status = isExplicitDone ? "Done" : constrainedStatus
-
-    return { nextSubtasks: subtasks, nextStatus }
-}
-
 export const applySubtaskPatch = (
     parent: Assignment,
     subtaskId: string,
@@ -103,28 +65,23 @@ export const applySubtaskPatch = (
         return { ...s, ...patch }
     })
 
-    const nextParentStatus = computeParentStatusFromSubtasks(parent.status, subtasks)
-
     return {
         ...parent,
         subtasks,
-        status: nextParentStatus,
     }
 }
 
 export const buildUpdatedParent = (parent: Assignment, updates: Partial<Assignment>): Assignment => {
     const resolvedSubtasks = updates.subtasks ?? normalizeSubtasks(parent)
-    const { nextSubtasks, nextStatus } = applyParentStatusRules(parent, updates, resolvedSubtasks)
 
     return {
         ...parent,
         ...updates,
-        subtasks: nextSubtasks,
-        status: nextStatus,
+        subtasks: resolvedSubtasks,
     }
 }
 
-type CommitParentParams = {
+interface CommitParentParams {
     parents: Assignment[]
     parentId: string
     nextParent: Assignment
