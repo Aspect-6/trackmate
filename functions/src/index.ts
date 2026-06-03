@@ -4,6 +4,8 @@ import { getAuth } from "firebase-admin/auth"
 import { getFirestore } from "firebase-admin/firestore"
 import { getSchemaForDoc, isPremiumDoc, isItemsDoc } from "./schemas.js"
 import { validateItems } from "./validation.js"
+import * as functionsV1 from "firebase-functions/v1"
+import { getDefaultPremiumClaims } from "./stripe.js"
 
 initializeApp()
 
@@ -29,17 +31,14 @@ export const setPremiumClaim = onCall({ enforceAppCheck: true }, async (request)
 	}
 
 	try {
-		const premiumClaims: Record<string, boolean> = {}
+		const premiumClaims = getDefaultPremiumClaims()
 
 		if (data.all === true) {
 			premiumClaims.all = true
-		} else {
-			premiumClaims.all = false
-			if (data.products && data.products.length > 0) {
-				data.products.forEach((product: Product) => {
-					premiumClaims[product] = true
-				})
-			}
+		} else if (data.products && data.products.length > 0) {
+			data.products.forEach((product: Product) => {
+				premiumClaims[product] = true
+			})
 		}
 
 		await getAuth().setCustomUserClaims(uid, { premium: premiumClaims })
@@ -49,6 +48,11 @@ export const setPremiumClaim = onCall({ enforceAppCheck: true }, async (request)
 		console.error("Error setting premium claim:", error)
 		throw new HttpsError("internal", "Failed to set premium claim.")
 	}
+})
+
+export const onUserCreated = functionsV1.region("us-central1").auth.user().onCreate(async (user) => {
+	const premium = getDefaultPremiumClaims()
+	await getAuth().setCustomUserClaims(user.uid, { premium })
 })
 
 // ── Items Document Write Gate ───────────────────────────────────────────
@@ -117,3 +121,4 @@ export const writeItemsDocument = onCall({ enforceAppCheck: true }, async (reque
 })
 
 export * from "./syncCanvasCalendars.js"
+export * from "./stripe.js"

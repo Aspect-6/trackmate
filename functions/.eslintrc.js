@@ -33,6 +33,7 @@ module.exports = {
 		"no-tabs": "off",
 		"max-len": "off",
 		"eol-last": "off",
+		"require-jsdoc": "off",
 		"import/no-unresolved": 0,
 		"import/namespace": "off",
 		"@typescript-eslint/no-empty-interface": "off",
