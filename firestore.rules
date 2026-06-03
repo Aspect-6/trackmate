@@ -87,5 +87,11 @@ service cloud.firestore {
 
 			allow delete: if false;
 		}
+
+		match /users/{userId}/billing/{document=**} {
+			allow read: if request.auth != null && request.auth.uid == userId;
+			allow write: if false;
+		}
+
 	}
 }
