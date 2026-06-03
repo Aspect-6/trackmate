@@ -184,7 +184,6 @@ export namespace PlansSection {
             isPremium: boolean
             accentColor: string
             accentColorHover: string
-            onClick: () => void
         }
         export interface UpgradeBenefitProps {
             benefit: string

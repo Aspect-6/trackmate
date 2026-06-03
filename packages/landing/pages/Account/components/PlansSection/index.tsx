@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import { useAuth } from "@shared/contexts/AuthContext"
 import { useToast } from "@shared/contexts/ToastContext"
 import Header from "./Content/Header"
@@ -8,12 +9,36 @@ import UpgradeBenefit from "./Content/UpgradeBenefit"
 import { ACCOUNT } from "@/app/styles/colors"
 
 const PlansSection: React.FC = () => {
-    const { isPremium } = useAuth()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const { user, isPremium } = useAuth()
     const { showToast } = useToast()
 
-    const handleUpgrade = () => {
-        showToast("Upgrading...", "success")
-    }
+    useEffect(() => {
+        const checkout = searchParams.get("checkout")
+        if (checkout === "success") {
+            user?.getIdToken(true)
+            showToast("Upgrade to Academic Premium successful!", "success")
+            setSearchParams(params => {
+                params.delete("checkout")
+                return params
+            }, { replace: true })
+        } else if (checkout === "cancelled") {
+            showToast("Checkout was cancelled", "error")
+            setSearchParams(params => {
+                params.delete("checkout")
+                return params
+            }, { replace: true })
+        }
+
+        const billing = searchParams.get("billing")
+        if (billing === "returned") {
+            user?.getIdToken(true)
+            setSearchParams(params => {
+                params.delete("billing")
+                return params
+            }, { replace: true })
+        }
+    }, [searchParams, setSearchParams, showToast, user])
 
     return (
         <>
@@ -46,7 +71,6 @@ const PlansSection: React.FC = () => {
                             isPremium={isPremium}
                             accentColor={ACCOUNT.ACADEMIC_ACCENT}
                             accentColorHover={ACCOUNT.ACADEMIC_BUTTON_HOVER}
-                            onClick={handleUpgrade}
                         />
                     </div>
                 </div>
