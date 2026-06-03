@@ -40,7 +40,7 @@ function getBaseUrl(): string {
 	// return DEV_URL
 }
 
-export const createCheckoutSession = onCall({ enforceAppCheck: true, secrets: [stripeSecretKey] }, async (request) => {
+export const createCheckoutSession = onCall({ enforceAppCheck: true, secrets: [stripeSecretKey], memory: "1GiB" }, async (request) => {
 	if (!request.auth) {
 		throw new HttpsError("unauthenticated", "Must be logged in.")
 	}
@@ -90,7 +90,7 @@ export const createCheckoutSession = onCall({ enforceAppCheck: true, secrets: [s
 	return { url: session.url }
 })
 
-export const createBillingPortalSession = onCall({ enforceAppCheck: true, secrets: [stripeSecretKey] }, async (request) => {
+export const createBillingPortalSession = onCall({ enforceAppCheck: true, secrets: [stripeSecretKey], memory: "1GiB" }, async (request) => {
 	if (!request.auth) {
 		throw new HttpsError("unauthenticated", "Must be logged in.")
 	}
