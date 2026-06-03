@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Outlet, useLocation } from "react-router-dom"
+import ModalManager from "@/app/components/ModalManager"
 import PageHeader from "@/app/components/PageHeader"
 import Sidebar from "@/app/components/Sidebar"
 import FloatingMenuButton from "@shared/components/FloatingMenuButton"
@@ -36,6 +37,7 @@ const Layout: React.FC = () => {
         <div id="app-container" className={`flex ${isFixedViewportPage ? "h-dvh overflow-hidden" : "min-h-dvh"}`}
             style={{ backgroundColor: GLOBAL.WEBPAGE_BACKGROUND }}
         >
+            <ModalManager />
             <Sidebar variant="desktop" />
             <Sidebar variant="mobile" isOpen={isMobileSidebarOpen} onClose={() => setIsMobileSidebarOpen(false)} />
 

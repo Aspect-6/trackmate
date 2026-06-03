@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef } from "react"
-import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import { useToast } from "@shared/contexts/ToastContext"
-import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
+import { useFirestoreDoc } from "@/app/hooks/data/useFirestore"
 import type { Assignment, AssignmentType, ThemeMode, Template, AssignmentTemplate, EventTemplate, CanvasIntegration, CanvasCourseMapping } from "@/app/types"
+import { FIRESTORE_KEYS } from "@/app/config/firestoreKeys"
 
 export const DEFAULT_ASSIGNMENT_TYPES: AssignmentType[] = [
     "Homework",
@@ -29,6 +29,7 @@ interface Settings {
     templates: Template[]
     periodCount: number
     canvasIntegration: CanvasIntegration | null
+    hasCompletedOnboarding?: boolean
 }
 
 // Read initial theme from localStorage to prevent flash
@@ -43,7 +44,8 @@ const DEFAULT_SETTINGS: Settings = {
     assignmentTypes: DEFAULT_ASSIGNMENT_TYPES,
     templates: [],
     periodCount: DEFAULT_PERIOD_COUNT,
-    canvasIntegration: null
+    canvasIntegration: null,
+    hasCompletedOnboarding: false
 }
 
 export const useSettings = () => {
@@ -59,6 +61,9 @@ export const useSettings = () => {
     }, [loading])
 
     // Update settings actions
+    const completeOnboarding = useCallback(() => {
+        setSettings(prev => ({ ...prev, hasCompletedOnboarding: true }))
+    }, [setSettings])
     const setTheme = useCallback((theme: ThemeMode) => {
         setSettings(prev => ({ ...prev, theme }))
     }, [setSettings])
@@ -69,6 +74,7 @@ export const useSettings = () => {
     // Apply theme to DOM and sync to localStorage
     useEffect(() => {
         if (loading && !hasLoadedRef.current) return
+        if (document.documentElement.dataset.themeFrozen) return
 
         if (settings.theme === "dark") {
             document.documentElement.classList.add("dark")
@@ -211,6 +217,7 @@ export const useSettings = () => {
         canvasIntegration: settings.canvasIntegration,
 
         // Actions
+        completeOnboarding,
         setSettings,
         setTheme,
         setPeriodCount,

@@ -79,7 +79,6 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
         const newStart = new Date(termStart)
         const newEnd = new Date(termEnd)
 
-        // Check for overlap
         const hasOverlap = academicTerms.some(t => {
             if (isEditMode && t.id === termId) return false
             const existingStart = new Date(t.startDate)
@@ -171,15 +170,19 @@ export const TermFormModal: React.FC<TermFormModalProps> = ({ onClose, termId })
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                    <div>
+                    <div className="flex flex-col h-full">
                         <ModalLabel>Fall Semester End</ModalLabel>
-                        <ModalDateInput {...field("fallEnd")} focusColor={focusColor} />
-                        <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Starts on Year Start</span>
+                        <div className="mt-auto">
+                            <ModalDateInput {...field("fallEnd")} focusColor={focusColor} />
+                            <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Starts on Year Start</span>
+                        </div>
                     </div>
-                    <div>
+                    <div className="flex flex-col h-full">
                         <ModalLabel>Spring Semester Start</ModalLabel>
-                        <ModalDateInput {...field("springStart")} focusColor={focusColor} />
-                        <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Ends on Year End</span>
+                        <div className="mt-auto">
+                            <ModalDateInput {...field("springStart")} focusColor={focusColor} />
+                            <span className="text-xs opacity-50 block mt-1" style={{ color: MODALS.BASE.BODY }}>Ends on Year End</span>
+                        </div>
                     </div>
                 </div>
 

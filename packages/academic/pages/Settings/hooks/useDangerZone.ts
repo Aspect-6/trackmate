@@ -86,6 +86,8 @@ export const useDangerZone = () => {
     const clearAllData = useCallback(async (): Promise<void> => {
         if (!user) return
 
+        document.documentElement.dataset.themeFrozen = "true"
+
         await Promise.all([
             writeItemsDocument(FIRESTORE_KEYS.ASSIGNMENTS, EMPTY_ITEMS),
             writeItemsDocument(FIRESTORE_KEYS.ASSIGNMENTS_ARCHIVE, EMPTY_ITEMS),
@@ -101,6 +103,8 @@ export const useDangerZone = () => {
             setDocument(user.uid, "academic", FIRESTORE_KEYS.SCHEDULES, DEFAULT_SCHEDULES),
             setDocument(user.uid, "academic", FIRESTORE_KEYS.SETTINGS, DEFAULT_SETTINGS),
         ])
+
+        localStorage.setItem("trackmateTheme", "light")
 
         window.location.reload()
     }, [user, isPremium])

@@ -3,8 +3,8 @@ import { Routes, Route, Navigate, Outlet } from "react-router-dom"
 import NotFound from "@shared/pages/NotFound"
 import RequireAuth from "@shared/components/Auth/RequireAuth"
 import Layout from "@/app/layouts/Layout"
-import ModalManager from "@/app/components/ModalManager"
 import DataLoader from "@/app/components/DataLoader"
+import OnboardingGuard from "@/app/components/OnboardingGuard"
 import Dashboard from "@/pages/Dashboard"
 import MyAssignments from "@/pages/My Assignments"
 import MyClasses from "@/pages/My Classes"
@@ -17,11 +17,11 @@ import { GLOBAL } from "@/app/styles/colors"
 const App: React.FC = () => {
     return (
         <>
-            <ModalManager />
             <Routes>
-                <Route path={BASE_PATH} element={<Layout />}>
-                    <Route element={<RequireAuth redirectTo="/auth/sign-in" requireEmailVerification={true} />}>
-                        <Route element={<DataLoader><Outlet /></DataLoader>}>
+                <Route path={BASE_PATH} element={<RequireAuth redirectTo="/auth/sign-in" requireEmailVerification={true} />}>
+                    <Route element={<OnboardingGuard />}>
+                        <Route element={<Layout />}>
+                            <Route element={<DataLoader><Outlet /></DataLoader>}>
                             <Route index element={<Navigate to={DEFAULT_ROUTE.fullPath} replace />} />
                             <Route path={ROUTES["dashboard"].path} element={<Dashboard />} />
                             <Route path={ROUTES["calendar"].path} element={<Calendar />} />
@@ -29,6 +29,7 @@ const App: React.FC = () => {
                             <Route path={ROUTES["my-classes"].path} element={<MyClasses />} />
                             <Route path={ROUTES["my-schedule"].path} element={<MySchedule />} />
                             <Route path={ROUTES["settings"].path} element={<Settings />} />
+                            </Route>
                         </Route>
                     </Route>
                 </Route>

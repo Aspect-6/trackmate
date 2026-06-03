@@ -9,7 +9,7 @@ import type { AcademicTerm, Semester } from "@/app/types"
  * Provides filtered views, lookup functions, and CRUD operations.
  */
 export const useAcademicTerms = () => {
-    const [academicTerms, setAcademicTerms] = useFirestoreItems<AcademicTerm>(FIRESTORE_KEYS.TERMS)
+    const [academicTerms, setAcademicTerms, { loading }] = useFirestoreItems<AcademicTerm>(FIRESTORE_KEYS.TERMS)
 
     academicTerms.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
 
@@ -82,6 +82,7 @@ export const useAcademicTerms = () => {
     return {
         // Raw data
         academicTerms,
+        loading,
 
         // Count
         totalNum,
