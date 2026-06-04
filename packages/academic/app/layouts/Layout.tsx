@@ -11,7 +11,7 @@ import { PATHS } from "@/app/config/paths"
 const Layout: React.FC = () => {
     const location = useLocation()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
-    const { isDesktop } = useBreakpoints()
+    const { isDesktop, isLandscapePhone } = useBreakpoints()
 
     // Lock body scroll when mobile sidebar overlay is open
     useEffect(() => {
@@ -31,7 +31,7 @@ const Layout: React.FC = () => {
 
     const isCalendar = location.pathname === PATHS["calendar"]
     const isAssignments = location.pathname === PATHS["my-assignments"]
-    const isFixedViewportPage = isCalendar || (isAssignments && isDesktop)
+    const isFixedViewportPage = (isCalendar && !isLandscapePhone) || (isAssignments && isDesktop)
 
     return (
         <div id="app-container" className={`flex ${isFixedViewportPage ? "h-dvh overflow-hidden" : "min-h-dvh"}`}
