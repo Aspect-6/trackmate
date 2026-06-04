@@ -44,7 +44,7 @@ const TermSettingsComponent: React.FC = () => {
                     </NoTermsYetButton>
                 ) : (
                     <>
-                        <div className="flex flex-col gap-3 max-h-[90] sm:max-h-[105] overflow-scroll custom-scrollbar">
+                        <div className="flex flex-col gap-3 max-h-[320px] sm:max-h-[420px] overflow-scroll custom-scrollbar">
                             {academicTerms.map((term) => (
                                 <TermItem key={term.id}>
                                     <TermItemHeader>
