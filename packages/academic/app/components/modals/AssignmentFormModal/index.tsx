@@ -233,6 +233,19 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
                     status: subtask.status,
                 })
             }
+
+            let isOriginalPremium = false
+            if (isEditMode && assignmentId) {
+                const originalParent = getParentAssignmentById(assignmentId)
+                if (originalParent && (originalParent.subtasks?.length ?? 0) >= 3) {
+                    isOriginalPremium = true
+                }
+            }
+
+            if (!isPremium && (isOriginalPremium || normalizedSubtasks.length > maxSubtasks)) {
+                openModal("premium-upgrade", { title: "Upgrade to Edit Premium Assignments" }, { stack: true })
+                return
+            }
         }
 
         if (isTemplateMode) {
