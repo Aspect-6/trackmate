@@ -53,8 +53,8 @@ export const ClassSelectorModal: React.FC<ClassSelectorModalProps> = ({ onClose,
     }
 
     return (
-        <ModalContainer className="flex flex-col max-h-[50vh]">
-            <div className="flex-shrink-0 pb-4 mb-3 border-b" style={{ borderColor: GLOBAL.BORDER_SECONDARY }}>
+        <ModalContainer className="flex flex-col !max-h-[500px]">
+            <div className="flex-shrink-0 pb-4 mb-3" style={{ borderBottom: `1px solid ${GLOBAL.BORDER_SECONDARY}` }}>
                 <ModalHeader color={MODALS.CLASS.HEADING}>
                     Select Class
                 </ModalHeader>
@@ -90,7 +90,7 @@ export const ClassSelectorModal: React.FC<ClassSelectorModalProps> = ({ onClose,
                 </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto custom-scrollbar min-h-0 pr-1 -mr-1">
+            <div className="flex-1 overflow-y-auto custom-scrollbar min-h-0 pr-1">
                 <div className="space-y-3">
                     {availableClasses.length === 0 ? (
                         <div className="flex flex-col items-center justify-center py-12 text-center opacity-60">
