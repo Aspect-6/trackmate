@@ -32,10 +32,10 @@ export const PremiumUpgradeModal: React.FC<PremiumUpgradeModalProps> = ({
             <ModalHeader color={GLOBAL.GLOBAL_ACCENT}>
                 {title}
             </ModalHeader>
-            <ModalBodyText color={GLOBAL.TEXT_WHITE} className="mb-3">
+            <ModalBodyText color={GLOBAL.TEXT_PRIMARY} className="mb-3">
                 Unlock all features of TrackMate Academic with Premium. By upgrading, you get:
             </ModalBodyText>
-            <ul className="flex flex-col gap-3 mb-6 px-1" style={{ color: GLOBAL.TEXT_WHITE }}>
+            <ul className="flex flex-col gap-3 mb-6 px-1" style={{ color: GLOBAL.TEXT_PRIMARY }}>
                 <UpgradeBenefit benefit="Access to Templates that allow you to create preset assignments and events with a just a few clicks" />
                 <UpgradeBenefit benefit="The ability to add multiple subtasks to assignments to make it easier to track your progress" />
                 <UpgradeBenefit benefit="The ability to sync your Canvas calendar so you never have to manually create assignments again" />
