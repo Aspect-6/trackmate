@@ -5,7 +5,7 @@ import { getFirestore } from "firebase-admin/firestore"
 import { getSchemaForDoc, isPremiumDoc, isItemsDoc } from "./schemas.js"
 import { validateItems } from "./validation.js"
 import * as functionsV1 from "firebase-functions/v1"
-import { getDefaultPremiumClaims } from "./stripe.js"
+import { getDefaultPremiumClaims, PremiumClaims } from "./stripe.js"
 
 initializeApp()
 
@@ -93,8 +93,7 @@ export const writeItemsDocument = onCall({ enforceAppCheck: true }, async (reque
 	}
 
 	if (isPremiumDoc(docName)) {
-		const premium = request.auth.token.premium as
-			{ academic?: boolean; all?: boolean } | undefined
+		const premium = request.auth.token.premium as Partial<PremiumClaims> | undefined
 		if (!premium || (premium.academic !== true && premium.all !== true)) {
 			throw new HttpsError("permission-denied", "Premium subscription required.")
 		}

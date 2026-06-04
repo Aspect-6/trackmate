@@ -177,6 +177,8 @@ export namespace CanvasIntegrationSettings {
     export interface CourseMappingTableProps {
         termId: string
         mappings: { canvasCourseName: string, classId: string }[]
+        isPremium?: boolean
+        onUpgradeRequired?: () => void
         onMappingChange: (index: number, newClassId: string) => void
     }
     export interface DisconnectButtonProps {

@@ -23,13 +23,14 @@ const PRICE_IDS: Record<string, string> = {
 const PRODUCTS = ["academic"] as const
 const BUNDLE_PRODUCT = "bundle"
 type Product = typeof PRODUCTS[number] | "all"
+export type PremiumClaims = Record<Product, boolean>
 
-export function getDefaultPremiumClaims(): Record<Product, boolean> {
+export function getDefaultPremiumClaims(): PremiumClaims {
 	const claims: Record<string, boolean> = { all: false }
 	for (const product of PRODUCTS) {
 		claims[product] = false
 	}
-	return claims as Record<Product, boolean>
+	return claims as PremiumClaims
 }
 
 const APP_URL = "https://trackmate.co"

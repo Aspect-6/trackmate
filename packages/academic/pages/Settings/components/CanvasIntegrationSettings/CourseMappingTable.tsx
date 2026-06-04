@@ -3,7 +3,7 @@ import { useClasses, useAcademicTerms } from "@/app/hooks/entities"
 import type { CanvasIntegrationSettings } from "@/pages/Settings/types"
 import { SETTINGS } from "@/app/styles/colors"
 
-const CourseMappingTable: React.FC<CanvasIntegrationSettings.CourseMappingTableProps> = ({ termId, mappings, onMappingChange }) => {
+const CourseMappingTable: React.FC<CanvasIntegrationSettings.CourseMappingTableProps> = ({ termId, mappings, isPremium = true, onUpgradeRequired, onMappingChange }) => {
     const { classes } = useClasses()
     const { getTermById } = useAcademicTerms()
 
@@ -64,19 +64,38 @@ const CourseMappingTable: React.FC<CanvasIntegrationSettings.CourseMappingTableP
                                             : "none",
                                     }}
                                 >
-                                    <select
-                                        className="app-select-dropdown w-full"
-                                        style={{ color: SETTINGS.TEXT_PRIMARY, backgroundColor: SETTINGS.BACKGROUND_PRIMARY }}
-                                        value={mapping.classId}
-                                        onChange={(e) => onMappingChange(idx, e.target.value)}
-                                    >
-                                        <option value="IGNORE">Do Not Sync</option>
-                                        <optgroup label={getTermById(termId)?.name || "Classes in Term"}>
-                                            {classes.filter(c => c.termId === termId).map(c => (
-                                                <option key={c.id} value={c.id}>{c.name}</option>
-                                            ))}
-                                        </optgroup>
-                                    </select>
+                                    {isPremium ? (
+                                        <select
+                                            className="app-select-dropdown w-full"
+                                            style={{ color: SETTINGS.TEXT_PRIMARY, backgroundColor: SETTINGS.BACKGROUND_PRIMARY }}
+                                            value={mapping.classId}
+                                            onChange={(e) => onMappingChange(idx, e.target.value)}
+                                        >
+                                            <option value="IGNORE">Do Not Sync</option>
+                                            <optgroup label={getTermById(termId)?.name || "Classes in Term"}>
+                                                {classes.filter(c => c.termId === termId).map(c => (
+                                                    <option key={c.id} value={c.id}>{c.name}</option>
+                                                ))}
+                                            </optgroup>
+                                        </select>
+                                    ) : (
+                                        <div onClick={onUpgradeRequired} className="cursor-pointer">
+                                            <select
+                                                className="app-select-dropdown w-full pointer-events-none"
+                                                style={{ color: SETTINGS.TEXT_PRIMARY, backgroundColor: SETTINGS.BACKGROUND_PRIMARY }}
+                                                value={mapping.classId}
+                                                onChange={() => {}}
+                                                tabIndex={-1}
+                                            >
+                                                <option value="IGNORE">Do Not Sync</option>
+                                                <optgroup label={getTermById(termId)?.name || "Classes in Term"}>
+                                                    {classes.filter(c => c.termId === termId).map(c => (
+                                                        <option key={c.id} value={c.id}>{c.name}</option>
+                                                    ))}
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    )}
                                 </td>
                             </tr>
                         ))}

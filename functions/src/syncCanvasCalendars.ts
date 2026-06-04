@@ -5,6 +5,7 @@ import { getAuth } from "firebase-admin/auth"
 import ical from "node-ical"
 import { z } from "zod"
 import { AssignmentSchema, ClassSchema, AcademicTermSchema } from "./schemas.js"
+import { PremiumClaims } from "./stripe.js"
 
 interface Assignment extends z.infer<typeof AssignmentSchema> {}
 interface Class extends z.infer<typeof ClassSchema> {}
@@ -284,6 +285,11 @@ export const syncCanvasCalendarNow = onCall({ enforceAppCheck: true }, async (re
 	if (!request.auth) throw new HttpsError("unauthenticated", "Must be logged in")
 	const uid = request.auth.uid
 
+	const premium = request.auth.token.premium as Partial<PremiumClaims> | undefined
+	if (!premium || (premium.academic !== true && premium.all !== true)) {
+		throw new HttpsError("permission-denied", "Premium subscription required.")
+	}
+
 	const settingsDoc = await db.doc(`users/${uid}/academic/settings`).get()
 	const integration = settingsDoc.data()?.canvasIntegration as
 		| CanvasIntegration
@@ -306,6 +312,12 @@ export const syncCanvasCalendars = onSchedule("every 6 hours", async () => {
 
 		for (const userRecord of listUsersResult.users) {
 			const uid = userRecord.uid
+
+			const premium = userRecord.customClaims?.premium as Partial<PremiumClaims> | undefined
+			if (!premium || (premium.academic !== true && premium.all !== true)) {
+				continue
+			}
+
 			try {
 				const settingsDoc = await db.doc(`users/${uid}/academic/settings`).get()
 				if (settingsDoc.exists) {

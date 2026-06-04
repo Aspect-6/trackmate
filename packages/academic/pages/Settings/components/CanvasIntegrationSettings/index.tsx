@@ -1,4 +1,6 @@
 import React from "react"
+import { useAuth } from "@shared/contexts/AuthContext"
+import { useModal } from "@/app/contexts/ModalContext"
 import { useAcademicTerms } from "@/app/hooks/entities"
 import { useCanvasIntegrationSettings } from "@/pages/Settings/hooks/useCanvasIntegrationSettings"
 import { todayString } from "@shared/lib"
@@ -12,6 +14,8 @@ import DisconnectButton from "./DisconnectButton"
 import { SETTINGS } from "@/app/styles/colors"
 
 const CanvasIntegrationSettingsComponent: React.FC = () => {
+    const { isPremium } = useAuth()
+    const { openModal } = useModal()
     const { getActiveTermForDate } = useAcademicTerms()
     const activeTermForToday = getActiveTermForDate(todayString())
 
@@ -67,14 +71,26 @@ const CanvasIntegrationSettingsComponent: React.FC = () => {
                     <>
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-2 mt-2">
                             <SyncStatus
-                                enabled={integration.enabled}
-                                onToggleEnabled={setCanvasEnabled}
+                                enabled={isPremium ? integration.enabled : false}
+                                onToggleEnabled={(val) => {
+                                    if (!isPremium) {
+                                        openModal("premium-upgrade", { title: "Upgrade to Sync Canvas" })
+                                        return
+                                    }
+                                    setCanvasEnabled(val)
+                                }}
                                 lastSyncAt={integration.lastSyncAt}
                                 lastSyncStatus={integration.lastSyncStatus}
                                 lastSyncError={integration.lastSyncError}
                             />
                             <SyncNowButton
-                                onSyncNow={handleSyncNow}
+                                onSyncNow={() => {
+                                    if (!isPremium) {
+                                        openModal("premium-upgrade", { title: "Upgrade to Sync Canvas" })
+                                        return
+                                    }
+                                    handleSyncNow()
+                                }}
                                 isSyncing={isSyncing}
                             />
                         </div>
@@ -85,6 +101,8 @@ const CanvasIntegrationSettingsComponent: React.FC = () => {
                         <CourseMappingTable
                             termId={integration.termId}
                             mappings={integration.courseMappings}
+                            isPremium={isPremium}
+                            onUpgradeRequired={() => openModal("premium-upgrade", { title: "Upgrade to Edit Canvas Mappings" })}
                             onMappingChange={(idx, newClassId) => {
                                 const newMappings = [...integration.courseMappings]
                                 const target = newMappings[idx]
