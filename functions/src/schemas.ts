@@ -28,7 +28,7 @@ export const AssignmentSchema = z.object({
 	type: z.string(),
 	createdAt: z.string(),
 	description: z.string().max(150),
-	subtasks: z.array(SubtaskSchema).max(2).optional(),
+	subtasks: z.array(SubtaskSchema).max(2),
 	canvasUid: z.string().optional(),
 	canvasOriginal: z.object({
 		title: z.string(),
