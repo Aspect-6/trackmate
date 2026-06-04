@@ -1,4 +1,5 @@
 import React from "react"
+import { useAuth } from "@shared/contexts/AuthContext"
 import { useModal } from "@/app/contexts/ModalContext"
 
 import type { AssignmentTemplate, EventTemplate } from "@/app/types"
@@ -13,8 +14,13 @@ interface TemplateListProps {
 
 const TemplateList: React.FC<TemplateListProps> = ({ kind, templates, onClose }) => {
     const { openModal } = useModal()
+    const { isPremium } = useAuth()
 
     const handleLoadTemplate = (template: AssignmentTemplate | EventTemplate) => {
+        if (!isPremium) {
+            openModal("premium-upgrade", { title: "Upgrade to Use Templates" }, { stack: true })
+            return
+        }
         onClose()
         openModal(kind === "assignment" ? "add-assignment" : "add-event", { templateData: template })
     }

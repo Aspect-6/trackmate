@@ -1,3 +1,4 @@
+import { useAuth } from "@shared/contexts/AuthContext"
 import { useModal } from "@/app/contexts/ModalContext"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useSortableListSensors } from "@/app/hooks/ui/useSortableListSensors"
@@ -15,6 +16,7 @@ export const useTemplateSettings = (kind: TemplateKind) => {
     } = useSettings()
 
     const { openModal } = useModal()
+    const { isPremium } = useAuth()
 
     // Filter templates by requested kind
     const filteredTemplates = templates.filter(t => t.kind === kind)
@@ -28,6 +30,10 @@ export const useTemplateSettings = (kind: TemplateKind) => {
     }
 
     const handleEditTemplate = (templateId: string) => {
+        if (!isPremium) {
+            openModal("premium-upgrade", { title: "Upgrade to Edit Templates" })
+            return
+        }
         const modalName = kind === "assignment" ? "add-assignment" : "add-event"
         openModal(modalName, { mode: "template", templateId })
     }
