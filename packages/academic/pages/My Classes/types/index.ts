@@ -3,6 +3,7 @@ import { Class } from "@/app/types"
 export namespace ClassBoard {
     export interface Props {
         classes: Class[]
+        currentView: "active" | "archived"
         onReorder: (classes: Class[]) => void
         onAddClass: () => void
         openEditClass: (id: string) => void
@@ -11,6 +12,7 @@ export namespace ClassBoard {
     // ======================
 
     export interface EmptyStateProps {
+        currentView: "active" | "archived"
         onAddClass: () => void
     }
 

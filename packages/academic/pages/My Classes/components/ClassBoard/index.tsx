@@ -23,7 +23,7 @@ import ClassCardContainer from "./ClassCard/ClassCardContainer"
 import ClassCardHeader, { ClassCardTitle, ClassCardButtons } from "./ClassCard/Header"
 import ClassCardBody, { ClassCardInstructor, ClassCardRoom, ClassCardColor, ClassCardTerm } from "./ClassCard/Body"
 
-const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass, openEditClass, onToggleArchive }) => {
+const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, currentView, onReorder, onAddClass, openEditClass, onToggleArchive }) => {
     const { openModal } = useModal()
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -54,7 +54,7 @@ const ClassBoard: React.FC<ClassBoard.Props> = ({ classes, onReorder, onAddClass
         >
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {classes.length === 0 ? (
-                    <ClassBoardEmptyState onAddClass={onAddClass} />
+                    <ClassBoardEmptyState currentView={currentView} onAddClass={onAddClass} />
                 ) : (
                     <SortableContext
                         items={classes.map(c => c.id)}

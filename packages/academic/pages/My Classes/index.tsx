@@ -90,6 +90,7 @@ const MyClasses: React.FC = () => {
 
             <ClassBoard
                 classes={classesToDisplay}
+                currentView={viewMode}
                 onReorder={reorderClasses}
                 onAddClass={handleAddClass}
                 openEditClass={handleEditClass}
