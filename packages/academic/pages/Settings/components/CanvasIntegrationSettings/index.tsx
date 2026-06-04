@@ -16,7 +16,7 @@ import { SETTINGS } from "@/app/styles/colors"
 const CanvasIntegrationSettingsComponent: React.FC = () => {
     const { isPremium } = useAuth()
     const { openModal } = useModal()
-    const { getActiveTermForDate } = useAcademicTerms()
+    const { getActiveTermForDate, getTermById } = useAcademicTerms()
     const activeTermForToday = getActiveTermForDate(todayString())
 
     const {
@@ -32,6 +32,15 @@ const CanvasIntegrationSettingsComponent: React.FC = () => {
         updateCourseMappings,
         removeCanvasIntegration,
     } = useCanvasIntegrationSettings()
+
+    let integrationTermActive = false
+    if (integration) {
+        const term = getTermById(integration.termId)
+        if (term) {
+            const today = todayString()
+            integrationTermActive = today >= term.startDate && today <= term.endDate
+        }
+    }
 
     return (
         <div
@@ -67,6 +76,13 @@ const CanvasIntegrationSettingsComponent: React.FC = () => {
                             </ConnectionButton>
                         </div>
                     )
+                ) : !integrationTermActive ? (
+                    <>
+                        <span style={{ color: SETTINGS.TEXT_TERTIARY }}>
+                            Syncing is paused because the linked term has ended. Disconnect this integration to set up a new one.
+                        </span>
+                        <DisconnectButton onDisconnect={removeCanvasIntegration} />
+                    </>
                 ) : (
                     <>
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-2 mt-2">
