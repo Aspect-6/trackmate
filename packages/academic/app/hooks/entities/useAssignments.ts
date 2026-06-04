@@ -1,5 +1,4 @@
 import { useMemo, useCallback } from "react"
-import { useAuth } from "@shared/contexts/AuthContext"
 import { useSettings } from "@/app/hooks/useSettings"
 import { useFirestoreWithArchive } from "@/app/hooks/data/useFirestoreWithArchive"
 import { generateId, todayString } from "@shared/lib"
@@ -33,8 +32,6 @@ const isAssignmentArchivable = (a: Assignment) => a.status === "Done"
  * and merges them into a single unified list.
  */
 export const useAssignments = () => {
-    const { isPremium } = useAuth()
-
     const [standardItems, setStandardItems] = useFirestoreWithArchive<Assignment>(
         FIRESTORE_KEYS.ASSIGNMENTS,
         FIRESTORE_KEYS.ASSIGNMENTS_ARCHIVE,
@@ -56,14 +53,12 @@ export const useAssignments = () => {
     }, [setStandardItems, setPremiumItems])
 
     const parentAssignments = useMemo(() => {
-        if (!isPremium) return standardItems
         return [...standardItems, ...premiumItems]
-    }, [standardItems, premiumItems, isPremium])
+    }, [standardItems, premiumItems])
 
     const premiumParentIds = useMemo(() => {
-        if (!isPremium) return new Set<string>()
         return new Set(premiumItems.map(a => a.id))
-    }, [premiumItems, isPremium])
+    }, [premiumItems])
 
     const assignments = useMemo(() => (
         flattenAssignmentsForDisplay(parentAssignments)
