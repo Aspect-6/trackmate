@@ -18,7 +18,7 @@ interface TypeSelectorModalProps {
 
 export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, openModal }) => {
     const { showToast } = useToast()
-    const { totalNum: totalClasses } = useClasses()
+    const { totalNum: totalClasses, classes } = useClasses()
 
     return (
         <ModalContainer>
@@ -30,7 +30,10 @@ export const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, o
                         if (totalClasses === 0) {
                             showToast("Add a class first before adding assignments", "error")
                             return
-                        } else { openModal("assignment-kind-chooser") }
+                        } else if (classes.filter(c => !c.isArchived).length === 0) {
+                            showToast("Cannot add assignments without a non-archived class", "error")
+                            return
+                        } else openModal("assignment-kind-chooser")
                     }}
                     icon={<FileText className="w-5 h-5" />}
                     label="Assignment"

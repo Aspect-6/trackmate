@@ -24,7 +24,7 @@ const ClassSelectDropdown: React.FC<ClassSelectDropdownProps> = ({ classes, valu
                 required
                 focusColor={focusColor}
             >
-                {classes.map(c => (
+                {classes.filter(c => !c.isArchived).map(c => (
                     <ModalSelectInputOption key={c.id} value={c.id}>
                         {c.name}
                     </ModalSelectInputOption>

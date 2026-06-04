@@ -13,7 +13,7 @@ const PageHeader: React.FC = () => {
     const location = useLocation()
     const { openModal } = useModal()
     const { showToast } = useToast()
-    const { totalNum: totalClasses } = useClasses()
+    const { totalNum: totalClasses, classes } = useClasses()
 
     const currentRoute = getRouteByPath(location.pathname) ?? DEFAULT_ROUTE
 
@@ -29,10 +29,16 @@ const PageHeader: React.FC = () => {
             </h1>
             <button
                 onClick={() => {
-                    if (addButton.modal === "add-assignment" && totalClasses === 0) {
-                        showToast("Add a class first before adding assignments", "error")
-                        return
-                    } else { openModal(addButton.modal) }
+                    if (addButton.modal === "assignment-kind-chooser") {
+                        if (totalClasses === 0) {
+                            showToast("Add a class first before adding assignments", "error")
+                            return
+                        } else if (classes.filter(c => !c.isArchived).length === 0) {
+                            showToast("Cannot add assignments without a non-archived class", "error")
+                            return
+                        }
+                    }
+                    openModal(addButton.modal)
                 }}
                 className="flex items-center py-2 px-3 sm:px-4 border border-transparent rounded-lg shadow-sm text-xs sm:text-sm font-medium text-white transition duration-150 ease-in-out whitespace-nowrap flex-shrink-0"
                 style={{ backgroundColor: isAddHovered ? addButton.bgHover : addButton.bg }}
