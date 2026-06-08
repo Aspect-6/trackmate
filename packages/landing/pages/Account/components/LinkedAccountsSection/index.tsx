@@ -147,36 +147,39 @@ const LinkedAccountsSection: React.FC = () => {
                     )
                 }
             />
-            <ProviderRow
-                title="Facebook"
-                description={hasFacebook ? "Connected" : "Not connected"}
-                icon={hasFacebook ? <FacebookIconColored className="w-5 h-5" /> : <FacebookIconMono className="w-5 h-5" style={{ color: ACCOUNT.TEXT_SECONDARY }} />}
-                iconBackgroundColor={hasFacebook ? ACCOUNT.GLOBAL_ACCENT_25 : ACCOUNT.BACKGROUND_QUATERNARY}
-                action={
-                    hasFacebook ? (
-                        <Button
-                            variant="secondary"
-                            onClick={handleUnlinkFacebook}
-                            disabled={true}
-                            isLoading={loading}
-                            className="px-4 py-2"
-                            title={!canUnlinkFacebook ? "You need at least one sign-in method" : undefined}
-                        >
-                            Disconnect
-                        </Button>
-                    ) : (
-                        <Button
-                            variant="primary"
-                            onClick={handleLinkFacebook}
-                            disabled={true}
-                            isLoading={loading}
-                            className="px-4 py-2"
-                        >
-                            Connect
-                        </Button>
-                    )
-                }
-            />
+            <ComingSoonRow providerName="Facebook" Icon={FacebookIconColored} />
+            <div className="hidden">
+                <ProviderRow
+                    title="Facebook"
+                    description={hasFacebook ? "Connected" : "Not connected"}
+                    icon={hasFacebook ? <FacebookIconColored className="w-5 h-5" /> : <FacebookIconMono className="w-5 h-5" style={{ color: ACCOUNT.TEXT_SECONDARY }} />}
+                    iconBackgroundColor={hasFacebook ? ACCOUNT.GLOBAL_ACCENT_25 : ACCOUNT.BACKGROUND_QUATERNARY}
+                    action={
+                        hasFacebook ? (
+                            <Button
+                                variant="secondary"
+                                onClick={handleUnlinkFacebook}
+                                disabled={true}
+                                isLoading={loading}
+                                className="px-4 py-2"
+                                title={!canUnlinkFacebook ? "You need at least one sign-in method" : undefined}
+                            >
+                                Disconnect
+                            </Button>
+                        ) : (
+                            <Button
+                                variant="primary"
+                                onClick={handleLinkFacebook}
+                                disabled={true}
+                                isLoading={loading}
+                                className="px-4 py-2"
+                            >
+                                Connect
+                            </Button>
+                        )
+                    }
+                />
+            </div>
             <ComingSoonRow providerName="Microsoft" Icon={MicrosoftIcon} />
 
             {linkError && (
