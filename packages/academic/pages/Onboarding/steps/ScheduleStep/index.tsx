@@ -1,6 +1,7 @@
 import React from "react"
 import { useToast } from "@shared/contexts/ToastContext"
 import { useAcademicTerms } from "@/app/hooks/entities"
+import { ScheduleFormatOption } from "./ScheduleFormatOption"
 import { ScheduleType } from "@/app/types"
 import { ModalSubmitButton } from "@shared/components/modal"
 import { GLOBAL, MODALS } from "@/app/styles/colors"
@@ -63,29 +64,12 @@ export const ScheduleStep: React.FC<ScheduleStepProps> = ({ onNext }) => {
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         {formats.map(format => (
-                            <button
+                            <ScheduleFormatOption
                                 key={format.value}
-                                type="button"
-                                onClick={() => setSelectedFormat(format.value as ScheduleType)}
-                                className="w-full text-left p-3 sm:p-4 rounded-xl border transition-all h-full"
-                                style={{
-                                    backgroundColor: selectedFormat === format.value ? MODALS.ACADEMICTERM.PRIMARY_BG : GLOBAL.BACKGROUND_PRIMARY,
-                                    borderColor: selectedFormat === format.value ? MODALS.ACADEMICTERM.PRIMARY_BG : GLOBAL.BORDER_PRIMARY,
-                                }}
-                            >
-                                <div 
-                                    className="font-bold text-base sm:text-lg"
-                                    style={{ color: selectedFormat === format.value ? MODALS.ACADEMICTERM.PRIMARY_TEXT : GLOBAL.TEXT_PRIMARY }}
-                                >
-                                    {format.title}
-                                </div>
-                                <div 
-                                    className={`text-xs sm:text-sm mt-1 sm:mt-1.5 transition-opacity ${selectedFormat === format.value ? "opacity-90" : "opacity-60"}`}
-                                    style={{ color: selectedFormat === format.value ? MODALS.ACADEMICTERM.PRIMARY_TEXT : GLOBAL.TEXT_PRIMARY }}
-                                >
-                                    {format.description}
-                                </div>
-                            </button>
+                                format={format}
+                                selectedFormat={selectedFormat}
+                                setSelectedFormat={setSelectedFormat}
+                            />
                         ))}
                     </div>
 
