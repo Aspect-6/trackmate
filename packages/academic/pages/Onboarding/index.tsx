@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useAuth } from "@shared/contexts/AuthContext"
 import { useSettings } from "@/app/hooks/useSettings"
 import { TermStep } from "./steps/TermStep"
 import { ClassStep } from "./steps/ClassStep"
@@ -14,6 +15,7 @@ const Onboarding: React.FC = () => {
     const [isUpgrading, setIsUpgrading] = useState(false)
     const [isExiting, setIsExiting] = useState(false)
     const { completeOnboarding } = useSettings()
+    const { isPremium } = useAuth()
 
     const handleComplete = () => {
         setIsExiting(true)
@@ -31,7 +33,11 @@ const Onboarding: React.FC = () => {
                 setCurrentStep("theme")
                 break
             case "theme":
-                setCurrentStep("premium")
+                if (isPremium) {
+                    setCurrentStep("transition")
+                } else {
+                    setCurrentStep("premium")
+                }
                 break
             case "premium":
                 if (typeof upgrading === "boolean") setIsUpgrading(upgrading)
