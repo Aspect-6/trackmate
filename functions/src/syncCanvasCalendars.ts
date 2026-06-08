@@ -22,7 +22,6 @@ interface IcalEvent {
 	}
 }
 
-const db = getFirestore()
 
 interface CanvasCourseMapping {
 	canvasCourseName: string
@@ -74,6 +73,8 @@ export const fetchCanvasCourses = onCall({ enforceAppCheck: true }, async (reque
  */
 async function syncUserCanvas(uid: string, integration: CanvasIntegration) {
 	if (!integration.enabled || !integration.icsUrl || !integration.termId) return
+
+	const db = getFirestore()
 
 	// 1. Check if term is over
 	const termDoc = await db.doc(`users/${uid}/academic/terms`).get()
@@ -284,6 +285,7 @@ async function syncUserCanvas(uid: string, integration: CanvasIntegration) {
 export const syncCanvasCalendarNow = onCall({ enforceAppCheck: true }, async (request) => {
 	if (!request.auth) throw new HttpsError("unauthenticated", "Must be logged in")
 	const uid = request.auth.uid
+	const db = getFirestore()
 
 	const premium = request.auth.token.premium as Partial<PremiumClaims> | undefined
 	if (!premium || (premium.academic !== true && premium.all !== true)) {
@@ -304,6 +306,7 @@ export const syncCanvasCalendarNow = onCall({ enforceAppCheck: true }, async (re
 
 export const syncCanvasCalendars = onSchedule("every 6 hours", async () => {
 	const auth = getAuth()
+	const db = getFirestore()
 	let pageToken: string | undefined
 
 	do {

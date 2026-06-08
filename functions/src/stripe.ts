@@ -17,7 +17,7 @@ type StripeSubscription = Awaited<ReturnType<StripeInstance["subscriptions"]["re
 
 
 const PRICE_IDS: Record<string, string> = {
-	academic: "price_1TdxlV1hfCkQmNfln5ubzc0K",
+	academic: "price_1Teki3P72ROHDUYqymqm4GmW",
 }
 
 const PRODUCTS = ["academic"] as const
@@ -59,36 +59,41 @@ export const createCheckoutSession = onCall({ enforceAppCheck: true, secrets: [s
 	const stripe = getStripe(stripeSecretKey.value())
 	const baseUrl = getBaseUrl()
 
-	const userDoc = await getFirestore().doc(`users/${uid}/billing/stripe`).get()
-	let customerId = userDoc.data()?.customerId as string | undefined
+	try {
+		const userDoc = await getFirestore().doc(`users/${uid}/billing/stripe`).get()
+		let customerId = userDoc.data()?.customerId as string | undefined
 
-	if (!customerId) {
-		const customer = await stripe.customers.create({
-			email: email ?? undefined,
-			metadata: { firebaseUID: uid },
-		})
-		customerId = customer.id
+		if (!customerId) {
+			const customer = await stripe.customers.create({
+				email: email ?? undefined,
+				metadata: { firebaseUID: uid },
+			})
+			customerId = customer.id
 
-		await getFirestore().doc(`users/${uid}/billing/stripe`).set({
-			customerId,
-			createdAt: new Date().toISOString(),
-		})
-	}
+			await getFirestore().doc(`users/${uid}/billing/stripe`).set({
+				customerId,
+				createdAt: new Date().toISOString(),
+			})
+		}
 
-	const session = await stripe.checkout.sessions.create({
-		customer: customerId,
-		payment_method_types: ["card"],
-		mode: "subscription",
-		line_items: [{ price: PRICE_IDS[product], quantity: 1 }],
-		success_url: `${baseUrl}/account?tab=plans&checkout=success`,
-		cancel_url: `${baseUrl}/account?tab=plans&checkout=cancelled`,
-		metadata: { firebaseUID: uid, product },
-		subscription_data: {
+		const session = await stripe.checkout.sessions.create({
+			customer: customerId,
+			payment_method_types: ["card"],
+			mode: "subscription",
+			line_items: [{ price: PRICE_IDS[product], quantity: 1 }],
+			success_url: `${baseUrl}/account?tab=plans&checkout=success`,
+			cancel_url: `${baseUrl}/account?tab=plans&checkout=cancelled`,
 			metadata: { firebaseUID: uid, product },
-		},
-	})
+			subscription_data: {
+				metadata: { firebaseUID: uid, product },
+			},
+		})
 
-	return { url: session.url }
+		return { url: session.url }
+	} catch (error: any) {
+		console.error("Error in createCheckoutSession:", error)
+		throw new HttpsError("internal", error.message || "An unknown error occurred")
+	}
 })
 
 export const createBillingPortalSession = onCall({ enforceAppCheck: true, secrets: [stripeSecretKey], memory: "1GiB" }, async (request) => {
@@ -100,19 +105,24 @@ export const createBillingPortalSession = onCall({ enforceAppCheck: true, secret
 	const stripe = getStripe(stripeSecretKey.value())
 	const baseUrl = getBaseUrl()
 
-	const userDoc = await getFirestore().doc(`users/${uid}/billing/stripe`).get()
-	const customerId = userDoc.data()?.customerId as string | undefined
+	try {
+		const userDoc = await getFirestore().doc(`users/${uid}/billing/stripe`).get()
+		const customerId = userDoc.data()?.customerId as string | undefined
 
-	if (!customerId) {
-		throw new HttpsError("not-found", "No billing account found.")
+		if (!customerId) {
+			throw new HttpsError("not-found", "No billing account found.")
+		}
+
+		const session = await stripe.billingPortal.sessions.create({
+			customer: customerId,
+			return_url: `${baseUrl}/account?tab=plans&billing=returned`,
+		})
+
+		return { url: session.url }
+	} catch (error: any) {
+		console.error("Error in createBillingPortalSession:", error)
+		throw new HttpsError("internal", error.message || "An unknown error occurred")
 	}
-
-	const session = await stripe.billingPortal.sessions.create({
-		customer: customerId,
-		return_url: `${baseUrl}/account?tab=plans&billing=returned`,
-	})
-
-	return { url: session.url }
 })
 
 export const stripeWebhook = onRequest({ secrets: [stripeSecretKey, stripeWebhookSecret] }, async (req, res) => {

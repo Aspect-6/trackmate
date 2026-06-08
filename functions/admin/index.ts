@@ -32,7 +32,7 @@ import { initializeApp } from "firebase-admin/app"
 import { getAuth, UserRecord } from "firebase-admin/auth"
 import { getFirestore } from "firebase-admin/firestore"
 import * as fs from "fs"
-import { VALID_DOCS, isItemsDoc } from "../src/schemas.ts"
+import { VALID_DOCS, isItemsDoc } from "../src/schemas.js"
 
 const PROJECT_ID = "trackmate-fb7cd"
 const PRODUCTS = ["academic"]
@@ -65,7 +65,7 @@ function getDefaultPremiumClaims(): Record<string, boolean> {
 }
 
 function parseFlags(args: string[]): Record<string, any> {
-	const flags: Record<string, any> = {}
+	const flags: Record<string, unknown> = {}
 	for (let i = 0; i < args.length; i++) {
 		if (args[i] === "--all") {
 			flags.all = true
@@ -233,12 +233,12 @@ async function cmdExportData(args: string[]) {
 		console.log(`  Fetching product: ${product}...`)
 		exportData.data[product] = {}
 		const snapshot = await db.collection(`users/${user.uid}/${product}`).get()
-		
+
 		if (snapshot.empty) {
-			console.log(`    No documents found.`)
+			console.log("    No documents found.")
 			continue
 		}
-		
+
 		for (const doc of snapshot.docs) {
 			console.log(`    Exported doc: ${doc.id}`)
 			exportData.data[product][doc.id] = doc.data()
@@ -283,7 +283,7 @@ async function main() {
 	const handler = COMMANDS[command]
 	if (!handler) {
 		console.error(`\x1b[31m[ERROR]\x1b[0m Unknown command: "${command}"`)
-		console.error(`Run "node index.ts --help" for usage.`)
+		console.error('Run "node index.ts --help" for usage.')
 		process.exit(1)
 	}
 

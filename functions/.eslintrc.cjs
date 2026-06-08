@@ -26,7 +26,7 @@ module.exports = {
 		"import",
 	],
 	rules: {
-		"quotes": ["error", "double"],
+		"quotes": "off",
 		"object-curly-spacing": ["error", "always"],
 		"indent": ["error", "tab"],
 		"semi": ["error", "never"],
@@ -34,8 +34,10 @@ module.exports = {
 		"max-len": "off",
 		"eol-last": "off",
 		"require-jsdoc": "off",
+		"valid-jsdoc": "off",
 		"import/no-unresolved": 0,
 		"import/namespace": "off",
 		"@typescript-eslint/no-empty-interface": "off",
+		"typescript-eslint/no-explicit-any": "off"
 	},
 }
