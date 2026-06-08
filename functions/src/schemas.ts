@@ -127,3 +127,5 @@ export const isPremiumDoc = (docId: string): boolean =>
 
 export const isItemsDoc = (docId: string): boolean =>
 	docId in ITEMS_DOC_SCHEMAS
+
+export const VALID_DOCS = Object.keys(ITEMS_DOC_SCHEMAS)
