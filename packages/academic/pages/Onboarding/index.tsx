@@ -2,13 +2,14 @@ import React, { useState } from "react"
 import { useAuth } from "@shared/contexts/AuthContext"
 import { useSettings } from "@/app/hooks/useSettings"
 import { TermStep } from "./steps/TermStep"
+import { ScheduleStep } from "./steps/ScheduleStep"
 import { ClassStep } from "./steps/ClassStep"
 import { ThemeStep } from "./steps/ThemeStep"
 import { PremiumStep } from "./steps/PremiumStep"
 import { TransitionStep } from "./steps/TransitionStep"
 import { GLOBAL } from "@/app/styles/colors"
 
-export type OnboardingStep = "term" | "class" | "theme" | "premium" | "transition"
+export type OnboardingStep = "term" | "schedule" | "class" | "theme" | "premium" | "transition"
 
 const Onboarding: React.FC = () => {
     const [currentStep, setCurrentStep] = useState<OnboardingStep>("term")
@@ -27,6 +28,9 @@ const Onboarding: React.FC = () => {
     const handleNext = (upgrading?: boolean) => {
         switch (currentStep) {
             case "term":
+                setCurrentStep("schedule")
+                break
+            case "schedule":
                 setCurrentStep("class")
                 break
             case "class":
@@ -50,6 +54,8 @@ const Onboarding: React.FC = () => {
         switch (currentStep) {
             case "term":
                 return <TermStep key="term" onNext={handleNext} />
+            case "schedule":
+                return <ScheduleStep key="schedule" onNext={handleNext} />
             case "class":
                 return <ClassStep key="class" onNext={handleNext} />
             case "theme":
