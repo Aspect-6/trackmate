@@ -3,7 +3,6 @@ import { useAuth } from "@shared/contexts/AuthContext"
 import AvatarDisplay from "./Content/AvatarDisplay"
 import EmailRow from "./Content/EmailRow"
 import AccountIdRow from "./Content/AccountIdRow"
-import PremiumClaimRow from "./Content/PremiumClaimRow"
 import { ACCOUNT } from "@/app/styles/colors"
 
 const ProfileSection: React.FC = () => {
@@ -24,7 +23,6 @@ const ProfileSection: React.FC = () => {
             <AvatarDisplay user={user} />
             <EmailRow user={user} />
             <AccountIdRow userId={user.uid} />
-            <PremiumClaimRow />
         </div>
     )
 }
