@@ -32,7 +32,7 @@ import { initializeApp } from "firebase-admin/app"
 import { getAuth, UserRecord } from "firebase-admin/auth"
 import { getFirestore } from "firebase-admin/firestore"
 import * as fs from "fs"
-import { VALID_DOCS, isItemsDoc } from "../src/schemas.js"
+import { VALID_DOCS, isItemsDoc } from "../src/schemas.ts"
 
 const PROJECT_ID = "trackmate-fb7cd"
 const PRODUCTS = ["academic"]
