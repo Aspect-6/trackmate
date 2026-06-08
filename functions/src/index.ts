@@ -11,44 +11,6 @@ initializeApp()
 
 const db = getFirestore()
 
-type Product = "academic"
-
-interface PremiumPayload {
-	all?: boolean
-	products?: Product[]
-}
-
-export const setPremiumClaim = onCall({ enforceAppCheck: true }, async (request) => {
-	if (!request.auth) {
-		throw new HttpsError("unauthenticated", "You must be logged in to use this function.")
-	}
-
-	const uid = request.auth.uid
-	const data = request.data as PremiumPayload
-
-	if (!data || (data.all === undefined && (!data.products || data.products.length === 0))) {
-		throw new HttpsError("invalid-argument", "Must provide 'all' or a list of 'products'")
-	}
-
-	try {
-		const premiumClaims = getDefaultPremiumClaims()
-
-		if (data.all === true) {
-			premiumClaims.all = true
-		} else if (data.products && data.products.length > 0) {
-			data.products.forEach((product: Product) => {
-				premiumClaims[product] = true
-			})
-		}
-
-		await getAuth().setCustomUserClaims(uid, { premium: premiumClaims })
-
-		return { success: true, premium: premiumClaims }
-	} catch (error) {
-		console.error("Error setting premium claim:", error)
-		throw new HttpsError("internal", "Failed to set premium claim.")
-	}
-})
 
 export const onUserCreated = functionsV1.region("us-central1").auth.user().onCreate(async (user) => {
 	const premium = getDefaultPremiumClaims()
