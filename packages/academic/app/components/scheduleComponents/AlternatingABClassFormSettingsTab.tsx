@@ -49,7 +49,7 @@ const AlternatingABClassFormSettingsTab: React.FC<ClassFormSettingsTabProps> = (
                         onChange={e => setFormData({ ...formData, semesterId: e.target.value })}
                         focusColor={focusColor}
                     >
-                        <ModalSelectInputOption value="">Year-long (Both Semesters)</ModalSelectInputOption>
+                        <ModalSelectInputOption value="">Alternating A/B (Year-long)</ModalSelectInputOption>
                         {selectedTerm.semesters.map(sem => (
                             <ModalSelectInputOption key={sem.id} value={sem.id}>
                                 {sem.name}
