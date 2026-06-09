@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useSearchParams } from "react-router-dom"
-import { useSignUp } from "@/app/hooks/useSignUp"
 import { useRedirect } from "@shared/hooks/useRedirect"
+import { useSignUp } from "@/app/hooks/useSignUp"
+import TrackMateLogo from "@shared/components/TrackMateLogo"
 import { Title, FormField, FormFieldLabel, FormFieldTextInput, FormDivider, FormCheckbox, SubmitButton, ProviderButtons, FormLink, HomeLink } from "@/app/components/AuthForm"
 import { BRAND_NAME } from "@shared/config/brand"
 import { AUTH } from "@/app/styles/colors"
@@ -73,7 +74,10 @@ const SignUp: React.FC = () => {
                     border: `1px solid ${AUTH.BORDER_PRIMARY}`,
                 }}
             >
-                <HomeLink />
+                <div className="flex justify-between items-start">
+                    <HomeLink />
+                    <TrackMateLogo size={32} showBackground={false} className="-mt-1 -mr-1" />
+                </div>
                 <Title>Create your {BRAND_NAME} account</Title>
 
                 <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
