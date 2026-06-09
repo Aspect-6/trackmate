@@ -114,6 +114,10 @@ export namespace CalendarBody {
                 onClick: () => void
                 children: React.ReactNode
             }
+            export interface NavigationButtonProps {
+                onClick: () => void
+                icon: React.ReactNode
+            }
         }
         export namespace Body {
             export interface Props {

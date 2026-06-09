@@ -11,12 +11,12 @@ import { dateToLocalISOString } from "@shared/lib/date"
 import { isAlternatingAB } from "@/app/lib/schedule"
 import { getEditAssignmentModalData } from "@/app/lib/subtaskIds"
 import type { AlternatingABDayType } from "@/app/types"
-import { X } from "lucide-react"
+import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import CalendarHeader, { PrevButton, NextButton, MonthTitle, CalendarSearchInput } from "./components/CalendarHeader"
 import CalendarSearchResults from "./components/CalendarSearchResults"
 import CalendarBody from "./components/CalendarBody"
 import CalendarGrid, { CalendarGridDayHeader, CalendarDay, CalendarGridEmptyDay } from "./components/CalendarBody/CalendarGrid"
-import CalendarSidePanel, { DayType, AssignmentList, EventList, NoSchoolInfo, DayTypeDisplay, CalendarSidePanelHeader, CalendarSidePanelBody, DateDisplay, CloseButton } from "./components/CalendarBody/SidePanel"
+import CalendarSidePanel, { DayType, AssignmentList, EventList, NoSchoolInfo, DayTypeDisplay, CalendarSidePanelHeader, CalendarSidePanelBody, DateDisplay, CloseButton, NavigationButton } from "./components/CalendarBody/SidePanel"
 import ClassList from "./components/CalendarBody/SidePanel/Body/ClassList"
 import NoClassesScheduled from "./components/CalendarBody/SidePanel/Body/ClassList/NoClassesScheduled"
 import { CALENDAR } from "@/app/styles/colors"
@@ -38,13 +38,26 @@ const Calendar: React.FC = () => {
     const openEditDayType = useCallback((dayType: NonNullable<AlternatingABDayType>, date: string) => openModal("edit-day-type", { dayType, date }), [openModal])
     const { selectedDate, setSelectedDate, clearSelection } = useSelectedDate()
 
+    const { changeMonth, period, month, year, jumpToDate } = useCalendarNavigation(clearSelection)
+
+    const navigateDay = useCallback((direction: -1 | 1) => {
+        if (!selectedDate) return
+        const newDate = new Date(selectedDate)
+        newDate.setDate(newDate.getDate() + direction)
+        
+        if (newDate.getMonth() !== month || newDate.getFullYear() !== year) {
+            jumpToDate(newDate)
+        }
+        
+        setSelectedDate(newDate)
+    }, [selectedDate, setSelectedDate, month, year, jumpToDate])
+
     // Keep CalendarContext in sync with the calendar's selected date
     useEffect(() => {
         setSelectedDateString(selectedDate ? dateToLocalISOString(selectedDate) : null)
         return () => setSelectedDateString(null)
     }, [selectedDate, setSelectedDateString])
 
-    const { changeMonth, period, month, year, jumpToDate } = useCalendarNavigation(clearSelection)
     const calendarCells = useCalendarGrid({ month, year })
     const sidePanelData = useSidePanel({ selectedDate })
 
@@ -220,7 +233,13 @@ const Calendar: React.FC = () => {
 
                         <CalendarSidePanel date={sidePanelData?.date || null}>
                             <CalendarSidePanelHeader>
-                                <DateDisplay>{sidePanelData?.formattedDate}</DateDisplay>
+                                <div className="flex items-center gap-1 flex-1 mr-2 min-w-0">
+                                    <NavigationButton onClick={() => navigateDay(-1)} icon={<ChevronLeft className="w-5 h-5 flex-shrink-0" />} />
+                                    <div className="flex-1 text-center min-w-0">
+                                        <DateDisplay>{sidePanelData?.formattedDate}</DateDisplay>
+                                    </div>
+                                    <NavigationButton onClick={() => navigateDay(1)} icon={<ChevronRight className="w-5 h-5 flex-shrink-0" />} />
+                                </div>
                                 <CloseButton onClick={() => setSelectedDate(null)}>
                                     <X className="w-6 h-6" />
                                 </CloseButton>

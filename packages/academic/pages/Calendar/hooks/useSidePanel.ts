@@ -28,7 +28,7 @@ export const useSidePanel = ({ selectedDate }: UseSidePanelProps) => {
         const dueAssignments = getAssignmentsForDate(dateString)
         const dayEvents = getEventsForDate(dateString)
 
-        const formattedDate = formatDate("full", dateString)
+        const formattedDate = formatDate("shortened-full", dateString)
 
         return {
             date: selectedDate,

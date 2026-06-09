@@ -17,12 +17,13 @@ export const dateToLocalISOString = (date: Date = new Date()): string => {
  */
 export const todayString = (): string => dateToLocalISOString()
 
-type DateFormat = "short" | "medium" | "long" | "full" | "period"
+type DateFormat = "short" | "medium" | "long" | "full" | "shortened-full" | "period"
 
 /**
  * Formats a date string into the specified format.
  * @param dateString - The date string in "YYYY-MM-DD" format.
- * @param format - "short" (Jan 1), "medium" (Jan 1, 2026), or "long" (January 1, 2026)
+ * @param format - "short" (Jan 1), "medium" (Jan 1, 2026), "long" (January 1, 2026), "full" 
+ * (Thursday, January 1, 2026), "shortened-full" (Thursday, Jan 1, 2026), or "period" (January 2026).
  * @returns The formatted date string, or an empty string if input is invalid.
  */
 export const formatDate = (format: DateFormat, dateString: string): string => {
@@ -32,11 +33,12 @@ export const formatDate = (format: DateFormat, dateString: string): string => {
     if (isNaN(date.getTime())) return ""
 
     const options: Record<DateFormat, Intl.DateTimeFormatOptions> = {
-        short: { month: "short", day: "numeric" },
-        medium: { month: "short", day: "numeric", year: "numeric" },
-        long: { month: "long", day: "numeric", year: "numeric" },
-        full: { year: "numeric", month: "long", day: "numeric", weekday: "long" },
-        period: { year: "numeric", month: "long" },
+        "short": { month: "short", day: "numeric" },
+        "medium": { month: "short", day: "numeric", year: "numeric" },
+        "long": { month: "long", day: "numeric", year: "numeric" },
+        "full": { year: "numeric", month: "long", day: "numeric", weekday: "long" },
+        "shortened-full": { year: "numeric", month: "short", day: "numeric", weekday: "long" },
+        "period": { year: "numeric", month: "long" },
     }
 
     return date.toLocaleDateString("en-US", options[format])
