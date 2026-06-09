@@ -5,16 +5,17 @@ import { AUTH } from "@/app/styles/colors"
 
 interface FormLinkProps {
     href: string
+    className?: string
     children: React.ReactNode
 }
 
-const FormLink: React.FC<FormLinkProps> = ({ href, children }) => {
+const FormLink: React.FC<FormLinkProps> = ({ href, className, children }) => {
     const { isHovered, hoverProps } = useHover()
 
     return (
         <Link
             to={href}
-            className="font-medium text-sm transition-all duration-200"
+            className={`font-medium text-sm transition-all duration-200 ${className}`.trim()}
             style={{
                 color: AUTH.FOCUS_COLOR,
                 filter: isHovered ? "brightness(1.2)" : "none",

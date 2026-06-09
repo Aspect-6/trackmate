@@ -17,12 +17,16 @@ interface SignUpFormData {
 const SignUp: React.FC = () => {
     const { register, handleSubmit, watch, trigger, setError, clearErrors, formState: { errors, touchedFields } } = useForm<SignUpFormData>()
     const { signUpWithEmailAndPassword, signUpWithGoogle, signUpWithFacebook, sendVerificationEmail, loading } = useSignUp()
-    const [showPassword, setShowPassword] = useState(false)
+    const [agreedToTerms, setAgreedToTerms] = useState(false)
     const [searchParams] = useSearchParams()
     const redirectTo = searchParams.get("redirect") || "/account"
     const redirect = useRedirect({ allowCrossApp: true })
 
     const onSubmit = async (data: SignUpFormData) => {
+        if (!agreedToTerms) {
+            setError("root", { message: "Please agree to the Terms of Service and Privacy Policy" })
+            return
+        }
         const { user, error } = await signUpWithEmailAndPassword(data.email, data.password)
         if (user) {
             await sendVerificationEmail()
@@ -41,6 +45,10 @@ const SignUp: React.FC = () => {
         signUpFn: typeof signUpWithGoogle
     ) => {
         clearErrors()
+        if (!agreedToTerms) {
+            setError("root", { message: "Please agree to the Terms of Service and Privacy Policy" })
+            return
+        }
         const { user, error } = await signUpFn()
         if (user) {
             redirect(redirectTo)
@@ -107,7 +115,7 @@ const SignUp: React.FC = () => {
                     <FormField>
                         <FormFieldLabel htmlFor="password">Password</FormFieldLabel>
                         <FormFieldTextInput
-                            type={showPassword ? "text" : "password"}
+                            type="password"
                             placeholder="••••••••"
                             id="password"
                             autoComplete="new-password"
@@ -141,7 +149,7 @@ const SignUp: React.FC = () => {
                     <FormField>
                         <FormFieldLabel htmlFor="confirmPassword">Confirm Password</FormFieldLabel>
                         <FormFieldTextInput
-                            type={showPassword ? "text" : "password"}
+                            type="password"
                             placeholder="••••••••"
                             id="confirmPassword"
                             autoComplete="new-password"
@@ -159,8 +167,12 @@ const SignUp: React.FC = () => {
                         )}
                     </FormField>
 
-                    <FormCheckbox checked={showPassword} onChange={setShowPassword}>
-                        Show password
+                    <FormCheckbox checked={agreedToTerms} onChange={setAgreedToTerms}>
+                        <span className="text-[11px]">
+                            I agree to the{" "}
+                            <FormLink className="text-[11px]" href="/terms-of-service">Terms of Service</FormLink>{" "}
+                            and <FormLink className="text-[11px]" href="/privacy-policy">Privacy Policy</FormLink>
+                        </span>
                     </FormCheckbox>
 
                     {errors.root && (
