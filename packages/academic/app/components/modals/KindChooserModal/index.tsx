@@ -6,7 +6,7 @@ import {
     ModalFooter,
     ModalCancelButton,
 } from "@shared/components/modal"
-import CreateNewButton from "./CreateNewButton"
+import CreateButton from "./CreateButton"
 import TemplateList from "./TemplateList"
 import { GLOBAL, MODALS } from "@/app/styles/colors"
 
@@ -30,7 +30,8 @@ export const KindChooserModal: React.FC<KindChooserModalProps> = ({ onClose, kin
             </ModalHeader>
 
             <div className="space-y-4 py-2">
-                <CreateNewButton kind={kind} onClose={onClose} />
+                <CreateButton kind={kind} mode="new" onClose={onClose} />
+                <CreateButton kind={kind} mode="template" onClose={onClose} />
 
                 {hasTemplates && (
                     <div className="relative">

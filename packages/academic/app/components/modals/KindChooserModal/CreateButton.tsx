@@ -1,30 +1,49 @@
 import React from "react"
-import { useHover } from "@shared/hooks/ui/useHover"
+import { useAuth } from "@shared/contexts/AuthContext"
 import { useModal } from "@/app/contexts/ModalContext"
-import { Plus, ChevronRight } from "lucide-react"
+import { useHover } from "@shared/hooks/ui/useHover"
+import { Plus, FileText, ChevronRight } from "lucide-react"
 import { GLOBAL } from "@/app/styles/colors"
 
-interface CreateNewButtonProps {
+interface CreateButtonProps {
     kind: "assignment" | "event"
+    mode: "new" | "template"
     onClose: () => void
 }
 
-const CreateNewButton: React.FC<CreateNewButtonProps> = ({ kind, onClose }) => {
+const CreateButton: React.FC<CreateButtonProps> = ({ kind, mode, onClose }) => {
     const { openModal } = useModal()
     const { isHovered, hoverProps } = useHover()
+    const { isPremium } = useAuth()
 
-    const handleCreateNew = () => {
+    const handleCreate = () => {
+        if (mode === "template" && !isPremium) {
+            openModal("premium-upgrade", { title: "Upgrade to Create Templates" }, { stack: true })
+            return
+        }
+
         onClose()
-        openModal(kind === "assignment" ? "add-assignment" : "add-event")
+        const modalName = kind === "assignment" ? "add-assignment" : "add-event"
+        if (mode === "template") {
+            openModal(modalName, { mode: "template" })
+        } else {
+            openModal(modalName)
+        }
     }
 
     const buttonBg = kind === "assignment" ? GLOBAL.ASSIGNMENT_BUTTON_BG_18 : GLOBAL.EVENT_BUTTON_BG_18
     const iconColor = kind === "assignment" ? GLOBAL.ASSIGNMENT_HEADING_TEXT : GLOBAL.EVENT_HEADING_TEXT
-    const description = `Start with a blank ${kind === "assignment" ? "assignment" : "event"}`
+    
+    const title = mode === "template" ? "Create Template" : "Create New"
+    const description = mode === "template" 
+        ? `Create a reusable ${kind === "assignment" ? "assignment" : "event"} template`
+        : `Start with a blank ${kind === "assignment" ? "assignment" : "event"}`
+
+    const Icon = mode === "template" ? FileText : Plus
 
     return (
         <button
-            onClick={handleCreateNew}
+            onClick={handleCreate}
             className="w-full flex items-center justify-between p-4 rounded-xl transition-all"
             style={{
                 border: `1px solid ${GLOBAL.BORDER_PRIMARY}`,
@@ -40,10 +59,10 @@ const CreateNewButton: React.FC<CreateNewButtonProps> = ({ kind, onClose }) => {
                         color: iconColor
                     }}
                 >
-                    <Plus size={24} />
+                    <Icon size={24} />
                 </div>
                 <div className="text-left">
-                    <div className="font-semibold text-lg" style={{ color: GLOBAL.TEXT_PRIMARY }}>Create New</div>
+                    <div className="font-semibold text-lg" style={{ color: GLOBAL.TEXT_PRIMARY }}>{title}</div>
                     <div className="text-sm" style={{ color: GLOBAL.TEXT_SECONDARY }}>{description}</div>
                 </div>
             </div>
@@ -52,4 +71,4 @@ const CreateNewButton: React.FC<CreateNewButtonProps> = ({ kind, onClose }) => {
     )
 }
 
-export default CreateNewButton
+export default CreateButton
