@@ -7,6 +7,7 @@ import Account from "@/pages/Account";
 import VerifyEmail from "@/pages/VerifyEmail";
 import ForgotPassword from "@/pages/ForgotPassword";
 import AuthAction from "@/pages/AuthAction";
+import TermsOfService from "@/pages/TermsOfService";
 import NotFound from "@shared/pages/NotFound";
 import { GLOBAL } from "@/app/styles/colors";
 import "./index.css";
@@ -21,6 +22,7 @@ const App: React.FC = () => {
                 <Route path="/auth/verify-email" element={<VerifyEmail />} />
                 <Route path="/auth/forgot-password" element={<ForgotPassword />} />
                 <Route path="/auth/action" element={<AuthAction />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
                 <Route path="/landing" element={<Landing />} />
                 <Route path="/" element={<Navigate to="/landing" replace />} />
                 <Route path="*" element={
