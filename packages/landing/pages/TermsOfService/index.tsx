@@ -537,7 +537,7 @@ const TermsOfService: React.FC = () => {
             <main className="flex-1 flex flex-col max-w-7xl w-full mt-12 mb-12" style={{ color: LANDING.TEXT_PRIMARY }}>
                 <h1 className="text-4xl font-bold mb-4">Terms of Service</h1>
                 <p className="ml-2 mb-8" style={{ color: LANDING.TEXT_SECONDARY }}>
-                    Last Updated: June 11, 2025
+                    Last Updated: June 11, 2026
                 </p>
 
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start w-full">
