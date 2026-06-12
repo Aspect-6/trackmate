@@ -12,12 +12,15 @@ interface ContactFormData {
 }
 
 const Contact: React.FC = () => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormData>()
+    const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<ContactFormData>()
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+
+    const messageContent = watch("message", "")
+    const messageLength = messageContent?.length || 0
 
     const onSubmit = async (data: ContactFormData) => {
         setStatus("loading")
-        
+
         try {
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
@@ -63,7 +66,7 @@ const Contact: React.FC = () => {
                 <Title>Contact Us</Title>
 
                 {status === "success" ? (
-                    <form 
+                    <form
                         className="text-center py-6 mt-4"
                         onSubmit={(e) => {
                             e.preventDefault();
@@ -80,14 +83,14 @@ const Contact: React.FC = () => {
                     </form>
                 ) : (
                     <form className="space-y-5 mt-6" onSubmit={handleSubmit(onSubmit)} noValidate>
-                        <input 
-                            type="checkbox" 
-                            className="absolute -left-[9999px]" 
-                            tabIndex={-1} 
-                            aria-hidden="true" 
-                            {...register("botcheck")} 
+                        <input
+                            type="checkbox"
+                            className="absolute -left-[9999px]"
+                            tabIndex={-1}
+                            aria-hidden="true"
+                            {...register("botcheck")}
                         />
-                        
+
                         <FormField>
                             <FormFieldLabel htmlFor="name">Name</FormFieldLabel>
                             <FormFieldTextInput
@@ -132,14 +135,25 @@ const Contact: React.FC = () => {
                                 id="message"
                                 placeholder="How can we help?"
                                 rows={4}
+                                maxLength={1000}
                                 hasError={!!errors.message}
                                 {...register("message", { required: "Message is required" })}
                             />
-                            {errors.message && (
-                                <span className="text-xs" style={{ color: AUTH.TEXT_DANGER }}>
-                                    {errors.message.message}
+                            <div className="flex justify-between items-start mt-1">
+                                <div className="flex-1">
+                                    {errors.message && (
+                                        <span className="text-xs" style={{ color: AUTH.TEXT_DANGER }}>
+                                            {errors.message.message}
+                                        </span>
+                                    )}
+                                </div>
+                                <span style={{
+                                    color: messageLength >= 1000 ? AUTH.TEXT_DANGER : AUTH.TEXT_SECONDARY,
+                                    fontSize: "10px"
+                                }}>
+                                    {messageLength}/1000
                                 </span>
-                            )}
+                            </div>
                         </FormField>
 
                         {status === "error" && (
