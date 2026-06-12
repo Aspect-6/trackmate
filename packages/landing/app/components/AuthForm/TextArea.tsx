@@ -1,0 +1,34 @@
+import React from "react"
+import { useFocus } from "@shared/hooks/ui/useFocus"
+import { AUTH } from "@/app/styles/colors"
+
+interface FormFieldTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+    hasError?: boolean
+}
+
+const FormFieldTextArea: React.FC<FormFieldTextAreaProps> = ({ hasError, ...props }) => {
+    const { isFocused, focusProps } = useFocus()
+
+    const getBorderColor = () => {
+        if (isFocused) return AUTH.FOCUS_COLOR
+        if (hasError) return AUTH.TEXT_DANGER
+        return AUTH.BORDER_PRIMARY
+    }
+
+    return (
+        <textarea
+            className="authform-input w-full px-4 py-3 rounded-lg text-base sm:text-sm transition-all duration-200"
+            style={{
+                    backgroundColor: AUTH.BACKGROUND_TERTIARY,
+                    border: `1px solid ${getBorderColor()}`,
+                    color: AUTH.TEXT_PRIMARY,
+                    outline: "none",
+                    boxShadow: isFocused ? `0 0 0 2px ${AUTH.FOCUS_COLOR_30}` : "none",
+            }}
+            {...props}
+            {...focusProps}
+        />
+    )
+}
+
+export default FormFieldTextArea
