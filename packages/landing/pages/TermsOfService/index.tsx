@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import { useRedirect } from "@shared/hooks/useRedirect"
 import TrackMateLogo from "@shared/components/TrackMateLogo"
 import LegalSection from "@/app/components/legalDocumentComponents/LegalSection"
@@ -566,9 +567,9 @@ const TermsOfService: React.FC = () => {
 
             <Footer>
                 © {new Date().getFullYear()} {BRAND_NAME}. All rights reserved{" "}·{" "}
-                <a href="/terms-of-service" className="hover:underline">Terms of Service</a>{" "}·{" "}
-                <a href="/privacy-policy" className="hover:underline">Privacy Policy</a>{" "}·{" "}
-                <a href="/contact" className="hover:underline">Contact</a>
+                <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link>{" "}·{" "}
+                <Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link>{" "}·{" "}
+                <Link to="/contact" className="hover:underline">Contact</Link>
             </Footer>
         </div>
     )

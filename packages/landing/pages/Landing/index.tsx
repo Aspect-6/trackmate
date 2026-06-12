@@ -1,5 +1,5 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import TrackMateLogo from "@shared/components/TrackMateLogo"
 import Header from "@/pages/Landing/components/Header"
 import Footer from "@/pages/Landing/components/Footer"
@@ -64,9 +64,9 @@ const Landing: React.FC = () => {
 
             <Footer>
                 © {new Date().getFullYear()} {BRAND_NAME}. All rights reserved{" "}·{" "}
-                <a href="/terms-of-service" className="hover:underline">Terms of Service</a>{" "}·{" "}
-                <a href="/privacy-policy" className="hover:underline">Privacy Policy</a>{" "}·{" "}
-                <a href="/contact" className="hover:underline">Contact</a>
+                <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link>{" "}·{" "}
+                <Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link>{" "}·{" "}
+                <Link to="/contact" className="hover:underline">Contact</Link>
             </Footer>
         </div>
     )
