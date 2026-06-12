@@ -63,7 +63,9 @@ const Landing: React.FC = () => {
             </main>
 
             <Footer>
-                © {new Date().getFullYear()} {BRAND_NAME}. All rights reserved.
+                © {new Date().getFullYear()} {BRAND_NAME}. All rights reserved{" "}·{" "}
+                <a href="/terms-of-service" className="hover:underline">Terms of Service</a>{" "}·{" "}
+                <a href="/privacy-policy" className="hover:underline">Privacy Policy</a>
             </Footer>
         </div>
     )
