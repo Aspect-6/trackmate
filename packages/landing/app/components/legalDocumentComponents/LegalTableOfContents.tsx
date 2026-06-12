@@ -1,8 +1,16 @@
 import React from "react"
 import { LANDING } from "@/app/styles/colors"
-import type { TermsOfService } from "@/pages/TermsOfService/types"
 
-const TermsTableOfContents: React.FC<TermsOfService.TermsTableOfContentsProps> = ({ sections }) => (
+interface LegalTableOfContentsProps {
+    sections: {
+        id: string
+        sectionNumber?: number
+        title: string
+        content?: React.ReactNode
+    }[]
+}
+
+const LegalTableOfContents: React.FC<LegalTableOfContentsProps> = ({ sections }) => (
     <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-8 self-start mb-8 lg:mb-0">
         {/* Mobile View */}
         <details 
@@ -59,4 +67,4 @@ const TermsTableOfContents: React.FC<TermsOfService.TermsTableOfContentsProps> =
     </aside>
 )
 
-export default TermsTableOfContents
+export default LegalTableOfContents
