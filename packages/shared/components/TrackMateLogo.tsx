@@ -1,19 +1,22 @@
 import React from "react";
+import { TRACKMATE } from "@shared/styles/colors"
 
 interface LogoProps {
-    size?: number | string;
-    showBackground?: boolean;
-    crop?: boolean;
-    color?: string;
-    className?: string;
+    size?: number | string
+    showBackground?: boolean
+    crop?: boolean
+    color?: string
+    className?: string
+    onClick?: () => void
 }
 
 const TrackMateLogo: React.FC<LogoProps> = ({
     size = 200,
     showBackground = true,
     crop = false,
-    color = "var(--global-accent)",
-    className = ""
+    color = TRACKMATE.GLOBAL_ACCENT,
+    className = "",
+    onClick
 }) => {
     const viewBox = crop ? "34 25 130 150" : "0 0 200 200";
 
@@ -23,6 +26,7 @@ const TrackMateLogo: React.FC<LogoProps> = ({
             height={size}
             viewBox={viewBox}
             className={className}
+            onClick={onClick}
             xmlns="http://www.w3.org/2000/svg"
             role="img"
             aria-label="TrackMate Logo"

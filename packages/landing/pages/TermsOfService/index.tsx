@@ -1,17 +1,20 @@
 import React from "react"
+import { useRedirect } from "@shared/hooks/useRedirect"
 import TrackMateLogo from "@shared/components/TrackMateLogo"
-import Header from "@/pages/Landing/components/Header"
-import Footer from "@/pages/Landing/components/Footer"
 import LegalSection from "@/app/components/legalDocumentComponents/LegalSection"
 import LegalHeading from "@/app/components/legalDocumentComponents/LegalHeading"
 import LegalParagraph from "@/app/components/legalDocumentComponents/LegalParagraph"
 import LegalList from "@/app/components/legalDocumentComponents/LegalList"
 import LegalListItem from "@/app/components/legalDocumentComponents/LegalListItem"
 import LegalTableOfContents from "@/app/components/legalDocumentComponents/LegalTableOfContents"
+import Header from "@/pages/Landing/components/Header"
+import Footer from "@/pages/Landing/components/Footer"
 import { BRAND_NAME } from "@shared/config/brand"
 import { LANDING } from "@/app/styles/colors"
 
 const TermsOfService: React.FC = () => {
+    const redirect = useRedirect()
+    
     const contactEmail = (
         <a href="mailto:contact@trackmate.co" className="font-semibold underline">contact@trackmate.co</a>
     )
@@ -531,7 +534,7 @@ const TermsOfService: React.FC = () => {
     return (
         <div id="terms-container" className="min-h-dvh flex flex-col items-center px-4 py-8 lg:px-6">
             <Header>
-                <TrackMateLogo size={50} showBackground={false} crop className="lg:ml-8 cursor-pointer" />
+                <TrackMateLogo size={50} showBackground={false} className="lg:ml-8 cursor-pointer" crop onClick={() => redirect("/landing")} />
             </Header>
 
             <main className="flex-1 flex flex-col max-w-7xl w-full mt-12 mb-12" style={{ color: LANDING.TEXT_PRIMARY }}>
